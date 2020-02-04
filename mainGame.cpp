@@ -15,6 +15,8 @@ HRESULT mainGame::init()
 {
 	gameNode::init(true);
 
+	//¾È³ç
+
 	return S_OK;
 }
 
