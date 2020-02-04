@@ -151,6 +151,7 @@
     <ClInclude Include="animationManager.h" />
     <ClInclude Include="API_FrameWork.h" />
     <ClInclude Include="aStar.h" />
+    <ClInclude Include="cameraManager.h" />
     <ClInclude Include="commonMacroFunction.h" />
     <ClInclude Include="effect.h" />
     <ClInclude Include="effectManager.h" />
@@ -160,6 +161,7 @@
     <ClInclude Include="keyManager.h" />
     <ClInclude Include="loading.h" />
     <ClInclude Include="mainGame.h" />
+    <ClInclude Include="mapTool.h" />
     <ClInclude Include="progressBar.h" />
     <ClInclude Include="randomFunction.h" />
     <ClInclude Include="Resource.h" />
@@ -168,6 +170,7 @@
     <ClInclude Include="soundManager.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="tileNode.h" />
     <ClInclude Include="timeManager.h" />
     <ClInclude Include="timer.h" />
     <ClInclude Include="txtData.h" />
@@ -177,6 +180,7 @@
     <ClCompile Include="animation.cpp" />
     <ClCompile Include="animationManager.cpp" />
     <ClCompile Include="aStar.cpp" />
+    <ClCompile Include="cameraManager.cpp" />
     <ClCompile Include="effect.cpp" />
     <ClCompile Include="effectManager.cpp" />
     <ClCompile Include="gameNode.cpp" />
@@ -185,6 +189,7 @@
     <ClCompile Include="keyManager.cpp" />
     <ClCompile Include="loading.cpp" />
     <ClCompile Include="mainGame.cpp" />
+    <ClCompile Include="mapTool.cpp" />
     <ClCompile Include="progressBar.cpp" />
     <ClCompile Include="sceneManager.cpp" />
     <ClCompile Include="soundManager.cpp" />

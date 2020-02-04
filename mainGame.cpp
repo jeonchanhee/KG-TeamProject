@@ -15,7 +15,8 @@ HRESULT mainGame::init()
 {
 	gameNode::init(true);
 
-	//안녕
+	_mapTool = new mapTool;
+	_mapTool->init();
 
 	return S_OK;
 }
@@ -37,11 +38,13 @@ void mainGame::render(/*HDC hdc*/)
 	//흰색 비트맵
 	PatBlt(getMemDC(), 0, 0, WINSIZEX, WINSIZEY, WHITENESS);
 
+	_mapTool->render();
 
 	TIMEMANAGER->render(getMemDC());
 	//=====================================================
 	//백버퍼의 내용을 HDC에 그린다.(지우지마!!)
 	this->getBackBuffer()->render(getHDC(), 0, 0);
+	
 }
 
 
