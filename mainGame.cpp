@@ -16,7 +16,7 @@ HRESULT mainGame::init()
 	gameNode::init(true);
 
 	//안녕
-
+	//하이하이
 	return S_OK;
 }
 
