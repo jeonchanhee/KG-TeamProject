@@ -4,7 +4,7 @@
 enum PLAYERVERSION
 {
 	SHOP_PLAYER_VERSION,
-	//플레이어
+	PLAYER_VERSION
 };
 
 struct tagplaeyr
