@@ -19,7 +19,7 @@
 #define WIDTH 35		//타일 가로 길이
 #define HEIGHT 35		//타일 세로길이
 #define BIGNUM 5000		//초기값(F)
-
+//zzzz
 //타일 속성
 enum TILE_TYPE
 {

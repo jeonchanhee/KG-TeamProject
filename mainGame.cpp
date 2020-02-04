@@ -15,9 +15,14 @@ HRESULT mainGame::init()
 {
 	gameNode::init(true);
 
+<<<<<<< HEAD
 	_mapTool = new mapTool;
 	_mapTool->init();
 
+=======
+	//안녕
+	//하이하이
+>>>>>>> 617bbebdd44421d6d7eb8c2d5342c22fecbd27d5
 	return S_OK;
 }
 
