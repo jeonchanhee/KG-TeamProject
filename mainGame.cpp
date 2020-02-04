@@ -14,7 +14,6 @@ mainGame::~mainGame()
 HRESULT mainGame::init()
 {
 	gameNode::init(true);
-
 	//¾È³ç
 	//ÇÏÀÌÇÏÀÌ
 	return S_OK;
@@ -23,20 +22,17 @@ HRESULT mainGame::init()
 void mainGame::release()
 {
 	gameNode::release();
-
 }
 
 void mainGame::update()
 {
 	gameNode::update();
-	
 }
 
 void mainGame::render(/*HDC hdc*/)
 {
 	//Èò»ö ºñÆ®¸Ê
 	PatBlt(getMemDC(), 0, 0, WINSIZEX, WINSIZEY, WHITENESS);
-
 
 	TIMEMANAGER->render(getMemDC());
 	//=====================================================
