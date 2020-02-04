@@ -153,6 +153,9 @@
     <ClInclude Include="item.h">
       <Filter>mainGame\아이템</Filter>
     </ClInclude>
+    <ClInclude Include="mapTool.h">
+      <Filter>mainGame\맵툴</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -220,6 +223,9 @@
     </ClCompile>
     <ClCompile Include="item.cpp">
       <Filter>mainGame\아이템</Filter>
+    </ClCompile>
+    <ClCompile Include="mapTool.cpp">
+      <Filter>mainGame\맵툴</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
