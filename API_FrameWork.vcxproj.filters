@@ -67,6 +67,9 @@
     <Filter Include="mainGame\아이템">
       <UniqueIdentifier>{23fe5f66-6971-4acf-8344-2a1946c49df6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="mainGame\플레이어\인벤토리">
+      <UniqueIdentifier>{e43c08c4-e3d5-4a33-8d4c-933764c0df4a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -144,6 +147,9 @@
     <ClInclude Include="aStar.h">
       <Filter>에이슷하</Filter>
     </ClInclude>
+    <ClInclude Include="player.h">
+      <Filter>mainGame\플레이어</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -205,6 +211,9 @@
     </ClCompile>
     <ClCompile Include="aStar.cpp">
       <Filter>에이슷하</Filter>
+    </ClCompile>
+    <ClCompile Include="player.cpp">
+      <Filter>mainGame\플레이어</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

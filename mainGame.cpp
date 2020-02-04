@@ -29,6 +29,7 @@ void mainGame::release()
 void mainGame::update()
 {
 	gameNode::update();
+	//æ»≥Á«œººø‰
 	
 }
 
