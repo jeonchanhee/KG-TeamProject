@@ -3,18 +3,19 @@
 
 enum PLAYERVERSION
 {
-	SHOP_PLAYER_VERSION,
-	PLAYER_VERSION
+	SHOP_PLAYER_VERSION, //shop인 상태에서 뜨는 열거형
+	DUNGEON_PLAYER_VERSION
 };
-
 struct tagplaeyr
 {
-
+	PLAYERVERSION _playerversion; // 플레이어 버전을 이용할 사용할 것
+	image* _playerimg; // 플레이어 이미지
+	animation _playerani;
 };
 class player : public gameNode
 {
 private:
-	RECT _plauer;
+
 
 public:
 	player();
