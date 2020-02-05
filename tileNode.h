@@ -12,19 +12,21 @@
 #define TILESIZEY TILESIZE * TILEY
 
 //타일셋 (셈플타일)
-#define SAMPLETILEX
-#define SAMPLETILEY
+#define SAMPLETILEX 12
+#define SAMPLETILEY 8
 
 //지형
 enum TERRAIN
 {
-
+	//아무것도없는	벽			땅
+	TERAIN_NONE, TERAIN_WALL, TERAIN_GROUND
 };
 
 //오브젝트
 enum OBJECT
 {
-
+	// 벽		항아리	해골			기둥			힐링온천			텐트		거치대		문
+	OBJ_WALL, OBJ_JAR, OBJ_SKULL, OBJ_PILLAR, OBJ_HELL_SPA, OBJ_TENT, OBJ_HOLDER, OBJ_DOOR
 };
 
 //포지션 정의
@@ -43,6 +45,7 @@ struct tagTile
 	int terrainFrameY;			
 	int objFrameX;				//오브젝트 프레임번호
 	int objFrameY;
+	int x, y;					//타일 중점좌표
 };
 
 //셈플타일 구조체

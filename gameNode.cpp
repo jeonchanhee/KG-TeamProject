@@ -11,7 +11,7 @@ image * gameNode::setBackBuffer()
 {
 
 	_backBuffer = new image;
-	_backBuffer->init(WINSIZEX, WINSIZEY);
+	_backBuffer->init(TOTALSIZEX, TOTALSIZEY);
 
 	return _backBuffer;
 }
@@ -42,6 +42,7 @@ HRESULT gameNode::init(bool managerInit)
 		ANIMATIONMANAGER->init();
 		EFFECTMANAGER->init();
 		TXTDATA->init();
+		CAMERAMANAGER->init();
 		
 	}
 
@@ -64,6 +65,7 @@ void gameNode::release()
 		EFFECTMANAGER->releaseSingleton();
 		RND->releaseSingleton();
 		TXTDATA->releaseSingleton();
+		CAMERAMANAGER->releaseSingleton();
 		
 
 		KEYMANAGER->release();
@@ -72,7 +74,7 @@ void gameNode::release()
 		SCENEMANAGER->release();
 		ANIMATIONMANAGER->release();
 		EFFECTMANAGER->release();
-
+		CAMERAMANAGER->release();
 	}
 
 	ReleaseDC(m_hWnd, _hdc);
@@ -83,6 +85,8 @@ void gameNode::update()
 
 	//더블버퍼 이후 사용 하지 않는다.(true->false)
 	//InvalidateRect(m_hWnd, NULL, false);
+
+	CAMERAMANAGER->update();
 }
 
 void gameNode::render(HDC hdc)

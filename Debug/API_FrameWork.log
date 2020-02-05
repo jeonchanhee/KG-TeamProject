@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿  stdafx.cpp
 c:\users\kga_20\source\repos\kg-teamproject\kg-teamproject\image.h(138): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   animation.cpp
@@ -109,3 +110,10 @@ c:\users\kga_20\source\repos\kg-teamproject\kg-teamproject\winmain.cpp(135): err
 c:\users\kga_20\source\repos\kg-teamproject\kg-teamproject\winmain.cpp(152): error C2065: 'mg': 선언되지 않은 식별자입니다.
 c:\users\kga_20\source\repos\kg-teamproject\kg-teamproject\winmain.cpp(164): error C2065: 'mg': 선언되지 않은 식별자입니다.
   코드를 생성하고 있습니다...
+=======
+﻿  mainGame.cpp
+  mapTool.cpp
+  winMain.cpp
+  코드를 생성하고 있습니다...
+  API_FrameWork.vcxproj -> C:\Users\KGA_19\Desktop\TeamPoject\KG-TeamProject\Debug\API_FrameWork.exe
+>>>>>>> 0e80ddae0a3757d2c371d7e2ebb66f8ee3e82212

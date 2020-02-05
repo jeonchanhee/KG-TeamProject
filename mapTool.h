@@ -7,6 +7,7 @@ class mapTool : public gameNode
 {
 private:
 	tagTile _tiles[TILEX * TILEY];
+	tagSampleTile _sampleTile[SAMPLETILEX * SAMPLETILEY];
 	
 	
 public:
@@ -21,6 +22,8 @@ public:
 	void save();
 	void load();
 
+	void cameraMove();
+	void setUp();
 
 };
 

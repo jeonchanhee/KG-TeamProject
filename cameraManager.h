@@ -16,7 +16,7 @@ public:
 	HRESULT init();
 	void release();
 	void update();
-	void render();
+	void render(HDC hdc);
 	void render(image* img);
 
 	void setCameraCenter(POINT point);
@@ -24,5 +24,6 @@ public:
 	HDC getCameraDC() { return _camera->getMemDC(); }
 
 	POINT getCameraCenter() { return _center; }
+	POINT getCameraXY() { return _cameraXY; }
 };
 
