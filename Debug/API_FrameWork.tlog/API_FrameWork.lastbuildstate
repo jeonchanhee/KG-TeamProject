@@ -1,6 +1,2 @@
 #TargetFrameworkVersion=v4.0:PlatformToolSet=v141:EnableManagedIncrementalBuild=false:VCToolArchitecture=Native32Bit:WindowsTargetPlatformVersion=10.0.16299.0
-<<<<<<< HEAD
-Debug|Win32|C:\Users\KGA_20\source\repos\KG-TeamProject\KG-TeamProject\|
-=======
-Debug|Win32|C:\Users\KGA_19\Desktop\TeamPoject\KG-TeamProject\|
->>>>>>> 0e80ddae0a3757d2c371d7e2ebb66f8ee3e82212
+Debug|Win32|C:\Users\KGA_20\Desktop\팀프로젝트\KG-TeamProject\|
