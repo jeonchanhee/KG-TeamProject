@@ -43,7 +43,7 @@ void item::update()
 
 	
 	wave();
-	magnet(PLAYER->getRect());
+	//magnet(PLAYER->getRect());
 }
 
 void item::render()

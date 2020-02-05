@@ -162,6 +162,9 @@
     <ClInclude Include="tileNode.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="itemManager.h">
+      <Filter>mainGame\아이템</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -238,6 +241,9 @@
     </ClCompile>
     <ClCompile Include="player+ani.cpp">
       <Filter>mainGame\플레이어</Filter>
+    </ClCompile>
+    <ClCompile Include="itemManager.cpp">
+      <Filter>mainGame\아이템</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
