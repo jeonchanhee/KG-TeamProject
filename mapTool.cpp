@@ -8,8 +8,9 @@ mapTool::~mapTool(){}
 HRESULT mapTool::init()
 {
 	setUp();
-	
+	setSampleBook();
 
+	
 
 	return S_OK;
 }
@@ -22,7 +23,7 @@ void mapTool::relaese()
 void mapTool::update()
 {
 	cameraMove();
-	
+	controlSampleBook();
 }
 
 void mapTool::render()
@@ -45,6 +46,16 @@ void mapTool::render()
 				sprintf_s(str, "%d", i);
 				TextOut(getMemDC(), _tiles[i].rc.left, _tiles[i].rc.top, str, strlen(str));
 			}
+		}
+	}
+
+	_sampleBook.img->render(CAMERAMANAGER->getCameraDC(), _sampleBook.rc.left, _sampleBook.rc.top);
+
+	if (_sampleBook.Summons)
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			_sampleBook.bottun[i].img->render(CAMERAMANAGER->getCameraDC(), _sampleBook.bottun[i].rc.left, _sampleBook.bottun[i].rc.top);
 		}
 	}
 }
@@ -116,6 +127,73 @@ void mapTool::mapInit()
 		_tiles[i].objFrameX = 0;
 		_tiles[i].objFrameY = 0;
 		
+	}
+
+
+}
+
+void mapTool::setSampleBook()
+{
+	_sampleBook.Summons = false;
+	_sampleBook.img = IMAGEMANAGER->findImage("¿·¼ÀÇÃºÏ");
+	_sampleBook.x = WINSIZEX - _sampleBook.img->getWidth() / 2;
+	_sampleBook.y = WINSIZEY / 2;
+	_sampleBook.rc = RectMakeCenter(_sampleBook.x, _sampleBook.y, _sampleBook.img->getWidth(), _sampleBook.img->getHeight());
+}
+
+void mapTool::controlSampleBook()
+{
+	
+	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+	{
+		if (PtInRect(&_sampleBook.rc, m_ptMouse))
+		{
+			_sampleBook.Summons = true;
+		}
+
+		for (int i = 0; i < 3; i++)
+		{
+			if (PtInRect(&_sampleBook.bottun[i].rc, m_ptMouse))
+			{
+				if (i == 0) _sampleBook.Summons = false;
+			}
+		}
+	}
+	
+
+	if (_sampleBook.Summons)
+	{
+		_sampleBook.img = IMAGEMANAGER->findImage("¼ÀÇÃºÏ");
+		_sampleBook.x = WINSIZEX / 2;
+		_sampleBook.y = WINSIZEY - _sampleBook.img->getHeight() / 2;
+	}
+	else
+	{
+		_sampleBook.img = IMAGEMANAGER->findImage("¿·¼ÀÇÃºÏ");
+		_sampleBook.x = WINSIZEX - _sampleBook.img->getWidth() / 2;
+		_sampleBook.y = WINSIZEY / 2;
+	}
+	
+	_sampleBook.rc = RectMakeCenter(_sampleBook.x, _sampleBook.y, _sampleBook.img->getWidth(), _sampleBook.img->getHeight());
+
+
+	//¹öÆ° ¼³Á¤
+	if (_sampleBook.Summons)
+	{
+		_sampleBook.bottun[0].img = IMAGEMANAGER->findImage("´Ý±â");
+		_sampleBook.bottun[0].x = _sampleBook.rc.right - _sampleBook.bottun[0].img->getWidth();
+		_sampleBook.bottun[0].y = _sampleBook.rc.top + _sampleBook.bottun[0].img->getHeight();
+		_sampleBook.bottun[0].rc = RectMakeCenter(_sampleBook.bottun[0].x, _sampleBook.bottun[0].y, _sampleBook.bottun[0].img->getWidth(), _sampleBook.bottun[0].img->getHeight());
+
+		_sampleBook.bottun[1].img = IMAGEMANAGER->findImage("µÚ·Î");
+		_sampleBook.bottun[1].x = _sampleBook.rc.left + _sampleBook.bottun[1].img->getWidth();
+		_sampleBook.bottun[1].y = _sampleBook.rc.bottom - _sampleBook.bottun[1].img->getHeight() - 20;
+		_sampleBook.bottun[1].rc = RectMakeCenter(_sampleBook.bottun[1].x, _sampleBook.bottun[1].y, _sampleBook.bottun[1].img->getWidth(), _sampleBook.bottun[1].img->getHeight());
+
+		_sampleBook.bottun[2].img = IMAGEMANAGER->findImage("¾ÕÀ¸·Î");
+		_sampleBook.bottun[2].x = _sampleBook.rc.right - _sampleBook.bottun[2].img->getWidth();
+		_sampleBook.bottun[2].y = _sampleBook.rc.bottom - _sampleBook.bottun[2].img->getHeight() - 20;
+		_sampleBook.bottun[2].rc = RectMakeCenter(_sampleBook.bottun[2].x, _sampleBook.bottun[2].y, _sampleBook.bottun[2].img->getWidth(), _sampleBook.bottun[2].img->getHeight());
 	}
 
 

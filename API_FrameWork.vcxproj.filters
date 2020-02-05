@@ -159,6 +159,9 @@
     <ClInclude Include="cameraManager.h">
       <Filter>Manager</Filter>
     </ClInclude>
+    <ClInclude Include="tileNode.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -232,6 +235,9 @@
     </ClCompile>
     <ClCompile Include="cameraManager.cpp">
       <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="mainGame+Image.cpp">
+      <Filter>mainGame</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
