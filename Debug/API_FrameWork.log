@@ -1,2 +1,53 @@
-﻿  mapTool.cpp
-  API_FrameWork.vcxproj -> C:\Users\KGA_19\Desktop\TeamPoject\KG-TeamProject\Debug\API_FrameWork.exe
+﻿  stdafx.cpp
+c:\myproject\kg-teamproject\image.h(138): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  animation.cpp
+  animationManager.cpp
+  aStar.cpp
+c:\myproject\kg-teamproject\astar.cpp(452): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\myproject\kg-teamproject\astar.cpp(466): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\myproject\kg-teamproject\astar.cpp(482): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  effect.cpp
+  effectManager.cpp
+  gameNode.cpp
+  image.cpp
+c:\myproject\kg-teamproject\image.cpp(718): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\myproject\kg-teamproject\image.cpp(723): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\myproject\kg-teamproject\image.cpp(730): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  imageManager.cpp
+  item.cpp
+  keyManager.cpp
+  loading.cpp
+c:\myproject\kg-teamproject\loading.cpp(41): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\myproject\kg-teamproject\loading.cpp(42): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\myproject\kg-teamproject\loading.cpp(76): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\myproject\kg-teamproject\loading.cpp(77): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\myproject\kg-teamproject\loading.cpp(162): warning C4018: '>=': signed 또는 unsigned가 일치하지 않습니다.
+c:\myproject\kg-teamproject\loading.cpp(181): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\myproject\kg-teamproject\loading.cpp(187): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\myproject\kg-teamproject\loading.cpp(193): warning C4244: '인수': 'unsigned int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\myproject\kg-teamproject\loading.cpp(193): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  mainGame.cpp
+  mapTool.cpp
+  player.cpp
+  progressBar.cpp
+c:\myproject\kg-teamproject\progressbar.cpp(14): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\myproject\kg-teamproject\progressbar.cpp(15): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\myproject\kg-teamproject\progressbar.cpp(17): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\myproject\kg-teamproject\progressbar.cpp(53): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  sceneManager.cpp
+  soundManager.cpp
+c:\myproject\kg-teamproject\soundmanager.cpp(34): warning C4554: '|': 연산자 우선 순위에 오류가 있는지 확인하세요. 괄호를 사용하여 우선 순위를 명확하게 지정하세요.
+  timeManager.cpp
+  timer.cpp
+  txtData.cpp
+c:\myproject\kg-teamproject\txtdata.cpp(47): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\myproject\kg-teamproject\txtdata.cpp(51): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  코드를 생성하고 있습니다...
+c:\myproject\kg-teamproject\txtdata.cpp(56): warning C4172: 지역 변수 또는 임시: str의 주소를 반환하고 있습니다.
+c:\myproject\kg-teamproject\item.cpp(155): warning C4715: 'item::addItem': 모든 제어 경로에서 값을 반환하지는 않습니다.
+  컴파일하고 있습니다...
+  utils.cpp
+c:\myproject\kg-teamproject\utils.cpp(27): warning C4305: '-=': 'double'에서 'float'(으)로 잘립니다.
+  winMain.cpp
+  코드를 생성하고 있습니다...
+  API_FrameWork.vcxproj -> C:\myProject\KG-TeamProject\Debug\API_FrameWork.exe
