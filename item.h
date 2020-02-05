@@ -1,26 +1,29 @@
 #pragma once
-#include"gameNode.h"
-#include "singletonBase.h"
+#include "gameNode.h"
+#include"player.h"
 
-#define MAGNETPOWER 5
+#define MAGNETPOWER 2
+
 enum itemType //아이템 종류
 {
 	ITEM_EMPTY,		 //비어있음
 	ITEM_ARMOR,		 //방어구 
-	ITEM_ARROW,		 //활
+	ITEM_HELMET,	 //헬멧
+	ITEM_BOOTS,		 //부츠
+	ITEM_BOW,		 //활
 	ITEM_SWORD,		 //검과 방패
+	ITEM_POTION,	 //물약
 	ITEM_ETC,		 //잡템(재료템)
 	ITEM_END
 };
-
-struct itemInfo //아이템의 속성
+struct itemInfo
 {
 	image*		image;			//이미지
-	string		name;			//이름
-	string		description;	//설명
+	string		itemName;		//이름
 	itemType	type;			//아이템의 종류
 	RECT		rc;				//렉트
 	RECT		magnetRc;		//바닥에 떨어진 상태에서 주변의 플레이어를 감지하는 렉트
+
 	bool		move;			//바닥에 떨어진 아이템인지 아닌지
 
 	int			orignalPrice;	//원가
@@ -29,31 +32,49 @@ struct itemInfo //아이템의 속성
 	int			atk;			//공격력
 	int			def;			//방어력
 	int			speed;			//속도 
+	int			hp;				//체력
+
+	int			heal;			//포션의 회복양
+	int			cnt;			//소지갯수
+	int			maxCnt;			//인벤토리 1칸당 최대소지갯수
 };
 
-class item : public gameNode, public singletonBase<item>
+class item : public gameNode
 {
 private:
-	itemInfo m_initItem;		//아이템 벡터에 넣을 용도의 변수
+	itemInfo _item;
 
-	vector<itemInfo> m_vItem;  //아이템을 담을 벡터
-	vector<itemInfo>::iterator m_viItem;
-
-	
+	bool updown; // 바닥에 떨어진 템이 위아래로 흔들릴떄 쓰는 변수
+	int waveCnt; //바닥에 떨어진 템이 위아래로 흔들릴떄 쓰는 변수
 	RECT test;
 public:
 	item();
 	~item();
 
-	HRESULT init();
+	HRESULT init(const char* name, itemType type, bool move, int orignalPrice, int playerPrice,
+				 int atk, int def, int speed, int hp, int heal, int cnt, int maxCnt);
 	void release();
 	void update();
 	void render();
 
-	void magnet(RECT playerRc); //바닥에 떨어진 아이템인경우 플레이어에게 끌려가는 함수
+	void magnet(RECT playerRc); // 플레이어게 끌려가는 기능
+	void wave(); //바닥에 떨어진 아이템이 약간 흔들리는 기능
+	itemInfo getItemInfo() {return _item;} //아이템 정보를 가져옴
 
-	itemInfo addItem(string itemName);  //이름으로 아이템을 찾아서 보내주는 함수
-	void removeItem(int arrNum);		//아이템을 벡터에서 지우는 함수
-	vector<itemInfo> getItemList() { return m_vItem; } //아이템 벡터 자체를 보내는 함수
+	// 렉트의 위치를 설정
+	void setRect(int x, int y) { _item.rc = RectMakeCenter(x, y, _item.image->getWidth(), _item.image->getHeight()); } 
+	
+	//아이템의 상태를 바꿔줌(인벤에 있을때 false, 바닥에 떨어져있을때 true)
+	void setMove(bool move) { _item.move = move; } 
+
+	void setItemCnt() { _item.cnt++; } // 갯수1증가
+	void setItemCnt(int num) { _item.cnt+= num; } //갯수를 num만큼 증가
+	void setPlayerPrice(int price) { _item.playerPrice = price; } //플레이어가 아이템가격을 지정할때 쓰는 함수
+																													  
+	//string getType() { return _type; } // 이름을 가져옴
+	//RECT getRect() { return _rc; } //rc를 가져옴
+
+
+
 };
 

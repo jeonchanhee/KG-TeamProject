@@ -1,74 +1,35 @@
 #include "stdafx.h"
 #include "item.h"
 
-
 item::item()
 {
 }
-
 
 item::~item()
 {
 }
 
-HRESULT item::init()
+HRESULT item::init(const char* name, itemType type , bool move, int orignalPrice, int playerPrice, int atk , int def , int speed, int hp ,int heal , int cnt, int maxCnt)
 {
-	m_initItem.name = "비어있음";
-	m_initItem.image = IMAGEMANAGER->addImage("비어있음", "images/비어있음.bmp", 36, 36, true, RGB(255, 0, 255));
-	m_initItem.description = "";
-	m_initItem.type = ITEM_EMPTY;
-	m_initItem.move = false;
-	m_initItem.orignalPrice = 0;
-	m_initItem.playerPrice = 0;
-	m_initItem.rc = RectMakeCenter(0, 0, m_initItem.image->getWidth(), m_initItem.image->getHeight());
-	m_initItem.magnetRc = RectMakeCenter(m_initItem.rc.left, m_initItem.rc.top, m_initItem.image->getWidth() * 5, m_initItem.image->getHeight()*5);
-	m_initItem.atk = 0;
-	m_initItem.def = 0;
-	m_initItem.speed = 0;
-	m_vItem.push_back(m_initItem);
 
-	m_initItem.name = "나뭇가지";
-	m_initItem.image = IMAGEMANAGER->addImage("나뭇가지", "images/나뭇가지.bmp", 36, 36, true, RGB(255, 0, 255));
-	m_initItem.description = "";
-	m_initItem.type = ITEM_ETC;
-	m_initItem.move = false;
-	m_initItem.orignalPrice = 5;
-	m_initItem.playerPrice = 0;
-	m_initItem.rc = RectMakeCenter(0, 0, m_initItem.image->getWidth(), m_initItem.image->getHeight());
-	m_initItem.magnetRc = RectMakeCenter(m_initItem.rc.left, m_initItem.rc.top, m_initItem.image->getWidth() * 5, m_initItem.image->getHeight() * 5);
-	m_initItem.atk = 0;
-	m_initItem.def = 0;
-	m_initItem.speed = 0;
-	m_vItem.push_back(m_initItem);
 
-	m_initItem.name = "골렘코어";
-	m_initItem.image = IMAGEMANAGER->addImage("골렘코어", "images/골렘코어.bmp", 36, 36, true, RGB(255, 0, 255));
-	m_initItem.description = "";
-	m_initItem.type = ITEM_ETC;
-	m_initItem.move = false;
-	m_initItem.orignalPrice = 50;
-	m_initItem.playerPrice = 0;
-	m_initItem.rc = RectMakeCenter(0, 0, m_initItem.image->getWidth(), m_initItem.image->getHeight());
-	m_initItem.magnetRc = RectMakeCenter(m_initItem.rc.left, m_initItem.rc.top, m_initItem.image->getWidth() * 5, m_initItem.image->getHeight() * 5);
-	m_initItem.atk = 0;
-	m_initItem.def = 0;
-	m_initItem.speed = 0;
-	m_vItem.push_back(m_initItem);
-
-	m_initItem.name = "강화수정";
-	m_initItem.image = IMAGEMANAGER->addImage("강화수정", "images/강화수정.bmp", 36, 36, true, RGB(255, 0, 255));
-	m_initItem.description = "";
-	m_initItem.type = ITEM_ETC;
-	m_initItem.move = false;
-	m_initItem.orignalPrice = 50;
-	m_initItem.playerPrice = 0;
-	m_initItem.rc = RectMakeCenter(0, 0, m_initItem.image->getWidth(), m_initItem.image->getHeight());
-	m_initItem.magnetRc = RectMakeCenter(m_initItem.rc.left, m_initItem.rc.top, m_initItem.image->getWidth() * 5, m_initItem.image->getHeight() * 5);
-	m_initItem.atk = 0;
-	m_initItem.def = 0;
-	m_initItem.speed = 0;
-	m_vItem.push_back(m_initItem);
-
+	_item.itemName = name;
+	_item.image = IMAGEMANAGER->findImage(name);
+	_item.type = type;
+	_item.move = true;
+	_item.orignalPrice = orignalPrice;
+	_item.playerPrice = playerPrice;
+	_item.rc = RectMakeCenter(0, 0, _item.image->getWidth(), _item.image->getHeight());
+	_item.magnetRc = RectMakeCenter(_item.rc.left, _item.rc.top, _item.image->getWidth() * 5, _item.image->getHeight() * 5);
+	_item.atk = atk;
+	_item.def = def;
+	_item.speed = speed;
+	_item.hp = hp;
+	_item.heal = heal;
+	_item.cnt = cnt;
+	_item.maxCnt = maxCnt;
+	waveCnt = 0;
+	updown = true;
 	return S_OK;
 }
 
@@ -78,83 +39,98 @@ void item::release()
 
 void item::update()
 {
-	test = RectMakeCenter(m_ptMouse.x, m_ptMouse.y, 30, 30);
-	magnet(test);
+	_item.magnetRc = RectMakeCenter(_item.rc.left, _item.rc.top, _item.image->getWidth() * 5, _item.image->getHeight() * 5);
+
+	
+	wave();
+	magnet(PLAYER->getRect());
 }
 
 void item::render()
 {
-	Rectangle(getMemDC(), test.left, test.top, test.right, test.bottom);
-
-	m_viItem = m_vItem.begin();
-	for (m_viItem; m_viItem != m_vItem.end(); ++m_viItem)
-	{
-		(*m_viItem).image->render(getMemDC(), (*m_viItem).rc.left, (*m_viItem).rc.top); 
-	}
+	//Rectangle(getMemDC(), _magnetRc.left, _magnetRc.top, _magnetRc.right, _magnetRc.bottom);
+	_item.image->render(getMemDC(), _item.rc.left, _item.rc.top);
 }
 
-void item::magnet(RECT playerRc) //바닥에 떨어진 아이템인경우 플레이어에게 끌려가는 함수
+void item::magnet(RECT playerRc)
 {
 	RECT temp;
 
-	m_viItem = m_vItem.begin();
-	for (m_viItem; m_viItem != m_vItem.end(); ++m_viItem)
+	//상태가 무브일때, 그리고 플레이어를 감지하는 렉트와 플레이어의 렉트가 충돌했을때
+	if (_item.move&& (IntersectRect(&temp, &_item.magnetRc, &playerRc)))
 	{
-		//상태가 무브일때, 그리고 플레이어를 감지하는 렉트와 플레이어의 렉트가 충돌했을때
-		if (m_viItem->move == true &&(IntersectRect(&temp,&m_viItem->magnetRc,&playerRc)))
-		{
-			//마그넷렉트의 x,y
-			int magetX = m_viItem->magnetRc.left + (m_viItem->magnetRc.right - m_viItem->magnetRc.left) / 2;
-			int magetY = m_viItem->magnetRc.top + (m_viItem->magnetRc.bottom - m_viItem->magnetRc.top) / 2;
-			//플레이어의 x,y
-			int playerX = playerRc.left + (playerRc.right - playerRc.left) / 2;
-			int playerY = playerRc.top + (playerRc.bottom - playerRc.top) / 2;
+		//마그넷렉트의 x,y
+		int magetX = _item.magnetRc.left + (_item.magnetRc.right - _item.magnetRc.left) / 2;
+		int magetY = _item.magnetRc.top + (_item.magnetRc.bottom - _item.magnetRc.top) / 2;
+		//플레이어의 x,y
+		int playerX = playerRc.left + (playerRc.right - playerRc.left) / 2;
+		int playerY = playerRc.top + (playerRc.bottom - playerRc.top) / 2;
 
-			if (magetX <= playerX && magetY >= playerY) //우상단
+		//플레이어쪽으로 끌려감
+		if (magetX <= playerX && magetY >= playerY) //우상단
+		{
+			_item.rc.left += MAGNETPOWER;
+			_item.rc.right += MAGNETPOWER;
+			_item.rc.top -= MAGNETPOWER;
+			_item.rc.bottom -= MAGNETPOWER;
+		}
+		if (magetX <= playerX && magetY <= playerY) //우하단
+		{
+			_item.rc.left += MAGNETPOWER;
+			_item.rc.right += MAGNETPOWER;
+			_item.rc.top += MAGNETPOWER;
+			_item.rc.bottom += MAGNETPOWER;
+		}
+		if (magetX >= playerX && magetY >= playerY) //좌상단
+		{
+			_item.rc.left -= MAGNETPOWER;
+			_item.rc.right -= MAGNETPOWER;
+			_item.rc.top -= MAGNETPOWER;
+			_item.rc.bottom -= MAGNETPOWER;
+		}
+		if (magetX >= playerX && magetY <= playerY) //좌하단
+		{
+			_item.rc.left -= MAGNETPOWER;
+			_item.rc.right -= MAGNETPOWER;
+			_item.rc.top += MAGNETPOWER;
+			_item.rc.bottom += MAGNETPOWER;
+		}
+	}
+
+	//자석에 끌려가서 플레이어와 아이템이 닿았을때 인벤토리로 보내줌
+	if (_item.move && (IntersectRect(&temp, &_item.rc, &playerRc)))
+	{
+		
+		
+	}
+
+
+}
+
+void item::wave()
+{
+	if (_item.move)
+	{
+		waveCnt++;
+
+		if(updown)
+		{
+			_item.rc.top -= 1;
+			_item.rc.bottom -= 1;
+			if (waveCnt > 15) updown = false;
+		}
+		else if (!updown)
+		{
+			_item.rc.top += 1;
+			_item.rc.bottom += 1;
+			if (waveCnt > 30)
 			{
-				m_viItem->rc.left += MAGNETPOWER;
-				m_viItem->rc.right += MAGNETPOWER;
-				m_viItem->rc.top -= MAGNETPOWER;
-				m_viItem->rc.bottom -= MAGNETPOWER;
-			}
-			if (magetX <= playerX && magetY <= playerY) //우하단
-			{
-				m_viItem->rc.left += MAGNETPOWER;
-				m_viItem->rc.right += MAGNETPOWER;
-				m_viItem->rc.top += MAGNETPOWER;
-				m_viItem->rc.bottom += MAGNETPOWER;
-			}
-			if(magetX >= playerX && magetY>= playerY) //좌상단
-			{
-				m_viItem->rc.left -= MAGNETPOWER;
-				m_viItem->rc.right -= MAGNETPOWER;
-				m_viItem->rc.top -= MAGNETPOWER;
-				m_viItem->rc.bottom -= MAGNETPOWER;
-			}
-			if(magetX >= playerX && magetY<= playerY) //좌하단
-			{
-				m_viItem->rc.left -= MAGNETPOWER;
-				m_viItem->rc.right -= MAGNETPOWER;
-				m_viItem->rc.top += MAGNETPOWER;
-				m_viItem->rc.bottom += MAGNETPOWER;
+				updown = true;
+				waveCnt = 0;
 			}
 		}
+
 	}
 }
 
-itemInfo item::addItem(string itemName)//이름으로 아이템을 찾아서 보내주는 함수
-{
-	m_viItem = m_vItem.begin();
-	for (m_viItem; m_viItem != m_vItem.end(); ++m_viItem)
-	{
-		if (m_viItem->name == itemName)
-		{
-			return (*m_viItem);
-		}
-	}
-}
 
-void item::removeItem(int arrNum)
-{
-	m_vItem.erase(m_vItem.begin() + arrNum);
-}
