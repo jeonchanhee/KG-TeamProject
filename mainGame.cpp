@@ -17,6 +17,8 @@ HRESULT mainGame::init()
 	_mapTool = new mapTool;
 	_mapTool->init();
 
+	_player = new player;
+	_player->init();
 	//안녕
 	//하이하이
 	return S_OK;
@@ -25,13 +27,15 @@ HRESULT mainGame::init()
 void mainGame::release()
 {
 	gameNode::release();
+	_player->release();
 }
 
 void mainGame::update()
 {
 	gameNode::update();
-
 	_mapTool->update();
+	ANIMATIONMANAGER->update();
+	_player->update();
 }
 
 void mainGame::render(/*HDC hdc*/)
@@ -41,6 +45,7 @@ void mainGame::render(/*HDC hdc*/)
 	PatBlt(getMemDC(), CAMERAMANAGER->getCameraCenter().x - WINSIZEX / 2, CAMERAMANAGER->getCameraCenter().y - WINSIZEY / 2, WINSIZEX, WINSIZEY, WHITENESS);
 	PatBlt(CAMERAMANAGER->getCameraDC(), 0, 0, WINSIZEX, WINSIZEY, WHITENESS);
 
+	_player->render();
 	_mapTool->render();
 
 	TIMEMANAGER->render(CAMERAMANAGER->getCameraDC());

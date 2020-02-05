@@ -193,6 +193,7 @@
     <ClCompile Include="loading.cpp" />
     <ClCompile Include="mainGame.cpp" />
     <ClCompile Include="mapTool.cpp" />
+    <ClCompile Include="player+ani.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="progressBar.cpp" />
     <ClCompile Include="sceneManager.cpp" />
