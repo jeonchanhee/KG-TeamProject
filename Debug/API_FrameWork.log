@@ -1,4 +1,5 @@
-﻿  mainGame.cpp
+﻿  animationManager.cpp
+  mainGame.cpp
   mapTool.cpp
   winMain.cpp
   코드를 생성하고 있습니다...
