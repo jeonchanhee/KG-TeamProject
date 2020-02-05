@@ -20,6 +20,8 @@ HRESULT mainGame::init()
 	_mapTool = new mapTool;
 	_mapTool->init();
 
+	_player = new player;	// 테스트용
+	_player->init();		// 테스트용
 	//안녕
 	//하이하이
 	return S_OK;
@@ -28,13 +30,15 @@ HRESULT mainGame::init()
 void mainGame::release()
 {
 	gameNode::release();
+	_player->release();		// 테스트용
 }
 
 void mainGame::update()
 {
 	gameNode::update();
-
 	_mapTool->update();
+	ANIMATIONMANAGER->update(); //애니메이션을 위해 사용한 것
+	_player->update(); // 테스트용
 }
 
 void mainGame::render(/*HDC hdc*/)
@@ -45,6 +49,7 @@ void mainGame::render(/*HDC hdc*/)
 	PatBlt(CAMERAMANAGER->getCameraDC(), 0, 0, WINSIZEX, WINSIZEY, WHITENESS);
 
 	_mapTool->render();
+	_player->render(); // 테스트용
 
 	TIMEMANAGER->render(CAMERAMANAGER->getCameraDC());
 	//=====================================================
