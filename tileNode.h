@@ -25,8 +25,8 @@ enum TERRAIN
 //오브젝트
 enum OBJECT
 {
-	// 벽		항아리	해골			기둥			힐링온천			텐트		거치대		문
-	OBJ_WALL, OBJ_JAR, OBJ_SKULL, OBJ_PILLAR, OBJ_HELL_SPA, OBJ_TENT, OBJ_HOLDER, OBJ_DOOR
+	//			벽		항아리	해골			기둥			힐링온천			텐트		거치대		문
+	OBJ_NONE, OBJ_WALL, OBJ_JAR, OBJ_SKULL, OBJ_PILLAR, OBJ_HELL_SPA, OBJ_TENT, OBJ_HOLDER, OBJ_DOOR
 };
 
 //포지션 정의

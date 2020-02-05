@@ -31,6 +31,8 @@ void mapTool::render()
 	{
 		if (CAMERAX - 100 < _tiles[i].x && _tiles[i].x < CAMERAX + WINSIZEX + 100 && CAMERAY - 100 < _tiles[i].y&& _tiles[i].y < CAMERAY + WINSIZEY + 100)
 		{
+			if (_tiles[i].terrain != TERAIN_NONE) continue;
+
 			Rectangle(getMemDC(), _tiles[i].rc.left, _tiles[i].rc.top, _tiles[i].rc.right, _tiles[i].rc.bottom);
 
 			if (KEYMANAGER->isToggleKey(VK_TAB))
@@ -94,4 +96,27 @@ void mapTool::setUp()
 		_tiles[i].x = _tiles[i].rc.left + (_tiles[i].rc.right - _tiles[i].rc.left) / 2;
 		_tiles[i].y = _tiles[i].rc.top + (_tiles[i].rc.bottom - _tiles[i].rc.top) / 2;
 	}
+
+	mapInit();
+}
+
+void mapTool::mapInit()
+{
+	for (int i = 0; i < TILEX * TILEY; i++)
+	{
+		// 지형 초기설정
+		_tiles[i].terrain = TERAIN_NONE;
+		
+		_tiles[i].terrainFrameX = 0;
+		_tiles[i].terrainFrameY = 0;
+		
+		//오브젝트 초기 설정
+		_tiles[i].obj = OBJ_NONE;
+
+		_tiles[i].objFrameX = 0;
+		_tiles[i].objFrameY = 0;
+		
+	}
+
+
 }

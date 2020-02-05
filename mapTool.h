@@ -24,6 +24,7 @@ public:
 
 	void cameraMove();
 	void setUp();
+	void mapInit();
 
 };
 
