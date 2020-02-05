@@ -150,6 +150,9 @@
     <ClInclude Include="player.h">
       <Filter>mainGame\플레이어</Filter>
     </ClInclude>
+    <ClInclude Include="item.h">
+      <Filter>mainGame\아이템</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -213,6 +216,12 @@
       <Filter>에이슷하</Filter>
     </ClCompile>
     <ClCompile Include="player.cpp">
+      <Filter>mainGame\플레이어</Filter>
+    </ClCompile>
+    <ClCompile Include="item.cpp">
+      <Filter>mainGame\아이템</Filter>
+    </ClCompile>
+    <ClCompile Include="player+ani.cpp">
       <Filter>mainGame\플레이어</Filter>
     </ClCompile>
   </ItemGroup>

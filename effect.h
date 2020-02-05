@@ -10,7 +10,7 @@ private:
 	int _x, _y;					//이펙트 터트릴 좌표
 	float _elapsedTime;			//이펙트 경과시간(속도)
 	bool _isRunning;			//재생중이냐?
-
+	//hello
 public:
 	effect();
 	~effect();
