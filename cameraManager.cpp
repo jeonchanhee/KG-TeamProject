@@ -24,7 +24,10 @@ void cameraManager::update()
 	_cameraXY = PointMake(_center.x - WINSIZEX / 2, _center.y - WINSIZEY / 2);
 }
 
-void cameraManager::render(){}
+void cameraManager::render(HDC hdc)
+{
+	
+}
 
 void cameraManager::render(image * img)
 {

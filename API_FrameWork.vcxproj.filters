@@ -156,6 +156,9 @@
     <ClInclude Include="mapTool.h">
       <Filter>mainGame\맵툴</Filter>
     </ClInclude>
+    <ClInclude Include="cameraManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -226,6 +229,9 @@
     </ClCompile>
     <ClCompile Include="mapTool.cpp">
       <Filter>mainGame\맵툴</Filter>
+    </ClCompile>
+    <ClCompile Include="cameraManager.cpp">
+      <Filter>Manager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

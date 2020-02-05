@@ -44,3 +44,5 @@ public:
 
 };
 
+#define CAMERAX CAMERAMANAGER->getCameraXY().x
+#define CAMERAY CAMERAMANAGER->getCameraXY().y

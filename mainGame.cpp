@@ -30,22 +30,25 @@ void mainGame::release()
 void mainGame::update()
 {
 	gameNode::update();
+
+	_mapTool->update();
 }
 
 void mainGame::render(/*HDC hdc*/)
 {
 	//흰색 비트맵
-	PatBlt(getMemDC(), 0, 0, WINSIZEX, WINSIZEY, WHITENESS);
-
+	//PatBlt(getMemDC(), 0, 0, WINSIZEX, WINSIZEY, WHITENESS);
+	PatBlt(getMemDC(), CAMERAMANAGER->getCameraCenter().x - WINSIZEX / 2, CAMERAMANAGER->getCameraCenter().y - WINSIZEY / 2, WINSIZEX, WINSIZEY, WHITENESS);
+	PatBlt(CAMERAMANAGER->getCameraDC(), 0, 0, WINSIZEX, WINSIZEY, WHITENESS);
 
 	_mapTool->render();
 
-
-	TIMEMANAGER->render(getMemDC());
+	TIMEMANAGER->render(CAMERAMANAGER->getCameraDC());
 	//=====================================================
 	//백버퍼의 내용을 HDC에 그린다.(지우지마!!)
-	this->getBackBuffer()->render(getHDC(), 0, 0);
-	
+	//this->getBackBuffer()->render(getHDC(), 0, 0);
+	CAMERAMANAGER->render(this->getBackBuffer());
+	this->getBackBuffer()->render(getHDC(), 0, 0, CAMERAMANAGER->getCameraCenter().x - WINSIZEX / 2, CAMERAMANAGER->getCameraCenter().y - WINSIZEY / 2, WINSIZEX, WINSIZEY);
 }
 
 
