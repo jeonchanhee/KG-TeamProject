@@ -25,6 +25,11 @@ HRESULT mainGame::init()
 
 	PLAYER->init();
 	
+	_monsterManager = new monsterManager;
+	_monsterManager->init();
+
+
+
 	//안녕
 	//하이하이
 	return S_OK;
@@ -33,12 +38,14 @@ HRESULT mainGame::init()
 void mainGame::release()
 {
 	gameNode::release();
+
 }
 
 void mainGame::update()
 {
 	gameNode::update();
 	_mapTool->update();
+	_monsterManager->update();
 	PLAYER->update();
 	ANIMATIONMANAGER->update(); //애니메이션을 위해 사용한 것
 
@@ -59,6 +66,7 @@ void mainGame::render(/*HDC hdc*/)
 	PatBlt(CAMERAMANAGER->getCameraDC(), 0, 0, WINSIZEX, WINSIZEY, WHITENESS);
 
 	_mapTool->render();
+	_monsterManager->render();
 	PLAYER->render(DC);
 	//_player->render(DC);
 	/*char str[128];

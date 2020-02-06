@@ -1,6 +1,7 @@
 #pragma once
 #include"gameNode.h"
 #include"mapTool.h"
+#include"monsterManager.h"
 //#include"player.h"
 
 #define DC gameNode::getMemDC()
@@ -9,6 +10,7 @@ class mainGame : public gameNode
 {
 private:
 	mapTool* _mapTool;
+	monsterManager* _monsterManager;
 	//player* _player;
 public:
 	mainGame();
