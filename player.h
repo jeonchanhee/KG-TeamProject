@@ -26,7 +26,6 @@ enum PLAYERMOVING		//플레이어 동작 상태
 };
 
 
-
 struct tagplayer		//플레이어 구조체
 {
 	PLAYERLOCATION  _playerLocation;			//플레이어 위치 상태 shop이면 샵 플레이어 던전 또는 마을이면 던전, 마을 상태를 표시함

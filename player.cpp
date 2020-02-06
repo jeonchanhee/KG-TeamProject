@@ -607,21 +607,6 @@ void player::playermoveversion() //플레이어 버전 함수
 			OffsetRect(&_player._collisionplayer, 0, 2);
 			_player.y += 2.0f;
 			break;
-		
-		case PLAYER_DOWN_IDLE:
-			_player._playercount++;
-			_player._playerimg->setFrameY(11);
-			if (_player._playercount % 10 == 0)
-			{
-				_player._playercount = 0;
-				_player._playerindex++;
-				if (_player._playerindex >= _player._playerimg->getMaxFrameX())
-				{
-					_player._playerindex = 0;
-				}
-				_player._playerimg->setFrameX(_player._playerindex);
-			}
-			break;
 		case PLAYER_DIE:
 			_player._playercount++;
 			_player._playerimg->setFrameY(12);
@@ -630,6 +615,20 @@ void player::playermoveversion() //플레이어 버전 함수
 				_player._playercount = 0;
 				_player._playerindex++;
 				if (_player._playerimg->getMaxFrameX())
+				{
+					_player._playerindex = 0;
+				}
+				_player._playerimg->setFrameX(_player._playerindex);
+			}
+			break;
+		case PLAYER_DOWN_IDLE:
+			_player._playercount++;
+			_player._playerimg->setFrameY(11);
+			if (_player._playercount % 10 == 0)
+			{
+				_player._playercount = 0;
+				_player._playerindex++;
+				if (_player._playerindex >= _player._playerimg->getMaxFrameX())
 				{
 					_player._playerindex = 0;
 				}
