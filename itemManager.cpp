@@ -13,31 +13,7 @@ itemManager::~itemManager()
 
 HRESULT itemManager::init()
 {
-	IMAGEMANAGER->addImage("강화수정", "images/item/강화수정.bmp", 36, 36, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("비어있음", "images/item/비어있음.bmp", 36, 36, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("천 반다나", "images/item/천 반다나.bmp", 36, 36, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("천 흉갑", "images/item/천 흉갑.bmp", 36, 36, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("천 부츠", "images/item/천 부츠.bmp", 36, 36, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("천", "images/item/천.bmp", 36, 36, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("철 부츠", "images/item/철 부츠.bmp", 36, 36, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("철 헬멧", "images/item/철 헬멧.bmp", 36, 36, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("철 흉갑", "images/item/철 흉갑.bmp", 36, 36, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("쇠막대기", "images/item/쇠막대기.bmp", 36, 36, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("수정화 된 에너지", "images/item/수정화 된 에너지.bmp", 36, 36, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("숫돌", "images/item/숫돌.bmp", 36, 36, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("이빨석", "images/item/이빨석.bmp", 36, 36, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("덩쿨", "images/item/덩쿨.bmp", 36, 36, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("나뭇가지", "images/item/나뭇가지.bmp", 36, 36, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("골렘코어", "images/item/골렘코어.bmp", 36, 36, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("큰 포션", "images/item/큰포션.bmp", 36, 36, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("작은 포션", "images/item/작은포션.bmp", 36, 36, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("중간 포션", "images/item/중간포션.bmp", 36, 36, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("플레임 보우", "images/item/플레임보우.bmp", 36, 36, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("캐터펄트 보우", "images/item/캐터펄트보우.bmp", 36, 36, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("훈련용 단검", "images/item/훈련용단검.bmp", 36, 36, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("흡혈귀의 단검", "images/item/흡혈귀의단검.bmp", 36, 36, true, RGB(255, 0, 255));
-
-
+	
 	//이름,타입,떨어져있는지,원가,판매가,공격력,방어력,속도,체력,회복량,갯수,최대갯수
 	_item.init("비어있음",ITEM_EMPTY,false,0,0,0,0,0,0,0,0,0);
 	_vItem.push_back(_item);
