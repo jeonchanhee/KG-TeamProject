@@ -1,4 +1,0 @@
-﻿  player.cpp
-c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\player.cpp(23): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\player.cpp(150): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  API_FrameWork.vcxproj -> C:\Users\KGA_20\Desktop\팀프로젝트\KG-TeamProject\Debug\API_FrameWork.exe
