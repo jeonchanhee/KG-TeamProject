@@ -2,6 +2,7 @@
 #include"gameNode.h"
 #include"mapTool.h"
 #include"monsterManager.h"
+#include"playerShop.h"
 //#include"player.h"
 
 #define DC gameNode::getMemDC()
@@ -11,6 +12,7 @@ class mainGame : public gameNode
 private:
 	mapTool* _mapTool;
 	monsterManager* _monsterManager;
+	playerShop* _playerShop;
 	//player* _player;
 public:
 	mainGame();

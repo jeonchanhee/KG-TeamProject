@@ -19,10 +19,12 @@ HRESULT mainGame::init()
 
 	_mapTool = new mapTool;
 	_mapTool->init();
+	_playerShop = new playerShop;
 
 	/*_player = new player;
 	_player->init();*/
-
+	ITEMMANAGER->init();
+	_playerShop->init();
 	PLAYER->init();
 	
 	_monsterManager = new monsterManager;
@@ -46,6 +48,7 @@ void mainGame::update()
 	gameNode::update();
 	_mapTool->update();
 	_monsterManager->update();
+	_playerShop->update();
 	PLAYER->update();
 	ANIMATIONMANAGER->update(); //애니메이션을 위해 사용한 것
 
@@ -67,7 +70,9 @@ void mainGame::render(/*HDC hdc*/)
 
 	_mapTool->render();
 	_monsterManager->render();
+	_playerShop->render();
 	PLAYER->render(DC);
+	ITEMMANAGER->render();
 	//_player->render(DC);
 	/*char str[128];
 	sprintf_s(str, "%d", PLAYER->getHP());

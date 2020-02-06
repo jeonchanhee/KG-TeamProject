@@ -169,6 +169,7 @@
     <ClInclude Include="monster.h" />
     <ClInclude Include="monsterManager.h" />
     <ClInclude Include="player.h" />
+    <ClInclude Include="playerShop.h" />
     <ClInclude Include="progressBar.h" />
     <ClInclude Include="randomFunction.h" />
     <ClInclude Include="Resource.h" />
@@ -206,6 +207,7 @@
     <ClCompile Include="monsterManager.cpp" />
     <ClCompile Include="player+ani.cpp" />
     <ClCompile Include="player.cpp" />
+    <ClCompile Include="playerShop.cpp" />
     <ClCompile Include="progressBar.cpp" />
     <ClCompile Include="sceneManager.cpp" />
     <ClCompile Include="soundManager.cpp" />

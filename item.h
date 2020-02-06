@@ -1,6 +1,4 @@
 #pragma once
-#include "gameNode.h"
-#include"player.h"
 
 #define MAGNETPOWER 2
 
@@ -39,7 +37,7 @@ struct itemInfo
 	int			maxCnt;			//인벤토리 1칸당 최대소지갯수
 };
 
-class item : public gameNode
+class item
 {
 private:
 	itemInfo _item;
@@ -60,9 +58,10 @@ public:
 	void magnet(RECT playerRc); // 플레이어게 끌려가는 기능
 	void wave(); //바닥에 떨어진 아이템이 약간 흔들리는 기능
 	itemInfo getItemInfo() {return _item;} //아이템 정보를 가져옴
-
+	RECT getRECT() { return _item.rc; } //아이템의 렉트를 가져옴
 	// 렉트의 위치를 설정
 	void setRect(int x, int y) { _item.rc = RectMakeCenter(x, y, _item.image->getWidth(), _item.image->getHeight()); } 
+	void setRect(RECT rc) { _item.rc = rc; } 
 	
 	//아이템의 상태를 바꿔줌(인벤에 있을때 false, 바닥에 떨어져있을때 true)
 	void setMove(bool move) { _item.move = move; } 
