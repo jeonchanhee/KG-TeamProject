@@ -43,6 +43,7 @@ HRESULT gameNode::init(bool managerInit)
 		EFFECTMANAGER->init();
 		TXTDATA->init();
 		CAMERAMANAGER->init();
+		PLAYER->init();
 		
 	}
 

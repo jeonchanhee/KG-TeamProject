@@ -1,15 +1,15 @@
 #pragma once
 #include"gameNode.h"
 #include"mapTool.h"
-#include "player.h"
+//#include"player.h"
 
+#define DC gameNode::getMemDC()
 
 class mainGame : public gameNode
 {
 private:
 	mapTool* _mapTool;
-	player* _player;
-
+	//player* _player;
 public:
 	mainGame();
 	~mainGame();
