@@ -9,10 +9,9 @@ monsterManager::monsterManager()
 monsterManager::~monsterManager()
 {
 }
-
+//몬스터 생성 및 배치
 HRESULT monsterManager::init()
 {
-
 
 	this->setMinion();
 
@@ -26,47 +25,46 @@ void monsterManager::release()
 {
 	SAFE_DELETE(_bullet);
 }
-
+//몬스터 업데이트
 void monsterManager::update()
 {
 	_viMinion = _vMinion.begin();
-
+	
 	for (_viMinion; _viMinion != _vMinion.end(); ++_viMinion)
 	{
 	(*_viMinion)->update();
 	}
-	//ufo 총알
+	//총알업데이트
 	_bullet->update();
 
-
+	//충돌
 	collision();
-
+	//총알발사
 	this->minionBulletFire();
 }
-
+//몬스터 랜더
 void monsterManager::render()
 {
+	
 	_viMinion = _vMinion.begin();
 
 	for (_viMinion; _viMinion != _vMinion.end(); ++_viMinion)
 	{
 		(*_viMinion)->render();
 	}
-
+	//총알 랜더
 	_bullet->render();
 }
-
+//몬스터 배치
 void monsterManager::setMinion()
 {
+	
 	for (int i = 0; i < 3; i++)
 	{
-		for (int j = 0; j < 5; j++)
-		{
-			monster* golemTurret;
-			golemTurret = new minion;
-			golemTurret->init(MONSTER_TYPE_GOLEMTURRET, MONSTER_STATE_ATK, MONSTER_DIRECTION_LEFT, 700, j * 100);
-			_vMinion.push_back(golemTurret);
-		}
+		monster* golemTurret;
+		golemTurret = new minion;
+		golemTurret->init(MONSTER_TYPE_GOLEMTURRET, MONSTER_STATE_ATK, MONSTER_DIRECTION_LEFT, 700, 200+i * 100);
+		_vMinion.push_back(golemTurret);
 	}
 }
 //골렘터렛총알발사
@@ -76,6 +74,7 @@ void monsterManager::minionBulletFire()
 
 	for (_viMinion; _viMinion != _vMinion.end(); ++_viMinion)
 	{
+		//공격시
 		if ((*_viMinion)->attack())
 		{
 			////일직선 발사
@@ -83,16 +82,16 @@ void monsterManager::minionBulletFire()
 			int direct = (*_viMinion)->getDirection();
 			switch (direct) {
 			case 0:
-				_bullet->fire(rc.left, rc.top, PI, 1000.f);
+				_bullet->fire((rc.left+rc.right)/2 - 30 , (rc.bottom+rc.top)/2, PI, 500.f);
 				break;
 			case 1:
-				_bullet->fire(rc.left, rc.top, 2 * PI, 1000.f);
+				_bullet->fire((rc.left + rc.right) / 2 + 30 , (rc.bottom + rc.top) / 2, 2 * PI, 500.f);
 				break;
 			case 2:
-				_bullet->fire(rc.left, rc.top, PI, 1000.f);
+				_bullet->fire((rc.left + rc.right) / 2 , (rc.bottom + rc.top) / 2 - 30, PI_2, 500.f);
 				break;
 			case 3:
-				_bullet->fire(rc.left, rc.top, -PI, 1000.f);
+				_bullet->fire((rc.left + rc.right) / 2 , (rc.bottom + rc.top) / 2 + 30, -PI_2, 500.f);
 				break;
 			}
 

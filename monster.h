@@ -63,8 +63,9 @@ public:
 	void update();
 	void render();
 
-
+	//그려주는 
 	virtual void draw();
+	//애니메이션 함수
 	virtual void animation();
 
 
@@ -73,12 +74,11 @@ public:
 	bool hit();		//피격
 	bool move();	//이동
 	bool die();		//사망, 아이템드롭
-
-
-
+	//get
 	RECT getRect() { return rc; }
 	MONSTER_DIRECTION getDirection() { return _monDirect; }
 
+	//set
 	void setMonDirect(MONSTER_DIRECTION MonDirect) { _monDirect = MonDirect; }
 };
 

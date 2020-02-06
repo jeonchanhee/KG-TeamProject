@@ -28,8 +28,8 @@ HRESULT monster::init(
 	//몬스터 타입 0(골렘터렛)
 	switch (monType)
 	{
-	case 0:
-		//이미지방향
+	case 0://골렘터렛
+		//방향값으로 맞는 방향 이미지 찾기
 		switch (monDirect)
 		{
 		case 0:
@@ -49,15 +49,9 @@ HRESULT monster::init(
 			ANIMATIONMANAGER->start("golemTurretB");
 			break;
 		}
-
-		//해당 몬스터의 벡터 값 넣기
-		_monType = monType;			//몬스터 종류
-		_monState = monState;		//몬스터 상태
-		_monDirect = monDirect;		//몬스터 방향
-		count = 0;					//카운트
+		//몬스터 피격범위
 		rc = RectMakeCenter(x, y,
 			_golemTurret->getFrameWidth(), _golemTurret->getFrameHeight());
-		//몬스터 피격범위
 		atk = 10;					//공격력
 		hp = 50;					//체력
 		speed = 5;					//이동속도
@@ -69,6 +63,13 @@ HRESULT monster::init(
 		break;
 
 	}
+
+	//해당 몬스터의 벡터 값 넣기
+	_monType = monType;			//몬스터 종류
+	_monState = monState;		//몬스터 상태
+	_monDirect = monDirect;		//몬스터 방향
+	count = 0;					//카운트
+
 	return S_OK;
 }
 
@@ -99,12 +100,12 @@ void monster::draw()
 void monster::animation()
 {
 }
-
+//공격
 bool monster::attack()
 {
 
 	count++;
-
+	//카운트가 30일때 공격
 	if (count == 30)
 	{
 		//_rndFireCount = RND->getFromIntTo(1, 1000);
