@@ -14,6 +14,7 @@ struct tagSampleBook
 {
 	tagBottun bottun[3];
 	RECT rc;
+	RECT sampleRc[10];
 	image* img;
 	bool Summons;
 	int x, y;
@@ -45,5 +46,10 @@ public:
 	void mapInit();
 	void setSampleBook();
 	void controlSampleBook();
+	void setSampleTile();
+
+
+	TERRAIN dungeonTerrainSelect(int frameX, int frameY);
+	OBJECT	dungeonObjSelect(int frameX, int frameY);
 };
 
