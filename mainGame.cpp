@@ -14,6 +14,9 @@ mainGame::~mainGame()
 HRESULT mainGame::init()
 {
 	gameNode::init(true);
+	imagesInit();
+
+
 	_mapTool = new mapTool;
 	_mapTool->init();
 
@@ -69,6 +72,8 @@ void mainGame::render(/*HDC hdc*/)
 	CAMERAMANAGER->render(this->getBackBuffer());
 	this->getBackBuffer()->render(getHDC(), 0, 0, CAMERAMANAGER->getCameraCenter().x - WINSIZEX / 2, CAMERAMANAGER->getCameraCenter().y - WINSIZEY / 2, WINSIZEX, WINSIZEY);
 }
+
+
 
 
 

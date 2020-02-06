@@ -8,25 +8,23 @@ mapTool::~mapTool(){}
 HRESULT mapTool::init()
 {
 	setUp();
-	
-
+	setSampleBook();
 
 	return S_OK;
 }
 
-void mapTool::relaese()
-{
-
-}
+void mapTool::relaese(){}
 
 void mapTool::update()
 {
 	cameraMove();
-	
+	controlSampleBook();
+
 }
 
 void mapTool::render()
 {
+	//타일
 	for (int i = 0; i < TILEX * TILEY; i++)
 	{
 		if (CAMERAX - 100 < _tiles[i].x && _tiles[i].x < CAMERAX + WINSIZEX + 100 && CAMERAY - 100 < _tiles[i].y&& _tiles[i].y < CAMERAY + WINSIZEY + 100)
@@ -47,16 +45,46 @@ void mapTool::render()
 			}
 		}
 	}
+
+	//셈플북
+	_sampleBook.img->render(getMemDC(), _sampleBook.rc.left, _sampleBook.rc.top);
+
+	if (_sampleBook.Summons)
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			_sampleBook.bottun[i].img->render(getMemDC(), _sampleBook.bottun[i].rc.left, _sampleBook.bottun[i].rc.top);
+		}
+
+		/*for (int i = 0; i < 10; i++)
+		{
+			Rectangle(getMemDC(), _sampleBook.sampleRc[i].left, _sampleBook.sampleRc[i].top, _sampleBook.sampleRc[i].right, _sampleBook.sampleRc[i].bottom);
+		}*/
+
+	}
+	
+	/*for (int i = 0; i < SAMPLETILEX * SAMPLETILEY; i++)
+	{
+		Rectangle(CAMERAMANAGER->getCameraDC(), _sampleTile[i].rcTile.left, _sampleTile[i].rcTile.top, _sampleTile[i].rcTile.right, _sampleTile[i].rcTile.bottom);
+	}*/
+
+	
+
 }
 
+//세이브
 void mapTool::save()
 {
+
 }
 
+//로드
 void mapTool::load()
 {
+
 }
 
+//카메라 이동
 void mapTool::cameraMove()
 {
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT) && CAMERAMANAGER->getCameraCenter().x - WINSIZEX / 2 > 0)
@@ -80,6 +108,7 @@ void mapTool::cameraMove()
 	}
 }
 
+//타일 셋업
 void mapTool::setUp()
 {
 	//타일 셋팅
@@ -100,6 +129,7 @@ void mapTool::setUp()
 	mapInit();
 }
 
+//타일 초기 설정
 void mapTool::mapInit()
 {
 	for (int i = 0; i < TILEX * TILEY; i++)
@@ -117,6 +147,166 @@ void mapTool::mapInit()
 		_tiles[i].objFrameY = 0;
 		
 	}
+}
+
+void mapTool::setSampleBook()
+{
+	_sampleBook.Summons = false;
+	_sampleBook.img = IMAGEMANAGER->findImage("옆셈플북");
+	_sampleBook.x = WINSIZEX - _sampleBook.img->getWidth() / 2;
+	_sampleBook.y = WINSIZEY / 2;
+	_sampleBook.rc = RectMakeCenter(_sampleBook.x, _sampleBook.y, _sampleBook.img->getWidth(), _sampleBook.img->getHeight());
+}
+
+void mapTool::controlSampleBook()
+{
+	
+	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+	{
+		if (PtInRect(&_sampleBook.rc, m_ptMouse))
+		{
+			_sampleBook.Summons = true;
+		}
+
+		for (int i = 0; i < 3; i++)
+		{
+			if (PtInRect(&_sampleBook.bottun[i].rc, m_ptMouse))
+			{
+				if (i == 0) _sampleBook.Summons = false;
+			}
+		}
+	}
+	
+
+	if (_sampleBook.Summons)
+	{
+		_sampleBook.img = IMAGEMANAGER->findImage("셈플북");
+		_sampleBook.x = WINSIZEX / 2;
+		_sampleBook.y = WINSIZEY - _sampleBook.img->getHeight() / 2;
+	}
+	else
+	{
+		_sampleBook.img = IMAGEMANAGER->findImage("옆셈플북");
+		_sampleBook.x = WINSIZEX - _sampleBook.img->getWidth() / 2;
+		_sampleBook.y = WINSIZEY / 2;
+	}
+	
+	_sampleBook.rc = RectMakeCenter(_sampleBook.x, _sampleBook.y, _sampleBook.img->getWidth(), _sampleBook.img->getHeight());
+
+
+	//버튼 설정
+	if (_sampleBook.Summons)
+	{
+		_sampleBook.bottun[0].img = IMAGEMANAGER->findImage("닫기");
+		_sampleBook.bottun[0].x = _sampleBook.rc.right - _sampleBook.bottun[0].img->getWidth();
+		_sampleBook.bottun[0].y = _sampleBook.rc.top + _sampleBook.bottun[0].img->getHeight();
+		_sampleBook.bottun[0].rc = RectMakeCenter(_sampleBook.bottun[0].x, _sampleBook.bottun[0].y, _sampleBook.bottun[0].img->getWidth(), _sampleBook.bottun[0].img->getHeight());
+
+		_sampleBook.bottun[1].img = IMAGEMANAGER->findImage("뒤로");
+		_sampleBook.bottun[1].x = _sampleBook.rc.left + _sampleBook.bottun[1].img->getWidth();
+		_sampleBook.bottun[1].y = _sampleBook.rc.bottom - _sampleBook.bottun[1].img->getHeight() - 20;
+		_sampleBook.bottun[1].rc = RectMakeCenter(_sampleBook.bottun[1].x, _sampleBook.bottun[1].y, _sampleBook.bottun[1].img->getWidth(), _sampleBook.bottun[1].img->getHeight());
+
+		_sampleBook.bottun[2].img = IMAGEMANAGER->findImage("앞으로");
+		_sampleBook.bottun[2].x = _sampleBook.rc.right - _sampleBook.bottun[2].img->getWidth();
+		_sampleBook.bottun[2].y = _sampleBook.rc.bottom - _sampleBook.bottun[2].img->getHeight() - 20;
+		_sampleBook.bottun[2].rc = RectMakeCenter(_sampleBook.bottun[2].x, _sampleBook.bottun[2].y, _sampleBook.bottun[2].img->getWidth(), _sampleBook.bottun[2].img->getHeight());
+
+
+	}
+	
+	if (_sampleBook.Summons)
+	{
+		/*for (int i = 0; i < 11; i++)
+		{
+			if (i <= 5) _sampleBook.sampleRc[i] = RectMakeCenter((_sampleBook.rc.left - 10) + i * 100, _sampleBook.rc.top + 50, 100, 100);
+			if (i > 5) _sampleBook.sampleRc[i] = RectMakeCenter((_sampleBook.rc.left - 10) + (i - 5) * 100, _sampleBook.rc.top + 200, 100, 100);
+		}*/
+	}
+}
+
+void mapTool::setSampleTile()
+{
+	for (int i = 0; i < SAMPLETILEY; i++)
+	{
+		for (int j = 0; j < SAMPLETILEX; j++)
+		{
+			_sampleTile[i * SAMPLETILEX + j].terrainFrameX = j;
+			_sampleTile[i * SAMPLETILEX + j].terrainFrameY = i;
+
+			/*SetRect(&_sampleTile[i * SAMPLETILEX + j].rcTile, (WINSIZEX - IMAGEMANAGER->findImage("맵툴던전")->getWidth()) + j * TILESIZE / 2, i * TILESIZE / 3,
+				(WINSIZEX - IMAGEMANAGER->findImage("맵툴던전")->getWidth()) + j * TILESIZE / 3 + TILESIZE / 3,
+				i * TILESIZE / 3 + TILESIZE / 3);*/
+		}
+	}
 
 
 }
+
+TERRAIN mapTool::dungeonTerrainSelect(int frameX, int frameY)
+{
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 2; j++)
+		{
+			if (frameX == i && frameY == j)
+			{
+				return TERAIN_WALL;
+			}
+		}
+	}
+
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 2; j < 4; j++)
+		{
+			return TERAIN_GROUND;
+		}
+	}
+
+	return TERAIN_NONE;
+}
+
+OBJECT mapTool::dungeonObjSelect(int frameX, int frameY)
+{
+	for (int i = 4; i < 12; i++)
+	{
+		for (int j = 0; j < 7; j++)
+		{
+			//오브젝트 벽
+			if (i <= 5 && j == 0 || i == 0 && j == 1)
+			{	
+				if(frameX == i && frameY == j) return OBJ_WALL;
+			}
+
+			//해골 오브젝트
+			if (i >= 6 && i <= 9 && j == 0 || i >= 7 && i <= 8 && j == 1 )
+			{
+				if (frameX == i && frameY == j) return OBJ_SKULL;
+			}
+
+			//문 오브젝트
+			if (i >= 10 && j <= 3)
+			{
+				if (frameX == i && frameY == j) return OBJ_DOOR;
+			}
+
+			//기둥
+			if (i == 4 && j == 2) return OBJ_PILLAR;
+
+			if (i >= 5 && i <= 8 && j >= 2)
+			{
+				return OBJ_HELL_SPA;
+			}
+
+			if (i == 9 && j == 2) return OBJ_BOX;
+
+			if (i >= 9 && j >= 4) return OBJ_TENT;
+		}
+	}
+
+	return OBJ_NONE;
+}
+
+
+
