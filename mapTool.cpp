@@ -19,6 +19,7 @@ void mapTool::update()
 {
 	cameraMove();
 	controlSampleBook();
+
 }
 
 void mapTool::render()
@@ -54,7 +55,20 @@ void mapTool::render()
 		{
 			_sampleBook.bottun[i].img->render(getMemDC(), _sampleBook.bottun[i].rc.left, _sampleBook.bottun[i].rc.top);
 		}
+
+		/*for (int i = 0; i < 10; i++)
+		{
+			Rectangle(getMemDC(), _sampleBook.sampleRc[i].left, _sampleBook.sampleRc[i].top, _sampleBook.sampleRc[i].right, _sampleBook.sampleRc[i].bottom);
+		}*/
+
 	}
+	
+	/*for (int i = 0; i < SAMPLETILEX * SAMPLETILEY; i++)
+	{
+		Rectangle(CAMERAMANAGER->getCameraDC(), _sampleTile[i].rcTile.left, _sampleTile[i].rcTile.top, _sampleTile[i].rcTile.right, _sampleTile[i].rcTile.bottom);
+	}*/
+
+	
 
 }
 
@@ -197,12 +211,34 @@ void mapTool::controlSampleBook()
 		_sampleBook.bottun[2].x = _sampleBook.rc.right - _sampleBook.bottun[2].img->getWidth();
 		_sampleBook.bottun[2].y = _sampleBook.rc.bottom - _sampleBook.bottun[2].img->getHeight() - 20;
 		_sampleBook.bottun[2].rc = RectMakeCenter(_sampleBook.bottun[2].x, _sampleBook.bottun[2].y, _sampleBook.bottun[2].img->getWidth(), _sampleBook.bottun[2].img->getHeight());
+
+
+	}
+	
+	if (_sampleBook.Summons)
+	{
+		/*for (int i = 0; i < 11; i++)
+		{
+			if (i <= 5) _sampleBook.sampleRc[i] = RectMakeCenter((_sampleBook.rc.left - 10) + i * 100, _sampleBook.rc.top + 50, 100, 100);
+			if (i > 5) _sampleBook.sampleRc[i] = RectMakeCenter((_sampleBook.rc.left - 10) + (i - 5) * 100, _sampleBook.rc.top + 200, 100, 100);
+		}*/
 	}
 }
 
 void mapTool::setSampleTile()
 {
-	
+	for (int i = 0; i < SAMPLETILEY; i++)
+	{
+		for (int j = 0; j < SAMPLETILEX; j++)
+		{
+			_sampleTile[i * SAMPLETILEX + j].terrainFrameX = j;
+			_sampleTile[i * SAMPLETILEX + j].terrainFrameY = i;
+
+			/*SetRect(&_sampleTile[i * SAMPLETILEX + j].rcTile, (WINSIZEX - IMAGEMANAGER->findImage("¸ÊÅø´øÀü")->getWidth()) + j * TILESIZE / 2, i * TILESIZE / 3,
+				(WINSIZEX - IMAGEMANAGER->findImage("¸ÊÅø´øÀü")->getWidth()) + j * TILESIZE / 3 + TILESIZE / 3,
+				i * TILESIZE / 3 + TILESIZE / 3);*/
+		}
+	}
 
 
 }
