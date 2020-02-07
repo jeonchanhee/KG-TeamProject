@@ -62,9 +62,30 @@ void monsterManager::setMinion()
 	for (int i = 0; i < 3; i++)
 	{
 		monster* golemTurret;
-		golemTurret = new minion;
-		golemTurret->init(MONSTER_TYPE_GOLEMTURRET, MONSTER_STATE_ATK, MONSTER_DIRECTION_LEFT, 700, 200+i * 100);
+		golemTurret = new turretMinion;
+		golemTurret->init(MONSTER_TYPE_GOLEMTURRET, MONSTER_STATE_ATK, MONSTER_DIRECTION_DOWN, 700, 200+i * 100);
 		_vMinion.push_back(golemTurret);
+	}
+	for (int i = 0; i < 3; i++)
+	{
+		monster* golemSoldier;
+		golemSoldier = new soldierMinion;
+		golemSoldier->init(MONSTER_TYPE_GOLEMSOLDIER, MONSTER_STATE_IDLE, MONSTER_DIRECTION_DOWN, 600, 200 + i * 100);
+		_vMinion.push_back(golemSoldier);
+	}
+	for (int i = 0; i < 3; i++)
+	{
+		monster* slimeGauntlet;
+		slimeGauntlet = new slimeGauntletMinion;
+		slimeGauntlet->init(MONSTER_TYPE_SLIMEGAUNTLET, MONSTER_STATE_IDLE, MONSTER_DIRECTION_DOWN, 500, 200 + i * 100);
+		_vMinion.push_back(slimeGauntlet);
+	}
+	for (int i = 0; i < 3; i++)
+	{
+		monster* golemBoss;
+		golemBoss = new bossMinion;
+		golemBoss->init(MONSTER_TYPE_GOLEMBOSS, MONSTER_STATE_IDLE, MONSTER_DIRECTION_DOWN, 400, 200 + i * 100);
+		_vMinion.push_back(golemBoss);
 	}
 }
 //∞Ò∑Ω≈Õ∑ø√—æÀπﬂªÁ
@@ -75,31 +96,30 @@ void monsterManager::minionBulletFire()
 	for (_viMinion; _viMinion != _vMinion.end(); ++_viMinion)
 	{
 		//∞¯∞›Ω√
-		if ((*_viMinion)->attack())
+		int type = (*_viMinion)->getType();
+		if (type==0&&(*_viMinion)->golemTurretAtk())
 		{
 			////¿œ¡˜º± πﬂªÁ
 			RECT rc = (*_viMinion)->getRect();
 			int direct = (*_viMinion)->getDirection();
 			switch (direct) {
-			case 0:
+			case MONSTER_DIRECTION_LEFT:
 				_bullet->fire((rc.left+rc.right)/2 - 30 , (rc.bottom+rc.top)/2, PI, 500.f);
 				break;
-			case 1:
+			case MONSTER_DIRECTION_RIGHT:
 				_bullet->fire((rc.left + rc.right) / 2 + 30 , (rc.bottom + rc.top) / 2, 2 * PI, 500.f);
 				break;
-			case 2:
-				_bullet->fire((rc.left + rc.right) / 2 , (rc.bottom + rc.top) / 2 - 30, PI_2, 500.f);
-				break;
-			case 3:
+			case MONSTER_DIRECTION_DOWN:
 				_bullet->fire((rc.left + rc.right) / 2 , (rc.bottom + rc.top) / 2 + 30, -PI_2, 500.f);
 				break;
+			case MONSTER_DIRECTION_UP:
+				_bullet->fire((rc.left + rc.right) / 2 , (rc.bottom + rc.top) / 2 - 30, PI_2, 500.f);
+				break;
 			}
-
-
 		}
 	}
 }
-//∞Ò∑Ω≈Õ∑ø ∫§≈Õø°º≠ ¡¶∞≈
+//∏ÛΩ∫≈Õ ∫§≈Õø°º≠ ¡¶∞≈
 void monsterManager::removeMinion(int arrNum)
 {
 	_vMinion.erase(_vMinion.begin() + arrNum);

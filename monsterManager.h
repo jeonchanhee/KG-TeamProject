@@ -1,6 +1,10 @@
 #pragma once
 #include"gameNode.h"
 #include"minion.h"
+#include"turretMinion.h"
+#include"soldierMinion.h"
+#include"slimeGauntletMinion.h"
+#include"bossMinion.h"
 #include"bullet.h"
 
 class monsterManager : public gameNode

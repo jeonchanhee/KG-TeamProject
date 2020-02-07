@@ -12,11 +12,31 @@ void mainGame::imagesInit()
 	IMAGEMANAGER->addImage("앞으로", "images/앞으로가기버튼.bmp", 64, 64, true, RGB(255, 0, 255));
 	
 	//몬스터
-	IMAGEMANAGER->addFrameImage("golemTurret", "images/monster/golemTurret.bmp", 460, 460, 546 * 2, 212 * 2, 12, 4, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("golemTurret", "images/monster/golemTurret.bmp", 0, 0, 546 * 2, 212 * 2, 12, 4, true, RGB(255, 0, 255));
 	ANIMATIONMANAGER->addAnimation("golemTurretL", "golemTurret", 0, 11, 12, true, true);
 	ANIMATIONMANAGER->addAnimation("golemTurretU", "golemTurret", 12, 24, 12, false, true);
 	ANIMATIONMANAGER->addAnimation("golemTurretR", "golemTurret", 24, 36, 12, false, true);
-	ANIMATIONMANAGER->addAnimation("golemTurretB", "golemTurret", 36, 48, 12, false, true);
+	ANIMATIONMANAGER->addAnimation("golemTurretB", "golemTurret", 36, 47, 12, false, true);
+	IMAGEMANAGER->addFrameImage("golemSoldier", "images/monster/golemSoldier.bmp", 0, 0, 1520 * 2, 760 * 2, 8, 4, true, RGB(255, 0, 255));
+	ANIMATIONMANAGER->addAnimation("golemSoldierL", "golemSoldier", 0, 7, 8, false, true);
+	ANIMATIONMANAGER->addAnimation("golemSoldierR", "golemSoldier", 8, 15, 8, false, true);
+	ANIMATIONMANAGER->addAnimation("golemSoldierU", "golemSoldier", 16, 23, 8, false, true);
+	ANIMATIONMANAGER->addAnimation("golemSoldierB", "golemSoldier", 24, 31, 8, false, true);
+	IMAGEMANAGER->addFrameImage("golemSoldierAtk", "images/monster/golemSoldierAtk.bmp", 0, 0, 2460 * 2, 760 * 2, 13, 4, true, RGB(255, 0, 255));
+	ANIMATIONMANAGER->addAnimation("golemSoldierAtkL", "golemSoldierAtk", 0, 12, 13, false, true);
+	ANIMATIONMANAGER->addAnimation("golemSoldierAtkR", "golemSoldierAtk", 13, 25, 13, false, true);
+	ANIMATIONMANAGER->addAnimation("golemSoldierAtkU", "golemSoldierAtk", 26, 38, 13, false, true);
+	ANIMATIONMANAGER->addAnimation("golemSoldierAtkB", "golemSoldierAtk", 39, 52, 13, false, true);
+	IMAGEMANAGER->addFrameImage("slimeGauntlet", "images/monster/slimeGauntlet.bmp", 0, 0, 810 * 2, 356 * 2, 14, 4, true, RGB(255, 0, 255));
+	ANIMATIONMANAGER->addAnimation("slimeGauntletL", "slimeGauntlet", 0, 13, 14, false, true);
+	ANIMATIONMANAGER->addAnimation("slimeGauntletU", "slimeGauntlet", 14, 27, 14, false, true);
+	ANIMATIONMANAGER->addAnimation("slimeGauntletR", "slimeGauntlet", 28, 41, 14, false, true);
+	ANIMATIONMANAGER->addAnimation("slimeGauntletB", "slimeGauntlet", 42, 55, 14, false, true);
+	IMAGEMANAGER->addFrameImage("golemBoss", "images/monster/golemBoss.bmp", 0, 0, 778 * 2, 518 * 2, 8, 4, true, RGB(255, 0, 255));
+	ANIMATIONMANAGER->addAnimation("golemBossL", "golemBoss", 0, 7, 8, false, true);
+	ANIMATIONMANAGER->addAnimation("golemBossU", "golemBoss", 8, 15, 8, false, true);
+	ANIMATIONMANAGER->addAnimation("golemBossR", "golemBoss", 16, 23, 8, false, true);
+	ANIMATIONMANAGER->addAnimation("golemBossB", "golemBoss", 24, 31, 8, false, true);
 
 
 
