@@ -49,7 +49,7 @@ void item::update()
 void item::render()
 {
 	//Rectangle(getMemDC(), _magnetRc.left, _magnetRc.top, _magnetRc.right, _magnetRc.bottom);
-	_item.image->render(getMemDC(), _item.rc.left, _item.rc.top);
+	_item.image->render(CAMERAMANAGER->getCameraDC(), _item.rc.left, _item.rc.top);
 }
 
 void item::magnet(RECT playerRc)

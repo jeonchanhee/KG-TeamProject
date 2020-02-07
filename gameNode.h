@@ -4,6 +4,7 @@
 //백버퍼 이미지를 스태틱으로 변경
 
 //static image* _backBuffer = IMAGEMANAGER->addImage("backbuffer", WINSIZEX, WINSIZEY);
+
 class gameNode
 {
 
@@ -14,6 +15,7 @@ private:
 
 	HDC _hdc;
 	bool _managerInit;
+
 
 public:
 	gameNode();
@@ -39,8 +41,8 @@ public:
 	//추가 HDC얻기
 	HDC getHDC() { return _hdc; }
 
-
 	LRESULT MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam);
+	
 
 };
 

@@ -23,7 +23,7 @@
     <ProjectGuid>{8FF13C43-33AC-4F4E-825D-B864A3A51362}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>APIFrameWork</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -103,7 +103,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
+      <ConformanceMode>false</ConformanceMode>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -151,6 +151,7 @@
     <ClInclude Include="animationManager.h" />
     <ClInclude Include="API_FrameWork.h" />
     <ClInclude Include="aStar.h" />
+    <ClInclude Include="bullet.h" />
     <ClInclude Include="cameraManager.h" />
     <ClInclude Include="commonMacroFunction.h" />
     <ClInclude Include="effect.h" />
@@ -164,7 +165,11 @@
     <ClInclude Include="loading.h" />
     <ClInclude Include="mainGame.h" />
     <ClInclude Include="mapTool.h" />
+    <ClInclude Include="minion.h" />
+    <ClInclude Include="monster.h" />
+    <ClInclude Include="monsterManager.h" />
     <ClInclude Include="player.h" />
+    <ClInclude Include="playerShop.h" />
     <ClInclude Include="progressBar.h" />
     <ClInclude Include="randomFunction.h" />
     <ClInclude Include="Resource.h" />
@@ -183,6 +188,7 @@
     <ClCompile Include="animation.cpp" />
     <ClCompile Include="animationManager.cpp" />
     <ClCompile Include="aStar.cpp" />
+    <ClCompile Include="bullet.cpp" />
     <ClCompile Include="cameraManager.cpp" />
     <ClCompile Include="effect.cpp" />
     <ClCompile Include="effectManager.cpp" />
@@ -196,8 +202,12 @@
     <ClCompile Include="mainGame+Image.cpp" />
     <ClCompile Include="mainGame.cpp" />
     <ClCompile Include="mapTool.cpp" />
+    <ClCompile Include="minion.cpp" />
+    <ClCompile Include="monster.cpp" />
+    <ClCompile Include="monsterManager.cpp" />
     <ClCompile Include="player+ani.cpp" />
     <ClCompile Include="player.cpp" />
+    <ClCompile Include="playerShop.cpp" />
     <ClCompile Include="progressBar.cpp" />
     <ClCompile Include="sceneManager.cpp" />
     <ClCompile Include="soundManager.cpp" />

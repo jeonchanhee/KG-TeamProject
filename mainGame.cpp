@@ -19,9 +19,19 @@ HRESULT mainGame::init()
 
 	_mapTool = new mapTool;
 	_mapTool->init();
+	_playerShop = new playerShop;
 
-	_player = new player;	// 테스트용
-	_player->init();		// 테스트용
+	/*_player = new player;
+	_player->init();*/
+	ITEMMANAGER->init();
+	_playerShop->init();
+	PLAYER->init();
+	
+	_monsterManager = new monsterManager;
+	_monsterManager->init();
+
+
+
 	//안녕
 	//하이하이
 	return S_OK;
@@ -30,15 +40,25 @@ HRESULT mainGame::init()
 void mainGame::release()
 {
 	gameNode::release();
-	_player->release();		// 테스트용
+
 }
 
 void mainGame::update()
 {
 	gameNode::update();
 	_mapTool->update();
+	_monsterManager->update();
+	_playerShop->update();
+	PLAYER->update();
 	ANIMATIONMANAGER->update(); //애니메이션을 위해 사용한 것
-	_player->update(); // 테스트용
+
+	if (KEYMANAGER->isOnceKeyDown('T'))
+	{
+		//PLAYER->setHP(PLAYER->getHP() - 10);
+		
+	}
+	//_player->update();
+
 }
 
 void mainGame::render(/*HDC hdc*/)
@@ -49,7 +69,14 @@ void mainGame::render(/*HDC hdc*/)
 	PatBlt(CAMERAMANAGER->getCameraDC(), 0, 0, WINSIZEX, WINSIZEY, WHITENESS);
 
 	_mapTool->render();
-	_player->render(); // 테스트용
+	_monsterManager->render();
+	_playerShop->render();
+	PLAYER->render(DC);
+	ITEMMANAGER->render();
+	//_player->render(DC);
+	/*char str[128];
+	sprintf_s(str, "%d", PLAYER->getHP());
+	TextOut(DC, 200, 200, str, strlen(str));*/
 
 	TIMEMANAGER->render(CAMERAMANAGER->getCameraDC());
 	//=====================================================
