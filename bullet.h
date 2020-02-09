@@ -16,6 +16,29 @@ struct tagBullet
 
 };
 
+
+enum WEAPONMOVE   //플레이어가 사용할 화살무브
+{
+	ARROW_LEFT,
+	ARROW_RIGHT,
+	ARROW_UP,
+	ARROW_DOWN,
+};
+
+struct tagweapon			 //플레이어가 사용할 화살 정보
+{
+	WEAPONMOVE _arrow;
+	image* _waponimg;
+	RECT _rc;
+	float  fireX, fireY;
+	float x, y;
+	float _spped;
+	bool _isfire;
+};
+
+
+
+
 class bullet :public gameNode
 {
 private:
@@ -52,3 +75,44 @@ public:
 
 
 };
+
+//===============================================================
+//													플레이어가 사용할 크랠스 
+//===============================================================
+
+
+class weapons : public gameNode // 플레이어만  사용하는 화살
+{
+private:
+
+	//tagweapon _arrow;
+	vector<tagweapon> _varrow;
+	vector<tagweapon>::iterator  _viterarrow;
+
+	tagweapon _arrow;
+
+
+private:
+	float _range;
+
+public:
+	weapons();
+	~weapons();
+
+	HRESULT init();
+	void release();
+	void update();
+	void render();
+
+
+	void fire(float x, float y, WEAPONMOVE weponMove);
+	void move();
+
+
+	vector<tagweapon> getvarrow() { return _varrow; }
+	vector<tagweapon>::iterator  getviterarrow() { return _viterarrow; }
+
+	RECT getarrowRect() { return _viterarrow->_rc; }   // 화살 
+};
+
+
