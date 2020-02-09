@@ -5,9 +5,9 @@
 class itemManager : public item, public singletonBase<itemManager>
 {
 private:
-	item _item;		//아이템을 초기화할 변수
+	item _item;						 //아이템을 초기화할 변수
 
-	vector<item> _vItem;  //아이템을 담을 벡터
+	vector<item> _vItem;			 //아이템을 담을 벡터
 	vector<item>::iterator _viItem;
 
 
@@ -20,7 +20,7 @@ public:
 	void update();
 	void render();
 
-	item addItem(string itemName);  //이름으로 아이템을 찾아서 보내주는 함수
+	item addItem(string itemName);				  //이름으로 아이템을 찾아서 보내주는 함수
 	vector<item> getItemList() { return _vItem; } //아이템 벡터 자체를 보내는 함수
 
 };

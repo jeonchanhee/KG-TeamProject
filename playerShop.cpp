@@ -11,225 +11,159 @@ playerShop::~playerShop()
 
 HRESULT playerShop::init()
 {
-	setStorage();
-	for (int i = 0; i < 9; i++)
-	{
-		_storage1.vStorstorage.push_back(ITEMMANAGER->addItem("나뭇가지"));
-	}
-	_showItemRc = RectMakeCenter(WINSIZEX - 70, 250, _showItem->getWidth(), _showItem->getHeight());
+	_open = IMAGEMANAGER->findImage("열기");
 
-	//커서초기화
-	_cursor.image = IMAGEMANAGER->findImage("커서");
-		_cursor.cursorState = CURSOR_IDLE;
-	_cursor.rc = RectMake(_slot[0].left-10, _slot[0].top-10, 40, 40);
+	//창고 2개 초기화
+	int arrlen1[] = { 0,1,2 };
+	int arrlen2[] = { 3,4,5 };
+	ANIMATIONMANAGER->addAnimation("창고1오픈", "창고1", arrlen1, 3, 10, false);
+	ANIMATIONMANAGER->addAnimation("창고1클로즈", "창고1", arrlen2, 3, 10, false);
 
-	int arrlen1[] = { 0,1,0 };
-	ANIMATIONMANAGER->addAnimation("커서애니", "커서", arrlen1, 3, 10, false);
-	_cursor.ani = ANIMATIONMANAGER->findAnimation("커서애니");
-	_cursor.cursorMove = 0;
+	int arrlen3[] = { 0,1,2,3 };
+	int arrlen4[] = { 4,5,6,7 };
+	ANIMATIONMANAGER->addAnimation("창고2오픈", "창고2", arrlen3, 4, 10, false);
+	ANIMATIONMANAGER->addAnimation("창고2클로즈", "창고2", arrlen4, 4, 10, false);
+
+	_storage1 = new storage;
+	_storage1->init("창고1",PointMake(WINSIZEX / 2 / 2, WINSIZEY / 2 / 2 + 150));
+	_storage2 = new storage;
+	_storage2->init("창고2", PointMake(WINSIZEX / 2 / 2, WINSIZEY / 2 / 2));
+
+	//대장간초기화
+	_blacksmith = new blacksmith;
+	_blacksmith->init();
+	//판매대 초기화
+	_sellStand = new sellStand;
+	_sellStand->init();
+
 
 	return S_OK;
 }
 
 void playerShop::release()
 {
+	SAFE_DELETE(_storage1);
+	SAFE_DELETE(_storage2);
+	SAFE_DELETE(_sellStand);
+	SAFE_DELETE(_blacksmith);
 }
 
 void playerShop::update()
 {
-	controlStorage();
-	controlCursor();
-	if (KEYMANAGER->isOnceKeyDown('Q'))_storage1.vStorstorage.push_back(ITEMMANAGER->addItem("흡혈귀의 단검"));
+	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))_storage2->addItem(ITEMMANAGER->addItem("천 반다나"));
+
+	//판매대 열기닫기
+	if (IntersectRect(&temp, &PLAYER->getPlayercollision(), &_sellStand->getRECT()))
+	{
+		if (!_showWindow)
+		{
+			if (KEYMANAGER->isOnceKeyDown('J'))
+				_showWindow = true;
+		}
+		if (_showWindow)
+		{
+			if (KEYMANAGER->isOnceKeyDown('I') )
+				_showWindow = false;
+		}
+		_sellStand->setShow(_showWindow);
+	}
+
+	//대장간열기닫기
+	if (IntersectRect(&temp, &PLAYER->getPlayercollision(), &_blacksmith->getRECT()))
+	{
+		if (!_showWindow)
+		{
+			if (KEYMANAGER->isOnceKeyDown('J'))
+				_showWindow = true;
+		}
+		if (_showWindow)
+		{
+			if (KEYMANAGER->isOnceKeyDown('I'))
+				_showWindow = false;
+		}
+		_blacksmith->setShow(_showWindow);
+	}
+
+	//창고1 열기닫기
+	if (IntersectRect(&temp, &PLAYER->getPlayercollision(), &_storage1->getRECT()))
+	{
+		if (!_showWindow)
+		{
+			if (KEYMANAGER->isOnceKeyDown('J'))
+			{
+				_storage1->resetChoiceNum();
+				_storage1->setAni("창고1오픈");
+				_storage1->getAni()->start();
+				_showWindow = true;
+			}
+		}
+		if (_showWindow)
+		{
+			if (KEYMANAGER->isOnceKeyDown('I'))
+			{
+				_storage1->setAni("창고1클로즈");
+				_storage1->getAni()->start();
+				_showWindow = false;
+			}
+		}
+		_storage1->setShow(_showWindow);
+	}
+
+	//창고2 열기닫기
+	if (IntersectRect(&temp, &PLAYER->getPlayercollision(), &_storage2->getRECT()))
+	{
+		if (!_showWindow)
+		{
+			if (KEYMANAGER->isOnceKeyDown('J'))
+			{
+				_storage2->resetChoiceNum();
+				_storage2->setAni("창고2오픈");
+				_storage2->getAni()->start();
+				_showWindow = true;
+			}
+		}
+		if (_showWindow)
+		{
+			if (KEYMANAGER->isOnceKeyDown('I'))
+			{
+				_storage2->setAni("창고2클로즈");
+				_storage2->getAni()->start();
+				_showWindow = false;
+			}
+		}
+		_storage2->setShow(_showWindow);
+	}
+
+
+	_storage1->update();
+	_storage2->update();
+	_sellStand->update();
+	_blacksmith->update();
 }
 
 void playerShop::render()
 {
-	//Rectangle(getMemDC(), _storage1.rc.left, _storage1.rc.top, _storage1.rc.right, _storage1.rc.bottom);
-	//Rectangle(getMemDC(), _storage2.rc.left, _storage2.rc.top, _storage2.rc.right, _storage2.rc.bottom);
-	//Rectangle(getMemDC(), testPlayer.left, testPlayer.top, testPlayer.right, testPlayer.bottom);
-	storageRender();
-	cursorRender();
-}
 
-void playerShop::setStorage()
-{
-	//창고2개 + 창고인벤토리 초기화
-	_open = IMAGEMANAGER->addImage("열기", "images/shop/열기.bmp", 193 / 2, 87 / 2, true, RGB(255, 0, 255));
-	_storage1.inGameImage = IMAGEMANAGER->findImage("창고1");
-	_storage2.inGameImage = IMAGEMANAGER->findImage("창고2");
-	int arrlen1[] = { 0,1,2 };
-	int arrlen2[] = { 3,4,5 };
-	ANIMATIONMANAGER->addAnimation("창고1오픈", "창고1", arrlen1, 3, 10, false);
-	ANIMATIONMANAGER->addAnimation("창고1클로즈", "창고1", arrlen2, 3, 10, false);
-	int arrlen3[] = { 0,1,2,3 };
-	int arrlen4[] = { 4,5,6,7 };
-	ANIMATIONMANAGER->addAnimation("창고2오픈", "창고2", arrlen3, 3, 10, false);
-	ANIMATIONMANAGER->addAnimation("창고2클로즈", "창고2", arrlen4, 3, 10, false);
-	_storage1.storageAni = ANIMATIONMANAGER->findAnimation("창고1오픈");
-	_storage1.rc = RectMakeCenter(WINSIZEX / 2 / 2, WINSIZEY / 2 / 2 + 150, _storage1.inGameImage->getFrameWidth(), _storage1.inGameImage->getFrameHeight());
-	_storage1.storageState = STORAGE_CLOSE;
-
-	_storage2.storageAni = ANIMATIONMANAGER->findAnimation("창고2오픈");
-	_storage2.rc = RectMakeCenter(WINSIZEX / 2 / 2, WINSIZEY / 2 / 2, _storage2.inGameImage->getFrameWidth(), _storage2.inGameImage->getFrameHeight());
-	_storage2.storageState = STORAGE_CLOSE;
-
-
-	_mainImage = IMAGEMANAGER->findImage("창고내부");
-	_showItem = IMAGEMANAGER->findImage("템보여주기");
-	//창고인벤토리 슬롯 초기화
-	for (int i = 0; i < 28; i++)
+	if (IntersectRect(&temp, &PLAYER->getPlayercollision(), &_sellStand->getRECT()))
 	{
-		int k, j;
-		k = i % 7;
-		j = i / 7;
-		_slot[i] = RectMakeCenter(WINSIZEX / 2 + 20 + (k * 60), WINSIZEY / 2 - 60 + (j * 60), 40,40);
-		_slotImage[i] = IMAGEMANAGER->findImage("슬롯이미지");
+		_open->render(getMemDC(), _sellStand->getRECT().right, _sellStand->getRECT().top-50);
 	}
-}
-
-void playerShop::controlStorage()
-{
-	if (IntersectRect(&temp, &_storage1.rc, &PLAYER->getPlayercollision())) //플레이어와 창고가 닿았을때
+	if (IntersectRect(&temp, &PLAYER->getPlayercollision(), &_storage1->getRECT()))
 	{
-		_openRc = RectMakeCenter(_storage1.rc.right, _storage1.rc.top, _open->getWidth(), _open->getHeight());
-		if (KEYMANAGER->isOnceKeyDown('J'))
-		{
-			_storage1.storageAni->start();
-			_cursor.rc = RectMake(_slot[0].left - 10, _slot[0].top - 10, 40, 40);
-			_storage1.storageState = STORAGE_OPEN;
-		}
+		_open->render(getMemDC(), _storage1->getRECT().right, _storage1->getRECT().top - 50);
 	}
-	if (IntersectRect(&temp, &_storage2.rc, &PLAYER->getPlayercollision()))
+	if (IntersectRect(&temp, &PLAYER->getPlayercollision(), &_storage2->getRECT()))
 	{
-		_openRc = RectMakeCenter(_storage2.rc.right, _storage2.rc.top, _open->getWidth(), _open->getHeight());
-		if (KEYMANAGER->isOnceKeyDown('J'))
-		{
-			_storage2.storageAni->start();
-			_cursor.rc = RectMake(_slot[0].left - 10, _slot[0].top - 10, 40, 40);
-			_storage2.storageState = STORAGE_OPEN;
-		}
+		_open->render(getMemDC(), _storage2->getRECT().right, _storage2->getRECT().top - 50);
 	}
-
-	switch (_storage1.storageState)	
+	if (IntersectRect(&temp, &PLAYER->getPlayercollision(), &_blacksmith->getRECT()))
 	{
-	case STORAGE_OPEN:
-		if(KEYMANAGER->isOnceKeyDown('I'))_storage1.storageState = STORAGE_CLOSE;
-		break;
-	case STORAGE_CLOSE:
-		break;
-	}
-
-	switch (_storage2.storageState)
-	{
-	case STORAGE_OPEN:
-		if (KEYMANAGER->isOnceKeyDown('I'))_storage2.storageState = STORAGE_CLOSE;
-		break;
-	case STORAGE_CLOSE:
-		break;
-	}
-
-}
-
-void playerShop::storageRender()
-{
-	_storage1.inGameImage->aniRender(getMemDC(), _storage1.rc.left, _storage1.rc.top, _storage1.storageAni);
-	_storage2.inGameImage->aniRender(getMemDC(), _storage2.rc.left, _storage2.rc.top, _storage2.storageAni);
-
-	if (IntersectRect(&temp, &_storage1.rc, &PLAYER->getPlayercollision())) //플레이어와 창고가 닿았을때
-	{
-		_open->render(getMemDC(), _openRc.left, _openRc.top); //열기이미지를 보여줌
-	}
-	if (IntersectRect(&temp, &_storage2.rc, &PLAYER->getPlayercollision()))
-	{
-		_open->render(getMemDC(), _openRc.left, _openRc.top);
+		_open->render(getMemDC(), _blacksmith->getRECT().right, _blacksmith->getRECT().top - 50);
 	}
 
 
-	switch (_storage1.storageState)
-	{
-	case STORAGE_OPEN:
-		_mainImage->render(getMemDC(), WINSIZEX/2-70, 100, _mainImage->getWidth(), _mainImage->getHeight());
-		_showItem->render(getMemDC(), _showItemRc.left,_showItemRc.top, _showItem->getWidth(), _showItem->getHeight());
-		for (int i = 0; i < 28; i++)
-		{
-			//Rectangle(getMemDC(), slot[i].left, slot[i].top, slot[i].right, slot[i].bottom);
-			_slotImage[i]->render(getMemDC(), _slot[i].left, _slot[i].top);
-			if (i < _storage1.vStorstorage.size())
-			{
-				_storage1.vStorstorage[i].setRect(_slot[i]);
-			}
-		}
-		for (int i = 0; i < _storage1.vStorstorage.size(); i++)
-		{
-			_storage1.vStorstorage[i].getItemInfo().image->render(getMemDC(), _slot[i].left, _slot[i].top);
-			RECT temp;
-		
-			if (IntersectRect(&temp, &_cursor.rc, &_storage1.vStorstorage[i].getRECT()))// 커서와 아이템이 충돌된 상태라면
-			{
-				_storage1.vStorstorage[i].getItemInfo().image->render(getMemDC(), _showItemRc.left, _showItemRc.top);
-				
-			}
-		}
-		_cursor.image->aniRender(getMemDC(), _cursor.rc.left, _cursor.rc.top, _cursor.ani);
-	
-		break;
-	case STORAGE_CLOSE:
-		//_storageAni1 = ANIMATIONMANAGER->findAnimation("창고1클로즈");
-		//_storageAni1->start();
-		break;
-	}
-
-	switch (_storage2.storageState)
-	{
-	case STORAGE_OPEN:
-		break;
-	case STORAGE_CLOSE:
-		/*_storageAni2 = ANIMATIONMANAGER->findAnimation("창고2클로즈");
-		_storageAni2->start();*/
-		break;
-	}
-
-}
-
-void playerShop::controlCursor()
-{
-	if (KEYMANAGER->isOnceKeyDown('A'))
-	{
-		_cursor.cursorMove--;
-		_cursor.rc = RectMake(_slot[_cursor.cursorMove].left - 10, _slot[_cursor.cursorMove].top - 10, 40, 40);
-		_cursor.ani->start();
-	}
-	if (KEYMANAGER->isOnceKeyDown('D'))
-	{
-		_cursor.cursorMove++;
-		_cursor.rc = RectMake(_slot[_cursor.cursorMove].left - 10, _slot[_cursor.cursorMove].top - 10, 40, 40);
-		_cursor.ani->start();
-	}
-	if (KEYMANAGER->isOnceKeyDown('W'))
-	{
-		_cursor.cursorMove -= 7;
-		_cursor.rc = RectMake(_slot[_cursor.cursorMove].left - 10, _slot[_cursor.cursorMove].top - 10, 40, 40);
-		_cursor.ani->start();
-	}
-	if (KEYMANAGER->isOnceKeyDown('S'))
-	{
-		_cursor.cursorMove += 7;
-		_cursor.rc = RectMake(_slot[_cursor.cursorMove].left - 10, _slot[_cursor.cursorMove].top - 10, 40, 40);
-		_cursor.ani->start();
-	}
-}
-
-void playerShop::cursorRender()
-{
-	
-	switch (_cursor.cursorState)
-	{
-	CURSOR_IDLE:
-		break;
-	CURSOR_MOVE:
-		break;
-	CURSOR_GRAB:
-		break;
-
-	}
+	_sellStand->render();
+	_storage1->render();
+	_storage2->render();
+	_blacksmith->render();
 }

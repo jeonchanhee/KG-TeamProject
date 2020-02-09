@@ -78,5 +78,18 @@ void mainGame::imagesInit()
 	IMAGEMANAGER->addImage("창고내부", "images/shop/storageMain2.bmp", 554, 504, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("템보여주기", "images/shop/showItem.bmp", 60, 60, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("슬롯이미지", "images/shop/slotImage.bmp", 40, 40, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("판매슬롯이미지", "images/shop/sellSlot.bmp", 60, 60, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("열기", "images/shop/열기.bmp", 193 / 2, 87 / 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("판매창", "images/shop/sellStand.bmp", 500, 500, true, RGB(255, 0, 255));
+
+	//벌컨의 대장간(npc상점)
+	IMAGEMANAGER->addImage("망치이미지", "images/blacksmith/망치이미지.bmp", 204, 132, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("벌컨", "images/blacksmith/벌컨.bmp", 186, 254, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("아이템보여주는창", "images/blacksmith/imageSlot.bmp", 450, 250, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("타이틀", "images/blacksmith/타이틀.bmp", 201, 44, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("업그레이드레시피", "images/blacksmith/업그레이드레시피.bmp", 170, 317, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("아머슬롯", "images/blacksmith/armorSlot.bmp", 57, 57, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("보우슬롯", "images/blacksmith/bowSlot.bmp", 57, 57, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("소드슬롯", "images/blacksmith/swordSlot.bmp", 57, 57, true, RGB(255, 0, 255));
 
 }

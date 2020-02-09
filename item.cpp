@@ -9,14 +9,13 @@ item::~item()
 {
 }
 
-HRESULT item::init(const char* name, itemType type , bool move, int orignalPrice, int playerPrice, int atk , int def , int speed, int hp ,int heal , int cnt, int maxCnt)
+HRESULT item::init(const char* name, itemType type , int orignalPrice, int playerPrice, int atk , int def , int speed, int hp ,int heal , int maxCnt)
 {
-
 
 	_item.itemName = name;
 	_item.image = IMAGEMANAGER->findImage(name);
 	_item.type = type;
-	_item.move = true;
+	_item.move = false;
 	_item.orignalPrice = orignalPrice;
 	_item.playerPrice = playerPrice;
 	_item.rc = RectMakeCenter(0, 0, _item.image->getWidth(), _item.image->getHeight());
@@ -26,8 +25,10 @@ HRESULT item::init(const char* name, itemType type , bool move, int orignalPrice
 	_item.speed = speed;
 	_item.hp = hp;
 	_item.heal = heal;
-	_item.cnt = cnt;
+	_item.cnt = 1;
 	_item.maxCnt = maxCnt;
+	_item.maxItem = false;
+
 	waveCnt = 0;
 	updown = true;
 	return S_OK;
@@ -39,16 +40,24 @@ void item::release()
 
 void item::update()
 {
-	_item.magnetRc = RectMakeCenter(_item.rc.left, _item.rc.top, _item.image->getWidth() * 5, _item.image->getHeight() * 5);
+	_item.magnetRc = RectMakeCenter(_item.rc.left, _item.rc.top, _item.image->getWidth() * 4, _item.image->getHeight() * 4);
 
+	//템갯수가 맥스카운트에 도달하면 꽉찼다고 바뀜
+	if (_item.maxCnt <= _item.cnt)
+	{
+		_item.maxItem = true;
+		_item.cnt = _item.maxCnt;
+	}
+	else if (_item.maxCnt > _item.cnt) _item.maxItem = false;
 	
 	wave();
-	//magnet(PLAYER->getRect());
+	magnet(PLAYER->getPlayercollision());
 }
 
 void item::render()
 {
-	//Rectangle(getMemDC(), _magnetRc.left, _magnetRc.top, _magnetRc.right, _magnetRc.bottom);
+	if(KEYMANAGER->isToggleKey('T')) Rectangle(CAMERAMANAGER->getCameraDC(), _item.rc.left, _item.rc.top, _item.rc.right, _item.rc.bottom);
+	
 	_item.image->render(CAMERAMANAGER->getCameraDC(), _item.rc.left, _item.rc.top);
 }
 
@@ -97,23 +106,17 @@ void item::magnet(RECT playerRc)
 		}
 	}
 
-	//자석에 끌려가서 플레이어와 아이템이 닿았을때 인벤토리로 보내줌
-	if (_item.move && (IntersectRect(&temp, &_item.rc, &playerRc)))
-	{
-		
-		
-	}
 
 
 }
 
 void item::wave()
 {
-	if (_item.move)
+	if (_item.move)		//바닥에 떨어진 템이라면
 	{
 		waveCnt++;
 
-		if(updown)
+		if(updown)		//위아래로 흔들림
 		{
 			_item.rc.top -= 1;
 			_item.rc.bottom -= 1;
