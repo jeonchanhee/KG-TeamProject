@@ -12,32 +12,46 @@ void mainGame::imagesInit()
 	IMAGEMANAGER->addImage("¾ÕÀ¸·Î", "images/¾ÕÀ¸·Î°¡±â¹öÆ°.bmp", 64, 64, true, RGB(255, 0, 255));
 	
 	//¸ó½ºÅÍ
-	IMAGEMANAGER->addFrameImage("golemTurret", "images/monster/golemTurret.bmp", 0, 0, 546 * 2, 212 * 2, 12, 4, true, RGB(255, 0, 255));
-	ANIMATIONMANAGER->addAnimation("golemTurretL", "golemTurret", 0, 11, 12, true, true);
-	ANIMATIONMANAGER->addAnimation("golemTurretU", "golemTurret", 12, 24, 12, false, true);
-	ANIMATIONMANAGER->addAnimation("golemTurretR", "golemTurret", 24, 36, 12, false, true);
-	ANIMATIONMANAGER->addAnimation("golemTurretB", "golemTurret", 36, 47, 12, false, true);
-	IMAGEMANAGER->addFrameImage("golemSoldier", "images/monster/golemSoldier.bmp", 0, 0, 1520 * 2, 760 * 2, 8, 4, true, RGB(255, 0, 255));
-	ANIMATIONMANAGER->addAnimation("golemSoldierL", "golemSoldier", 0, 7, 8, false, true);
-	ANIMATIONMANAGER->addAnimation("golemSoldierR", "golemSoldier", 8, 15, 8, false, true);
-	ANIMATIONMANAGER->addAnimation("golemSoldierU", "golemSoldier", 16, 23, 8, false, true);
-	ANIMATIONMANAGER->addAnimation("golemSoldierB", "golemSoldier", 24, 31, 8, false, true);
-	IMAGEMANAGER->addFrameImage("golemSoldierAtk", "images/monster/golemSoldierAtk.bmp", 0, 0, 2460 * 2, 760 * 2, 13, 4, true, RGB(255, 0, 255));
-	ANIMATIONMANAGER->addAnimation("golemSoldierAtkL", "golemSoldierAtk", 0, 12, 13, false, true);
-	ANIMATIONMANAGER->addAnimation("golemSoldierAtkR", "golemSoldierAtk", 13, 25, 13, false, true);
-	ANIMATIONMANAGER->addAnimation("golemSoldierAtkU", "golemSoldierAtk", 26, 38, 13, false, true);
-	ANIMATIONMANAGER->addAnimation("golemSoldierAtkB", "golemSoldierAtk", 39, 52, 13, false, true);
-	IMAGEMANAGER->addFrameImage("slimeGauntlet", "images/monster/slimeGauntlet.bmp", 0, 0, 810 * 2, 356 * 2, 14, 4, true, RGB(255, 0, 255));
-	ANIMATIONMANAGER->addAnimation("slimeGauntletL", "slimeGauntlet", 0, 13, 14, false, true);
-	ANIMATIONMANAGER->addAnimation("slimeGauntletU", "slimeGauntlet", 14, 27, 14, false, true);
-	ANIMATIONMANAGER->addAnimation("slimeGauntletR", "slimeGauntlet", 28, 41, 14, false, true);
-	ANIMATIONMANAGER->addAnimation("slimeGauntletB", "slimeGauntlet", 42, 55, 14, false, true);
-	IMAGEMANAGER->addFrameImage("golemBoss", "images/monster/golemBoss.bmp", 0, 0, 778 * 2, 518 * 2, 8, 4, true, RGB(255, 0, 255));
-	ANIMATIONMANAGER->addAnimation("golemBossL", "golemBoss", 0, 7, 8, false, true);
-	ANIMATIONMANAGER->addAnimation("golemBossU", "golemBoss", 8, 15, 8, false, true);
-	ANIMATIONMANAGER->addAnimation("golemBossR", "golemBoss", 16, 23, 8, false, true);
-	ANIMATIONMANAGER->addAnimation("golemBossB", "golemBoss", 24, 31, 8, false, true);
-
+	IMAGEMANAGER->addFrameImage("°ñ·½ÅÍ·¿", "images/monster/golemTurret.bmp", 0, 0, 546 * 2, 212 * 2, 12, 4, true, RGB(255, 0, 255));
+	ANIMATIONMANAGER->addAnimation("°ñ·½ÅÍ·¿L", "°ñ·½ÅÍ·¿", 0, 11, 12, true, true);
+	ANIMATIONMANAGER->addAnimation("°ñ·½ÅÍ·¿U", "°ñ·½ÅÍ·¿", 12, 24, 12, false, true);
+	ANIMATIONMANAGER->addAnimation("°ñ·½ÅÍ·¿R", "°ñ·½ÅÍ·¿", 24, 36, 12, false, true);
+	ANIMATIONMANAGER->addAnimation("°ñ·½ÅÍ·¿B", "°ñ·½ÅÍ·¿", 36, 47, 12, false, true);
+	IMAGEMANAGER->addFrameImage("°ñ·½¼ÖÀú", "images/monster/golemSoldier.bmp", 0, 0, 1520, 760, 8, 4, true, RGB(255, 0, 255));
+	ANIMATIONMANAGER->addAnimation("°ñ·½¼ÖÀúL", "°ñ·½¼ÖÀú", 0, 7, 8, false, true);
+	ANIMATIONMANAGER->addAnimation("°ñ·½¼ÖÀúR", "°ñ·½¼ÖÀú", 8, 15, 8, false, true);
+	ANIMATIONMANAGER->addAnimation("°ñ·½¼ÖÀúU", "°ñ·½¼ÖÀú", 16, 23, 8, false, true);
+	ANIMATIONMANAGER->addAnimation("°ñ·½¼ÖÀúB", "°ñ·½¼ÖÀú", 24, 31, 8, false, true);
+	IMAGEMANAGER->addFrameImage("°ñ·½¼ÖÀú°ø°Ý", "images/monster/golemSoldierAtk.bmp", 0, 0, 2460, 760, 13, 4, true, RGB(255, 0, 255));
+	ANIMATIONMANAGER->addAnimation("°ñ·½¼ÖÀú°ø°ÝL", "°ñ·½¼ÖÀú°ø°Ý", 0, 12, 26, false, false);
+	ANIMATIONMANAGER->addAnimation("°ñ·½¼ÖÀú°ø°ÝR", "°ñ·½¼ÖÀú°ø°Ý", 13, 25, 26, false, false);
+	ANIMATIONMANAGER->addAnimation("°ñ·½¼ÖÀú°ø°ÝU", "°ñ·½¼ÖÀú°ø°Ý", 26, 38, 26, false, false);
+	ANIMATIONMANAGER->addAnimation("°ñ·½¼ÖÀú°ø°ÝB", "°ñ·½¼ÖÀú°ø°Ý", 39, 51, 26, false, false);
+	IMAGEMANAGER->addFrameImage("½½¶óÀÓ°ÇÆ²·¿", "images/monster/slimeGauntlet.bmp", 0, 0, 810 * 2, 356 * 2, 14, 4, true, RGB(255, 0, 255));
+	ANIMATIONMANAGER->addAnimation("½½¶óÀÓ°ÇÆ²·¿L", "½½¶óÀÓ°ÇÆ²·¿", 0, 13, 14, false, true);
+	ANIMATIONMANAGER->addAnimation("½½¶óÀÓ°ÇÆ²·¿U", "½½¶óÀÓ°ÇÆ²·¿", 14, 27, 14, false, true);
+	ANIMATIONMANAGER->addAnimation("½½¶óÀÓ°ÇÆ²·¿R", "½½¶óÀÓ°ÇÆ²·¿", 28, 41, 14, false, true);
+	ANIMATIONMANAGER->addAnimation("½½¶óÀÓ°ÇÆ²·¿B", "½½¶óÀÓ°ÇÆ²·¿", 42, 55, 14, false, true);
+	IMAGEMANAGER->addFrameImage("½½¶óÀÓ°ÇÆ²·¿°ø°Ý", "images/monster/slimeGauntletAtk.bmp", 0, 0, 10420 * 2, 800 * 2, 52, 4, true, RGB(255, 0, 255));
+	ANIMATIONMANAGER->addAnimation("½½¶óÀÓ°ÇÆ²·¿°ø°ÝB", "½½¶óÀÓ°ÇÆ²·¿°ø°Ý", 0, 51, 52, false, true);
+	ANIMATIONMANAGER->addAnimation("½½¶óÀÓ°ÇÆ²·¿°ø°ÝL", "½½¶óÀÓ°ÇÆ²·¿°ø°Ý", 52, 103, 52, false, true);
+	ANIMATIONMANAGER->addAnimation("½½¶óÀÓ°ÇÆ²·¿°ø°ÝR", "½½¶óÀÓ°ÇÆ²·¿°ø°Ý", 104, 155, 52, false, true);
+	ANIMATIONMANAGER->addAnimation("½½¶óÀÓ°ÇÆ²·¿°ø°ÝU", "½½¶óÀÓ°ÇÆ²·¿°ø°Ý", 156, 207, 52, false, true);
+	IMAGEMANAGER->addFrameImage("°ñ·½º¸½º", "images/monster/golemBoss.bmp", 0, 0, 778 * 2, 518 * 2, 8, 4, true, RGB(255, 0, 255));
+	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½ºL", "°ñ·½º¸½º", 0, 7, 8, false, true);
+	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½ºU", "°ñ·½º¸½º", 8, 15, 8, false, true);
+	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½ºR", "°ñ·½º¸½º", 16, 23, 8, false, true);
+	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½ºB", "°ñ·½º¸½º", 24, 31, 8, false, true);
+	IMAGEMANAGER->addFrameImage("°ñ·½º¸½º°ø°Ý1", "images/monster/golemBossAtk1.bmp", 0, 0, 3022 * 2, 1018 * 2, 15, 4, true, RGB(255, 0, 255));
+	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°Ý1B", "°ñ·½º¸½º°ø°Ý1", 0, 14, 15, false, true);
+	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°Ý1L", "°ñ·½º¸½º°ø°Ý1", 16, 29, 15, false, true);
+	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°Ý1R", "°ñ·½º¸½º°ø°Ý1", 30, 44, 15, false, true);
+	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°Ý1U", "°ñ·½º¸½º°ø°Ý1", 45, 59, 15, false, true);
+	IMAGEMANAGER->addFrameImage("°ñ·½º¸½º°ø°Ý2", "images/monster/golemBossAtk2.bmp", 0, 0, 3004 * 2, 1008 * 2, 15, 4, true, RGB(255, 0, 255));
+	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°Ý2B", "°ñ·½º¸½º°ø°Ý2", 0, 14, 15, false, true);
+	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°Ý2L", "°ñ·½º¸½º°ø°Ý2", 16, 29, 15, false, true);
+	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°Ý2R", "°ñ·½º¸½º°ø°Ý2", 30, 44, 15, false, true);
+	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°Ý2U", "°ñ·½º¸½º°ø°Ý2", 45, 59, 15, false, true);
 
 
 

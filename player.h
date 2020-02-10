@@ -1,8 +1,7 @@
 #pragma once
 //#include"gameNode.h"
 #include"singletonBase.h"
-//#include "weapons.h"				// 무기(공격) 클래스  아직 미완성 완성되면 bullet클래스 넣을 것
-//#include "bullet.h"					// 화살이 나올 수 있도록 
+#include "bullet.h"				// 무기(공격) 클래스 
 
 /*
 	인벤토리
@@ -15,8 +14,7 @@
 
 	메이플스토리 폰트
 
-	너의 한달 포폴은 무엇으로 할까
-
+	플레이어 공간입니다.
 */
 
 enum PLAYERLOCATION  //플레이어 위치 
@@ -27,10 +25,15 @@ enum PLAYERLOCATION  //플레이어 위치
 
 enum PLAYERMOVING		//플레이어 동작 상태
 {
+	PLAYER_STOP_IDLE,
 	PLAYER_DOWN_IDLE,
 	PLAYER_DOWN,
+	PAYER_LEFT_DOWN,
+	PAYER_RIGHT_DOWN,
 	PLAYER_UP_IDLE,
 	PLAYER_UP,
+	PAYER_LEFT_UP,
+	PAYER_RIGHT_UP,
 	PLAYER_LEFT_IDLE,
 	PLAYER_LEFT,
 	PLAYER_RIGHT_IDLE,
@@ -38,7 +41,11 @@ enum PLAYERMOVING		//플레이어 동작 상태
 	PLAYER_RIGHT_ROLL,
 	PLAYER_LEFT_ROLL,
 	PLAYER_UP_ROLL,
+	PAYER_LEFT_UP_ROLL,
+	PAYER_RIGHT_UP_ROLL,
 	PLAYER_BACK_ROLL,
+	PAYER_LEFT_DOWN_ROLL,
+	PAYER_RIGHT_DOWN_ROOL,
 	PLAYER_DIE
 };
 
@@ -74,11 +81,12 @@ struct tagplayer		//플레이어 구조체
 	int _playercount;						//플레이어 이미지 카운터
 	int _playerindex;						//플레이어 이미지 인덱스 
 	int  HP;										//HP
+	int attCount;
 
 	float x, y;									//플레이어 x, y
 
 	bool _isattackmove;					//캐릭터의 공격동작을 알려주는 bool값
-	bool _ischageweapon;			//캐릭터의 무기 체인지
+	bool  _isFire;									//활을 쐈냐?
 
 };
 
@@ -93,7 +101,7 @@ private:
 
 	float attacktime;			//TIMEMANAGER를 이용하여 조건 값 준 것(KEYMANAGER->isOnceKeyDown('K')) 참고
 
-
+	weapons* _arrowfirst;   // 화살 
 
 public:
 	player();
@@ -104,10 +112,13 @@ public:
 	void update();
 	void render(HDC hdc);
 
-	void shopPlayermove();				//샵플레이어 이동 함수
-	void dungeonPlayermove();		// 던전 플레이어 이동 함수
-	void playermoveversion();		  //플레이어 무브 버전
+	//void shopPlayermove();				//샵플레이어 이동 함수
+	//void dungeonPlayermove();		// 던전 플레이어 이동 함수
+	void playerKeyControl();				// 플레이어 키
+	void playerAtt();							//플레이어 공격 
+	void playermoveversion();		  //플레이어 이동 모션
 	void attackmove();						// 던전 플레이어 공격 함수 
+	void arrowFIre(WEAPONMOVE weponMove);
 	void allplayerimage();				// 플레이어 이미지 모음
 
 	int getHP() { return _player.HP; }
@@ -116,5 +127,8 @@ public:
 	void setHP(int hp) { _player.HP = hp; }
 
 	RECT getPlayercollision() { return _player._collisionplayer; }		 //플레이어 함수
-};
 
+	float getPlayerX() { return _player.x; }					// 몬스터가 플레이어를 따라오기 위한 x
+	float getPlayerY() { return _player.y; }					// 몬스터가 플레이어를 따라오기 위한 y
+
+};

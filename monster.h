@@ -37,6 +37,7 @@ private:
 	MONSTER_DIRECTION _monDirect;//방향
 	image * _monsterImg;	//이미지
 	animation* _ani;			//애니메이션
+	animation* _aniAtk;			//애니메이션
 	monsterProgressBar* _hpBar;	//체력바
 	RECT rc;				//피격범위
 	int atk;				//공격력
@@ -74,7 +75,7 @@ public:
 
 
 
-	bool attack(MONSTER_TYPE monType);	//공격
+	bool attack(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect);	//공격
 	bool hit();		//피격
 	bool move();	//이동
 	bool die();		//사망, 아이템드롭
@@ -91,11 +92,11 @@ public:
 	void golemSoldierDirectImg(MONSTER_DIRECTION monDirect);
 	void slimeGauntletDirectImg(MONSTER_DIRECTION monDirect);
 	void golemBossDirectImg(MONSTER_DIRECTION monDirect);
-	
+
 	bool golemTurretAtk();//골렘터렛공격
-	bool golemSoldierAtk();//골렘솔져공격
-	bool slimeGauntletAtk();//슬라임건틀릿공격
-	bool golemBossAtk();//골렘보스공격
+	bool golemSoldierAtk(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect);//골렘솔져공격
+	bool slimeGauntletAtk(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect);//슬라임건틀릿공격
+	bool golemBossAtk(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect);//골렘보스공격
 
 	//몬스터 HP바
 	void viewProgressBar();

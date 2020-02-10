@@ -88,3 +88,123 @@ void bullet::removeMissile(int arrNum)
 {
 	_vBullet.erase(_vBullet.begin() + arrNum);
 }
+
+weapons::weapons()
+{
+}
+
+weapons::~weapons()
+{
+}
+
+HRESULT weapons::init()
+{
+
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 10; j++)
+		{
+			if (i == 0)
+			{
+				_arrow._arrow = ARROW_LEFT;
+				_arrow._waponimg = new  image;
+				_arrow._waponimg->init("images/arrow/arrow_left.bmp", 52, 10, true, RGB(255, 0, 255));
+			}
+			if (i == 1)
+			{
+				_arrow._arrow = ARROW_RIGHT;
+				_arrow._waponimg = new image;
+				_arrow._waponimg->init("images/arrow/arrow_right.bmp", 52, 10, true, RGB(255, 0, 255));
+			}
+			if (i == 2)
+			{
+				_arrow._arrow = ARROW_UP;
+				_arrow._waponimg = new image;
+				_arrow._waponimg->init("images/arrow/arrow_up.bmp", 10, 52, true, RGB(255, 0, 255));
+			}
+			if (i == 3)
+			{
+				_arrow._arrow = ARROW_DOWN;
+				_arrow._waponimg = new image;
+				_arrow._waponimg->init("images/arrow/arrow_down.bmp", 10, 52, true, RGB(255, 0, 255));
+			}
+
+			_arrow._spped = 5.0f;
+			_arrow._isfire = false;
+
+			_varrow.push_back(_arrow);
+
+		}
+	}
+	return S_OK;
+}
+//===============================================================
+//													플레이어가 사용할 크랠스 
+//===============================================================
+
+void weapons::release()
+{
+}
+
+void weapons::update()
+{
+	move();
+}
+
+void weapons::fire(float x, float y, WEAPONMOVE weponMove)
+{
+	_viterarrow = _varrow.begin();
+
+	for (; _viterarrow != _varrow.end(); ++_viterarrow)
+	{
+		if (_viterarrow->_isfire) continue;
+
+		if (_viterarrow->_arrow == weponMove)
+		{
+			_viterarrow->_isfire = true;
+			_viterarrow->x = _viterarrow->fireX = x;
+			_viterarrow->y = _viterarrow->fireY = y;
+			_viterarrow->_rc = RectMakeCenter(_viterarrow->x, _viterarrow->y, _viterarrow->_waponimg->getWidth(),
+				_viterarrow->_waponimg->getHeight());
+			break;
+		}
+	}
+}
+
+void weapons::move()
+{
+	_viterarrow = _varrow.begin();
+	for (_viterarrow; _viterarrow != _varrow.end(); ++_viterarrow)
+	{
+		if (!_viterarrow->_isfire) continue;
+		//_viterarrow->y -= _viterarrow->_spped; 
+		if (_viterarrow->_arrow == ARROW_LEFT)
+		{
+			_viterarrow->x -= _viterarrow->_spped;
+		}
+		if (_viterarrow->_arrow == ARROW_RIGHT)
+		{
+			_viterarrow->x += _viterarrow->_spped;
+		}
+		if (_viterarrow->_arrow == ARROW_UP)
+		{
+			_viterarrow->y -= _viterarrow->_spped;
+		}
+		if (_viterarrow->_arrow == ARROW_DOWN)
+		{
+			_viterarrow->y += _viterarrow->_spped;
+		}
+
+		_viterarrow->_rc = RectMakeCenter(_viterarrow->x, _viterarrow->y, _viterarrow->_waponimg->getWidth(), _viterarrow->_waponimg->getHeight());
+	}
+}
+
+void weapons::render()
+{
+	_viterarrow = _varrow.begin();
+	for (_viterarrow; _viterarrow != _varrow.end(); ++_viterarrow)
+	{
+		if (!_viterarrow->_isfire) continue;
+		_viterarrow->_waponimg->render(getMemDC(), _viterarrow->_rc.left, _viterarrow->_rc.top);
+	}
+}

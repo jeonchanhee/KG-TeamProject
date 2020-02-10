@@ -27,6 +27,13 @@ inline RECT RectMake(int x, int y, int width, int height)
 	RECT rc = { x,y, x + width, y + height };
 	return rc;
 }
+//RECT만들기
+inline RECT RectMakeH(int x, int y, int width, int height)
+{
+	RECT rc = { x, y - height, x + width, y };
+	return rc;
+}
+
 //RECT만들기(중심점으로 부터)
 inline RECT RectMakeCenter(int x, int y, int width, int height)
 {

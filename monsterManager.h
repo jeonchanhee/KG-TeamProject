@@ -31,6 +31,8 @@ public:
 
 	//몬스터 생성
 	void setMinion();
+	//몬스터 공격
+	void attackMinion();
 	//총알 발사
 	void minionBulletFire();
 	//get
