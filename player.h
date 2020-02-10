@@ -111,6 +111,8 @@ public:
 	void allplayerimage();				// 플레이어 이미지 모음
 
 	int getHP() { return _player.HP; }
+	int getX() { return _player.x;}
+	int getY() { return _player.y; }
 	void setHP(int hp) { _player.HP = hp; }
 
 	RECT getPlayercollision() { return _player._collisionplayer; }		 //플레이어 함수

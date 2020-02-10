@@ -20,7 +20,10 @@ public:
 	void update();
 	void render();
 
+
+
 	item addItem(string itemName);				  //이름으로 아이템을 찾아서 보내주는 함수
+	item addItem(string itemName , int cntNum);	  //이름으로 아이템을 찾아서 보내주는 함수, 숫자로 갯수도 세팅가능
 	vector<item> getItemList() { return _vItem; } //아이템 벡터 자체를 보내는 함수
 
 };
