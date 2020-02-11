@@ -25,7 +25,7 @@ HRESULT mainGame::init()
 	_player->init();*/
 	ITEMMANAGER->init();
 	_playerShop->init();
-	//PLAYER->init();
+	PLAYER->init();
 	
 	_monsterManager = new monsterManager;
 	_monsterManager->init();
@@ -50,7 +50,7 @@ void mainGame::update()
 	_mapTool->update();
 	_monsterManager->update();
 	_playerShop->update();
-//	PLAYER->update();
+		PLAYER->update();
 	ANIMATIONMANAGER->update(); //애니메이션을 위해 사용한 것
 
 	if (KEYMANAGER->isOnceKeyDown('T'))
@@ -73,7 +73,7 @@ void mainGame::render(/*HDC hdc*/)
 	_monsterManager->render();
 	_playerShop->render();
 	_invenotry->render();
-//	PLAYER->render(DC);
+	PLAYER->render(DC);
 	ITEMMANAGER->render();
 	//_player->render(DC);
 	/*char str[128];
