@@ -117,3 +117,16 @@ item itemManager::addItem(string itemName)//이름으로 아이템을 찾아서 보내주는 함
 	//	}
 	//}
 }
+
+item itemManager::addItem(string itemName, int cntNum)
+{
+	_viItem = _vItem.begin();
+	for (_viItem; _viItem != _vItem.end(); ++_viItem)
+	{
+		if (_viItem->getItemInfo().itemName == itemName)
+		{
+			return (*_viItem);
+			break;
+		}
+	}
+}

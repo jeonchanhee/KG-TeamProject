@@ -22,6 +22,9 @@ struct itemInfo
 	RECT		magnetRc;		//바닥에 떨어진 상태에서 주변의 플레이어를 감지하는 렉트
 
 	bool		move;			//바닥에 떨어진 아이템인지 아닌지
+	
+	int			x;
+	int			y;
 
 	int			orignalPrice;	//원가
 	int			playerPrice;	//플레이어가 정한 가격
@@ -35,7 +38,6 @@ struct itemInfo
 
 	int			cnt;			//현재소지갯수
 	int			maxCnt;			//인벤토리 1칸당 최대소지갯수
-	bool		maxItem;		//소지갯수가 최대에 도달하면 true
 };
 
 class item
@@ -56,13 +58,15 @@ public:
 	void update();
 	void render();
 
-	void magnet(RECT playerRc);						//바닥에 떨어진 템이 플레이어게 끌려가는 기능
+	void magnet(POINT playerPoint);						//바닥에 떨어진 템이 플레이어게 끌려가는 기능
 	void wave();									//바닥에 떨어진 아이템이 약간 흔들리는 기능
+	bool maxItem();
+
 	itemInfo getItemInfo() {return _item;}			//아이템 정보를 가져옴
 	RECT getRECT() { return _item.rc; }				//아이템의 렉트를 가져옴
+	
 	void setItemCnt() { _item.cnt++; }				//갯수1증가
 	void setItemCnt(int num) { _item.cnt+= num; }	//갯수를 num만큼 증가
-	void setMaxItem() { _item.maxItem = true; }		
 
 	// 렉트의 위치를 설정
 	void setRect(int x, int y) { _item.rc = RectMakeCenter(x, y, _item.image->getWidth(), _item.image->getHeight()); } 

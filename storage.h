@@ -32,7 +32,7 @@ private:
 
 	cursor* _cursor;
 
-	RECT temp;
+	RECT temp;	int a, b;
 public:
 
 	storage();
@@ -51,11 +51,14 @@ public:
 
 	RECT getRECT() { return _boxRc; }
 	RECT getSlot(int arrNum) { return _slot[arrNum]; }
+	vector<item> getStorage() {return _vStorage;}
+	vector<item>& getStorage1() {return _vStorage;}
 	animation* getAni() { return _storageAni; }
 	
 	void itemArrange();			//아이템을 정리정돈 해주는 담당
 	void resetChoiceNum();		//템창껏다켰을때 커서위치 초기화
-	void addItem(item itemName) { _vStorage.push_back(itemName); }
+	void addItem(item item) { _vStorage.push_back(item); }
+	void removeItem();
 
 	void grab(); //커서가 아이템을 잡았을떄
 };

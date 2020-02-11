@@ -19,7 +19,6 @@ HRESULT item::init(const char* name, itemType type , int orignalPrice, int playe
 	_item.orignalPrice = orignalPrice;
 	_item.playerPrice = playerPrice;
 	_item.rc = RectMakeCenter(0, 0, _item.image->getWidth(), _item.image->getHeight());
-	_item.magnetRc = RectMakeCenter(_item.rc.left, _item.rc.top, _item.image->getWidth() * 5, _item.image->getHeight() * 5);
 	_item.atk = atk;
 	_item.def = def;
 	_item.speed = speed;
@@ -27,7 +26,6 @@ HRESULT item::init(const char* name, itemType type , int orignalPrice, int playe
 	_item.heal = heal;
 	_item.cnt = 1;
 	_item.maxCnt = maxCnt;
-	_item.maxItem = false;
 
 	waveCnt = 0;
 	updown = true;
@@ -40,18 +38,8 @@ void item::release()
 
 void item::update()
 {
-	_item.magnetRc = RectMakeCenter(_item.rc.left, _item.rc.top, _item.image->getWidth() * 4, _item.image->getHeight() * 4);
-
-	//템갯수가 맥스카운트에 도달하면 꽉찼다고 바뀜
-	if (_item.maxCnt <= _item.cnt)
-	{
-		_item.maxItem = true;
-		_item.cnt = _item.maxCnt;
-	}
-	else if (_item.maxCnt > _item.cnt) _item.maxItem = false;
-	
 	wave();
-	magnet(PLAYER->getPlayercollision());
+	magnet(PointMake(PLAYER->getX(), PLAYER->getY()));
 }
 
 void item::render()
@@ -61,53 +49,19 @@ void item::render()
 	_item.image->render(CAMERAMANAGER->getCameraDC(), _item.rc.left, _item.rc.top);
 }
 
-void item::magnet(RECT playerRc)
-{
-	RECT temp;
-
+void item::magnet(POINT playerPoint)
+{		
+	_item.x = _item.rc.left + (_item.rc.right - _item.rc.left) / 2;
+	_item.y = _item.rc.top + (_item.rc.bottom - _item.rc.top) / 2;
 	//상태가 무브일때, 그리고 플레이어를 감지하는 렉트와 플레이어의 렉트가 충돌했을때
-	if (_item.move&& (IntersectRect(&temp, &_item.magnetRc, &playerRc)))
+	if (_item.move && getDistance(_item.x, _item.y, playerPoint.x, playerPoint.y) < 100)
 	{
-		//마그넷렉트의 x,y
-		int magetX = _item.magnetRc.left + (_item.magnetRc.right - _item.magnetRc.left) / 2;
-		int magetY = _item.magnetRc.top + (_item.magnetRc.bottom - _item.magnetRc.top) / 2;
-		//플레이어의 x,y
-		int playerX = playerRc.left + (playerRc.right - playerRc.left) / 2;
-		int playerY = playerRc.top + (playerRc.bottom - playerRc.top) / 2;
-
-		//플레이어쪽으로 끌려감
-		if (magetX <= playerX && magetY >= playerY) //우상단
-		{
-			_item.rc.left += MAGNETPOWER;
-			_item.rc.right += MAGNETPOWER;
-			_item.rc.top -= MAGNETPOWER;
-			_item.rc.bottom -= MAGNETPOWER;
-		}
-		if (magetX <= playerX && magetY <= playerY) //우하단
-		{
-			_item.rc.left += MAGNETPOWER;
-			_item.rc.right += MAGNETPOWER;
-			_item.rc.top += MAGNETPOWER;
-			_item.rc.bottom += MAGNETPOWER;
-		}
-		if (magetX >= playerX && magetY >= playerY) //좌상단
-		{
-			_item.rc.left -= MAGNETPOWER;
-			_item.rc.right -= MAGNETPOWER;
-			_item.rc.top -= MAGNETPOWER;
-			_item.rc.bottom -= MAGNETPOWER;
-		}
-		if (magetX >= playerX && magetY <= playerY) //좌하단
-		{
-			_item.rc.left -= MAGNETPOWER;
-			_item.rc.right -= MAGNETPOWER;
-			_item.rc.top += MAGNETPOWER;
-			_item.rc.bottom += MAGNETPOWER;
-		}
+		if (_item.x < playerPoint.x) _item.x += 2;
+		if (_item.x > playerPoint.x) _item.x -= 2;
+		if (_item.y < playerPoint.y) _item.y += 2;
+		if (_item.y < playerPoint.y) _item.y -= 2;
 	}
-
-
-
+	_item.rc = RectMakeCenter(_item.x, _item.y, _item.image->getWidth(), _item.image->getHeight());
 }
 
 void item::wave()
@@ -134,6 +88,16 @@ void item::wave()
 		}
 
 	}
+}
+
+bool item::maxItem()
+{
+	if (_item.maxCnt <= _item.cnt)
+	{
+		_item.cnt = _item.maxCnt;
+		return true;
+	}
+	else return false;
 }
 
 
