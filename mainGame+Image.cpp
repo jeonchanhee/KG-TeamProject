@@ -10,6 +10,12 @@ void mainGame::imagesInit()
 	IMAGEMANAGER->addImage("닫기", "images/닫기버튼.bmp", 64, 64, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("뒤로", "images/뒤로가기버튼.bmp", 64, 64, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("앞으로", "images/앞으로가기버튼.bmp", 64, 64, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("던전", "images/dungeon.bmp", 215, 42, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("마을", "images/village.bmp", 215, 42, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("세이브", "images/save.bmp", 215, 42, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("로드", "images/load.bmp", 215, 42, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("지형", "images/terrain.bmp", 215, 42, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("오브젝트", "images/object.bmp", 215, 42, true, RGB(255, 0, 255));
 	
 	//몬스터
 	IMAGEMANAGER->addFrameImage("골렘터렛", "images/monster/golemTurret.bmp", 0, 0, 546 * 2, 212 * 2, 12, 4, true, RGB(255, 0, 255));

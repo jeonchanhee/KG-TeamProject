@@ -29,6 +29,12 @@ private:
 	
 	tagSampleBook _sampleBook;
 	
+	tagBottun bottun[4];
+
+	RECT rc[8];
+
+	int page;
+
 public:
 	mapTool();
 	~mapTool();
@@ -46,7 +52,11 @@ public:
 	void mapInit();
 	void setSampleBook();
 	void controlSampleBook();
+	void sampleBookKey();
+	void setSampleBookBottun();
+	void sampleBookBottunControl();
 	void setSampleTile();
+	void sampleSetRc();
 
 
 	TERRAIN dungeonTerrainSelect(int frameX, int frameY);

@@ -10,6 +10,8 @@ HRESULT mapTool::init()
 	setUp();
 	setSampleBook();
 
+	page = 0;
+
 	return S_OK;
 }
 
@@ -19,7 +21,6 @@ void mapTool::update()
 {
 	cameraMove();
 	controlSampleBook();
-
 }
 
 void mapTool::render()
@@ -47,28 +48,66 @@ void mapTool::render()
 	}
 
 	//¼ÀÇÃºÏ
-	_sampleBook.img->render(getMemDC(), _sampleBook.rc.left, _sampleBook.rc.top);
+	_sampleBook.img->render(CAMERAMANAGER->getCameraDC(), _sampleBook.rc.left, _sampleBook.rc.top);
 
 	if (_sampleBook.Summons)
 	{
-		for (int i = 0; i < 3; i++)
+	
+		if (page == 0)
 		{
-			_sampleBook.bottun[i].img->render(getMemDC(), _sampleBook.bottun[i].rc.left, _sampleBook.bottun[i].rc.top);
+			_sampleBook.bottun[0].img->render(CAMERAMANAGER->getCameraDC(), _sampleBook.bottun[0].rc.left, _sampleBook.bottun[0].rc.top);
+
+			for (int i = 0; i < 4; i++)
+			{
+				bottun[i].img->render(CAMERAMANAGER->getCameraDC(), bottun[i].rc.left, bottun[i].rc.top);
+			}
+		}
+		else if( page > 0 && page < 10)
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				_sampleBook.bottun[i].img->render(CAMERAMANAGER->getCameraDC(), _sampleBook.bottun[i].rc.left, _sampleBook.bottun[i].rc.top);
+			}
+
+			for (int i = 0; i < 4; i++)
+			{
+				bottun[i].img->render(CAMERAMANAGER->getCameraDC(), bottun[i].rc.left, bottun[i].rc.top);
+			}
+
+			for (int i = 0; i < 8; i++)
+			{
+				Rectangle(CAMERAMANAGER->getCameraDC(), rc[i].left, rc[i].top, rc[i].right, rc[i].bottom);
+			}
+		}
+		else if(page > 9)
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				_sampleBook.bottun[i].img->render(CAMERAMANAGER->getCameraDC(), _sampleBook.bottun[i].rc.left, _sampleBook.bottun[i].rc.top);
+			}
+
+			for (int i = 0; i < 2; i++)
+			{
+				bottun[i].img->render(CAMERAMANAGER->getCameraDC(), bottun[i].rc.left, bottun[i].rc.top);
+			}
+		}
+	}
+
+	if (KEYMANAGER->isToggleKey(VK_TAB))
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			Rectangle(CAMERAMANAGER->getCameraDC(), bottun[i].rc.left, bottun[i].rc.top, bottun[i].rc.right, bottun[i].rc.bottom);
 		}
 
-		/*for (int i = 0; i < 10; i++)
-		{
-			Rectangle(getMemDC(), _sampleBook.sampleRc[i].left, _sampleBook.sampleRc[i].top, _sampleBook.sampleRc[i].right, _sampleBook.sampleRc[i].bottom);
-		}*/
+		SetBkMode(CAMERAMANAGER->getCameraDC(), TRANSPARENT);
+		//»ö»ó
+		SetTextColor(CAMERAMANAGER->getCameraDC(), RGB(255, 0, 0));
 
+		char str[128];
+		sprintf_s(str, "%d", page);
+		TextOut(CAMERAMANAGER->getCameraDC(), 100, 500, str, strlen(str));
 	}
-	
-	/*for (int i = 0; i < SAMPLETILEX * SAMPLETILEY; i++)
-	{
-		Rectangle(CAMERAMANAGER->getCameraDC(), _sampleTile[i].rcTile.left, _sampleTile[i].rcTile.top, _sampleTile[i].rcTile.right, _sampleTile[i].rcTile.bottom);
-	}*/
-
-	
 
 }
 
@@ -148,83 +187,7 @@ void mapTool::mapInit()
 		
 	}
 }
-
-void mapTool::setSampleBook()
-{
-	_sampleBook.Summons = false;
-	_sampleBook.img = IMAGEMANAGER->findImage("¿·¼ÀÇÃºÏ");
-	_sampleBook.x = WINSIZEX - _sampleBook.img->getWidth() / 2;
-	_sampleBook.y = WINSIZEY / 2;
-	_sampleBook.rc = RectMakeCenter(_sampleBook.x, _sampleBook.y, _sampleBook.img->getWidth(), _sampleBook.img->getHeight());
-}
-
-void mapTool::controlSampleBook()
-{
-	
-	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
-	{
-		if (PtInRect(&_sampleBook.rc, m_ptMouse))
-		{
-			_sampleBook.Summons = true;
-		}
-
-		for (int i = 0; i < 3; i++)
-		{
-			if (PtInRect(&_sampleBook.bottun[i].rc, m_ptMouse))
-			{
-				if (i == 0) _sampleBook.Summons = false;
-			}
-		}
-	}
-	
-
-	if (_sampleBook.Summons)
-	{
-		_sampleBook.img = IMAGEMANAGER->findImage("¼ÀÇÃºÏ");
-		_sampleBook.x = WINSIZEX / 2;
-		_sampleBook.y = WINSIZEY - _sampleBook.img->getHeight() / 2;
-	}
-	else
-	{
-		_sampleBook.img = IMAGEMANAGER->findImage("¿·¼ÀÇÃºÏ");
-		_sampleBook.x = WINSIZEX - _sampleBook.img->getWidth() / 2;
-		_sampleBook.y = WINSIZEY / 2;
-	}
-	
-	_sampleBook.rc = RectMakeCenter(_sampleBook.x, _sampleBook.y, _sampleBook.img->getWidth(), _sampleBook.img->getHeight());
-
-
-	//¹öÆ° ¼³Á¤
-	if (_sampleBook.Summons)
-	{
-		_sampleBook.bottun[0].img = IMAGEMANAGER->findImage("´Ý±â");
-		_sampleBook.bottun[0].x = _sampleBook.rc.right - _sampleBook.bottun[0].img->getWidth();
-		_sampleBook.bottun[0].y = _sampleBook.rc.top + _sampleBook.bottun[0].img->getHeight();
-		_sampleBook.bottun[0].rc = RectMakeCenter(_sampleBook.bottun[0].x, _sampleBook.bottun[0].y, _sampleBook.bottun[0].img->getWidth(), _sampleBook.bottun[0].img->getHeight());
-
-		_sampleBook.bottun[1].img = IMAGEMANAGER->findImage("µÚ·Î");
-		_sampleBook.bottun[1].x = _sampleBook.rc.left + _sampleBook.bottun[1].img->getWidth();
-		_sampleBook.bottun[1].y = _sampleBook.rc.bottom - _sampleBook.bottun[1].img->getHeight() - 20;
-		_sampleBook.bottun[1].rc = RectMakeCenter(_sampleBook.bottun[1].x, _sampleBook.bottun[1].y, _sampleBook.bottun[1].img->getWidth(), _sampleBook.bottun[1].img->getHeight());
-
-		_sampleBook.bottun[2].img = IMAGEMANAGER->findImage("¾ÕÀ¸·Î");
-		_sampleBook.bottun[2].x = _sampleBook.rc.right - _sampleBook.bottun[2].img->getWidth();
-		_sampleBook.bottun[2].y = _sampleBook.rc.bottom - _sampleBook.bottun[2].img->getHeight() - 20;
-		_sampleBook.bottun[2].rc = RectMakeCenter(_sampleBook.bottun[2].x, _sampleBook.bottun[2].y, _sampleBook.bottun[2].img->getWidth(), _sampleBook.bottun[2].img->getHeight());
-
-
-	}
-	
-	if (_sampleBook.Summons)
-	{
-		/*for (int i = 0; i < 11; i++)
-		{
-			if (i <= 5) _sampleBook.sampleRc[i] = RectMakeCenter((_sampleBook.rc.left - 10) + i * 100, _sampleBook.rc.top + 50, 100, 100);
-			if (i > 5) _sampleBook.sampleRc[i] = RectMakeCenter((_sampleBook.rc.left - 10) + (i - 5) * 100, _sampleBook.rc.top + 200, 100, 100);
-		}*/
-	}
-}
-
+//»ùÇÃÅ¸ÀÏ ¼³Á¤
 void mapTool::setSampleTile()
 {
 	for (int i = 0; i < SAMPLETILEY; i++)
@@ -240,6 +203,298 @@ void mapTool::setSampleTile()
 		}
 	}
 
+
+}
+
+//=================================================================================
+//
+//				»ù					ÇÃ						ºÏ	
+//
+//=================================================================================
+
+//»ùÇÃºÏ ¼³Á¤
+void mapTool::setSampleBook()
+{
+	_sampleBook.Summons = false;
+	_sampleBook.img = IMAGEMANAGER->findImage("¿·¼ÀÇÃºÏ");
+	_sampleBook.x = WINSIZEX - _sampleBook.img->getWidth() / 2;
+	_sampleBook.y = WINSIZEY / 2;
+	_sampleBook.rc = RectMakeCenter(_sampleBook.x, _sampleBook.y, _sampleBook.img->getWidth(), _sampleBook.img->getHeight());
+}
+//»ùÇÃºÏ Å¬¸¯À¸·Î Á¶Á¾
+void mapTool::controlSampleBook()
+{
+	sampleBookKey();
+	
+	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+	{
+		if (PtInRect(&_sampleBook.rc, m_ptMouse))
+		{
+			_sampleBook.Summons = true;
+		}
+
+		for (int i = 0; i < 3; i++)
+		{
+			if (PtInRect(&_sampleBook.bottun[i].rc, m_ptMouse))
+			{
+				if (i == 0) _sampleBook.Summons = false;
+			}
+		}
+
+		if (PtInRect(&_sampleBook.bottun[1].rc, m_ptMouse))
+		{
+			if (page > 0) page--;
+		}
+
+		if (PtInRect(&_sampleBook.bottun[2].rc, m_ptMouse))
+		{
+			if (page > 0) page++;
+		}
+
+		if (_sampleBook.Summons)
+		{
+			_sampleBook.img = IMAGEMANAGER->findImage("¼ÀÇÃºÏ");
+			_sampleBook.x = WINSIZEX / 2;
+			_sampleBook.y = WINSIZEY - _sampleBook.img->getHeight() / 2;
+		}
+		else
+		{
+			_sampleBook.img = IMAGEMANAGER->findImage("¿·¼ÀÇÃºÏ");
+			_sampleBook.x = WINSIZEX - _sampleBook.img->getWidth() / 2;
+			_sampleBook.y = WINSIZEY / 2;
+		}
+
+
+		sampleBookBottunControl();
+	}
+
+
+
+	//¹öÆ° ¼³Á¤
+	if (_sampleBook.Summons)
+	{
+		_sampleBook.bottun[0].img = IMAGEMANAGER->findImage("´Ý±â");
+		_sampleBook.bottun[0].x = _sampleBook.rc.right - _sampleBook.bottun[0].img->getWidth();
+		_sampleBook.bottun[0].y = _sampleBook.rc.top + _sampleBook.bottun[0].img->getHeight();
+		_sampleBook.bottun[0].rc = RectMakeCenter(_sampleBook.bottun[0].x, _sampleBook.bottun[0].y, _sampleBook.bottun[0].img->getWidth(), _sampleBook.bottun[0].img->getHeight());
+
+		if (page > 0)
+		{
+			_sampleBook.bottun[1].img = IMAGEMANAGER->findImage("µÚ·Î");
+			_sampleBook.bottun[1].x = _sampleBook.rc.left + _sampleBook.bottun[1].img->getWidth();
+			_sampleBook.bottun[1].y = _sampleBook.rc.bottom - _sampleBook.bottun[1].img->getHeight() - 20;
+			_sampleBook.bottun[1].rc = RectMakeCenter(_sampleBook.bottun[1].x, _sampleBook.bottun[1].y, _sampleBook.bottun[1].img->getWidth(), _sampleBook.bottun[1].img->getHeight());
+
+			_sampleBook.bottun[2].img = IMAGEMANAGER->findImage("¾ÕÀ¸·Î");
+			_sampleBook.bottun[2].x = _sampleBook.rc.right - _sampleBook.bottun[2].img->getWidth();
+			_sampleBook.bottun[2].y = _sampleBook.rc.bottom - _sampleBook.bottun[2].img->getHeight() - 20;
+			_sampleBook.bottun[2].rc = RectMakeCenter(_sampleBook.bottun[2].x, _sampleBook.bottun[2].y, _sampleBook.bottun[2].img->getWidth(), _sampleBook.bottun[2].img->getHeight());
+		}
+
+		if (page > 0 && page < 10)
+		{
+			sampleSetRc();
+		}
+		setSampleBookBottun();
+	}
+	
+	if (!_sampleBook.Summons) page = 0;
+	
+	_sampleBook.rc = RectMakeCenter(_sampleBook.x, _sampleBook.y, _sampleBook.img->getWidth(), _sampleBook.img->getHeight());
+
+}
+//»ùÇÃºÏ Å°Á¶Á¾
+void mapTool::sampleBookKey()
+{
+	if (KEYMANAGER->isOnceKeyDown('C'))
+	{
+		if (_sampleBook.Summons) _sampleBook.Summons = false;
+		else _sampleBook.Summons = true;
+
+		if (_sampleBook.Summons)
+		{
+			_sampleBook.img = IMAGEMANAGER->findImage("¼ÀÇÃºÏ");
+			_sampleBook.x = WINSIZEX / 2;
+			_sampleBook.y = WINSIZEY - _sampleBook.img->getHeight() / 2;
+		}
+		else
+		{
+			_sampleBook.img = IMAGEMANAGER->findImage("¿·¼ÀÇÃºÏ");
+			_sampleBook.x = WINSIZEX - _sampleBook.img->getWidth() / 2;
+			_sampleBook.y = WINSIZEY / 2;
+		}
+	}
+
+	if (_sampleBook.Summons)
+	{
+		if (KEYMANAGER->isStayKeyDown('A') && _sampleBook.rc.left > 0)
+		{
+			_sampleBook.x -= 5;
+		}
+
+		if (KEYMANAGER->isStayKeyDown('D') && _sampleBook.rc.right < WINSIZEX )
+		{
+			_sampleBook.x += 5;
+		}
+
+		if (KEYMANAGER->isStayKeyDown('W') && _sampleBook.rc.top > 0)
+		{
+			_sampleBook.y -= 5;
+		}
+
+		if (KEYMANAGER->isStayKeyDown('S') && _sampleBook.rc.bottom < WINSIZEY)
+		{
+			_sampleBook.y += 5;
+		}
+	}
+
+}
+//»ùÇÃºÏ ¹öÆ° ¼³Á¤
+void mapTool::setSampleBookBottun()
+{
+	if (page == 0)
+	{
+		bottun[0].img = IMAGEMANAGER->findImage("´øÀü");
+		bottun[1].img = IMAGEMANAGER->findImage("¸¶À»");
+		bottun[2].img = IMAGEMANAGER->findImage("¼¼ÀÌºê");
+		bottun[3].img = IMAGEMANAGER->findImage("·Îµå");
+		
+		for (int i = 0; i < 4; i++)
+		{
+			bottun[i].x = _sampleBook.rc.right - bottun[i].img->getWidth();
+			bottun[i].y = _sampleBook.rc.top + bottun[i].img->getHeight() * 2;
+			bottun[i].rc = RectMakeCenter(bottun[i].x, bottun[i].y + i * 100, bottun[i].img->getWidth(), bottun[i].img->getHeight());
+		}
+	}
+	else if (page > 0 && page < 4)
+	{
+		bottun[0].img = IMAGEMANAGER->findImage("´øÀü");
+		bottun[1].img = IMAGEMANAGER->findImage("¼¼ÀÌºê");
+		bottun[2].img = IMAGEMANAGER->findImage("ÁöÇü");
+		bottun[3].img = IMAGEMANAGER->findImage("·Îµå");
+
+		for (int i = 0; i < 4; i++)
+		{
+			if (i == 0)
+			{
+				bottun[i].x = _sampleBook.x;
+				bottun[i].y = _sampleBook.rc.top + bottun[i].img->getHeight() + 20;
+
+			}
+			else
+			{
+				bottun[i].x = _sampleBook.rc.left + 10;
+				bottun[i].y = _sampleBook.rc.bottom - bottun[i].img->getHeight() - 50;
+			}
+			bottun[i].rc = RectMakeCenter(bottun[i].x + i * 200, bottun[i].y, bottun[i].img->getWidth(), bottun[i].img->getHeight());
+		}
+	}
+	else if( page > 3 && page < 10)
+	{
+		bottun[0].img = IMAGEMANAGER->findImage("´øÀü");
+		bottun[1].img = IMAGEMANAGER->findImage("¼¼ÀÌºê");
+		bottun[2].img = IMAGEMANAGER->findImage("¿ÀºêÁ§Æ®");
+		bottun[3].img = IMAGEMANAGER->findImage("·Îµå");
+
+		for (int i = 0; i < 4; i++)
+		{
+			if (i == 0)
+			{
+				bottun[i].x = _sampleBook.x;
+				bottun[i].y = _sampleBook.rc.top + bottun[i].img->getHeight() + 20;
+
+			}
+			else
+			{
+				bottun[i].x = _sampleBook.rc.left + 10;
+				bottun[i].y = _sampleBook.rc.bottom - bottun[i].img->getHeight() - 50;
+			}
+			bottun[i].rc = RectMakeCenter(bottun[i].x + i * 200, bottun[i].y, bottun[i].img->getWidth(), bottun[i].img->getHeight());
+		}
+	}
+	else if (page == 10)
+	{
+		bottun[0].img = IMAGEMANAGER->findImage("¼¼ÀÌºê");
+		bottun[1].img = IMAGEMANAGER->findImage("·Îµå");
+
+		for (int i = 0; i < 2; i++)
+		{
+			if (i == 0)
+			{
+				bottun[i].x = _sampleBook.x;
+				bottun[i].y = _sampleBook.rc.top + bottun[i].img->getHeight() + 20;
+
+			}
+			else
+			{
+				bottun[i].x = _sampleBook.rc.left + 10;
+				bottun[i].y = _sampleBook.rc.bottom - bottun[i].img->getHeight() - 50;
+			}
+			bottun[i].rc = RectMakeCenter(bottun[i].x + i * 200, bottun[i].y, bottun[i].img->getWidth(), bottun[i].img->getHeight());
+		}
+	}
+	else if (page == 11)
+	{
+		bottun[0].img = IMAGEMANAGER->findImage("·Îµå");
+		bottun[1].img = IMAGEMANAGER->findImage("¼¼ÀÌºê");
+
+		for (int i = 0; i < 2; i++)
+		{
+			if (i == 0)
+			{
+				bottun[i].x = _sampleBook.x;
+				bottun[i].y = _sampleBook.rc.top + bottun[i].img->getHeight() + 20;
+
+			}
+			else
+			{
+				bottun[i].x = _sampleBook.rc.left + 10;
+				bottun[i].y = _sampleBook.rc.bottom - bottun[i].img->getHeight() - 50;
+			}
+			bottun[i].rc = RectMakeCenter(bottun[i].x + i * 200, bottun[i].y, bottun[i].img->getWidth(), bottun[i].img->getHeight());
+		}
+	}
+}
+//»ùÇÃºÏ Á¶Á¾ ¹öÆ°
+void mapTool::sampleBookBottunControl()
+{
+	for (int i = 0; i < 4; i++)
+	{
+		if (PtInRect(&bottun[i].rc, m_ptMouse))
+		{
+			if (page == 0)
+			{
+				if (i == 0) page = 1;
+				if (i == 1) page = 4;
+				if (i == 2) page = 10;
+				if (i == 3) page = 11;
+			}
+			else if (page > 0 && page < 10)
+			{
+				if (i == 1) page = 10;
+				if (i == 3) page == 11;
+			}
+			else if (page == 10)
+			{
+				if (i == 1) page == 11;
+			}
+			else if (page == 11)
+			{
+				if (i == 1) page = 10;
+			}
+		}
+	}
+}
+//»ùÇÃÀ» »Ñ·ÁÁÙ ·ºÆ®
+void mapTool::sampleSetRc()
+{
+	for (int i = 0; i < 2; i++)
+	{
+		rc[i] = RectMakeCenter((_sampleBook.rc.left + 150) + i * 150, _sampleBook.rc.top + 200, 100, 100);
+		rc[i + 2] = RectMakeCenter((_sampleBook.rc.right - 300) + i * 150, _sampleBook.rc.top + 200, 100, 100);
+		rc[i + 4] = RectMakeCenter((_sampleBook.rc.left + 150) + i * 150, _sampleBook.rc.bottom - 200, 100, 100);
+		rc[i + 6] = RectMakeCenter((_sampleBook.rc.right - 300) + i * 150, _sampleBook.rc.bottom - 200, 100, 100);
+	}
 
 }
 
@@ -307,6 +562,3 @@ OBJECT mapTool::dungeonObjSelect(int frameX, int frameY)
 
 	return OBJ_NONE;
 }
-
-
-

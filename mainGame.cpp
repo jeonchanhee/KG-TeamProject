@@ -19,18 +19,18 @@ HRESULT mainGame::init()
 
 	_mapTool = new mapTool;
 	_mapTool->init();
-	_playerShop = new playerShop;
+	//_playerShop = new playerShop;
 
-	/*_player = new player;
-	_player->init();*/
-	ITEMMANAGER->init();
-	_playerShop->init();
-	PLAYER->init();
+	///*_player = new player;
+	//_player->init();*/
+	//ITEMMANAGER->init();
+	//_playerShop->init();
+	///PLAYER->init();
+	//
+	//_monsterManager = new monsterManager;
+	//_monsterManager->init();
+
 	
-	_monsterManager = new monsterManager;
-	_monsterManager->init();
-
-
 
 	//안녕
 	//하이하이
@@ -47,10 +47,10 @@ void mainGame::update()
 {
 	gameNode::update();
 	_mapTool->update();
-	_monsterManager->update();
-	_playerShop->update();
-	PLAYER->update();
-	ANIMATIONMANAGER->update(); //애니메이션을 위해 사용한 것
+	//_monsterManager->update();
+	//_playerShop->update();
+	//PLAYER->update();
+	//ANIMATIONMANAGER->update(); //애니메이션을 위해 사용한 것
 
 	if (KEYMANAGER->isOnceKeyDown('T'))
 	{
@@ -69,15 +69,15 @@ void mainGame::render(/*HDC hdc*/)
 	PatBlt(CAMERAMANAGER->getCameraDC(), 0, 0, WINSIZEX, WINSIZEY, WHITENESS);
 
 	_mapTool->render();
-	_monsterManager->render();
+	/*_monsterManager->render();
 	_playerShop->render();
-	PLAYER->render(DC);
-	ITEMMANAGER->render();
+	ITEMMANAGER->render();*/
 	//_player->render(DC);
 	/*char str[128];
 	sprintf_s(str, "%d", PLAYER->getHP());
 	TextOut(DC, 200, 200, str, strlen(str));*/
 
+	PLAYER->render(DC);
 	TIMEMANAGER->render(CAMERAMANAGER->getCameraDC());
 	//=====================================================
 	//백버퍼의 내용을 HDC에 그린다.(지우지마!!)
