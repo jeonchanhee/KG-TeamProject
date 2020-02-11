@@ -21,7 +21,8 @@ HRESULT mainGame::init()
 	_mapTool->init();
 	//_playerShop = new playerShop;
 
-	///*_player = new player;
+
+	/*_player = new player;
 	//_player->init();*/
 	//ITEMMANAGER->init();
 	//_playerShop->init();
@@ -29,9 +30,8 @@ HRESULT mainGame::init()
 	//
 	//_monsterManager = new monsterManager;
 	//_monsterManager->init();
-
-	
-
+	_invenotry = new inventory;
+	_invenotry->init();
 	//안녕
 	//하이하이
 	return S_OK;
@@ -51,14 +51,19 @@ void mainGame::update()
 	//_playerShop->update();
 	//PLAYER->update();
 	//ANIMATIONMANAGER->update(); //애니메이션을 위해 사용한 것
+	_monsterManager->update();
+	_playerShop->update();
 
+	PLAYER->update();
+
+	ANIMATIONMANAGER->update(); //애니메이션을 위해 사용한 것
 	if (KEYMANAGER->isOnceKeyDown('T'))
 	{
 		//PLAYER->setHP(PLAYER->getHP() - 10);
 		
 	}
 	//_player->update();
-
+	_invenotry->update();
 }
 
 void mainGame::render(/*HDC hdc*/)
@@ -68,15 +73,22 @@ void mainGame::render(/*HDC hdc*/)
 	PatBlt(getMemDC(), CAMERAMANAGER->getCameraCenter().x - WINSIZEX / 2, CAMERAMANAGER->getCameraCenter().y - WINSIZEY / 2, WINSIZEX, WINSIZEY, WHITENESS);
 	PatBlt(CAMERAMANAGER->getCameraDC(), 0, 0, WINSIZEX, WINSIZEY, WHITENESS);
 
-	_mapTool->render();
-	/*_monsterManager->render();
-	_playerShop->render();
-	ITEMMANAGER->render();*/
-	//_player->render(DC);
-	/*char str[128];
-	sprintf_s(str, "%d", PLAYER->getHP());
-	TextOut(DC, 200, 200, str, strlen(str));*/
 
+
+
+
+
+
+
+
+
+
+
+
+	_mapTool->render();
+	_invenotry->render();
+	PLAYER->render(DC);
+	ITEMMANAGER->render();
 	PLAYER->render(DC);
 	TIMEMANAGER->render(CAMERAMANAGER->getCameraDC());
 	//=====================================================

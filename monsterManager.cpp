@@ -13,10 +13,10 @@ monsterManager::~monsterManager()
 HRESULT monsterManager::init()
 {
 
-	this->setMinion();
+	setMinion();
 
 	_bullet = new bullet;
-	_bullet->init("bullet", 10, 600);
+	_bullet->init("bullet", 1000, 600);
 
 	return S_OK;
 }
@@ -37,11 +37,11 @@ void monsterManager::update()
 	//총알업데이트
 	_bullet->update();
 	//공격 업데이트
-	this->attackMinion();
+	attackMinion();
 	//충돌
 	collision();
 	//총알발사
-	this->minionBulletFire();
+	//minionBulletFire();
 }
 //몬스터 랜더
 void monsterManager::render()
@@ -64,32 +64,32 @@ void monsterManager::setMinion()
 	{
 		monster* golemTurret;
 		golemTurret = new turretMinion;
-		golemTurret->init(MONSTER_TYPE_GOLEMTURRET, MONSTER_STATE_ATK, MONSTER_DIRECTION_LEFT, 700, 200 + i * 100);
+		golemTurret->init("골렘터렛",MONSTER_TYPE_GOLEMTURRET, MONSTER_STATE_ATK, MONSTER_DIRECTION_LEFT, 700, 200 + i * 100, 10, 100, 100, 50, 0);
 		_vMinion.push_back(golemTurret);
 	}
 	for (int i = 0; i < 2; i++)
 	{
 		monster* golemSoldier;
 		golemSoldier = new soldierMinion;
-		golemSoldier->init(MONSTER_TYPE_GOLEMSOLDIER, MONSTER_STATE_ATK, MONSTER_DIRECTION_DOWN, 500, 200 + i * 100);
+		golemSoldier->init("골렘솔저",MONSTER_TYPE_GOLEMSOLDIER, MONSTER_STATE_IDLE, MONSTER_DIRECTION_LEFT, 500, 200 + i * 100, 10, 100, 100, 50, 5);
 		_vMinion.push_back(golemSoldier);
 	}
 	for (int i = 0; i < 2; i++)
 	{
 		monster* slimeGauntlet;
 		slimeGauntlet = new slimeGauntletMinion;
-		slimeGauntlet->init(MONSTER_TYPE_SLIMEGAUNTLET, MONSTER_STATE_ATK, MONSTER_DIRECTION_DOWN, 300, 200 + i * 100);
+		slimeGauntlet->init("슬라임건틀렛",MONSTER_TYPE_SLIMEGAUNTLET, MONSTER_STATE_ATK, MONSTER_DIRECTION_DOWN, 300, 200 + i * 100, 10, 100, 100, 50, 0);
 		_vMinion.push_back(slimeGauntlet);
 	}
 	for (int i = 0; i < 2; i++)
 	{
 		monster* golemBoss;
 		golemBoss = new bossMinion;
-		golemBoss->init(MONSTER_TYPE_GOLEMBOSS, MONSTER_STATE_ATK, MONSTER_DIRECTION_RIGHT, 100, 200 + i * 100);
+		golemBoss->init("골렘보스",MONSTER_TYPE_GOLEMBOSS, MONSTER_STATE_ATK, MONSTER_DIRECTION_RIGHT, 100, 200 + i * 100, 10, 100, 100, 50, 5);
 		_vMinion.push_back(golemBoss);
 	}
 }
-
+//몬스터 공격
 void monsterManager::attackMinion()
 {
 	_viMinion = _vMinion.begin();
@@ -101,75 +101,84 @@ void monsterManager::attackMinion()
 		int type = (*_viMinion)->getType();
 		//방향 가져옴
 		int direct = (*_viMinion)->getDirection();
-		//골렘이고 공격이 true일때
+
+		if (type == 0 && (*_viMinion)->golemTurretAtk((*_viMinion)->getType(), (*_viMinion)->getDirection()))
+		{
+			////일직선 발사
+			RECT hRc = (*_viMinion)->getHRect();
+			int direct = (*_viMinion)->getDirection();
+			switch (direct) {
+			case MONSTER_DIRECTION_LEFT:
+				_bullet->fire((hRc.left + hRc.right) / 2 - 30, (hRc.bottom + hRc.top) / 2, MONSTER_DIRECTION_LEFT, 7.0f);
+				break;
+			case MONSTER_DIRECTION_RIGHT:
+				_bullet->fire((hRc.left + hRc.right) / 2 + 30, (hRc.bottom + hRc.top) / 2, MONSTER_DIRECTION_RIGHT, 7.0f);
+				break;
+			case MONSTER_DIRECTION_DOWN:
+				_bullet->fire((hRc.left + hRc.right) / 2, (hRc.bottom + hRc.top) / 2 + 30, MONSTER_DIRECTION_DOWN, 7.0f);
+				break;
+			case MONSTER_DIRECTION_UP:
+				_bullet->fire((hRc.left + hRc.right) / 2, (hRc.bottom + hRc.top) / 2 - 30, MONSTER_DIRECTION_UP, 7.0f);
+				break;
+			}
+		}
+
+		//골렘솔저고 공격이 true일때
 		if (type == 1 && (*_viMinion)->attack((*_viMinion)->getType(), (*_viMinion)->getDirection()))
 		{
-			RECT rc = (*_viMinion)->getRect();
+			//피격RECT생성
+			hRc = (*_viMinion)->getHRect();
+			RECT rc;
+			if (IntersectRect(&rc, &hRc, &PLAYER->getPlayercollision()))
+			{
+				PLAYER->setHP(PLAYER->getHP() - 10);
+			}
 			//(*_viMinion)->golemSoldierAtk((*_viMinion)->getDirection());
 		}
 		//슬라임건틀렛이고 공격이 true일때
 		if (type == 4 && (*_viMinion)->attack((*_viMinion)->getType(), (*_viMinion)->getDirection()))
 		{
-			RECT rc = (*_viMinion)->getRect();
+			//피격RECT생성
+			hRc = (*_viMinion)->getHRect();
+			RECT rc;
+			if (IntersectRect(&rc, &hRc, &PLAYER->getPlayercollision()))
+			{
+				PLAYER->setHP(PLAYER->getHP() - 10);
+			}
 		}
 		//골렘보스이고 공격이 true일때
 		if (type == 5 && (*_viMinion)->attack((*_viMinion)->getType(), (*_viMinion)->getDirection()))
 		{
-			RECT rc = (*_viMinion)->getRect();
-
-		}
-	}
-}
-
-//골렘터렛총알발사
-void monsterManager::minionBulletFire()
-{
-
-	_viMinion = _vMinion.begin();
-
-	for (_viMinion; _viMinion != _vMinion.end(); ++_viMinion)
-	{
-		//몬스터 타입이 0(골렘터렛)이면 공격함수가 동작할때 미사일이 발사
-		int type = (*_viMinion)->getType();
-		if (type == 0 && (*_viMinion)->golemTurretAtk())
-		{
-			////일직선 발사
-			RECT rc = (*_viMinion)->getRect();
-			int direct = (*_viMinion)->getDirection();
-			switch (direct) {
-			case MONSTER_DIRECTION_LEFT:
-				_bullet->fire((rc.left + rc.right) / 2 - 30, (rc.bottom + rc.top) / 2, PI, 500.f);
-				break;
-			case MONSTER_DIRECTION_RIGHT:
-				_bullet->fire((rc.left + rc.right) / 2 + 30, (rc.bottom + rc.top) / 2, 2 * PI, 500.f);
-				break;
-			case MONSTER_DIRECTION_DOWN:
-				_bullet->fire((rc.left + rc.right) / 2, (rc.bottom + rc.top) / 2 + 30, -PI_2, 500.f);
-				break;
-			case MONSTER_DIRECTION_UP:
-				_bullet->fire((rc.left + rc.right) / 2, (rc.bottom + rc.top) / 2 - 30, PI_2, 500.f);
-				break;
+			//피격RECT생성
+			hRc = (*_viMinion)->getHRect();
+			RECT rc;
+			if (IntersectRect(&rc, &hRc, &PLAYER->getPlayercollision()))
+			{
+				PLAYER->setHP(PLAYER->getHP() - 10);
 			}
+
 		}
 	}
 }
+
 //몬스터 벡터에서 제거
 void monsterManager::removeMinion(int arrNum)
 {
 	_vMinion.erase(_vMinion.begin() + arrNum);
 }
-//충돌
+//총알충돌
 void monsterManager::collision()
 {
+	//총알벡터와 플레이어 충돌
 	for (int i = 0; i < _bullet->getVBullet().size(); i++)
 	{
 		RECT rc;
 		//충돌시
-		//if (IntersectRect(&rc, &_bullet->getVBullet()[i].rc, &_rocket->getRocketImage()->getBoundingBox()))
-		//{
-		//	_bullet->removeMissile(i);
-		//	_rocket->hitDamage(10);
-		//}
+		if (IntersectRect(&rc, &_bullet->getVBullet()[i].rc, &PLAYER->getPlayercollision()))
+		{
+			_bullet->removeMissile(i);
+			PLAYER->setHP(PLAYER->getHP() - 10);
+		}
 	}
 }
 

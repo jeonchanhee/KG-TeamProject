@@ -133,12 +133,14 @@ void playerShop::update()
 		}
 		_storage2->setShow(_showWindow);
 	}
-
-
+	//if(KEYMANAGER->isOnceKeyDown('0'))
+	
 	_storage1->update();
 	_storage2->update();
 	_sellStand->update();
 	_blacksmith->update();
+	_blacksmith->buy(_storage1->getStorage1());
+	_storage1->removeItem();
 }
 
 void playerShop::render()

@@ -2,6 +2,8 @@
 //#include"gameNode.h"
 #include"singletonBase.h"
 #include "bullet.h"				// 무기(공격) 클래스 
+#include "progressBar.h"
+
 
 /*
 	인벤토리
@@ -80,7 +82,7 @@ struct tagplayer		//플레이어 구조체
 
 	int _playercount;						//플레이어 이미지 카운터
 	int _playerindex;						//플레이어 이미지 인덱스 
-	int  HP;										//HP
+	int _pmoney;				// 플레이어 돈 
 	int attCount;
 
 	float x, y;									//플레이어 x, y
@@ -90,10 +92,18 @@ struct tagplayer		//플레이어 구조체
 
 };
 
+struct taghpbar // 프로그래스바
+{
+	PlayerHpbar* _hpbar;				// 프로그래스바
+	int  _HP;										//현재 HP
+	int _maxhp;								//
+};
+
 class player : public singletonBase<player>//public gameNode //public singletonBase<player>
 {
 private:
 	tagplayer _player;  //shop player 정보 
+	taghpbar _playerhp;				//player의 hp 
 
 	bool _isanimation;	 //애니메이션 상태 구를것인가? 아니면 상하좌우 모션인가?
 
@@ -102,6 +112,7 @@ private:
 	float attacktime;			//TIMEMANAGER를 이용하여 조건 값 준 것(KEYMANAGER->isOnceKeyDown('K')) 참고
 
 	weapons* _arrowfirst;   // 화살 
+
 
 public:
 	player();
@@ -112,21 +123,31 @@ public:
 	void update();
 	void render(HDC hdc);
 
-	//void shopPlayermove();				//샵플레이어 이동 함수
-	//void dungeonPlayermove();		// 던전 플레이어 이동 함수
+
 	void playerKeyControl();				// 플레이어 키
 	void playerAtt();							//플레이어 공격 
 	void playermoveversion();		  //플레이어 이동 모션
 	void attackmove();						// 던전 플레이어 공격 함수 
 	void arrowFIre(WEAPONMOVE weponMove);
 	void allplayerimage();				// 플레이어 이미지 모음
+	void monsterbattle();			 //몬스터 배틀
+	void playerhitDameage(int _damage); //피깍는 함수
 
-	int getHP() { return _player.HP; }
-	void setHP(int hp) { _player.HP = hp; }
 
-	RECT getPlayercollision() { return _player._collisionplayer; }		 //플레이어 함수
+	int getX() { return _player.x; }
+	int getY() { return _player.y; }
+
+	int getHP() { return _playerhp._HP; }
+	void setHP(int hp) { _playerhp._HP = hp; }
+
+	RECT getPlayercollision() { return _player._collisionplayer; }		 //플레이어 rect 함수(아이템과 창고용?)
+	RECT getplayerandMonster() { return _player._playerrect; }		//플레이어랑  몬스터 공격하기 위한 rect 함수
 
 	float getPlayerX() { return _player.x; }					// 몬스터가 플레이어를 따라오기 위한 x
 	float getPlayerY() { return _player.y; }					// 몬스터가 플레이어를 따라오기 위한 y
+
+	int getMoney() { return _player._pmoney; }
+	void setMoney(int money) { _player._pmoney = money; }
+
 
 };

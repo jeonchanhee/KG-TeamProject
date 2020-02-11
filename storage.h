@@ -25,14 +25,14 @@ private:
 
 
 	//커서
-	RECT _choiceSlot;				//템선택하는렉트(커서)
-	int _choiceNum;					//몇번슬롯이 선택되었는지
+	RECT _cursorSlot;				//템선택하는렉트(커서)
+	int _cursorNum;					//몇번슬롯이 선택되었는지
 	image* _grab;					//커서가 잡은 아이템의 배경
 	vector<item> _vTemp;			//아이템을 임시로 담을 벡터
 
 	cursor* _cursor;
 
-	RECT temp;
+	RECT temp;	int a, b;
 public:
 
 	storage();
@@ -51,11 +51,14 @@ public:
 
 	RECT getRECT() { return _boxRc; }
 	RECT getSlot(int arrNum) { return _slot[arrNum]; }
+	vector<item> getStorage() {return _vStorage;}
+	vector<item>& getStorage1() {return _vStorage;}
 	animation* getAni() { return _storageAni; }
 	
 	void itemArrange();			//아이템을 정리정돈 해주는 담당
 	void resetChoiceNum();		//템창껏다켰을때 커서위치 초기화
-	void addItem(item itemName) { _vStorage.push_back(itemName); }
+	void addItem(item item) { _vStorage.push_back(item); }
+	void removeItem();
 
 	void grab(); //커서가 아이템을 잡았을떄
 };

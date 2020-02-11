@@ -37,15 +37,17 @@ private:
 	MONSTER_DIRECTION _monDirect;//방향
 	image * _monsterImg;	//이미지
 	animation* _ani;			//애니메이션
-	animation* _aniAtk;			//애니메이션
 	monsterProgressBar* _hpBar;	//체력바
-	RECT rc;				//피격범위
-	int atk;				//공격력
-	int maxHp;				//체력
-	int currentHp;			//현재체력
-	int speed;				//이동속도
+	RECT hRc;				//피격범위
+	RECT aRc;				//공격범위
+	int _atk;				//공격력
+	int _hp;				//체력
+	int _currentHp;			//현재체력
+	int _speed;				//이동속도
 	int _x, _y;				//초기 좌표
-	int currentX, currentY;	//이동 좌표
+	int _currentX, _currentY;	//이동 좌표
+	float _distance;		//플레이어와의거리
+	float _range;			//공격범위
 	int count;				//카운트
 	int dropItemNum1;		//드랍가능한 아이템 번호
 	int dropItemNum2;		//드랍가능한 아이템 번호
@@ -58,29 +60,39 @@ public:
 
 	HRESULT init();
 	HRESULT init(
+		const char* imageName,
 		MONSTER_TYPE monType,		//타입
 		MONSTER_STATE monState,		//상태
 		MONSTER_DIRECTION monDirect,//방향
 		int x,
-		int y						//초기 좌표
+		int y,						//초기 좌표
+		int atk,					//공격력
+		int hp,						//체력
+		int currentHp,				//현재체력
+		float range,				//범위
+		int speed					//이동속도
 	);
 	void release();
 	void update();
 	void render();
 
+
 	//그려주는 
 	virtual void draw();
-	//애니메이션 함수
-	virtual void animation();
+	
 
 
 
 	bool attack(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect);	//공격
 	bool hit();		//피격
-	bool move();	//이동
+	bool move(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect);	//이동
 	bool die();		//사망, 아이템드롭
 	//get
-	RECT getRect() { return rc; }
+	//피격범위
+	RECT getHRect() { return hRc; }
+	//공격범위
+	RECT getARect() { return aRc; }
+
 	MONSTER_DIRECTION getDirection() { return _monDirect; }
 	MONSTER_TYPE getType() { return _monType; }
 
@@ -88,15 +100,17 @@ public:
 	void setMonDirect(MONSTER_DIRECTION MonDirect) { _monDirect = MonDirect; }
 
 	//이미지불러오기
-	void golemTurretDirectImg(MONSTER_DIRECTION monDirect);
-	void golemSoldierDirectImg(MONSTER_DIRECTION monDirect);
-	void slimeGauntletDirectImg(MONSTER_DIRECTION monDirect);
-	void golemBossDirectImg(MONSTER_DIRECTION monDirect);
+	void golemTurretDirectImg();
+	void golemSoldierDirectImg();
+	void slimeGauntletDirectImg();
+	void golemBossDirectImg();
 
-	bool golemTurretAtk();//골렘터렛공격
+	bool golemTurretAtk(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect);//골렘터렛공격
 	bool golemSoldierAtk(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect);//골렘솔져공격
 	bool slimeGauntletAtk(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect);//슬라임건틀릿공격
 	bool golemBossAtk(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect);//골렘보스공격
+	void golemSoldierMove();//골렘솔저이동
+	void golemBossMove();//골렘보스이동
 
 	//몬스터 HP바
 	void viewProgressBar();

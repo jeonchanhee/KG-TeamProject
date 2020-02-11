@@ -9,8 +9,8 @@ struct tagBullet
 	float x, y;				//좌표
 	float fireX, fireY;		//발사위치
 	float radius;			//지름
-	float angle;			//각도
 	float speed;			//속도
+	int direct;				//방향
 	bool fire;				//발사여부
 	int count;				//카운트
 
@@ -62,7 +62,7 @@ public:
 	void update();
 	void render();
 	//발사
-	void fire(float x, float y, float angle, float speed);
+	void fire(float x, float y, int direct, float speed);
 	//이동
 	void move();
 

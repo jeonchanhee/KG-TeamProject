@@ -25,8 +25,8 @@ HRESULT player::init()
 	_player._playercount = 0;
 	_player._playerindex = 0;
 	_player.attCount = 0;
+	_player._pmoney = 9999;
 
-	_player.HP = 100;
 
 	_player._isattackmove = false;						//  false일때는 일반 던전 무브상태 
 	_player._isFire = false;
@@ -35,6 +35,11 @@ HRESULT player::init()
 	_arrowfirst = new weapons;
 	_arrowfirst->init();
 
+	//플레이어  프로그래스바
+	_playerhp._HP = _playerhp._maxhp = 100;
+	_playerhp._hpbar = new PlayerHpbar;
+	_playerhp._hpbar->init("images/UI/blood.bmp", "images/UI/hpBar.bmp", 0, 0, 125, 35);
+	_playerhp._hpbar->setGauge(_playerhp._HP, _playerhp._maxhp);
 	return S_OK;
 }
 
@@ -46,6 +51,7 @@ void player::release()
 void player::update()
 {
 	playerKeyControl();
+	monsterbattle();					//몬스터랑 배틀
 	if (_player._isattackmove)	attackmove();
 	else 	playermoveversion(); //버전 함수 플레이가 shop인지 dugeon인지 나타내는 함수..?
 	if (_player._playerLocation == DUNGEON_PLAYER_VERSION)	playerAtt();
@@ -697,6 +703,22 @@ void player::arrowFIre(WEAPONMOVE weponMove)
 	_arrowfirst->fire(_player.x, _player.y, weponMove);
 }
 
+void player::monsterbattle()				//몬스터랑 배틀 몬스터랑 싸운는 함수 
+{
+	RECT temp;
+	//if(IntersectRect(&temp, &_player._collisionplayer, &_몬스터,..))
+
+	_playerhp._hpbar->setX(165);			//위치
+	_playerhp._hpbar->setY(35);			//위치
+	_playerhp._hpbar->setGauge(_playerhp._HP, _playerhp._maxhp);
+	_playerhp._hpbar->update();
+
+}
+
+void player::playerhitDameage(int _damage)
+{
+	_playerhp._HP = _damage;
+}
 
 
 void player::render(HDC hdc)
@@ -709,4 +731,5 @@ void player::render(HDC hdc)
 
 	_player._playerimg->frameRender(hdc, _player._playerrect.left, _player._playerrect.top);
 	_arrowfirst->render();
+	_playerhp._hpbar->render();
 }

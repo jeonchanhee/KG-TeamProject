@@ -3,6 +3,8 @@
 #include"mapTool.h"
 #include"monsterManager.h"
 #include"playerShop.h"
+#include"inventory.h"
+
 //#include"player.h"
 
 #define DC gameNode::getMemDC()
@@ -14,6 +16,7 @@ private:
 	monsterManager* _monsterManager;
 	playerShop* _playerShop;
 	//player* _player;
+	inventory* _invenotry;
 public:
 	mainGame();
 	~mainGame();

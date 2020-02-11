@@ -16,10 +16,13 @@ void mainGame::imagesInit()
 	IMAGEMANAGER->addImage("·Îµå", "images/load.bmp", 215, 42, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("ÁöÇü", "images/terrain.bmp", 215, 42, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("¿ÀºêÁ§Æ®", "images/object.bmp", 215, 42, true, RGB(255, 0, 255));
-	
+
+
 	//¸ó½ºÅÍ
 	IMAGEMANAGER->addFrameImage("°ñ·½ÅÍ·¿", "images/monster/golemTurret.bmp", 0, 0, 546 * 2, 212 * 2, 12, 4, true, RGB(255, 0, 255));
 	ANIMATIONMANAGER->addAnimation("°ñ·½ÅÍ·¿L", "°ñ·½ÅÍ·¿", 0, 11, 12, true, true);
+	IMAGEMANAGER->addFrameImage("°ñ·½ÅÍ·¿", "images/monster/golemTurret.bmp", 0, 0, 551 * 2, 204 * 2, 12, 4, true, RGB(255, 0, 255));
+	ANIMATIONMANAGER->addAnimation("°ñ·½ÅÍ·¿L", "°ñ·½ÅÍ·¿", 0, 11, 12, false, true);
 	ANIMATIONMANAGER->addAnimation("°ñ·½ÅÍ·¿U", "°ñ·½ÅÍ·¿", 12, 24, 12, false, true);
 	ANIMATIONMANAGER->addAnimation("°ñ·½ÅÍ·¿R", "°ñ·½ÅÍ·¿", 24, 36, 12, false, true);
 	ANIMATIONMANAGER->addAnimation("°ñ·½ÅÍ·¿B", "°ñ·½ÅÍ·¿", 36, 47, 12, false, true);
@@ -48,9 +51,9 @@ void mainGame::imagesInit()
 	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½ºU", "°ñ·½º¸½º", 8, 15, 8, false, true);
 	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½ºR", "°ñ·½º¸½º", 16, 23, 8, false, true);
 	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½ºB", "°ñ·½º¸½º", 24, 31, 8, false, true);
-	IMAGEMANAGER->addFrameImage("°ñ·½º¸½º°ø°Ý1", "images/monster/golemBossAtk1.bmp", 0, 0, 3022 * 2, 1018 * 2, 15, 4, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("°ñ·½º¸½º°ø°Ý1", "images/monster/golemBossAtk12.bmp", 0, 0, 4502 * 2, 1152 * 2, 15, 4, true, RGB(255, 0, 255));
 	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°Ý1B", "°ñ·½º¸½º°ø°Ý1", 0, 14, 15, false, true);
-	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°Ý1L", "°ñ·½º¸½º°ø°Ý1", 16, 29, 15, false, true);
+	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°Ý1L", "°ñ·½º¸½º°ø°Ý1", 15, 29, 15, false, true);
 	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°Ý1R", "°ñ·½º¸½º°ø°Ý1", 30, 44, 15, false, true);
 	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°Ý1U", "°ñ·½º¸½º°ø°Ý1", 45, 59, 15, false, true);
 	IMAGEMANAGER->addFrameImage("°ñ·½º¸½º°ø°Ý2", "images/monster/golemBossAtk2.bmp", 0, 0, 3004 * 2, 1008 * 2, 15, 4, true, RGB(255, 0, 255));
@@ -58,10 +61,10 @@ void mainGame::imagesInit()
 	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°Ý2L", "°ñ·½º¸½º°ø°Ý2", 16, 29, 15, false, true);
 	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°Ý2R", "°ñ·½º¸½º°ø°Ý2", 30, 44, 15, false, true);
 	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°Ý2U", "°ñ·½º¸½º°ø°Ý2", 45, 59, 15, false, true);
-
-
-
-
+	IMAGEMANAGER->addFrameImage("ÅÍ·¿¹Ì»çÀÏL", "images/monster/golemTurretMissileL.bmp", 0, 0, 35 * 4, 35 * 4, 1, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("ÅÍ·¿¹Ì»çÀÏR", "images/monster/golemTurretMissileR.bmp", 0, 0, 35 * 4, 35 * 4, 1, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("ÅÍ·¿¹Ì»çÀÏU", "images/monster/golemTurretMissileU.bmp", 0, 0, 35 * 4, 35 * 4, 1, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("ÅÍ·¿¹Ì»çÀÏB", "images/monster/golemTurretMissileB.bmp", 0, 0, 35 * 4, 35 * 4, 1, 1, true, RGB(255, 0, 255));
 
 	//¾ÆÀÌÅÛ
 	IMAGEMANAGER->addImage("ºñ¾îÀÖÀ½", "images/item/ºñ¾îÀÖÀ½.bmp", 36, 36, true, RGB(255, 0, 255));
@@ -97,7 +100,7 @@ void mainGame::imagesInit()
 	IMAGEMANAGER->addFrameImage("Ã¢°í2", "images/shop/storage2.bmp", 200 * 2, 102 * 2, 4, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("Ã¢°í³»ºÎ", "images/shop/storageMain2.bmp", 554, 504, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("ÅÛº¸¿©ÁÖ±â", "images/shop/showItem.bmp", 60, 60, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("½½·ÔÀÌ¹ÌÁö", "images/shop/slotImage.bmp", 40, 40, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("½½·ÔÀÌ¹ÌÁö", "images/shop/slotImage.bmp", 40, 40,40,40,true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("ÆÇ¸Å½½·ÔÀÌ¹ÌÁö", "images/shop/sellSlot.bmp", 60, 60, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("¿­±â", "images/shop/¿­±â.bmp", 193 / 2, 87 / 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("ÆÇ¸ÅÃ¢", "images/shop/sellStand.bmp", 500, 500, true, RGB(255, 0, 255));
@@ -107,9 +110,20 @@ void mainGame::imagesInit()
 	IMAGEMANAGER->addImage("¹úÄÁ", "images/blacksmith/¹úÄÁ.bmp", 186, 254, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("¾ÆÀÌÅÛº¸¿©ÁÖ´ÂÃ¢", "images/blacksmith/imageSlot.bmp", 450, 250, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("Å¸ÀÌÆ²", "images/blacksmith/Å¸ÀÌÆ².bmp", 201, 44, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("¾÷±×·¹ÀÌµå·¹½ÃÇÇ", "images/blacksmith/¾÷±×·¹ÀÌµå·¹½ÃÇÇ.bmp", 170, 317, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("¾÷±×·¹ÀÌµå·¹½ÃÇÇ", "images/blacksmith/¾÷±×·¹ÀÌµå·¹½ÃÇÇ.bmp", 170*2, 317*2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("¾Æ¸Ó½½·Ô", "images/blacksmith/armorSlot.bmp", 57, 57, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("º¸¿ì½½·Ô", "images/blacksmith/bowSlot.bmp", 57, 57, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("¼Òµå½½·Ô", "images/blacksmith/swordSlot.bmp", 57, 57, true, RGB(255, 0, 255));
+
+
+	//ÀÎº¥Åä¸®
+	IMAGEMANAGER->addImage("¹è°æ", "images/inventory/ÀÎº¥Åä¸®¹è°æÈ­¸é.bmp", WINSIZEX, WINSIZEY, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("ÀÎº¥Åä¸®ºÏ", "images/inventory/inventorytwo.bmp", 798, 410, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("µ·ÁÖ¸Ó´Ï", "images/inventory/µ·ÁÖ¸Ó´Ï.bmp", 64 * 1.7, 32 * 1.7, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("µ¸º¸±â", "images/inventory/µ¸º¸±â.bmp", 128 * 1.7, 128 * 1.7, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("¿ä¼Ò", "images/inventory/¿ä¼Òµé.bmp", 45, 45, true, RGB(255, 0, 255));
+	//IMAGEMANAGER->addImage("¿ä¼Ò", "images/inventory/¿ä¼Òµé.bmp", 59, 59, true, RGB(255, 0, 255));
+
+
 
 }
