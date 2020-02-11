@@ -10,7 +10,7 @@ void mainGame::imagesInit()
 	IMAGEMANAGER->addImage("´Ý±â", "images/´Ý±â¹öÆ°.bmp", 64, 64, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("µÚ·Î", "images/µÚ·Î°¡±â¹öÆ°.bmp", 64, 64, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("¾ÕÀ¸·Î", "images/¾ÕÀ¸·Î°¡±â¹öÆ°.bmp", 64, 64, true, RGB(255, 0, 255));
-	
+
 	//¸ó½ºÅÍ
 	IMAGEMANAGER->addFrameImage("°ñ·½ÅÍ·¿", "images/monster/golemTurret.bmp", 0, 0, 546 * 2, 212 * 2, 12, 4, true, RGB(255, 0, 255));
 	ANIMATIONMANAGER->addAnimation("°ñ·½ÅÍ·¿L", "°ñ·½ÅÍ·¿", 0, 11, 12, true, true);
@@ -52,10 +52,6 @@ void mainGame::imagesInit()
 	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°Ý2L", "°ñ·½º¸½º°ø°Ý2", 16, 29, 15, false, true);
 	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°Ý2R", "°ñ·½º¸½º°ø°Ý2", 30, 44, 15, false, true);
 	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°Ý2U", "°ñ·½º¸½º°ø°Ý2", 45, 59, 15, false, true);
-
-
-
-
 
 	//¾ÆÀÌÅÛ
 	IMAGEMANAGER->addImage("ºñ¾îÀÖÀ½", "images/item/ºñ¾îÀÖÀ½.bmp", 36, 36, true, RGB(255, 0, 255));
@@ -105,5 +101,16 @@ void mainGame::imagesInit()
 	IMAGEMANAGER->addImage("¾Æ¸Ó½½·Ô", "images/blacksmith/armorSlot.bmp", 57, 57, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("º¸¿ì½½·Ô", "images/blacksmith/bowSlot.bmp", 57, 57, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("¼Òµå½½·Ô", "images/blacksmith/swordSlot.bmp", 57, 57, true, RGB(255, 0, 255));
+
+
+	//ÀÎº¥Åä¸®
+	IMAGEMANAGER->addImage("¹è°æ", "images/inventory/ÀÎº¥Åä¸®¹è°æÈ­¸é.bmp", WINSIZEX, WINSIZEY, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("ÀÎº¥Åä¸®ºÏ", "images/inventory/inventorytwo.bmp", 798, 410, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("µ·ÁÖ¸Ó´Ï", "images/inventory/µ·ÁÖ¸Ó´Ï.bmp", 64 * 1.7, 32 * 1.7, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("µ¸º¸±â", "images/inventory/µ¸º¸±â.bmp", 128 * 1.7, 128 * 1.7, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("¿ä¼Ò", "images/inventory/¿ä¼Òµé.bmp", 45, 45, true, RGB(255, 0, 255));
+	//IMAGEMANAGER->addImage("¿ä¼Ò", "images/inventory/¿ä¼Òµé.bmp", 59, 59, true, RGB(255, 0, 255));
+
+
 
 }

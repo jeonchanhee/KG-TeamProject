@@ -25,7 +25,7 @@ HRESULT player::init()
 	_player._playercount = 0;
 	_player._playerindex = 0;
 	_player.attCount = 0;
-
+	_player._pmoney = 9999;
 	_player.HP = 100;
 
 	_player._isattackmove = false;						//  false일때는 일반 던전 무브상태 

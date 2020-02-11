@@ -3,6 +3,7 @@
 #include"singletonBase.h"
 #include "bullet.h"				// 무기(공격) 클래스 
 
+
 /*
 	인벤토리
 	피격
@@ -81,6 +82,7 @@ struct tagplayer		//플레이어 구조체
 	int _playercount;						//플레이어 이미지 카운터
 	int _playerindex;						//플레이어 이미지 인덱스 
 	int  HP;										//HP
+	int _pmoney;				// 플레이어 돈 
 	int attCount;
 
 	float x, y;									//플레이어 x, y
@@ -103,6 +105,7 @@ private:
 
 	weapons* _arrowfirst;   // 화살 
 
+
 public:
 	player();
 	~player();
@@ -124,9 +127,13 @@ public:
 	int getHP() { return _player.HP; }
 	void setHP(int hp) { _player.HP = hp; }
 
-	RECT getPlayercollision() { return _player._collisionplayer; }		 //플레이어 함수
+	RECT getPlayercollision() { return _player._collisionplayer; }		 //플레이어 rect 함수(아이템과 창고용?)
+	RECT getplayerandMonster() { return _player._playerrect; }		//플레이어랑  몬스터 공격하기 위한 rect 함수
 
 	float getPlayerX() { return _player.x; }					// 몬스터가 플레이어를 따라오기 위한 x
 	float getPlayerY() { return _player.y; }					// 몬스터가 플레이어를 따라오기 위한 y
+
+	int getMoney() { return _player._pmoney; }
+	void setMoney(int money) { _player._pmoney = money; }
 
 };

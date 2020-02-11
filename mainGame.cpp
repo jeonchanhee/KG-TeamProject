@@ -25,12 +25,13 @@ HRESULT mainGame::init()
 	_player->init();*/
 	ITEMMANAGER->init();
 	_playerShop->init();
-	PLAYER->init();
+	//PLAYER->init();
 	
 	_monsterManager = new monsterManager;
 	_monsterManager->init();
 
-
+	_invenotry = new inventory;
+	_invenotry->init();
 
 	//안녕
 	//하이하이
@@ -49,7 +50,7 @@ void mainGame::update()
 	_mapTool->update();
 	_monsterManager->update();
 	_playerShop->update();
-	PLAYER->update();
+//	PLAYER->update();
 	ANIMATIONMANAGER->update(); //애니메이션을 위해 사용한 것
 
 	if (KEYMANAGER->isOnceKeyDown('T'))
@@ -58,7 +59,7 @@ void mainGame::update()
 		
 	}
 	//_player->update();
-
+	_invenotry->update();
 }
 
 void mainGame::render(/*HDC hdc*/)
@@ -71,7 +72,8 @@ void mainGame::render(/*HDC hdc*/)
 	_mapTool->render();
 	_monsterManager->render();
 	_playerShop->render();
-	PLAYER->render(DC);
+	_invenotry->render();
+//	PLAYER->render(DC);
 	ITEMMANAGER->render();
 	//_player->render(DC);
 	/*char str[128];
