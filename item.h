@@ -67,7 +67,7 @@ public:
 	
 	void setItemCnt() { _item.cnt++; }				//갯수1증가
 	void setItemCnt(int num) { _item.cnt+= num; }	//갯수를 num만큼 증가
-
+	void setItemCnt_equal(int num) { _item.cnt = num; }	//갯수를 num으로 만듬
 	// 렉트의 위치를 설정
 	void setRect(int x, int y) { _item.rc = RectMakeCenter(x, y, _item.image->getWidth(), _item.image->getHeight()); } 
 	void setRect(RECT rc) { _item.rc = rc; } 

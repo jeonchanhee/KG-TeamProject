@@ -36,12 +36,12 @@ void bullet::render()
 	{
 
 		//Àû ÃÑ¾Ë ·ºÆ®
-		//Rectangle(getMemDC(), _viBullet->rc.left, _viBullet->rc.top, _viBullet->rc.right, _viBullet->rc.bottom);
+		Rectangle(getMemDC(), _viBullet->rc.left, _viBullet->rc.top, _viBullet->rc.right, _viBullet->rc.bottom);
 		_viBullet->bulletImage->render(getMemDC(), _viBullet->rc.left, _viBullet->rc.top);
 	}
 }
 //ÃÑ¾Ë ¹ß»ç
-void bullet::fire(float x, float y, float angle, float speed)
+void bullet::fire(float x, float y, int direct, float speed)
 {
 	if (_bulletMax < _vBullet.size()) return;
 
@@ -49,9 +49,14 @@ void bullet::fire(float x, float y, float angle, float speed)
 	tagBullet bullet;
 	ZeroMemory(&bullet, sizeof(tagBullet));
 	bullet.bulletImage = new image;
-	bullet.bulletImage->init("images/monster/bullet1.bmp", 0, 0, 36, 38, 1, 1, true, RGB(255, 0, 255));
-	bullet.angle = angle;
+	switch (direct) {
+	case 0:bullet.bulletImage->init("images/monster/bulletL.bmp", 0, 0, 35, 35, 1, 1, true, RGB(255, 0, 255));
+	case 1:bullet.bulletImage->init("images/monster/bulletU.bmp", 0, 0, 35, 35, 1, 1, true, RGB(255, 0, 255));
+	case 2:bullet.bulletImage->init("images/monster/bulletR.bmp", 0, 0, 35, 35, 1, 1, true, RGB(255, 0, 255));
+	case 3:bullet.bulletImage->init("images/monster/bulletD.bmp", 0, 0, 35, 35, 1, 1, true, RGB(255, 0, 255));
+	}
 	bullet.speed = speed;
+	bullet.direct = direct;
 	bullet.x = bullet.fireX = x;
 	bullet.y = bullet.fireY = y;
 	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
@@ -65,13 +70,17 @@ void bullet::fire(float x, float y, float angle, float speed)
 //ÃÑ¾Ë ÀÌµ¿
 void bullet::move()
 {
-	float elpasedTime = TIMEMANAGER->getElapsedTime();
+	//float elpasedTime = TIMEMANAGER->getElapsedTime();
 
 	for (_viBullet = _vBullet.begin(); _viBullet != _vBullet.end();)
 	{
-		_viBullet->x += cosf(_viBullet->angle) * elpasedTime*_viBullet->speed;
-		_viBullet->y += -sinf(_viBullet->angle) * elpasedTime*_viBullet->speed;
-
+		switch (_viBullet->direct)
+		{
+		case 0:_viBullet->x -= _viBullet->speed; break;
+		case 1:_viBullet->y -= _viBullet->speed; break;
+		case 2:_viBullet->x += _viBullet->speed; break;
+		case 3:_viBullet->y += _viBullet->speed; break;
+		}
 		_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
 			_viBullet->bulletImage->getWidth(),
 			_viBullet->bulletImage->getHeight());

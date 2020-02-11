@@ -50,7 +50,11 @@ void mainGame::update()
 	_mapTool->update();
 	_monsterManager->update();
 	_playerShop->update();
-		PLAYER->update();
+//<<<<<<< HEAD
+
+//=======
+	PLAYER->update();
+//>>>>>>> 5f963642f38652d1e5b073ac06929bdd767885c6
 	ANIMATIONMANAGER->update(); //애니메이션을 위해 사용한 것
 
 	if (KEYMANAGER->isOnceKeyDown('T'))

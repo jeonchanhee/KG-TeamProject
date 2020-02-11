@@ -20,6 +20,7 @@ private:
 	viMonster	_viMinion;
 	//총알 벡터 생성
 	bullet*		_bullet;
+	RECT hRc;
 public:
 	monsterManager();
 	~monsterManager();
@@ -34,7 +35,7 @@ public:
 	//몬스터 공격
 	void attackMinion();
 	//총알 발사
-	void minionBulletFire();
+	//void minionBulletFire();
 	//get
 	vMonster	getVMonster() { return _vMinion; }
 	viMonster	getViMonster() { return _viMinion; }
