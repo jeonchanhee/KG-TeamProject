@@ -34,8 +34,8 @@ HRESULT storage::init(string storageName, POINT xy)
 	}
 
 	//커서 초기화
-	_choiceNum = 0;
-	_choiceSlot = _slot[_choiceNum];
+	_cursorNum = 0;
+	_cursorSlot = _slot[_cursorNum];
 	_cursor = new cursor;
 	_cursor->init();
 	_grab = new image;
@@ -43,24 +43,11 @@ HRESULT storage::init(string storageName, POINT xy)
 
 
 	//임시로 넣어둠
-	_vStorage.push_back(ITEMMANAGER->addItem("나뭇가지"));
-	_vStorage.push_back(ITEMMANAGER->addItem("나뭇가지"));
-	_vStorage.push_back(ITEMMANAGER->addItem("나뭇가지"));
-	_vStorage.push_back(ITEMMANAGER->addItem("나뭇가지"));
-	_vStorage.push_back(ITEMMANAGER->addItem("나뭇가지"));
-	_vStorage.push_back(ITEMMANAGER->addItem("나뭇가지"));
-	_vStorage.push_back(ITEMMANAGER->addItem("나뭇가지"));
-	_vStorage.push_back(ITEMMANAGER->addItem("나뭇가지"));
-	_vStorage.push_back(ITEMMANAGER->addItem("나뭇가지"));
-	_vStorage.push_back(ITEMMANAGER->addItem("나뭇가지"));
-	_vStorage.push_back(ITEMMANAGER->addItem("나뭇가지"));
-	_vStorage.push_back(ITEMMANAGER->addItem("나뭇가지"));
-	_vStorage.push_back(ITEMMANAGER->addItem("천"));
-	_vStorage.push_back(ITEMMANAGER->addItem("천"));
-	_vStorage.push_back(ITEMMANAGER->addItem("천"));
-	_vStorage.push_back(ITEMMANAGER->addItem("천"));
 
-
+	for (int i = 0; i < 28; i++)
+	{
+		_vStorage.push_back(ITEMMANAGER->addItem("비어있음"));
+	}
 
 
 	return S_OK;
@@ -72,6 +59,33 @@ void storage::release()
 
 void storage::update()
 {
+	if (KEYMANAGER->isOnceKeyDown('2'))
+	{
+		for (int k = 0; k < _vStorage.size(); k++)
+		{
+			if (_vStorage[k].getItemInfo().itemName == "비어있음" || _vStorage[k].getItemInfo().cnt <= 0)
+			{
+				_vStorage.erase(_vStorage.begin() + k);
+				_vStorage.insert(_vStorage.begin() + k, ITEMMANAGER->addItem("나뭇가지"));
+				_vStorage[k].setItemCnt_equal(10);
+				break;
+			}
+		}
+	}
+	if (KEYMANAGER->isOnceKeyDown('3'))
+	{
+		for (int k = 0; k < _vStorage.size(); k++)
+		{
+			if (_vStorage[k].getItemInfo().itemName == "비어있음" || _vStorage[k].getItemInfo().cnt <= 0)
+			{
+				_vStorage.erase(_vStorage.begin() + k);
+				_vStorage.insert(_vStorage.begin() + k, ITEMMANAGER->addItem("수정화 된 에너지"));
+				_vStorage[k].setItemCnt_equal(10);
+				break;
+			}
+		}
+	}
+
 	itemArrange();	   //Z버튼을 누르면 창고에 들어있는 것들을 자동으로 정렬해주는 함수...미완성
 	cursorControl();   //커서컨트롤 WASD버튼
 	setStorageItem();  // 창고안의 아이템 위치를 업데이트
@@ -81,14 +95,14 @@ void storage::update()
 void storage::render()
 {
 	storageRender();
-	//Rectangle(getMemDC(), _choiceSlot.left, _choiceSlot.top, _choiceSlot.right, _choiceSlot.bottom);
+	//Rectangle(getMemDC(), _cursorSlot.left, _cursorSlot.top, _cursorSlot.right, _cursorSlot.bottom);
 	if (_vTemp.size() > 0)
 	{
 		char str[128];
-		IMAGEMANAGER->render("커서그랩", getMemDC(), _choiceSlot.left, _choiceSlot.top - 60);
-		_vTemp[0].getItemInfo().image->render(getMemDC(), _choiceSlot.left, _choiceSlot.top - 50);
+		IMAGEMANAGER->render("커서그랩", getMemDC(), _cursorSlot.left, _cursorSlot.top - 60);
+		_vTemp[0].getItemInfo().image->render(getMemDC(), _cursorSlot.left, _cursorSlot.top - 50);
 		wsprintf(str, "%d", _vTemp[0].getItemInfo().cnt);
-		TextOut(getMemDC(), _choiceSlot.right, _choiceSlot.top - 40, str, strlen(str));
+		TextOut(getMemDC(), _cursorSlot.right, _cursorSlot.top - 40, str, strlen(str));
 	}
 }
 
@@ -136,7 +150,7 @@ void storage::storageRender()
 
 				wsprintf(str, "%d", _vStorage[i].getItemInfo().cnt);
 				TextOut(getMemDC(), _vStorage[i].getRECT().right, _vStorage[i].getRECT().bottom, str, strlen(str));
-				if (IntersectRect(&temp, &_choiceSlot, &_vStorage[i].getRECT()))// 커서와 아이템이 충돌된 상태라면 
+				if (IntersectRect(&temp, &_cursorSlot, &_vStorage[i].getRECT()))// 커서와 아이템이 충돌된 상태라면 
 				{
 					_vStorage[i].getItemInfo().image->render(getMemDC(), _showItemRc.left+10, _showItemRc.top+10);
 				}
@@ -147,7 +161,7 @@ void storage::storageRender()
 
 		if (KEYMANAGER->isToggleKey('T'))//디버그
 		{
-			Rectangle(getMemDC(), _choiceSlot.left, _choiceSlot.top, _choiceSlot.right, _choiceSlot.bottom);
+			Rectangle(getMemDC(), _cursorSlot.left, _cursorSlot.top, _cursorSlot.right, _cursorSlot.bottom);
 		}
 	}
 }
@@ -156,51 +170,47 @@ void storage::cursorControl()
 {
 	if (_showWindow)
 	{
-		_cursor->update(_choiceSlot);
 		if (KEYMANAGER->isOnceKeyDown('A'))
 		{
 			//커서가 옆으로 못나가게
-			_choiceNum--;
-			if (_choiceNum < 0) _choiceNum = 0;
+			_cursorNum--;
+			if (_cursorNum < 0) _cursorNum = 0;
 
-			_choiceSlot = RectMake(_slot[_choiceNum].left, _slot[_choiceNum].top, 40, 40);
-			_cursor->setRc(_choiceSlot);
+			_cursorSlot = RectMake(_slot[_cursorNum].left, _slot[_cursorNum].top, 40, 40);
 			_cursor->getAni()->start();
 		}
 		if (KEYMANAGER->isOnceKeyDown('D'))
 		{
 			//커서가 옆으로 못나가게
-			_choiceNum++;
-			if (_choiceNum > SLOTNUM) _choiceNum = SLOTNUM;
+			_cursorNum++;
+			if (_cursorNum > SLOTNUM) _cursorNum = SLOTNUM;
 
-			_choiceSlot = RectMake(_slot[_choiceNum].left, _slot[_choiceNum].top, 40, 40);
-			_cursor->setRc(_choiceSlot);
+			_cursorSlot = RectMake(_slot[_cursorNum].left, _slot[_cursorNum].top, 40, 40);
 			_cursor->getAni()->start();
 		}
 		if (KEYMANAGER->isOnceKeyDown('W'))
 		{
 			//커서가 위로못나가게
 			int temp;
-			temp = _choiceNum;
-			_choiceNum-=7;
-			if (_choiceNum < 0)_choiceNum = temp;
+			temp = _cursorNum;
+			_cursorNum-=7;
+			if (_cursorNum < 0)_cursorNum = temp;
 
-			_choiceSlot = RectMake(_slot[_choiceNum].left, _slot[_choiceNum].top, 40, 40);
-			_cursor->setRc(_choiceSlot);
+			_cursorSlot = RectMake(_slot[_cursorNum].left, _slot[_cursorNum].top, 40, 40);
 			_cursor->getAni()->start();
 		}
 		if (KEYMANAGER->isOnceKeyDown('S'))
 		{
 			//커서가 아래로 못나가게
 			int temp;
-			temp = _choiceNum;
-			_choiceNum+=7;
-			if (_choiceNum > SLOTNUM)_choiceNum = temp;
+			temp = _cursorNum;
+			_cursorNum+=7;
+			if (_cursorNum > SLOTNUM)_cursorNum = temp;
 
-			_choiceSlot = RectMake(_slot[_choiceNum].left, _slot[_choiceNum].top, 40, 40);
-			_cursor->setRc(_choiceSlot);
+			_cursorSlot = RectMake(_slot[_cursorNum].left, _slot[_cursorNum].top, 40, 40);
 			_cursor->getAni()->start();
 		}
+		_cursor->setRc(_cursorSlot);
 
 		if (KEYMANAGER->isOnceKeyDown('I'))
 		{
@@ -241,8 +251,8 @@ void storage::itemArrange() //미완성
 void storage::resetChoiceNum()
 {
 	//창고 창이 껏다켜지면 커서위치 초기화
-	_choiceNum = 0; 
-	_choiceSlot = _slot[_choiceNum];
+	_cursorNum = 0; 
+	_cursorSlot = _slot[_cursorNum];
 }
 
 void storage::removeItem()
@@ -252,6 +262,7 @@ void storage::removeItem()
 		if(_vStorage[i].getItemInfo().cnt == 0)
 		{
 			_vStorage.erase(_vStorage.begin() + i);
+			_vStorage.insert(_vStorage.begin() + i , ITEMMANAGER->addItem("비어있음"));
 		}
 	}
 }
@@ -263,36 +274,38 @@ void storage::grab()
 	{
 		if (_vStorage[i].getItemInfo().itemName != "비어있음") //창고 안이 비어있지 않고
 		{
-			if ((_choiceNum == i )&& KEYMANAGER->isOnceKeyDown('J'))// 커서와 아이템이 충돌된 상태라면
+			if ((_cursorNum == i )&& KEYMANAGER->isOnceKeyDown('J'))// 커서와 아이템이 충돌된 상태라면
 			{
-					_cursor->getAni()->start();
-		
-					//임시벡터가 비어있을시 벡터에 추가
-					if (_vTemp.size() <= 0) 
-					{
-						_vTemp.push_back(_vStorage[i]);
-						_vStorage.erase(_vStorage.begin() + i);
-						_vStorage.insert(_vStorage.begin() + i, ITEMMANAGER->addItem("비어있음"));
-						break;
-					}
+				_cursor->getAni()->start();
+	
+				//임시벡터가 비어있을시 벡터에 추가
+				if (_vTemp.size() <= 0) 
+				{
+					_vTemp.push_back(_vStorage[i]);
+					_vTemp[0].setItemCnt_equal(1);
+					_vStorage[i].setItemCnt(-1);
+					//_vStorage.erase(_vStorage.begin() + i);
+					//_vStorage.insert(_vStorage.begin() + i, ITEMMANAGER->addItem("비어있음"));
+					break;
+				}
 
-					//임시벡터에 이미 같은 이름의 아이템이 있으면 카운트를 올려줌
-					if (_vTemp[0].getItemInfo().itemName == _vStorage[i].getItemInfo().itemName &&
-						(_vStorage[i].getItemInfo().cnt+_vTemp[0].getItemInfo().cnt)<= _vTemp[0].getItemInfo().maxCnt) 
-					{
-						_vTemp[0].setItemCnt(_vStorage[i].getItemInfo().cnt);
-						_vStorage.erase(_vStorage.begin() + i);
-						_vStorage.insert(_vStorage.begin() + i, ITEMMANAGER->addItem("비어있음"));
-						break;
-					}
+				//임시벡터에 이미 같은 이름의 아이템이 있으면 카운트를 올려줌
+				if (_vTemp[0].getItemInfo().itemName == _vStorage[i].getItemInfo().itemName &&
+					(_vStorage[i].getItemInfo().cnt+_vTemp[0].getItemInfo().cnt)<= _vTemp[0].getItemInfo().maxCnt) 
+				{
+					_vTemp[0].setItemCnt();
+					_vStorage[i].setItemCnt(-1);
+					break;
+				}
 			}
+			
 		}
-
+		
 		if (_vTemp.size() > 0)
 		{
 			if (_vStorage[i].getItemInfo().itemName == "비어있음") //비어있는 곳에
 			{
-				if ((_choiceNum == i) && KEYMANAGER->isOnceKeyDown('J'))//j를 누르면 아이템을 그 자리에 놓음
+				if ((_cursorNum == i) && KEYMANAGER->isOnceKeyDown('J'))//j를 누르면 아이템을 그 자리에 놓음
 				{
 					_cursor->getAni()->start();
 

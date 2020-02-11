@@ -139,8 +139,8 @@ void playerShop::update()
 	_storage2->update();
 	_sellStand->update();
 	_blacksmith->update();
-	_blacksmith->buyItem(_storage1->getStorage1());
-
+	_blacksmith->buy(_storage1->getStorage1());
+	_storage1->removeItem();
 }
 
 void playerShop::render()
