@@ -19,17 +19,13 @@ HRESULT mainGame::init()
 
 	_mapTool = new mapTool;
 	_mapTool->init();
-<<<<<<< HEAD
-	_playerShop = new playerShop;
-	ITEMMANAGER->init();
-	_playerShop->init();
-	PLAYER->init();
+
 	//
 	//_monsterManager = new monsterManager;
 //	_monsterManager->init();
 	//_invenotry = new inventory;
 	//_invenotry->init();
-=======
+
 
 
 	/*_player = new player;
@@ -43,7 +39,7 @@ HRESULT mainGame::init()
 	_monsterManager->init();
 	_invenotry = new inventory;
 	_invenotry->init();
->>>>>>> 46506dbf4095b4026a947b643eb23efcd95ceb36
+
 	//안녕
 	//하이하이
 
@@ -61,17 +57,14 @@ void mainGame::update()
 {
 	gameNode::update();
 	_mapTool->update();
-<<<<<<< HEAD
 	//_monsterManager->update();
-	_playerShop->update();
 	//ANIMATIONMANAGER->update(); //애니메이션을 위해 사용한 것
 	//_monsterManager->update();
-=======
+
 	PLAYER->update();
 	//ANIMATIONMANAGER->update(); //애니메이션을 위해 사용한 것
 	_monsterManager->update();
 	_playerShop->update();
->>>>>>> 46506dbf4095b4026a947b643eb23efcd95ceb36
 
 	//PLAYER->update();
 
@@ -94,14 +87,14 @@ void mainGame::render(/*HDC hdc*/)
 	_mapTool->render();
 	ITEMMANAGER->render();
 	PLAYER->render(DC);
-<<<<<<< HEAD
+
 	_playerShop->render();
 	//_invenotry->render();
-=======
+
 	_monsterManager->render();
-	_invenotry->render();
+	_invenotry->render(DC);
 	_playerShop->render();
->>>>>>> 46506dbf4095b4026a947b643eb23efcd95ceb36
+
 	TIMEMANAGER->render(CAMERAMANAGER->getCameraDC());
 	//=====================================================
 	//백버퍼의 내용을 HDC에 그린다.(지우지마!!)
