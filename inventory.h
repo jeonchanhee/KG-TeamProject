@@ -8,6 +8,7 @@ struct  tagplayerinven
 	image*_inventoryimg;
 	RECT _inventoryrect;
 	float x, y;
+	bool _isleft;
 };
 
 struct taggrab
@@ -29,8 +30,17 @@ private:
 	tagplayerinven _playerinventory; //플레이어 인벤토리
 	tagplayerinven _moneyicon;		//돈아이콘
 	tagplayerinven _removeGlass;		// 아이템을 돈으로 반환하는 이미지
+	tagplayerinven  _inventorybg;
 	tagplayerinven _invenotryelement[21];				//인벤토리 칸
+	tagplayerinven _zbutton;					// z버튼
 	tagplayerinven _playerprofile;		//플레이어프로필
+	tagplayerinven _weaponiright;			//오른쪽 비활 성화 z
+	tagplayerinven _weaponirighting;	// 오른쪽 활 성화 z
+	tagplayerinven _weaponileft;			//왼쪽 비활 성화 z
+	tagplayerinven _weaponilefting;		//쪽 비활 성화 z
+
+
+	//tagplayerinven _sworleft;
 
 	taggrab _grab;			// 그랩
 
@@ -56,7 +66,6 @@ private:
 	int money;
 
 	bool _openinventorywin;  //인벤토리 창을 열기 위한 것
-
 public:
 	inventory();
 	~inventory();
@@ -64,9 +73,10 @@ public:
 	HRESULT init();
 	void release();
 	void update();
-	void render();
-	void itemrender();
-	void bkrender();
+	void render(HDC hdc);
+	void moverender(HDC hdc);			//저장소에서 보여줄 랜더
+	void itemrender(HDC hdc);
+	void bkrender(HDC hdc);
 
 	void setOpen(bool open) { _openinventorywin = open; }
 
@@ -74,6 +84,9 @@ public:
 	void inventoryItem();					//인벤토리 요소 안에 상태를 알리기 위한 함수
 	void cursormove();						//커서 이동 아이템 
 	void grabmove();							//J로 아이템 잡기
-	void grabitemremove();				//J로 아이템 눌렀을 때 잡기
+	void grabitemremove();				//J로 아이템 
+
+
+		//눌렀을 때 잡기
 };
 

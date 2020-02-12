@@ -1,9 +1,8 @@
 #pragma once
-//#include"gameNode.h"
 #include"singletonBase.h"
 #include "bullet.h"				// 무기(공격) 클래스 
 #include "progressBar.h"
-
+#include "inventory.h"
 
 /*
 	인벤토리
@@ -112,8 +111,7 @@ private:
 	float attacktime;			//TIMEMANAGER를 이용하여 조건 값 준 것(KEYMANAGER->isOnceKeyDown('K')) 참고
 
 	weapons* _arrowfirst;   // 화살 
-
-
+	inventory* _inventory;
 public:
 	player();
 	~player();
@@ -128,8 +126,8 @@ public:
 	void playerAtt();							//플레이어 공격 
 	void playermoveversion();		  //플레이어 이동 모션
 	void attackmove();						// 던전 플레이어 공격 함수 
+	void allplayerimage();							//플레이어 이미지 모음
 	void arrowFIre(WEAPONMOVE weponMove);
-	void allplayerimage();				// 플레이어 이미지 모음
 	void monsterbattle();			 //몬스터 배틀
 	void playerhitDameage(int _damage); //피깍는 함수
 	void buyplayermoney(int _money);				//물건을 살때

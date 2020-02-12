@@ -43,8 +43,7 @@ HRESULT gameNode::init(bool managerInit)
 		EFFECTMANAGER->init();
 		TXTDATA->init();
 		CAMERAMANAGER->init();
-		PLAYER->init();
-		
+
 	}
 
 	return S_OK;
@@ -67,7 +66,7 @@ void gameNode::release()
 		RND->releaseSingleton();
 		TXTDATA->releaseSingleton();
 		CAMERAMANAGER->releaseSingleton();
-		
+
 
 		KEYMANAGER->release();
 		IMAGEMANAGER->release();

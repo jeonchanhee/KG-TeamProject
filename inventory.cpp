@@ -38,8 +38,26 @@ HRESULT inventory::init()
 	//템 보여주는 곳
 	_showitem._showitemimg = IMAGEMANAGER->findImage("템보여주기");					//아이템 클릭하면 뜨는 원 오른쪽 끝에 있음
 	_showitem._showitemrc = RectMakeCenter(WINSIZEX - 70, WINSIZEY / 2, _showitem._showitemimg->getWidth(), _showitem._showitemimg->getHeight());
+
+	_zbutton._inventoryimg = IMAGEMANAGER->findImage("Z버튼");
+	_zbutton.x = 660;
+	_zbutton.y = 225;
+
+	_weaponiright._inventoryimg = IMAGEMANAGER->findImage("z비활성화오");
+	_weaponiright.x = 637;
+	_weaponiright.y = 235;
+	_weaponileft._inventoryimg = IMAGEMANAGER->findImage("z버전활성화왼");
+	_weaponileft.x = 700;
+	_weaponileft.y = 235;
+
+
 	//bkrender()에 들어가는 이미지들
 	//============================================================================================================
+
+	_inventorybg._inventoryimg = IMAGEMANAGER->findImage("인벤토리종이");
+	_inventorybg.x = WINSIZEX / 2 - 400;
+	_inventorybg.y = WINSIZEY / 2 - 215;
+
 
 	//인벤토리 요소들
 	for (int i = 0; i < 5; i++)
@@ -84,6 +102,9 @@ HRESULT inventory::init()
 	_vInven[5].setItemCnt(4);
 
 
+
+
+
 	return S_OK;
 }
 void inventory::release()
@@ -105,8 +126,6 @@ void inventory::update()
 		cursormove();//커서 움직이기 
 		inventoryItem();
 		grabitemremove();  //J를 눌렀을 때 아이템을 빼기
-
-
 	}
 }
 
@@ -273,59 +292,74 @@ void inventory::moneyitem()					//아이템 삭제
 }
 
 
-void inventory::render()
+void inventory::render(HDC hdc)						// 랜더 순서 -> render>moverender()> bgrender()
 {
 	if (_openinventorywin)
 	{
-		bkrender();
+		bkrender(hdc);
+		moverender(hdc);
+		_cursor->render();				//커서 클래스 랜더 
+		//아이템 저장소 
+		itemrender(hdc);
+
+	}
+}				//render()의 끝
+
+void inventory::moverender(HDC hdc)
+{
+	if (_openinventorywin)
+	{
 		char str[128];
+		char moneystr[128];					//플레이어 돈 
+		IMAGEMANAGER->render("인벤토리종이", hdc, _inventorybg.x, _inventorybg.y);
+		//		IMAGEMANAGER->render("인벤토리종이", hdc, _inventorybg.x, _inventorybg.y);
+		IMAGEMANAGER->render("돈주머니", hdc, _moneyicon.x, _moneyicon.y);
+		IMAGEMANAGER->render("돋보기", hdc, _removeGlass._inventoryrect.left, _removeGlass._inventoryrect.top);
+
+		_showitem._showitemimg->render(hdc, _showitem._showitemrc.left, _showitem._showitemrc.top, _showitem._showitemimg->getWidth(), _showitem._showitemimg->getHeight());					 //선택한 아이템을 보여주는 이미지.  
+
+		wsprintf(moneystr, "%d", PLAYER->getMoney());					//현재 가지고 있는 돈 
+		SetTextColor(hdc, RGB(41, 41, 41));					// 색 지정
+		TextOut(hdc, 300, 540, moneystr, strlen(moneystr));			// 위치 조정 
 
 
 		for (int i = 0; i < 21; i++)				//요소 크기 설정
 		{
-			IMAGEMANAGER->render("요소", getMemDC(), _invenotryelement[i]._inventoryrect.left, _invenotryelement[i]._inventoryrect.top);
+			IMAGEMANAGER->render("요소", hdc, _invenotryelement[i]._inventoryrect.left, _invenotryelement[i]._inventoryrect.top);
 		}
-		_cursor->render();				//커서 클래스 랜더 
+
 		for (int i = 0; i < _vInven.size(); i++) // 인벤토리 안에 아이템을 보여주는 for문 
 		{
 			if (_vInven[i].getItemInfo().itemName != "비어있음")     // 아이템이 있으면
 			{
 				wsprintf(str, "%d", _vInven[i].getItemInfo().cnt);
-				SetTextColor(getMemDC(), RGB(41, 41, 41));
-				TextOut(getMemDC(), _vInven[i].getRECT().right, _vInven[i].getRECT().bottom, str, strlen(str));
-				SetBkMode(getMemDC(), TRANSPARENT);				//글자 뒷배경 처리
+				SetTextColor(hdc, RGB(41, 41, 41));
+				TextOut(hdc, _vInven[i].getRECT().right, _vInven[i].getRECT().bottom, str, strlen(str));
+				SetBkMode(hdc, TRANSPARENT);				//글자 뒷배경 처리
 				//충돌처리
 				if (IntersectRect(&_temp, &_cursorrect, &_vInven[i].getRECT()))
 				{
-					_vInven[i].getItemInfo().image->render(getMemDC(), _showitem._showitemrc.left + 10, _showitem._showitemrc.top + 10);    //충돌된 상태에 
+					_vInven[i].getItemInfo().image->render(hdc, _showitem._showitemrc.left + 10, _showitem._showitemrc.top + 10);    //충돌된 상태에 
 				}
 			}
 		}
-		//아이템 저장소 
-		itemrender();
-	}
-}				//render()의 끝
-
-void inventory::bkrender()									//이미지만 붙이기 위한 것들 별로 필요없는 것들 
-{
-	if (_openinventorywin)
-	{
-		char moneystr[128];					//플레이어 돈 
-		_bgimag->alphaRender(getMemDC(), 1000);   // 알파랜더 처리할 배경화면
-		_playerinventory._inventoryimg->render(getMemDC(), _playerinventory._inventoryrect.left, _playerinventory._inventoryrect.top);   //플레이어 인벤토리
-		IMAGEMANAGER->render("돈주머니", getMemDC(), _moneyicon.x, _moneyicon.y);
-
-		IMAGEMANAGER->render("돋보기", getMemDC(), _removeGlass._inventoryrect.left, _removeGlass._inventoryrect.top);
-
-		_showitem._showitemimg->render(getMemDC(), _showitem._showitemrc.left, _showitem._showitemrc.top, _showitem._showitemimg->getWidth(), _showitem._showitemimg->getHeight());					 //선택한 아이템을 보여주는 이미지.  
-
-		wsprintf(moneystr, "%d", PLAYER->getMoney());					//현재 가지고 있는 돈 
-		SetTextColor(getMemDC(), RGB(41, 41, 41));					// 색 지정
-		TextOut(getMemDC(), 304, 540, moneystr, strlen(moneystr));			// 위치 조정 
 	}
 }
 
-void inventory::itemrender()  //item벡터만 넣을 랜더들
+void inventory::bkrender(HDC hdc)									//이미지만 붙이기 위한 것들 별로 필요없는 것들 
+{
+	if (_openinventorywin)
+	{
+		_bgimag->alphaRender(hdc, 1000);   // 알파랜더 처리할 배경화면
+		_playerinventory._inventoryimg->render(hdc, _playerinventory._inventoryrect.left, _playerinventory._inventoryrect.top);   //플레이어 인벤토리
+
+		IMAGEMANAGER->render("z버전비활성화왼", hdc, _weaponiright.x, _weaponiright.y);
+		IMAGEMANAGER->render("z비활성화오", hdc, _weaponileft.x, _weaponileft.y);
+
+	}
+}
+
+void inventory::itemrender(HDC hdc)  //item벡터만 넣을 랜더들
 {
 	for (_viInven = _vInven.begin(); _viInven != _vInven.end(); ++_viInven)
 	{
@@ -335,10 +369,10 @@ void inventory::itemrender()  //item벡터만 넣을 랜더들
 	if (_vTemp.size() > 0)
 	{
 		char str[128];
-		_grab._grabimg->render(getMemDC(), _cursorrect.left - 4, _cursorrect.top - 50);
-		_vTemp[0].getItemInfo().image->render(getMemDC(), _cursorrect.left - 4, _cursorrect.top - 40);
+		_grab._grabimg->render(hdc, _cursorrect.left - 4, _cursorrect.top - 50);
+		_vTemp[0].getItemInfo().image->render(hdc, _cursorrect.left - 4, _cursorrect.top - 40);
 		wsprintf(str, "%d", _vTemp[0].getItemInfo().cnt);
-		SetTextColor(getMemDC(), RGB(41, 41, 41));
-		TextOut(getMemDC(), _cursorrect.right, _cursorrect.top - 40, str, strlen(str));
+		SetTextColor(hdc, RGB(41, 41, 41));
+		TextOut(hdc, _cursorrect.right, _cursorrect.top - 40, str, strlen(str));
 	}
 }

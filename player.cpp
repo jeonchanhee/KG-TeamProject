@@ -6,8 +6,7 @@ player::~player() {}
 
 HRESULT player::init()
 {
-	allplayerimage();  //이미지 모여있는 곳 
-
+	allplayerimage();
 	_player._playerimg = IMAGEMANAGER->findImage("샵캐릭터");
 	_player.x = WINSIZEX / 2;  //_player._playerrect에 넣기  위한 int x 값
 	_player.y = WINSIZEY / 2;  //_player._playerrect에 넣기 위한 int y 값
@@ -40,6 +39,10 @@ HRESULT player::init()
 	_playerhp._hpbar = new PlayerHpbar;
 	_playerhp._hpbar->init("images/UI/blood.bmp", "images/UI/hpBar.bmp", 0, 0, 125, 35);
 	_playerhp._hpbar->setGauge(_playerhp._HP, _playerhp._maxhp);
+
+	_inventory = new inventory;
+	_inventory->init();
+
 	return S_OK;
 }
 
@@ -68,7 +71,7 @@ void player::update()
 		_player._playerimg = IMAGEMANAGER->findImage("던전캐릭터");
 		_player._playerLocation = DUNGEON_PLAYER_VERSION;
 	}
-
+	_inventory->update();
 }
 
 void player::playerKeyControl()
@@ -766,4 +769,5 @@ void player::render(HDC hdc)
 	_player._playerimg->frameRender(hdc, _player._playerrect.left, _player._playerrect.top);
 	_arrowfirst->render();
 	_playerhp._hpbar->render();
+	_inventory->render(hdc);
 }

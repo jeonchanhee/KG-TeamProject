@@ -1,6 +1,6 @@
 #pragma once
 #include "gameNode.h"
-
+#include "item.h"
 
 class cursor : public gameNode
 {
