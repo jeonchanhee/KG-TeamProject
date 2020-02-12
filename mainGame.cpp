@@ -19,15 +19,15 @@ HRESULT mainGame::init()
 
 	_mapTool = new mapTool;
 	_mapTool->init();
-	_playerShop = new playerShop;
 
 
 	/*_player = new player;
 	_player->init();*/
 	ITEMMANAGER->init();
+	PLAYER->init();
+
+	_playerShop = new playerShop;
 	_playerShop->init();
-	///PLAYER->init();
-	//
 	_monsterManager = new monsterManager;
 	_monsterManager->init();
 	_invenotry = new inventory;
@@ -47,8 +47,6 @@ void mainGame::update()
 {
 	gameNode::update();
 	_mapTool->update();
-	_monsterManager->update();
-	_playerShop->update();
 	PLAYER->update();
 	//ANIMATIONMANAGER->update(); //애니메이션을 위해 사용한 것
 	_monsterManager->update();
@@ -74,11 +72,11 @@ void mainGame::render(/*HDC hdc*/)
 	PatBlt(CAMERAMANAGER->getCameraDC(), 0, 0, WINSIZEX, WINSIZEY, WHITENESS);
 
 	_mapTool->render();
-	_monsterManager->render();
 	ITEMMANAGER->render();
-//	PLAYER->render(DC);
 	PLAYER->render(DC);
+	_monsterManager->render();
 	_invenotry->render();
+	_playerShop->render();
 	TIMEMANAGER->render(CAMERAMANAGER->getCameraDC());
 	//=====================================================
 	//백버퍼의 내용을 HDC에 그린다.(지우지마!!)

@@ -1,19 +1,20 @@
 #pragma once
 #include"gameNode.h"
 #include"storage.h"
-#include"sellStand.h"
-#include"blacksmith.h"
-
+#include"sellTable.h"
+#include"NPCpotionShop.h"
+#include"NPCblacksmith.h"
 
 class playerShop : public gameNode
 {
 private:
-	bool _showWindow;
-	storage* _storage1;
+	storage* _storage1;//창고
 	storage* _storage2;
-	sellStand* _sellStand;
-	blacksmith* _blacksmith;
-	image* _open; //"J버튼 열기" 보여주는 이미지
+
+	sellTable* _sellStand;//플레이어 상점
+
+	NPCpotionShop* _potionShop;	//포션상점
+	NPCblacksmith* _blacksmith;	//대장간
 
 	RECT temp;
 
@@ -26,7 +27,6 @@ public:
 	void release();
 	void update();
 	void render();
-
 
 };
 

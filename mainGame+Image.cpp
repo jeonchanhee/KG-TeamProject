@@ -92,6 +92,8 @@ void mainGame::imagesInit()
 	IMAGEMANAGER->addImage("캐터펄트 보우", "images/item/캐터펄트보우.bmp", 36, 36, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("훈련용 단검", "images/item/훈련용단검.bmp", 36, 36, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("흡혈귀의 단검", "images/item/흡혈귀의단검.bmp", 36, 36, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("훈련용 창", "images/item/훈련용 창.bmp", 36, 36, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("골렘 드릴 창", "images/item/골렘 드릴 창.bmp", 36, 36, true, RGB(255, 0, 255));
 
 	//플레이어상점
 	IMAGEMANAGER->addFrameImage("커서", "images/shop/storageCursor2.bmp", 120, 60, 2, 1, true, RGB(255, 0, 255));
@@ -99,21 +101,37 @@ void mainGame::imagesInit()
 	IMAGEMANAGER->addFrameImage("창고2", "images/shop/storage2.bmp", 200 * 2, 102 * 2, 4, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("창고내부", "images/shop/storageMain2.bmp", 554, 504, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("템보여주기", "images/shop/showItem.bmp", 60, 60, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("슬롯이미지", "images/shop/slotImage.bmp", 40, 40,40,40,true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("판매슬롯이미지", "images/shop/sellSlot.bmp", 60, 60, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("슬롯이미지", "images/shop/slotImage.bmp", 40, 40, 40, 40, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("판매슬롯이미지", "images/shop/sellSlot.bmp", 40, 40, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("열기", "images/shop/열기.bmp", 193 / 2, 87 / 2, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("판매창", "images/shop/sellStand.bmp", 500, 500, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("판매창", "images/shop/sellStand.bmp", 450, 450, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("판매테이블", "images/shop/table items.bmp", 48 * 2, 56 * 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("커서그랩", "images/shop/grab.bmp", 50, 52, true, RGB(255, 0, 255));
 
-	//벌컨의 대장간(npc상점)
+	int arrlen1[] = { 0,1,2 };
+	int arrlen2[] = { 3,4,5 };
+	ANIMATIONMANAGER->addAnimation("창고1오픈", "창고1", arrlen1, 3, 10, false);
+	ANIMATIONMANAGER->addAnimation("창고1클로즈", "창고1", arrlen2, 3, 10, false);
+	int arrlen3[] = { 0,1,2,3 };
+	int arrlen4[] = { 4,5,6,7 };
+	ANIMATIONMANAGER->addAnimation("창고2오픈", "창고2", arrlen3, 4, 10, false);
+	ANIMATIONMANAGER->addAnimation("창고2클로즈", "창고2", arrlen4, 4, 10, false);
+
+	//NPC상점(대장간+포션상점)
 	IMAGEMANAGER->addImage("망치이미지", "images/blacksmith/망치이미지.bmp", 204, 132, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("벌컨", "images/blacksmith/벌컨.bmp", 186, 254, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("벌컨", "images/blacksmith/벌컨인게임idle.bmp", 210 * 2, 49 * 2, 6, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("위치", "images/blacksmith/위치인게임idle.bmp", 132 * 2, 44 * 2, 4, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("아이템보여주는창", "images/blacksmith/imageSlot.bmp", 450, 250, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("타이틀", "images/blacksmith/타이틀.bmp", 201, 44, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("업그레이드레시피", "images/blacksmith/업그레이드레시피.bmp", 170*2, 317*2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("업그레이드레시피", "images/blacksmith/업그레이드레시피.bmp", 170 * 2, 317 * 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("업그레이드레시피_포션", "images/blacksmith/업그레이드레시피_포션.bmp", 170 * 2, 317 * 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("아머슬롯", "images/blacksmith/armorSlot.bmp", 57, 57, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("보우슬롯", "images/blacksmith/bowSlot.bmp", 57, 57, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("소드슬롯", "images/blacksmith/swordSlot.bmp", 57, 57, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("스피어슬롯", "images/blacksmith/spearSlot.bmp", 57, 57, true, RGB(255, 0, 255));
 
+	ANIMATIONMANAGER->addDefAnimation("벌컨기본모션", "벌컨", 3, false, false);
+	ANIMATIONMANAGER->addDefAnimation("위치기본모션", "위치", 3, false, false);
 
 	//인벤토리
 	IMAGEMANAGER->addImage("배경", "images/inventory/인벤토리배경화면.bmp", WINSIZEX, WINSIZEY, true, RGB(255, 0, 255));
