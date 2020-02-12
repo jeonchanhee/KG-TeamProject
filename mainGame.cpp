@@ -19,17 +19,17 @@ HRESULT mainGame::init()
 
 	_mapTool = new mapTool;
 	_mapTool->init();
-	//_playerShop = new playerShop;
+	_playerShop = new playerShop;
 
 
 	/*_player = new player;
-	//_player->init();*/
-	//ITEMMANAGER->init();
-	//_playerShop->init();
+	_player->init();*/
+	ITEMMANAGER->init();
+	_playerShop->init();
 	///PLAYER->init();
 	//
-	//_monsterManager = new monsterManager;
-//	_monsterManager->init();
+	_monsterManager = new monsterManager;
+	_monsterManager->init();
 	_invenotry = new inventory;
 	_invenotry->init();
 	//안녕
@@ -47,14 +47,14 @@ void mainGame::update()
 {
 	gameNode::update();
 	_mapTool->update();
-	//_monsterManager->update();
-	//_playerShop->update();
-	//PLAYER->update();
-	//ANIMATIONMANAGER->update(); //애니메이션을 위해 사용한 것
-	//_monsterManager->update();
-	//_playerShop->update();
-
+	_monsterManager->update();
+	_playerShop->update();
 	PLAYER->update();
+	//ANIMATIONMANAGER->update(); //애니메이션을 위해 사용한 것
+	_monsterManager->update();
+	_playerShop->update();
+
+	//PLAYER->update();
 
 	ANIMATIONMANAGER->update(); //애니메이션을 위해 사용한 것
 	if (KEYMANAGER->isOnceKeyDown('T'))
@@ -73,8 +73,8 @@ void mainGame::render(/*HDC hdc*/)
 	PatBlt(getMemDC(), CAMERAMANAGER->getCameraCenter().x - WINSIZEX / 2, CAMERAMANAGER->getCameraCenter().y - WINSIZEY / 2, WINSIZEX, WINSIZEY, WHITENESS);
 	PatBlt(CAMERAMANAGER->getCameraDC(), 0, 0, WINSIZEX, WINSIZEY, WHITENESS);
 
-
 	_mapTool->render();
+	_monsterManager->render();
 	ITEMMANAGER->render();
 //	PLAYER->render(DC);
 	PLAYER->render(DC);

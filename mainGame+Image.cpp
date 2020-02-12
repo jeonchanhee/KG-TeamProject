@@ -19,8 +19,6 @@ void mainGame::imagesInit()
 
 
 	//¸ó½ºÅÍ
-	IMAGEMANAGER->addFrameImage("°ñ·½ÅÍ·¿", "images/monster/golemTurret.bmp", 0, 0, 546 * 2, 212 * 2, 12, 4, true, RGB(255, 0, 255));
-	ANIMATIONMANAGER->addAnimation("°ñ·½ÅÍ·¿L", "°ñ·½ÅÍ·¿", 0, 11, 12, true, true);
 	IMAGEMANAGER->addFrameImage("°ñ·½ÅÍ·¿", "images/monster/golemTurret.bmp", 0, 0, 551 * 2, 204 * 2, 12, 4, true, RGB(255, 0, 255));
 	ANIMATIONMANAGER->addAnimation("°ñ·½ÅÍ·¿L", "°ñ·½ÅÍ·¿", 0, 11, 12, false, true);
 	ANIMATIONMANAGER->addAnimation("°ñ·½ÅÍ·¿U", "°ñ·½ÅÍ·¿", 12, 24, 12, false, true);
@@ -36,35 +34,36 @@ void mainGame::imagesInit()
 	ANIMATIONMANAGER->addAnimation("°ñ·½¼ÖÀú°ø°İR", "°ñ·½¼ÖÀú°ø°İ", 13, 25, 26, false, false);
 	ANIMATIONMANAGER->addAnimation("°ñ·½¼ÖÀú°ø°İU", "°ñ·½¼ÖÀú°ø°İ", 26, 38, 26, false, false);
 	ANIMATIONMANAGER->addAnimation("°ñ·½¼ÖÀú°ø°İB", "°ñ·½¼ÖÀú°ø°İ", 39, 51, 26, false, false);
-	IMAGEMANAGER->addFrameImage("½½¶óÀÓ°ÇÆ²·¿", "images/monster/slimeGauntlet.bmp", 0, 0, 810 * 2, 356 * 2, 14, 4, true, RGB(255, 0, 255));
-	ANIMATIONMANAGER->addAnimation("½½¶óÀÓ°ÇÆ²·¿L", "½½¶óÀÓ°ÇÆ²·¿", 0, 13, 14, false, true);
-	ANIMATIONMANAGER->addAnimation("½½¶óÀÓ°ÇÆ²·¿U", "½½¶óÀÓ°ÇÆ²·¿", 14, 27, 14, false, true);
-	ANIMATIONMANAGER->addAnimation("½½¶óÀÓ°ÇÆ²·¿R", "½½¶óÀÓ°ÇÆ²·¿", 28, 41, 14, false, true);
-	ANIMATIONMANAGER->addAnimation("½½¶óÀÓ°ÇÆ²·¿B", "½½¶óÀÓ°ÇÆ²·¿", 42, 55, 14, false, true);
-	IMAGEMANAGER->addFrameImage("½½¶óÀÓ°ÇÆ²·¿°ø°İ", "images/monster/slimeGauntletAtk.bmp", 0, 0, 10420 * 2, 800 * 2, 52, 4, true, RGB(255, 0, 255));
-	ANIMATIONMANAGER->addAnimation("½½¶óÀÓ°ÇÆ²·¿°ø°İB", "½½¶óÀÓ°ÇÆ²·¿°ø°İ", 0, 51, 52, false, true);
-	ANIMATIONMANAGER->addAnimation("½½¶óÀÓ°ÇÆ²·¿°ø°İL", "½½¶óÀÓ°ÇÆ²·¿°ø°İ", 52, 103, 52, false, true);
-	ANIMATIONMANAGER->addAnimation("½½¶óÀÓ°ÇÆ²·¿°ø°İR", "½½¶óÀÓ°ÇÆ²·¿°ø°İ", 104, 155, 52, false, true);
-	ANIMATIONMANAGER->addAnimation("½½¶óÀÓ°ÇÆ²·¿°ø°İU", "½½¶óÀÓ°ÇÆ²·¿°ø°İ", 156, 207, 52, false, true);
+	IMAGEMANAGER->addFrameImage("½½¶óÀÓ°ÇÆ²·¿", "images/monster/slimeGauntletAtk.bmp", 0, 0, 10408 * 2, 1608 * 2, 52, 8, true, RGB(255, 0, 255));
+	ANIMATIONMANAGER->addAnimation("½½¶óÀÓ°ÇÆ²·¿°ø°İB", "½½¶óÀÓ°ÇÆ²·¿", 0, 51, 52, false, false);
+	ANIMATIONMANAGER->addAnimation("½½¶óÀÓ°ÇÆ²·¿°ø°İL", "½½¶óÀÓ°ÇÆ²·¿", 52, 103, 52, false, false);
+	ANIMATIONMANAGER->addAnimation("½½¶óÀÓ°ÇÆ²·¿°ø°İR", "½½¶óÀÓ°ÇÆ²·¿", 104, 155, 52, false, false);
+	ANIMATIONMANAGER->addAnimation("½½¶óÀÓ°ÇÆ²·¿°ø°İU", "½½¶óÀÓ°ÇÆ²·¿", 156, 207, 52, false, false);
+	ANIMATIONMANAGER->addAnimation("½½¶óÀÓ°ÇÆ²·¿B", "½½¶óÀÓ°ÇÆ²·¿", 208, 221, 14, false, true);
+	ANIMATIONMANAGER->addAnimation("½½¶óÀÓ°ÇÆ²·¿L", "½½¶óÀÓ°ÇÆ²·¿", 260, 273, 14, false, true);
+	ANIMATIONMANAGER->addAnimation("½½¶óÀÓ°ÇÆ²·¿R", "½½¶óÀÓ°ÇÆ²·¿", 312, 325, 14, false, true);
+	ANIMATIONMANAGER->addAnimation("½½¶óÀÓ°ÇÆ²·¿U", "½½¶óÀÓ°ÇÆ²·¿", 364, 377, 14, false, true);
 	IMAGEMANAGER->addFrameImage("°ñ·½º¸½º", "images/monster/golemBoss.bmp", 0, 0, 778 * 2, 518 * 2, 8, 4, true, RGB(255, 0, 255));
 	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½ºL", "°ñ·½º¸½º", 0, 7, 8, false, true);
 	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½ºU", "°ñ·½º¸½º", 8, 15, 8, false, true);
 	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½ºR", "°ñ·½º¸½º", 16, 23, 8, false, true);
 	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½ºB", "°ñ·½º¸½º", 24, 31, 8, false, true);
 	IMAGEMANAGER->addFrameImage("°ñ·½º¸½º°ø°İ1", "images/monster/golemBossAtk12.bmp", 0, 0, 4502 * 2, 1152 * 2, 15, 4, true, RGB(255, 0, 255));
-	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°İ1B", "°ñ·½º¸½º°ø°İ1", 0, 14, 15, false, true);
-	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°İ1L", "°ñ·½º¸½º°ø°İ1", 15, 29, 15, false, true);
-	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°İ1R", "°ñ·½º¸½º°ø°İ1", 30, 44, 15, false, true);
-	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°İ1U", "°ñ·½º¸½º°ø°İ1", 45, 59, 15, false, true);
+	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°İ1B", "°ñ·½º¸½º°ø°İ1", 0, 14, 15, false, false);
+	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°İ1L", "°ñ·½º¸½º°ø°İ1", 15, 29, 15, false, false);
+	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°İ1R", "°ñ·½º¸½º°ø°İ1", 30, 44, 15, false, false);
+	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°İ1U", "°ñ·½º¸½º°ø°İ1", 45, 59, 15, false, false);
 	IMAGEMANAGER->addFrameImage("°ñ·½º¸½º°ø°İ2", "images/monster/golemBossAtk2.bmp", 0, 0, 3004 * 2, 1008 * 2, 15, 4, true, RGB(255, 0, 255));
-	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°İ2B", "°ñ·½º¸½º°ø°İ2", 0, 14, 15, false, true);
-	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°İ2L", "°ñ·½º¸½º°ø°İ2", 16, 29, 15, false, true);
-	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°İ2R", "°ñ·½º¸½º°ø°İ2", 30, 44, 15, false, true);
-	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°İ2U", "°ñ·½º¸½º°ø°İ2", 45, 59, 15, false, true);
+	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°İ2B", "°ñ·½º¸½º°ø°İ2", 0, 14, 15, false, false);
+	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°İ2L", "°ñ·½º¸½º°ø°İ2", 16, 29, 15, false, false);
+	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°İ2R", "°ñ·½º¸½º°ø°İ2", 30, 44, 15, false, false);
+	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°İ2U", "°ñ·½º¸½º°ø°İ2", 45, 59, 15, false, false);
 	IMAGEMANAGER->addFrameImage("ÅÍ·¿¹Ì»çÀÏL", "images/monster/golemTurretMissileL.bmp", 0, 0, 35 * 4, 35 * 4, 1, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("ÅÍ·¿¹Ì»çÀÏR", "images/monster/golemTurretMissileR.bmp", 0, 0, 35 * 4, 35 * 4, 1, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("ÅÍ·¿¹Ì»çÀÏU", "images/monster/golemTurretMissileU.bmp", 0, 0, 35 * 4, 35 * 4, 1, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("ÅÍ·¿¹Ì»çÀÏB", "images/monster/golemTurretMissileB.bmp", 0, 0, 35 * 4, 35 * 4, 1, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("¸ó½ºÅÍÁ×À½", "images/monster/fx_boom.bmp", 0, 0, 1150 * 2, 110 * 2, 10, 1, true, RGB(255, 0, 255));
+	ANIMATIONMANAGER->addAnimation("¸ó½ºÅÍÁÖ±İ", "¸ó½ºÅÍÁ×À½", 0, 9, 10, false, false);
 
 	//¾ÆÀÌÅÛ
 	IMAGEMANAGER->addImage("ºñ¾îÀÖÀ½", "images/item/ºñ¾îÀÖÀ½.bmp", 36, 36, true, RGB(255, 0, 255));
