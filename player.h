@@ -132,6 +132,9 @@ public:
 	void allplayerimage();				// 플레이어 이미지 모음
 	void monsterbattle();			 //몬스터 배틀
 	void playerhitDameage(int _damage); //피깍는 함수
+	void buyplayermoney(int _money);				//물건을 살때
+	void sellplayermoney(int _money);					//물건을 팔때
+
 
 
 	int getX() { return _player.x; }
@@ -146,8 +149,8 @@ public:
 	float getPlayerX() { return _player.x; }					// 몬스터가 플레이어를 따라오기 위한 x
 	float getPlayerY() { return _player.y; }					// 몬스터가 플레이어를 따라오기 위한 y
 
-	int getMoney() { return _player._pmoney; }
-	void setMoney(int money) { _player._pmoney = money; }
+	int getMoney() { return _player._pmoney; }													//상점이나 인벤토리 용
+	void setMoney(int money) { _player._pmoney = money; }							//상점이나 인벤토리용
 
 
 };

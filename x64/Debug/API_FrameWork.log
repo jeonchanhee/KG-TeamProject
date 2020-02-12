@@ -1,71 +1,218 @@
-﻿  animation.cpp
+﻿  stdafx.cpp
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\image.h(138): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\player.h(137): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\player.h(138): warning C4244: 'return': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  animation.cpp
+  animationManager.cpp
   aStar.cpp
-c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\astar.cpp(82): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'const char [10]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
-  c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\astar.cpp(82): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
-c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\astar.cpp(83): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'const char [8]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
-  c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\astar.cpp(83): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
-c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\astar.cpp(84): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'const char [6]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
-  c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\astar.cpp(84): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
-c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\astar.cpp(85): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'const char [10]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
-  c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\astar.cpp(85): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
-c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\astar.cpp(86): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'const char [10]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
-  c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\astar.cpp(86): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
-c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\astar.cpp(94): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'char [128]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
-  c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\astar.cpp(94): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
-c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\astar.cpp(96): error C2664: 'HFONT CreateFontW(int,int,int,int,int,DWORD,DWORD,DWORD,DWORD,DWORD,DWORD,DWORD,DWORD,LPCWSTR)': 인수 14을(를) 'const char [5]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
-  c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\astar.cpp(96): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
-c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\astar.cpp(152): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'char [128]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
-  c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\astar.cpp(152): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\astar.cpp(82): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'const char [10]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\astar.cpp(82): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\astar.cpp(83): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'const char [8]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\astar.cpp(83): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\astar.cpp(84): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'const char [6]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\astar.cpp(84): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\astar.cpp(85): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'const char [10]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\astar.cpp(85): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\astar.cpp(86): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'const char [10]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\astar.cpp(86): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\astar.cpp(94): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'char [128]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\astar.cpp(94): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\astar.cpp(96): error C2664: 'HFONT CreateFontW(int,int,int,int,int,DWORD,DWORD,DWORD,DWORD,DWORD,DWORD,DWORD,DWORD,LPCWSTR)': 인수 14을(를) 'const char [5]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\astar.cpp(96): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\astar.cpp(152): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'char [128]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\astar.cpp(152): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+  blacksmith.cpp
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\blacksmith.cpp(116): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'const char [7]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\blacksmith.cpp(116): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\blacksmith.cpp(134): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'const char [10]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\blacksmith.cpp(134): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\blacksmith.cpp(148): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'const char [3]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\blacksmith.cpp(148): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\blacksmith.cpp(163): error C2664: 'int wsprintfW(LPWSTR,LPCWSTR,...)': 인수 1을(를) 'char [128]'에서 'LPWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\blacksmith.cpp(163): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\blacksmith.cpp(164): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'char [128]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\blacksmith.cpp(164): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\blacksmith.cpp(165): error C2664: 'int wsprintfW(LPWSTR,LPCWSTR,...)': 인수 1을(를) 'char [128]'에서 'LPWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\blacksmith.cpp(165): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\blacksmith.cpp(166): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'char [128]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\blacksmith.cpp(166): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\blacksmith.cpp(167): error C2664: 'int wsprintfW(LPWSTR,LPCWSTR,...)': 인수 1을(를) 'char [128]'에서 'LPWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\blacksmith.cpp(167): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\blacksmith.cpp(168): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'char [128]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\blacksmith.cpp(168): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\blacksmith.cpp(169): error C2664: 'int wsprintfW(LPWSTR,LPCWSTR,...)': 인수 1을(를) 'char [128]'에서 'LPWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\blacksmith.cpp(169): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\blacksmith.cpp(170): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'char [128]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\blacksmith.cpp(170): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\blacksmith.cpp(171): error C2664: 'int wsprintfW(LPWSTR,LPCWSTR,...)': 인수 1을(를) 'char [128]'에서 'LPWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\blacksmith.cpp(171): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\blacksmith.cpp(172): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'char [128]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\blacksmith.cpp(172): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\blacksmith.cpp(175): error C2664: 'int wsprintfW(LPWSTR,LPCWSTR,...)': 인수 1을(를) 'char [128]'에서 'LPWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\blacksmith.cpp(175): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\blacksmith.cpp(176): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'char [128]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\blacksmith.cpp(176): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\blacksmith.cpp(404): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'const char [21]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\blacksmith.cpp(404): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+  bossMinion.cpp
+  bullet.cpp
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\bullet.cpp(62): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\bullet.cpp(84): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\bullet.cpp(176): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\bullet.cpp(207): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   cameraManager.cpp
+  cursor.cpp
+  effect.cpp
+  effectManager.cpp
+  gameNode.cpp
   image.cpp
-c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\image.cpp(98): error C2664: 'HANDLE LoadImageW(HINSTANCE,LPCWSTR,UINT,int,int,UINT)': 인수 2을(를) 'const char *'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
-  c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\image.cpp(102): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
-c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\image.cpp(108): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\image.cpp(160): error C2664: 'HANDLE LoadImageW(HINSTANCE,LPCWSTR,UINT,int,int,UINT)': 인수 2을(를) 'const char *'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
-  c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\image.cpp(160): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
-c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\image.cpp(167): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\image.cpp(220): error C2664: 'HANDLE LoadImageW(HINSTANCE,LPCWSTR,UINT,int,int,UINT)': 인수 2을(를) 'const char *'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
-  c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\image.cpp(225): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
-c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\image.cpp(236): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\image.cpp(289): error C2664: 'HANDLE LoadImageW(HINSTANCE,LPCWSTR,UINT,int,int,UINT)': 인수 2을(를) 'const char *'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
-  c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\image.cpp(294): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
-c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\image.cpp(308): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\image.cpp(718): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\image.cpp(723): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\image.cpp(730): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\image.cpp(98): error C2664: 'HANDLE LoadImageW(HINSTANCE,LPCWSTR,UINT,int,int,UINT)': 인수 2을(를) 'const char *'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\image.cpp(102): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\image.cpp(108): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\image.cpp(160): error C2664: 'HANDLE LoadImageW(HINSTANCE,LPCWSTR,UINT,int,int,UINT)': 인수 2을(를) 'const char *'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\image.cpp(160): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\image.cpp(167): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\image.cpp(220): error C2664: 'HANDLE LoadImageW(HINSTANCE,LPCWSTR,UINT,int,int,UINT)': 인수 2을(를) 'const char *'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\image.cpp(225): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\image.cpp(236): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\image.cpp(289): error C2664: 'HANDLE LoadImageW(HINSTANCE,LPCWSTR,UINT,int,int,UINT)': 인수 2을(를) 'const char *'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\image.cpp(294): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\image.cpp(308): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\image.cpp(718): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\image.cpp(723): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\image.cpp(730): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   imageManager.cpp
+  inventory.cpp
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\inventory.cpp(23): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\inventory.cpp(34): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\inventory.cpp(44): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\inventory.cpp(48): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\inventory.cpp(191): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\inventory.cpp(205): warning C4305: '인수': 'int'에서 'BYTE'(으)로 잘립니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\inventory.cpp(205): warning C4309: '인수': 상수 값이 잘립니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\inventory.cpp(208): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\inventory.cpp(221): error C2664: 'int wsprintfW(LPWSTR,LPCWSTR,...)': 인수 1을(를) 'char [128]'에서 'LPWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\inventory.cpp(221): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\inventory.cpp(222): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'char [128]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\inventory.cpp(222): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\inventory.cpp(245): error C2664: 'int wsprintfW(LPWSTR,LPCWSTR,...)': 인수 1을(를) 'char [128]'에서 'LPWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\inventory.cpp(245): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\inventory.cpp(247): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'char [128]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\inventory.cpp(247): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
   item.cpp
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\item.cpp(57): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\item.cpp(57): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   itemManager.cpp
+  keyManager.cpp
+  loading.cpp
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\loading.cpp(41): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\loading.cpp(42): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\loading.cpp(76): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\loading.cpp(77): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\loading.cpp(181): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\loading.cpp(187): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\loading.cpp(193): warning C4244: '인수': 'unsigned __int64'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\loading.cpp(193): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  mainGame+Image.cpp
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\sellstand.h(3): warning C4005: 'SLOTNUM': 매크로 재정의
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\storage.h(5): note: 'SLOTNUM'의 이전 정의를 참조하십시오.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\blacksmith.h(4): warning C4005: 'SLOTNUM': 매크로 재정의
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\sellstand.h(3): note: 'SLOTNUM'의 이전 정의를 참조하십시오.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\maingame+image.cpp(122): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\maingame+image.cpp(123): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   mainGame.cpp
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\sellstand.h(3): warning C4005: 'SLOTNUM': 매크로 재정의
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\storage.h(5): note: 'SLOTNUM'의 이전 정의를 참조하십시오.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\blacksmith.h(4): warning C4005: 'SLOTNUM': 매크로 재정의
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\sellstand.h(3): note: 'SLOTNUM'의 이전 정의를 참조하십시오.
+  코드를 생성하고 있습니다...
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\itemmanager.cpp(119): warning C4715: 'itemManager::addItem': 모든 제어 경로에서 값을 반환하지는 않습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\itemmanager.cpp(132): warning C4715: 'itemManager::addItem': 모든 제어 경로에서 값을 반환하지는 않습니다.
+  컴파일하고 있습니다...
   mapTool.cpp
-c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\maptool.cpp(46): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'char [128]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
-  c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\maptool.cpp(46): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\maptool.cpp(45): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'char [128]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\maptool.cpp(45): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\maptool.cpp(109): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'char [128]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\maptool.cpp(109): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\maptool.cpp(475): warning C4553: '==': 식의 결과가 사용되지 않습니다. '='을(를) 의도했습니까?
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\maptool.cpp(479): warning C4553: '==': 식의 결과가 사용되지 않습니다. '='을(를) 의도했습니까?
+  minion.cpp
+  monster.cpp
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\monster.cpp(51): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\monster.cpp(459): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\monster.cpp(540): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\monster.cpp(567): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  monsterManager.cpp
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\monstermanager.cpp(112): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\monstermanager.cpp(115): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\monstermanager.cpp(118): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\monstermanager.cpp(121): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  monsterProgressBar.cpp
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\monsterprogressbar.cpp(14): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\monsterprogressbar.cpp(15): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\monsterprogressbar.cpp(17): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\monsterprogressbar.cpp(55): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   player+ani.cpp
   player.cpp
-c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\player.cpp(46): warning C4244: '-=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\player.cpp(47): warning C4244: '-=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\player.cpp(56): warning C4244: '+=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\player.cpp(57): warning C4244: '+=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\player.cpp(66): warning C4244: '-=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\player.cpp(67): warning C4244: '-=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\player.cpp(76): warning C4244: '+=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\player.cpp(77): warning C4244: '+=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\player.cpp(16): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\player.cpp(42): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\player.cpp(288): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\player.cpp(289): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\player.cpp(713): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\player.cpp(708): warning C4101: 'temp' :참조되지 않은 지역 변수입니다.
+  playerShop.cpp
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\sellstand.h(3): warning C4005: 'SLOTNUM': 매크로 재정의
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\storage.h(5): note: 'SLOTNUM'의 이전 정의를 참조하십시오.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\blacksmith.h(4): warning C4005: 'SLOTNUM': 매크로 재정의
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\sellstand.h(3): note: 'SLOTNUM'의 이전 정의를 참조하십시오.
+  progressBar.cpp
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\progressbar.cpp(14): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\progressbar.cpp(15): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\progressbar.cpp(17): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\progressbar.cpp(53): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\progressbar.cpp(67): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\progressbar.cpp(68): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\progressbar.cpp(70): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\progressbar.cpp(105): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  sceneManager.cpp
+  sellStand.cpp
+  slimeGauntletMinion.cpp
+  soldierMinion.cpp
+  soundManager.cpp
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\soundmanager.cpp(34): warning C4554: '|': 연산자 우선 순위에 오류가 있는지 확인하세요. 괄호를 사용하여 우선 순위를 명확하게 지정하세요.
+  storage.cpp
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\storage.cpp(104): error C2664: 'int wsprintfW(LPWSTR,LPCWSTR,...)': 인수 1을(를) 'char [128]'에서 'LPWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\storage.cpp(104): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\storage.cpp(105): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'char [128]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\storage.cpp(105): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\storage.cpp(151): error C2664: 'int wsprintfW(LPWSTR,LPCWSTR,...)': 인수 1을(를) 'char [128]'에서 'LPWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\storage.cpp(151): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\storage.cpp(152): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'char [128]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\storage.cpp(152): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
   timeManager.cpp
-c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\timemanager.cpp(54): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'char [256]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
-  c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\timemanager.cpp(54): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
-c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\timemanager.cpp(58): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'char [256]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
-  c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\timemanager.cpp(58): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
-c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\timemanager.cpp(61): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'char [256]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
-  c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\timemanager.cpp(61): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\timemanager.cpp(54): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'char [256]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\timemanager.cpp(54): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\timemanager.cpp(58): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'char [256]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\timemanager.cpp(58): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\timemanager.cpp(61): error C2664: 'BOOL TextOutW(HDC,int,int,LPCWSTR,int)': 인수 4을(를) 'char [256]'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\timemanager.cpp(61): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
   timer.cpp
-c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\timer.cpp(101): error C2664: 'int wsprintfW(LPWSTR,LPCWSTR,...)': 인수 1을(를) 'char *'에서 'LPWSTR'(으)로 변환할 수 없습니다.
-  c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\timer.cpp(101): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\timer.cpp(101): error C2664: 'int wsprintfW(LPWSTR,LPCWSTR,...)': 인수 1을(를) 'char *'에서 'LPWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\timer.cpp(101): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+  turretMinion.cpp
   txtData.cpp
-c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\txtdata.cpp(28): error C2664: 'HANDLE CreateFileW(LPCWSTR,DWORD,DWORD,LPSECURITY_ATTRIBUTES,DWORD,DWORD,HANDLE)': 인수 1을(를) 'char *'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
-  c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\txtdata.cpp(35): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
-c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\txtdata.cpp(65): error C2664: 'HANDLE CreateFileW(LPCWSTR,DWORD,DWORD,LPSECURITY_ATTRIBUTES,DWORD,DWORD,HANDLE)': 인수 1을(를) 'char *'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
-  c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\txtdata.cpp(72): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
-  winMain.cpp
-c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\winmain.cpp(153): warning C4244: 'return': 'WPARAM'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\txtdata.cpp(28): error C2664: 'HANDLE CreateFileW(LPCWSTR,DWORD,DWORD,LPSECURITY_ATTRIBUTES,DWORD,DWORD,HANDLE)': 인수 1을(를) 'char *'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\txtdata.cpp(35): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\txtdata.cpp(65): error C2664: 'HANDLE CreateFileW(LPCWSTR,DWORD,DWORD,LPSECURITY_ATTRIBUTES,DWORD,DWORD,HANDLE)': 인수 1을(를) 'char *'에서 'LPCWSTR'(으)로 변환할 수 없습니다.
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\txtdata.cpp(72): note: 가리킨 형식이 관련이 없습니다. 변환하려면 reinterpret_cast, C 스타일 캐스트 또는 함수 스타일 캐스트가 필요합니다.
+  utils.cpp
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\utils.cpp(27): warning C4305: '-=': 'double'에서 'float'(으)로 잘립니다.
   코드를 생성하고 있습니다...
-c:\users\kga_20\desktop\팀프로젝트\kg-teamproject\itemmanager.cpp(142): warning C4715: 'itemManager::addItem': 모든 제어 경로에서 값을 반환하지는 않습니다.
+  컴파일하고 있습니다...
+  winMain.cpp
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\sellstand.h(3): warning C4005: 'SLOTNUM': 매크로 재정의
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\storage.h(5): note: 'SLOTNUM'의 이전 정의를 참조하십시오.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\blacksmith.h(4): warning C4005: 'SLOTNUM': 매크로 재정의
+  c:\users\goddn\desktop\팀플문라이터\kg-teamproject\sellstand.h(3): note: 'SLOTNUM'의 이전 정의를 참조하십시오.
+c:\users\goddn\desktop\팀플문라이터\kg-teamproject\winmain.cpp(153): warning C4244: 'return': 'WPARAM'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  코드를 생성하고 있습니다...

@@ -63,11 +63,12 @@ void player::update()
 		_player._playerLocation = SHOP_PLAYER_VERSION;
 	}
 
-	if (KEYMANAGER->isOnceKeyDown('2')) //예비용으로 추가한것 2번 던전캐릭터 모션
+	if (KEYMANAGER->isOnceKeyDown('9')) //예비용으로 추가한것 2번 던전캐릭터 모션
 	{
 		_player._playerimg = IMAGEMANAGER->findImage("던전캐릭터");
 		_player._playerLocation = DUNGEON_PLAYER_VERSION;
 	}
+
 }
 
 void player::playerKeyControl()
@@ -206,6 +207,7 @@ void player::playerKeyControl()
 			else _player._attackplayer = PLAYER_SWORD;
 		}
 	}
+
 
 	if (KEYMANAGER->isOnceKeyUp('A') || KEYMANAGER->isOnceKeyUp('D') || KEYMANAGER->isOnceKeyUp('W')
 		|| KEYMANAGER->isOnceKeyUp('S'))
@@ -537,6 +539,21 @@ void player::playermoveversion() //플레이어 버전 함수
 			_player._playerimg->setFrameX(_player._playerindex);
 		}
 		break;
+	case PLAYER_DIE:
+		_player._playercount++;
+		if (_player._playerLocation == DUNGEON_PLAYER_VERSION)
+			_player._playerimg->setFrameY(12);
+		if (_player._playercount % 7 == 0)
+		{
+			_player._playercount = 0;
+			_player._playerindex++;
+			if (_player._playerindex >= _player._playerimg->getMaxFrameX())
+			{
+				_player._playerindex = 11;
+				_isanimation = false;
+			}
+			_player._playerimg->setFrameX(_player._playerindex);
+		}
 	}
 
 }
@@ -713,11 +730,28 @@ void player::monsterbattle()				//몬스터랑 배틀 몬스터랑 싸운는 함수
 	_playerhp._hpbar->setGauge(_playerhp._HP, _playerhp._maxhp);
 	_playerhp._hpbar->update();
 
+	if (_playerhp._HP <= 0)
+	{
+
+		if (_player._playerLocation == DUNGEON_PLAYER_VERSION)
+			_player._playermove = PLAYER_DIE;
+	}
 }
 
 void player::playerhitDameage(int _damage)
 {
-	_playerhp._HP = _damage;
+	_playerhp._HP -= _damage;
+
+}
+
+void player::buyplayermoney(int _money)
+{
+	_player._pmoney -= _money;
+}
+
+void player::sellplayermoney(int _money)
+{
+	_player._pmoney += _money;
 }
 
 

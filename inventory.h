@@ -7,7 +7,6 @@ struct  tagplayerinven
 {
 	image*_inventoryimg;
 	RECT _inventoryrect;
-
 	float x, y;
 };
 
@@ -18,6 +17,11 @@ struct taggrab
 	bool _isopen;		//J를 눌른 상태에서 눌렀을 때 
 };
 
+struct tagshowitem
+{
+	image* _showitemimg;
+	RECT _showitemrc;
+};
 
 class inventory :public gameNode
 {
@@ -29,6 +33,8 @@ private:
 	tagplayerinven _playerprofile;		//플레이어프로필
 
 	taggrab _grab;			// 그랩
+
+	tagshowitem   _showitem;
 
 	//커서
 	cursor* _cursor;		// 인벤토리 마우스
@@ -60,12 +66,14 @@ public:
 	void update();
 	void render();
 	void itemrender();
+	void bkrender();
 
 	void setOpen(bool open) { _openinventorywin = open; }
 
-	void moneyitem();		// 아이템을 돈을 바꾸는 함수
-	void inventoryItem();   //인벤토리 요소 안에 상태를 알리기 위한 함수
-	void cursormove();			//커서 이동 아이템 
-	void grabmove();
+	void moneyitem();						// 아이템을 돈을 바꾸는 함수
+	void inventoryItem();					//인벤토리 요소 안에 상태를 알리기 위한 함수
+	void cursormove();						//커서 이동 아이템 
+	void grabmove();							//J로 아이템 잡기
+	void grabitemremove();				//J로 아이템 눌렀을 때 잡기
 };
 

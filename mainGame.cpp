@@ -29,7 +29,7 @@ HRESULT mainGame::init()
 	///PLAYER->init();
 	//
 	//_monsterManager = new monsterManager;
-	//_monsterManager->init();
+//	_monsterManager->init();
 	_invenotry = new inventory;
 	_invenotry->init();
 	//안녕
@@ -51,8 +51,8 @@ void mainGame::update()
 	//_playerShop->update();
 	//PLAYER->update();
 	//ANIMATIONMANAGER->update(); //애니메이션을 위해 사용한 것
-	_monsterManager->update();
-	_playerShop->update();
+	//_monsterManager->update();
+	//_playerShop->update();
 
 	PLAYER->update();
 
@@ -74,22 +74,11 @@ void mainGame::render(/*HDC hdc*/)
 	PatBlt(CAMERAMANAGER->getCameraDC(), 0, 0, WINSIZEX, WINSIZEY, WHITENESS);
 
 
-
-
-
-
-
-
-
-
-
-
-
 	_mapTool->render();
-	_invenotry->render();
-	PLAYER->render(DC);
 	ITEMMANAGER->render();
+//	PLAYER->render(DC);
 	PLAYER->render(DC);
+	_invenotry->render();
 	TIMEMANAGER->render(CAMERAMANAGER->getCameraDC());
 	//=====================================================
 	//백버퍼의 내용을 HDC에 그린다.(지우지마!!)
