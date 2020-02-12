@@ -15,7 +15,7 @@ HRESULT item::init(const char* name, itemType type , int orignalPrice, int playe
 	_item.itemName = name;
 	_item.image = IMAGEMANAGER->findImage(name);
 	_item.type = type;
-	_item.move = false;
+	_item.move = true;
 	_item.orignalPrice = orignalPrice;
 	_item.playerPrice = playerPrice;
 	_item.rc = RectMakeCenter(0, 0, _item.image->getWidth(), _item.image->getHeight());
@@ -90,7 +90,7 @@ void item::wave()
 	}
 }
 
-bool item::maxItem()
+bool item::maxItem()//¹Ì¿Ï¼º
 {
 	if (_item.maxCnt <= _item.cnt)
 	{

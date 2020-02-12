@@ -20,15 +20,23 @@ private:
 	viMonster	_viMinion;
 	//총알 벡터 생성
 	bullet*		_bullet;
-	RECT hRc;
+	RECT aRc;
+
 public:
 	monsterManager();
 	~monsterManager();
+
+	image* _dieImg;
+	animation* _aniDead;
+	RECT dRc;
+	int dCount = 0;			//주금카운트
 
 	HRESULT init();
 	void release();
 	void update();
 	void render();
+
+
 
 	//몬스터 생성
 	void setMinion();

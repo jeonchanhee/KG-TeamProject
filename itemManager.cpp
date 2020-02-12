@@ -50,13 +50,16 @@ HRESULT itemManager::init()
 	//무기 초기화
 	_item.init("훈련용 단검", ITEM_SWORD, 1000, 0, 20, 0, 0, 0,0, 1);
 	_vItem.push_back(_item);
-	_item.init("흡혈귀의 단검", ITEM_SWORD, 500000, 0, 300, 0, 0,0, 0, 1);
+	_item.init("흡혈귀의 단검", ITEM_SWORD, 50000, 0, 300, 0, 0,0, 0, 1);
 	_vItem.push_back(_item);
 	_item.init("캐터펄트 보우", ITEM_BOW, 2000, 0, 20, 0, 10,0, 0, 1);
 	_vItem.push_back(_item);
-	_item.init("플레임 보우", ITEM_BOW, 1000000, 0, 250, 0, 50, 0,0, 1);
+	_item.init("플레임 보우", ITEM_BOW, 100000, 0, 250, 0, 50, 0,0, 1);
 	_vItem.push_back(_item);
-
+	_item.init("훈련용 창", ITEM_SPEAR, 2000, 0, 30, 0, 5, 0, 0, 1);
+	_vItem.push_back(_item);
+	_item.init("골렘 드릴 창", ITEM_SPEAR, 100000, 0, 300, 0, 25, 0, 0, 1);
+	_vItem.push_back(_item);
 	//방어구 초기화
 	_item.init("천 반다나", ITEM_HELMET, 2000, 0, 0, 0, 8, 30,0, 1);
 	_vItem.push_back(_item);

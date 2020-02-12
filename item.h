@@ -9,6 +9,7 @@ enum itemType //아이템 종류
 	ITEM_HELMET,	 //헬멧
 	ITEM_BOOTS,		 //부츠
 	ITEM_BOW,		 //활
+	ITEM_SPEAR,		 //창
 	ITEM_SWORD,		 //검과 방패
 	ITEM_POTION,	 //물약
 	ITEM_ETC		 //잡템(재료템)
@@ -19,7 +20,6 @@ struct itemInfo
 	string		itemName;		//이름
 	itemType	type;			//아이템의 종류
 	RECT		rc;				//렉트
-	RECT		magnetRc;		//바닥에 떨어진 상태에서 주변의 플레이어를 감지하는 렉트
 
 	bool		move;			//바닥에 떨어진 아이템인지 아닌지
 	
@@ -77,12 +77,6 @@ public:
 
 	//플레이어가 아이템가격을 정할때 쓰는 함수
 	void setPlayerPrice(int price) { _item.playerPrice = price; } 
-
-																													  
-	//string getType() { return _type; } // 이름을 가져옴
-	//RECT getRect() { return _rc; } //rc를 가져옴
-
-
 
 };
 

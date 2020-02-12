@@ -12,6 +12,7 @@ storage::~storage()
 HRESULT storage::init(string storageName, POINT xy)
 {
 	//창고 초기화
+	_name = storageName;
 	_boxImg = IMAGEMANAGER->findImage(storageName);
 	_boxRc = RectMakeCenter(xy.x,xy.y , _boxImg->getFrameWidth(), _boxImg->getFrameHeight());
 
@@ -39,27 +40,26 @@ HRESULT storage::init(string storageName, POINT xy)
 	_cursor = new cursor;
 	_cursor->init();
 	_grab = new image;
-	_grab = IMAGEMANAGER->addImage("커서그랩", "images/shop/grab.bmp", 50, 52, true, RGB(255, 0, 255));
+	_grab = IMAGEMANAGER->findImage("커서그랩");
 
 
-	//임시로 넣어둠
-
+	//비어있는 상태로 초기화
 	for (int i = 0; i < 28; i++)
 	{
 		_vStorage.push_back(ITEMMANAGER->addItem("비어있음"));
 	}
-
 
 	return S_OK;
 }
 
 void storage::release()
 {
+	SAFE_DELETE(_cursor);
 }
 
 void storage::update()
 {
-	if (KEYMANAGER->isOnceKeyDown('2'))
+	if (KEYMANAGER->isOnceKeyDown('5'))
 	{
 		for (int k = 0; k < _vStorage.size(); k++)
 		{
@@ -71,9 +71,16 @@ void storage::update()
 				break;
 			}
 		}
-	}
-	if (KEYMANAGER->isOnceKeyDown('3'))
-	{
+		for (int k = 0; k < _vStorage.size(); k++)
+		{
+			if (_vStorage[k].getItemInfo().itemName == "비어있음" || _vStorage[k].getItemInfo().cnt <= 0)
+			{
+				_vStorage.erase(_vStorage.begin() + k);
+				_vStorage.insert(_vStorage.begin() + k, ITEMMANAGER->addItem("숫돌"));
+				_vStorage[k].setItemCnt_equal(10);
+				break;
+			}
+		}
 		for (int k = 0; k < _vStorage.size(); k++)
 		{
 			if (_vStorage[k].getItemInfo().itemName == "비어있음" || _vStorage[k].getItemInfo().cnt <= 0)
@@ -84,19 +91,57 @@ void storage::update()
 				break;
 			}
 		}
+		for (int k = 0; k < _vStorage.size(); k++)
+		{
+			if (_vStorage[k].getItemInfo().itemName == "비어있음" || _vStorage[k].getItemInfo().cnt <= 0)
+			{
+				_vStorage.erase(_vStorage.begin() + k);
+				_vStorage.insert(_vStorage.begin() + k, ITEMMANAGER->addItem("천"));
+				_vStorage[k].setItemCnt_equal(10);
+				break;
+			}
+		}
+		for (int k = 0; k < _vStorage.size(); k++)
+		{
+			if (_vStorage[k].getItemInfo().itemName == "비어있음" || _vStorage[k].getItemInfo().cnt <= 0)
+			{
+				_vStorage.erase(_vStorage.begin() + k);
+				_vStorage.insert(_vStorage.begin() + k, ITEMMANAGER->addItem("골렘코어"));
+				_vStorage[k].setItemCnt_equal(10);
+				break;
+			}
+		}
+		for (int k = 0; k < _vStorage.size(); k++)
+		{
+			if (_vStorage[k].getItemInfo().itemName == "비어있음" || _vStorage[k].getItemInfo().cnt <= 0)
+			{
+				_vStorage.erase(_vStorage.begin() + k);
+				_vStorage.insert(_vStorage.begin() + k, ITEMMANAGER->addItem("이빨석"));
+				_vStorage[k].setItemCnt_equal(10);
+				break;
+			}
+		}
 	}
-
+	playerCollision(); //열기닫기
 	itemArrange();	   //Z버튼을 누르면 창고에 들어있는 것들을 자동으로 정렬해주는 함수...미완성
 	cursorControl();   //커서컨트롤 WASD버튼
-	setStorageItem();  // 창고안의 아이템 위치를 업데이트
-	removeItem();
+	setStorageItem();  //창고안의 아이템 위치를 업데이트
+	removeItem();	   //카운트가 0으로 떨어진 아이템들을 계속 지워준다. 지워준 다음에는 다시 '비어있음'을 넣어줌
 }
 
 void storage::render()
 {
 	storageRender();
 	//Rectangle(getMemDC(), _cursorSlot.left, _cursorSlot.top, _cursorSlot.right, _cursorSlot.bottom);
-	if (_vTemp.size() > 0)
+	if (!_showWindow)
+	{
+		if (IntersectRect(&temp, &PLAYER->getPlayercollision(), &_boxRc))
+		{
+			IMAGEMANAGER->render("열기", getMemDC(), _boxRc.right, _boxRc.top - 20);
+		}
+	}
+	
+	if (_vTemp.size() > 0)	//템프가 비어있지 않다면(커서가 템을 잡고 있다면)
 	{
 		char str[128];
 		IMAGEMANAGER->render("커서그랩", getMemDC(), _cursorSlot.left, _cursorSlot.top - 60);
@@ -109,7 +154,6 @@ void storage::render()
 
 void storage::setStorageItem()
 {
-
 	if (_showWindow)
 	{
 		for (int i = 0; i < SLOTNUM; i++)
@@ -119,7 +163,6 @@ void storage::setStorageItem()
 			{
 				_vStorage[i].setRect(_slot[i]);
 			}
-
 		}
 	}
 }
@@ -128,10 +171,11 @@ void storage::storageRender()
 {
 	_boxImg->aniRender(getMemDC(), _boxRc.left, _boxRc.top, _storageAni);
 
-	if (_showWindow)
+	if (_showWindow)//열려있을때
 	{
-		//창고내부와 옆에 아이템이미지 띄워주는창
 		char str[128];
+
+		//창고내부
 		_mainImage->render(getMemDC(), WINSIZEX / 2 - 70, 100, _mainImage->getWidth(), _mainImage->getHeight());
 		_showItem->render(getMemDC(), _showItemRc.left, _showItemRc.top, _showItem->getWidth(), _showItem->getHeight());
 
@@ -150,19 +194,14 @@ void storage::storageRender()
 
 				wsprintf(str, "%d", _vStorage[i].getItemInfo().cnt);
 				TextOut(getMemDC(), _vStorage[i].getRECT().right, _vStorage[i].getRECT().bottom, str, strlen(str));
-				if (IntersectRect(&temp, &_cursorSlot, &_vStorage[i].getRECT()))// 커서와 아이템이 충돌된 상태라면 
+				// 커서와 아이템이 충돌된 상태라면 추가로 옆칸에 이미지를 띄워줌
+				if (IntersectRect(&temp, &_cursorSlot, &_vStorage[i].getRECT()))
 				{
 					_vStorage[i].getItemInfo().image->render(getMemDC(), _showItemRc.left+10, _showItemRc.top+10);
 				}
 			}
 		}
-
 		_cursor->render();
-
-		if (KEYMANAGER->isToggleKey('T'))//디버그
-		{
-			Rectangle(getMemDC(), _cursorSlot.left, _cursorSlot.top, _cursorSlot.right, _cursorSlot.bottom);
-		}
 	}
 }
 
@@ -248,7 +287,7 @@ void storage::itemArrange() //미완성
 	}
 }
 
-void storage::resetChoiceNum()
+void storage::resetCursor()
 {
 	//창고 창이 껏다켜지면 커서위치 초기화
 	_cursorNum = 0; 
@@ -269,7 +308,6 @@ void storage::removeItem()
 
 void storage::grab()
 {
-
 	for (int i = 0; i < _vStorage.size(); i++)
 	{
 		if (_vStorage[i].getItemInfo().itemName != "비어있음") //창고 안이 비어있지 않고
@@ -298,10 +336,37 @@ void storage::grab()
 					break;
 				}
 			}
-			
+			//if ((_cursorNum == i) && KEYMANAGER->isStayKeyDown('J'))
+			//{
+			//	allGrab = true;
+			//	if (allGrab)
+			//	{
+			//		_cursor->getAni()->start();
+
+			//		//임시벡터가 비어있을시 벡터에 추가
+			//		if (_vTemp.size() <= 0)
+			//		{
+			//			_vTemp.push_back(_vStorage[i]);
+			//			_vStorage.erase(_vStorage.begin() + i);
+			//			_vStorage.insert(_vStorage.begin() + i, ITEMMANAGER->addItem("비어있음"));
+			//			break;
+			//		}
+
+			//		//임시벡터에 이미 같은 이름의 아이템이 있으면 카운트를 올려줌
+			//		if (_vTemp[0].getItemInfo().itemName == _vStorage[i].getItemInfo().itemName &&
+			//			(_vStorage[i].getItemInfo().cnt + _vTemp[0].getItemInfo().cnt) <= _vTemp[0].getItemInfo().maxCnt)
+			//		{
+			//			_vTemp[0].setItemCnt(_vStorage[i].getItemInfo().cnt);
+			//			_vStorage.erase(_vStorage.begin() + i);
+			//			_vStorage.insert(_vStorage.begin() + i, ITEMMANAGER->addItem("비어있음"));
+			//			break;
+			//		}
+			//		allGrab = false;
+			//	}
+			//}
 		}
 		
-		if (_vTemp.size() > 0)
+		if (_vTemp.size() > 0)	//템프가 비어있지 않다면(아이템을 잡고 있다면)
 		{
 			if (_vStorage[i].getItemInfo().itemName == "비어있음") //비어있는 곳에
 			{
@@ -317,5 +382,34 @@ void storage::grab()
 			}
 		}
 
+	}
+}
+
+void storage::playerCollision()//열기닫기
+{
+	if (IntersectRect(&temp, &PLAYER->getPlayercollision(), &_boxRc))
+	{
+		if (!_showWindow)
+		{
+			if (KEYMANAGER->isOnceKeyDown('J'))
+			{
+				if (_name == "창고1")_storageAni = ANIMATIONMANAGER->findAnimation("창고1오픈");
+				if (_name == "창고2")_storageAni = ANIMATIONMANAGER->findAnimation("창고2오픈");
+				resetCursor();
+				_storageAni->start();
+				_showWindow = true;
+			}
+		}
+		if (_showWindow)
+		{
+			if (KEYMANAGER->isOnceKeyDown('I'))
+			{
+				if (_name == "창고1")_storageAni = ANIMATIONMANAGER->findAnimation("창고1클로즈");
+				if (_name == "창고2")_storageAni = ANIMATIONMANAGER->findAnimation("창고2클로즈");
+				
+				_storageAni->start();
+				_showWindow = false;
+			}
+		}
 	}
 }

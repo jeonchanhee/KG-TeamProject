@@ -19,8 +19,6 @@ void mainGame::imagesInit()
 
 
 	//몬스터
-	IMAGEMANAGER->addFrameImage("골렘터렛", "images/monster/golemTurret.bmp", 0, 0, 546 * 2, 212 * 2, 12, 4, true, RGB(255, 0, 255));
-	ANIMATIONMANAGER->addAnimation("골렘터렛L", "골렘터렛", 0, 11, 12, true, true);
 	IMAGEMANAGER->addFrameImage("골렘터렛", "images/monster/golemTurret.bmp", 0, 0, 551 * 2, 204 * 2, 12, 4, true, RGB(255, 0, 255));
 	ANIMATIONMANAGER->addAnimation("골렘터렛L", "골렘터렛", 0, 11, 12, false, true);
 	ANIMATIONMANAGER->addAnimation("골렘터렛U", "골렘터렛", 12, 24, 12, false, true);
@@ -36,35 +34,36 @@ void mainGame::imagesInit()
 	ANIMATIONMANAGER->addAnimation("골렘솔저공격R", "골렘솔저공격", 13, 25, 26, false, false);
 	ANIMATIONMANAGER->addAnimation("골렘솔저공격U", "골렘솔저공격", 26, 38, 26, false, false);
 	ANIMATIONMANAGER->addAnimation("골렘솔저공격B", "골렘솔저공격", 39, 51, 26, false, false);
-	IMAGEMANAGER->addFrameImage("슬라임건틀렛", "images/monster/slimeGauntlet.bmp", 0, 0, 810 * 2, 356 * 2, 14, 4, true, RGB(255, 0, 255));
-	ANIMATIONMANAGER->addAnimation("슬라임건틀렛L", "슬라임건틀렛", 0, 13, 14, false, true);
-	ANIMATIONMANAGER->addAnimation("슬라임건틀렛U", "슬라임건틀렛", 14, 27, 14, false, true);
-	ANIMATIONMANAGER->addAnimation("슬라임건틀렛R", "슬라임건틀렛", 28, 41, 14, false, true);
-	ANIMATIONMANAGER->addAnimation("슬라임건틀렛B", "슬라임건틀렛", 42, 55, 14, false, true);
-	IMAGEMANAGER->addFrameImage("슬라임건틀렛공격", "images/monster/slimeGauntletAtk.bmp", 0, 0, 10420 * 2, 800 * 2, 52, 4, true, RGB(255, 0, 255));
-	ANIMATIONMANAGER->addAnimation("슬라임건틀렛공격B", "슬라임건틀렛공격", 0, 51, 52, false, true);
-	ANIMATIONMANAGER->addAnimation("슬라임건틀렛공격L", "슬라임건틀렛공격", 52, 103, 52, false, true);
-	ANIMATIONMANAGER->addAnimation("슬라임건틀렛공격R", "슬라임건틀렛공격", 104, 155, 52, false, true);
-	ANIMATIONMANAGER->addAnimation("슬라임건틀렛공격U", "슬라임건틀렛공격", 156, 207, 52, false, true);
+	IMAGEMANAGER->addFrameImage("슬라임건틀렛", "images/monster/slimeGauntletAtk.bmp", 0, 0, 10408 * 2, 1608 * 2, 52, 8, true, RGB(255, 0, 255));
+	ANIMATIONMANAGER->addAnimation("슬라임건틀렛공격B", "슬라임건틀렛", 0, 51, 52, false, false);
+	ANIMATIONMANAGER->addAnimation("슬라임건틀렛공격L", "슬라임건틀렛", 52, 103, 52, false, false);
+	ANIMATIONMANAGER->addAnimation("슬라임건틀렛공격R", "슬라임건틀렛", 104, 155, 52, false, false);
+	ANIMATIONMANAGER->addAnimation("슬라임건틀렛공격U", "슬라임건틀렛", 156, 207, 52, false, false);
+	ANIMATIONMANAGER->addAnimation("슬라임건틀렛B", "슬라임건틀렛", 208, 221, 14, false, true);
+	ANIMATIONMANAGER->addAnimation("슬라임건틀렛L", "슬라임건틀렛", 260, 273, 14, false, true);
+	ANIMATIONMANAGER->addAnimation("슬라임건틀렛R", "슬라임건틀렛", 312, 325, 14, false, true);
+	ANIMATIONMANAGER->addAnimation("슬라임건틀렛U", "슬라임건틀렛", 364, 377, 14, false, true);
 	IMAGEMANAGER->addFrameImage("골렘보스", "images/monster/golemBoss.bmp", 0, 0, 778 * 2, 518 * 2, 8, 4, true, RGB(255, 0, 255));
 	ANIMATIONMANAGER->addAnimation("골렘보스L", "골렘보스", 0, 7, 8, false, true);
 	ANIMATIONMANAGER->addAnimation("골렘보스U", "골렘보스", 8, 15, 8, false, true);
 	ANIMATIONMANAGER->addAnimation("골렘보스R", "골렘보스", 16, 23, 8, false, true);
 	ANIMATIONMANAGER->addAnimation("골렘보스B", "골렘보스", 24, 31, 8, false, true);
 	IMAGEMANAGER->addFrameImage("골렘보스공격1", "images/monster/golemBossAtk12.bmp", 0, 0, 4502 * 2, 1152 * 2, 15, 4, true, RGB(255, 0, 255));
-	ANIMATIONMANAGER->addAnimation("골렘보스공격1B", "골렘보스공격1", 0, 14, 15, false, true);
-	ANIMATIONMANAGER->addAnimation("골렘보스공격1L", "골렘보스공격1", 15, 29, 15, false, true);
-	ANIMATIONMANAGER->addAnimation("골렘보스공격1R", "골렘보스공격1", 30, 44, 15, false, true);
-	ANIMATIONMANAGER->addAnimation("골렘보스공격1U", "골렘보스공격1", 45, 59, 15, false, true);
+	ANIMATIONMANAGER->addAnimation("골렘보스공격1B", "골렘보스공격1", 0, 14, 15, false, false);
+	ANIMATIONMANAGER->addAnimation("골렘보스공격1L", "골렘보스공격1", 15, 29, 15, false, false);
+	ANIMATIONMANAGER->addAnimation("골렘보스공격1R", "골렘보스공격1", 30, 44, 15, false, false);
+	ANIMATIONMANAGER->addAnimation("골렘보스공격1U", "골렘보스공격1", 45, 59, 15, false, false);
 	IMAGEMANAGER->addFrameImage("골렘보스공격2", "images/monster/golemBossAtk2.bmp", 0, 0, 3004 * 2, 1008 * 2, 15, 4, true, RGB(255, 0, 255));
-	ANIMATIONMANAGER->addAnimation("골렘보스공격2B", "골렘보스공격2", 0, 14, 15, false, true);
-	ANIMATIONMANAGER->addAnimation("골렘보스공격2L", "골렘보스공격2", 16, 29, 15, false, true);
-	ANIMATIONMANAGER->addAnimation("골렘보스공격2R", "골렘보스공격2", 30, 44, 15, false, true);
-	ANIMATIONMANAGER->addAnimation("골렘보스공격2U", "골렘보스공격2", 45, 59, 15, false, true);
+	ANIMATIONMANAGER->addAnimation("골렘보스공격2B", "골렘보스공격2", 0, 14, 15, false, false);
+	ANIMATIONMANAGER->addAnimation("골렘보스공격2L", "골렘보스공격2", 16, 29, 15, false, false);
+	ANIMATIONMANAGER->addAnimation("골렘보스공격2R", "골렘보스공격2", 30, 44, 15, false, false);
+	ANIMATIONMANAGER->addAnimation("골렘보스공격2U", "골렘보스공격2", 45, 59, 15, false, false);
 	IMAGEMANAGER->addFrameImage("터렛미사일L", "images/monster/golemTurretMissileL.bmp", 0, 0, 35 * 4, 35 * 4, 1, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("터렛미사일R", "images/monster/golemTurretMissileR.bmp", 0, 0, 35 * 4, 35 * 4, 1, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("터렛미사일U", "images/monster/golemTurretMissileU.bmp", 0, 0, 35 * 4, 35 * 4, 1, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("터렛미사일B", "images/monster/golemTurretMissileB.bmp", 0, 0, 35 * 4, 35 * 4, 1, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("몬스터죽음", "images/monster/fx_boom.bmp", 0, 0, 1150 * 2, 110 * 2, 10, 1, true, RGB(255, 0, 255));
+	ANIMATIONMANAGER->addAnimation("몬스터주금", "몬스터죽음", 0, 9, 10, false, false);
 
 	//아이템
 	IMAGEMANAGER->addImage("비어있음", "images/item/비어있음.bmp", 36, 36, true, RGB(255, 0, 255));
@@ -93,6 +92,8 @@ void mainGame::imagesInit()
 	IMAGEMANAGER->addImage("캐터펄트 보우", "images/item/캐터펄트보우.bmp", 36, 36, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("훈련용 단검", "images/item/훈련용단검.bmp", 36, 36, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("흡혈귀의 단검", "images/item/흡혈귀의단검.bmp", 36, 36, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("훈련용 창", "images/item/훈련용 창.bmp", 36, 36, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("골렘 드릴 창", "images/item/골렘 드릴 창.bmp", 36, 36, true, RGB(255, 0, 255));
 
 	//플레이어상점
 	IMAGEMANAGER->addFrameImage("커서", "images/shop/storageCursor2.bmp", 120, 60, 2, 1, true, RGB(255, 0, 255));
@@ -101,20 +102,43 @@ void mainGame::imagesInit()
 	IMAGEMANAGER->addImage("창고내부", "images/shop/storageMain2.bmp", 554, 504, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("템보여주기", "images/shop/showItem.bmp", 60, 60, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("슬롯이미지", "images/shop/slotImage.bmp", 40, 40, 40, 40, true, RGB(255, 0, 255));
+<<<<<<< HEAD
 	IMAGEMANAGER->addImage("판매슬롯이미지", "images/shop/sellSlot.bmp", 60, 60, true, RGB(255, 0, 255));
+=======
+	IMAGEMANAGER->addImage("판매슬롯이미지", "images/shop/sellSlot.bmp", 40, 40, true, RGB(255, 0, 255));
+>>>>>>> 46506dbf4095b4026a947b643eb23efcd95ceb36
 	IMAGEMANAGER->addImage("열기", "images/shop/열기.bmp", 193 / 2, 87 / 2, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("판매창", "images/shop/sellStand.bmp", 500, 500, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("판매창", "images/shop/sellStand.bmp", 450, 450, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("판매테이블", "images/shop/table items.bmp", 48 * 2, 56 * 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("커서그랩", "images/shop/grab.bmp", 50, 52, true, RGB(255, 0, 255));
 
-	//벌컨의 대장간(npc상점)
+	int arrlen1[] = { 0,1,2 };
+	int arrlen2[] = { 3,4,5 };
+	ANIMATIONMANAGER->addAnimation("창고1오픈", "창고1", arrlen1, 3, 10, false);
+	ANIMATIONMANAGER->addAnimation("창고1클로즈", "창고1", arrlen2, 3, 10, false);
+	int arrlen3[] = { 0,1,2,3 };
+	int arrlen4[] = { 4,5,6,7 };
+	ANIMATIONMANAGER->addAnimation("창고2오픈", "창고2", arrlen3, 4, 10, false);
+	ANIMATIONMANAGER->addAnimation("창고2클로즈", "창고2", arrlen4, 4, 10, false);
+
+	//NPC상점(대장간+포션상점)
 	IMAGEMANAGER->addImage("망치이미지", "images/blacksmith/망치이미지.bmp", 204, 132, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("벌컨", "images/blacksmith/벌컨.bmp", 186, 254, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("벌컨", "images/blacksmith/벌컨인게임idle.bmp", 210 * 2, 49 * 2, 6, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("위치", "images/blacksmith/위치인게임idle.bmp", 132 * 2, 44 * 2, 4, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("아이템보여주는창", "images/blacksmith/imageSlot.bmp", 450, 250, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("타이틀", "images/blacksmith/타이틀.bmp", 201, 44, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("업그레이드레시피", "images/blacksmith/업그레이드레시피.bmp", 170 * 2, 317 * 2, true, RGB(255, 0, 255));
+<<<<<<< HEAD
+=======
+	IMAGEMANAGER->addImage("업그레이드레시피_포션", "images/blacksmith/업그레이드레시피_포션.bmp", 170 * 2, 317 * 2, true, RGB(255, 0, 255));
+>>>>>>> 46506dbf4095b4026a947b643eb23efcd95ceb36
 	IMAGEMANAGER->addImage("아머슬롯", "images/blacksmith/armorSlot.bmp", 57, 57, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("보우슬롯", "images/blacksmith/bowSlot.bmp", 57, 57, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("소드슬롯", "images/blacksmith/swordSlot.bmp", 57, 57, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("스피어슬롯", "images/blacksmith/spearSlot.bmp", 57, 57, true, RGB(255, 0, 255));
 
+	ANIMATIONMANAGER->addDefAnimation("벌컨기본모션", "벌컨", 3, false, false);
+	ANIMATIONMANAGER->addDefAnimation("위치기본모션", "위치", 3, false, false);
 
 	//인벤토리
 	IMAGEMANAGER->addImage("배경", "images/inventory/인벤토리배경화면.bmp", WINSIZEX, WINSIZEY, true, RGB(255, 0, 255));
