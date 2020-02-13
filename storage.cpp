@@ -225,6 +225,7 @@ void storage::cursorControl()
 			{
 				_cursorNum = 0;
 				PLAYER->getinventory()->setTest(true); //옆으로 인벤토리로 옮기기
+				if(_vTemp.size()!=0) PLAYER->getinventory()->swapItem(_vTemp[0]);
 			//	PLAYER->getinventory()->getvTemp()[0];
 			}
 			/*	if (_cursorNum = 7 && KEYMANAGER->isOnceKeyDown('A'))

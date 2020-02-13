@@ -29,7 +29,7 @@ private:
 	int _cursorNum;							//몇번슬롯이 선택되었는지
 	image* _grab;							//커서가 잡은 아이템의 배경
 	vector<item>_vTemp;						//아이템을 임시로 담을 벡터
-
+	bool _test;
 
 	bool _showWindow;						//트루면 창이 띄워짐
 	RECT temp;								//렉트충돌용

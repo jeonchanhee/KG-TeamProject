@@ -66,16 +66,24 @@ void sellTable::update()
 	{
 		_vSellItem[i].update();
 	}
+	if (!PLAYER->getinventory()->getTest()) cursorControl();   //-->커서컨트롤 WASD버튼
+	else PLAYER->getinventory()->cursormove();				//-->커서컨트롤 WASD버튼
+
 	playerCollision();
 	cursorControl();
 	selectPrice();
 	removeItem();
+
+
+	PLAYER->getinventory()->inventoryItem();
 }
 
 void sellTable::render()
 {
 	//아이템을 올려두는 테이블과 그 위에 놓여진 아이템 렌더
 	IMAGEMANAGER->render("판매테이블", getMemDC(), _tableRc.left, _tableRc.top);
+	PLAYER->getinventory()->moverender(getMemDC());
+	PLAYER->getinventory()->invenanditemcollision(getMemDC());
 	for (int i = 0; i < _vSellItem.size(); i++)
 	{
 		_vSellItem[i].render();
@@ -121,7 +129,7 @@ void sellTable::render()
 			_vSellItem[i].getItemInfo().image->render(getMemDC(), _slot[i].left, _slot[i].top);
 		}
 
-		_cursor->render();
+		if(_test)_cursor->render();
 	}
 
 	if (_vTemp.size() > 0)	//템프가 비어있지 않다면(커서가 템을 잡고 있다면)
@@ -138,12 +146,42 @@ void sellTable::cursorControl()
 {
 	if (_showWindow)
 	{
+		//플레이어 인벤창에서 커서가 일정 칸을 넘어가면
+		if (PLAYER->getinventory()->getcusornumber() > 18)
+		{
+			//플레이어상점의 커서 초기화. test는 커서의 렌더유무
+			_cursorSlot = _slot[0];
+			_test = true;
+
+			//만약 인벤토리에서 아이템을 잡고 있는 상태라면 
+			if (PLAYER->getinventory()->getvTemp().size() != 0)
+			{
+				//그 정보를 이쪽으로 가져오고 그쪽의 정보는 삭제.
+				_vTemp.push_back(PLAYER->getinventory()->getvTemp()[0]);
+				PLAYER->getinventory()->tempClear();
+			}
+		}
 		if (KEYMANAGER->isOnceKeyDown('A'))
 		{
 			//커서가 옆으로 못나가게
 			_cursorNum--;
-			if (_cursorNum < 0) _cursorNum = 0;
+			if (_cursorNum < 0)
+			{
+				_cursorNum = 0;
 
+				//setTest가 true가 되면 인벤토리 창이 켜진다. test가 false가 되면 상점의 커서가 꺼짐
+				PLAYER->getinventory()->setTest(true); 
+				_test = false;
+
+				//만약 상점에서 커서가 아이템을 잡은 상태라면
+				if (_vTemp.size() != 0)
+				{
+					//인벤토리의 커서로 아이템을 보내주고 이쪽의 정보는 삭제.
+					PLAYER->getinventory()->swapItem(_vTemp[0]);
+					_vTemp.clear();
+				}
+			}
+				
 			//커서를 옆 칸으로 옮긴다
 			_cursorSlot = RectMake(_slot[_cursorNum].left, _slot[_cursorNum].top, 40, 40);
 			_cursor->setSmallCursor();		//커서 크기를 작게하는 함수
@@ -172,11 +210,11 @@ void sellTable::cursorControl()
 			if (_cursorNum < 0)
 			{
 				_cursorNum = temp;
-				_cursorSlot = _slot[_cursorNum];	  //_slot은 아이템 올려놓는 렉트
+				_cursorSlot = _slot[_cursorNum];	  //_slot - 아이템 올려놓는 렉트
 			}
 			else
 			{
-				_cursorSlot = _sellInfo[_cursorNum];  //_sellInfo는 아이템가격 정하는 렉트
+				_cursorSlot = _sellInfo[_cursorNum];  //_sellInfo - 아이템가격 정하는 렉트
 				_cursor->setBigCursor();			  //커서 크기를 크게하는함수
 			}
 
@@ -243,11 +281,25 @@ void sellTable::playerCollision()
 	{
 		if (!_showWindow)
 		{
-			if (KEYMANAGER->isOnceKeyDown('J'))_showWindow = true;
+			if (KEYMANAGER->isOnceKeyDown('J'))
+			{
+				_showWindow = true;
+				_test = true;
+			PLAYER->getinventory()->setStprageOpen(true);
+			//PLAYER->getinventory()->setTest(true);
+
+			}
 		}
 		if (_showWindow)
 		{
-			if (KEYMANAGER->isOnceKeyDown('I'))_showWindow = false;
+			if (KEYMANAGER->isOnceKeyDown('I'))
+			{
+				_showWindow = false;
+				_test = false;
+			PLAYER->getinventory()->setStprageOpen(false);
+			PLAYER->getinventory()->setTest(false);
+
+			}
 		}
 	}
 }

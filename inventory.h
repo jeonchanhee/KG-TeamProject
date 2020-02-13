@@ -104,4 +104,20 @@ public:
 	void setStprageOpen(bool storageOpen) { _storageOpen = storageOpen; }
 
 
+
+
+
+
+
+
+
+	//추가한거
+	void swapItem(item swapItem);
+	void tempClear() { 
+
+		_vTemp.clear(); 	
+		test = false; 
+		_cursorNumber = 0;
+	
+	}
 };

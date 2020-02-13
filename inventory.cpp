@@ -161,7 +161,7 @@ void inventory::cursormove()   //커서 이동  함수
 
 		if (!_storageOpen)
 		{
-			if (_cursorNumber > 20) _cursorNumber = 20;
+			if (_cursorNumber > 20);//_cursorNumber = 20;
 		}
 		else
 		{
@@ -307,6 +307,13 @@ void inventory::isweaponing()
 			_isweapon = false;
 		}
 	}
+}
+
+void inventory::swapItem(item swapItem)
+{
+	_vTemp.push_back(swapItem);
+	_vTemp[0].setRect(_invenotryelement[4]._inventoryrect);
+	_cursor->setRc(_invenotryelement[4]._inventoryrect);
 }
 
 
