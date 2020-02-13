@@ -9,13 +9,14 @@ item::~item()
 {
 }
 
-HRESULT item::init(const char* name, itemType type , int orignalPrice, int playerPrice, int atk , int def , int speed, int hp ,int heal , int maxCnt)
+HRESULT item::init(const char* name, itemType type, int orignalPrice, int playerPrice, int atk, int def, int speed, int hp, int heal, int maxCnt)
 {
 
 	_item.itemName = name;
 	_item.image = IMAGEMANAGER->findImage(name);
 	_item.type = type;
-	_item.move = true;
+	_item.move = false;
+	_item.wave = false;
 	_item.orignalPrice = orignalPrice;
 	_item.playerPrice = playerPrice;
 	_item.rc = RectMakeCenter(0, 0, _item.image->getWidth(), _item.image->getHeight());
@@ -44,13 +45,13 @@ void item::update()
 
 void item::render()
 {
-	if(KEYMANAGER->isToggleKey('T')) Rectangle(CAMERAMANAGER->getCameraDC(), _item.rc.left, _item.rc.top, _item.rc.right, _item.rc.bottom);
-	
+	if (KEYMANAGER->isToggleKey('T')) Rectangle(CAMERAMANAGER->getCameraDC(), _item.rc.left, _item.rc.top, _item.rc.right, _item.rc.bottom);
+
 	_item.image->render(CAMERAMANAGER->getCameraDC(), _item.rc.left, _item.rc.top);
 }
 
 void item::magnet(POINT playerPoint)
-{		
+{
 	_item.x = _item.rc.left + (_item.rc.right - _item.rc.left) / 2;
 	_item.y = _item.rc.top + (_item.rc.bottom - _item.rc.top) / 2;
 	//상태가 무브일때, 그리고 플레이어를 감지하는 렉트와 플레이어의 렉트가 충돌했을때
@@ -66,11 +67,11 @@ void item::magnet(POINT playerPoint)
 
 void item::wave()
 {
-	if (_item.move)		//바닥에 떨어진 템이라면
+	if (_item.wave)		//바닥에 떨어진 템이라면
 	{
 		waveCnt++;
 
-		if(updown)		//위아래로 흔들림
+		if (updown)		//위아래로 흔들림
 		{
 			_item.rc.top -= 1;
 			_item.rc.bottom -= 1;
@@ -83,7 +84,7 @@ void item::wave()
 			if (waveCnt > 30)
 			{
 				updown = true;
-				waveCnt = 0;
+				waveCnt = 1;
 			}
 		}
 

@@ -3,16 +3,6 @@
 
 NPCblacksmith::NPCblacksmith()
 {
-	_armorTabImg = IMAGEMANAGER->findImage("¾Æ¸Ó½½·Ô");
-	_armorTab = RectMakeCenter(WINSIZEX / 2 - 160, WINSIZEY / 2 - 280, _armorTabImg->getWidth(), _armorTabImg->getWidth());
-	_bowTabImg = IMAGEMANAGER->findImage("º¸¿ì½½·Ô");
-	_bowTab = RectMakeCenter(WINSIZEX / 2 - 40, WINSIZEY / 2 - 280, _bowTabImg->getWidth(), _bowTabImg->getHeight());
-	_swordTabImg = IMAGEMANAGER->findImage("¼Òµå½½·Ô");
-	_swordTab = RectMakeCenter(WINSIZEX / 2 - 100, WINSIZEY / 2 - 280, _swordTabImg->getWidth(), _swordTabImg->getHeight());
-	_spearTabImg = IMAGEMANAGER->findImage("½ºÇÇ¾î½½·Ô");
-	_spearTab = RectMakeCenter(WINSIZEX / 2 + 20, WINSIZEY / 2 - 280, _spearTabImg->getWidth(), _spearTabImg->getHeight());
-
-	_currentTab = 0;  //ÇöÀçÅÇ
 }
 
 NPCblacksmith::~NPCblacksmith()
@@ -35,6 +25,17 @@ HRESULT NPCblacksmith::init(POINT npcXY)
 	_vShowItem.push_back(ITEMMANAGER->addItem("ÈÆ·Ã¿ë Ã¢"));
 	_vShowItem.push_back(ITEMMANAGER->addItem("°ñ·½ µå¸± Ã¢"));
 
+	_armorTabImg = IMAGEMANAGER->findImage("¾Æ¸Ó½½·Ô");
+	_armorTab = RectMakeCenter(WINSIZEX / 2 - 160, WINSIZEY / 2 - 280, _armorTabImg->getWidth(), _armorTabImg->getWidth());
+	_bowTabImg = IMAGEMANAGER->findImage("º¸¿ì½½·Ô");
+	_bowTab = RectMakeCenter(WINSIZEX / 2 - 40, WINSIZEY / 2 - 280, _bowTabImg->getWidth(), _bowTabImg->getHeight());
+	_swordTabImg = IMAGEMANAGER->findImage("¼Òµå½½·Ô");
+	_swordTab = RectMakeCenter(WINSIZEX / 2 - 100, WINSIZEY / 2 - 280, _swordTabImg->getWidth(), _swordTabImg->getHeight());
+	_spearTabImg = IMAGEMANAGER->findImage("½ºÇÇ¾î½½·Ô");
+	_spearTab = RectMakeCenter(WINSIZEX / 2 + 20, WINSIZEY / 2 - 280, _spearTabImg->getWidth(), _spearTabImg->getHeight());
+
+	_currentTab = 0;  //ÇöÀçÅÇ
+
 	_npcRc = RectMakeCenter(npcXY.x, npcXY.y, _npcImg->getFrameWidth(), _npcImg->getFrameHeight());
 
 	NPCshopBase::init();
@@ -44,7 +45,6 @@ HRESULT NPCblacksmith::init(POINT npcXY)
 
 void NPCblacksmith::release()
 {
-	SAFE_DELETE(_cursor);
 }
 
 void NPCblacksmith::update()
@@ -188,7 +188,7 @@ void NPCblacksmith::tabControl()
 				//¹æ¾î±¸ ÅÇÀº Ä¿¼­°¡ 0¹ø Ä­ºÎÅÍ°¡ ¾Æ´Ñ 1¹øÄ­ºÎÅÍ ½ÃÀÛÇÔ..
 			}
 		}
-		if (KEYMANAGER->isOnceKeyDown('C'))//ÅÇÀ» ¿Å±â¸é Ä¿¼­ À§Ä¡ ÃÊ±âÈ­
+		if (KEYMANAGER->isOnceKeyDown('V'))//ÅÇÀ» ¿Å±â¸é Ä¿¼­ À§Ä¡ ÃÊ±âÈ­
 		{
 			_currentTab++;
 			if (_currentTab >= 1)
@@ -224,7 +224,7 @@ void NPCblacksmith::tabControl()
 				_vShowItem[i].setRect(_itemSlot[5]);
 			}
 			else if (_vShowItem[i].getItemInfo().type != ITEM_BOOTS && _vShowItem[i].getItemInfo().type != ITEM_HELMET && _vShowItem[i].getItemInfo().type != ITEM_ARMOR)
-				_vShowItem[i].setRect(WINSIZEX,WINSIZEY*2);
+				_vShowItem[i].setRect(WINSIZEX, WINSIZEY * 2);
 		}
 		break;
 	case 1:

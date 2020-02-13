@@ -97,6 +97,7 @@ void mainGame::imagesInit()
 
 	//플레이어상점
 	IMAGEMANAGER->addFrameImage("커서", "images/shop/storageCursor2.bmp", 120, 60, 2, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("빅커서", "images/shop/storageCursor2.bmp", 480, 120, 2, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("창고1", "images/shop/storage1.bmp", 198 * 2, 134 * 2, 3, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("창고2", "images/shop/storage2.bmp", 200 * 2, 102 * 2, 4, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("창고내부", "images/shop/storageMain2.bmp", 554, 504, true, RGB(255, 0, 255));
@@ -107,6 +108,7 @@ void mainGame::imagesInit()
 	IMAGEMANAGER->addImage("판매창", "images/shop/sellStand.bmp", 450, 450, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("판매테이블", "images/shop/table items.bmp", 48 * 2, 56 * 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("커서그랩", "images/shop/grab.bmp", 50, 52, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("위아래화살표", "images/shop/updown.bmp", 20, 50, true, RGB(255, 0, 255));
 
 	int arrlen1[] = { 0,1,2 };
 	int arrlen2[] = { 3,4,5 };

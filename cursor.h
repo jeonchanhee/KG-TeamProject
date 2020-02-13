@@ -7,9 +7,9 @@ class cursor : public gameNode
 	image*			_image;				//커서의 이미지
 	RECT			_rc;				    //커서의 위치
 	animation*		_ani;				//커서의 애니메이션
-	int				_cursorMove;				//커서의 움직임을 담당할 변수. 창고슬롯 배열을돌아다녀서 커서를 움직임.
 	vector<item>	_vTemp;
 
+	bool _bigSmall;// 큰 상태인지 작은상태인지 체크용
 public:
 	cursor();
 	~cursor();
@@ -22,5 +22,7 @@ public:
 	void setRc(RECT rc) { _rc = rc; }
 	animation* getAni() { return _ani; }
 
+	void setBigCursor();
+	void setSmallCursor();
 };
 

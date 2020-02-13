@@ -28,7 +28,6 @@ HRESULT NPCpotionShop::init(POINT npcXY)
 
 void NPCpotionShop::release()
 {
-	SAFE_DELETE(_cursor);
 }
 
 void NPCpotionShop::update()
@@ -36,7 +35,7 @@ void NPCpotionShop::update()
 	NPCshopBase::update();
 }
 
-void NPCpotionShop::render()	
+void NPCpotionShop::render()
 {
 	NPCshopBase::render();
 
