@@ -98,6 +98,7 @@ struct taghpbar // 프로그래스바
 	int _maxhp;								//
 };
 
+
 class player : public singletonBase<player>//public gameNode //public singletonBase<player>
 {
 private:
@@ -112,6 +113,10 @@ private:
 
 	weapons* _arrowfirst;   // 화살 
 	inventory* _inventory;
+
+	RECT _swordrect[4];
+
+	bool _ishwing;			// 칼을 휘둘렀냐 안휘둘렀냐?(안휘두름)
 public:
 	player();
 	~player();
@@ -150,5 +155,8 @@ public:
 	int getMoney() { return _player._pmoney; }													//상점이나 인벤토리 용
 	void setMoney(int money) { _player._pmoney = money; }							//상점이나 인벤토리용
 
+	RECT getattacksword() { return _swordrect[4]; }
+
+	inventory* getinventory() { return _inventory; }
 
 };

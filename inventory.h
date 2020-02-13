@@ -62,10 +62,12 @@ private:
 	RECT _temp;
 	vector<item> _vTemp;				//임시로 닮을 벡터
 
-	int _itemcount;					// 'J'를 누른만큼 아이템을 옮기는 것 
-	int money;
-
 	bool _openinventorywin;  //인벤토리 창을 열기 위한 것
+	bool test;				//아이템 창고 이용하기 위한 불값
+	bool _storageOpen;		//아이템 창고 이용하기 위한 불값
+	bool _isweapon;			//무기 전환하기 위한 불값.. 이미지로만
+
+
 public:
 	inventory();
 	~inventory();
@@ -75,18 +77,31 @@ public:
 	void update();
 	void render(HDC hdc);
 	void moverender(HDC hdc);			//저장소에서 보여줄 랜더
+	void invenanditemcollision(HDC hdc);
 	void itemrender(HDC hdc);
 	void bkrender(HDC hdc);
 
 	void setOpen(bool open) { _openinventorywin = open; }
 
-	void moneyitem();						// 아이템을 돈을 바꾸는 함수
 	void inventoryItem();					//인벤토리 요소 안에 상태를 알리기 위한 함수
 	void cursormove();						//커서 이동 아이템 
 	void grabmove();							//J로 아이템 잡기
 	void grabitemremove();				//J로 아이템 
+	void isweaponing();					//z버튼으로 무기 아이템 전환
 
 
-		//눌렀을 때 잡기
+	vector<item> getvInven() { return _vInven; }			//현재  가지고 있는 아이템 
+	vector<item>::iterator getviterInven() { return _viInven; }
+	vector<item> getvTemp() { return _vTemp; }
+
+
+	int getcusornumber() { return _cursorNumber; }
+
+	bool getTest() { return test; }
+	void setTest(bool t) { test = t; }
+
+	bool getStorageOpen() { return _storageOpen; }
+	void setStprageOpen(bool storageOpen) { _storageOpen = storageOpen; }
+
+
 };
-

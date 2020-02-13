@@ -60,6 +60,9 @@ public:
 
 	void playerCollision();									// 열기닫기
 	void grab();											//커서가 아이템을 잡았을떄
+
+	void invenplayer();									//    -->창고랑 인벤토리랑 주고 받는 함수
+	void invenplayermove();							//	-->비어 있는 자리에 채우기			
 };
 
 

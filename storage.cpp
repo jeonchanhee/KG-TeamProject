@@ -124,13 +124,21 @@ void storage::update()
 	}
 	playerCollision(); //열기닫기
 	itemArrange();	   //Z버튼을 누르면 창고에 들어있는 것들을 자동으로 정렬해주는 함수...미완성
+	if (!PLAYER->getinventory()->getTest()) cursorControl();   //-->커서컨트롤 WASD버튼
+	else PLAYER->getinventory()->cursormove();				//-->커서컨트롤 WASD버튼
 	cursorControl();   //커서컨트롤 WASD버튼
 	setStorageItem();  //창고안의 아이템 위치를 업데이트
 	removeItem();	   //카운트가 0으로 떨어진 아이템들을 계속 지워준다. 지워준 다음에는 다시 '비어있음'을 넣어줌
+	PLAYER->getinventory()->inventoryItem();						//			---> 창고에서 인벤토리의 상태를 보여줘야하며 
+	PLAYER->getinventory()->grabitemremove();					//			--->  창고에서 (창고용)인벤토리 아이템을 버리는 상태를 알아야한다. 
+	//invenplayer();				//    -->창고랑 인벤토리랑 주고 받는 함수
+	//invenplayermove(); //-->인벤토리 아이템이 창고로 넘어갔을 때 비어있음 자리로  채워지는 함수
 }
 
 void storage::render()
 {
+	PLAYER->getinventory()->moverender(getMemDC());
+	PLAYER->getinventory()->invenanditemcollision(getMemDC());			//--->인벤용에 있는 아이템을 보여_showItem에 보여주기 위한 것 
 	storageRender();
 	//Rectangle(getMemDC(), _cursorSlot.left, _cursorSlot.top, _cursorSlot.right, _cursorSlot.bottom);
 	if (!_showWindow)
@@ -213,7 +221,16 @@ void storage::cursorControl()
 		{
 			//커서가 옆으로 못나가게
 			_cursorNum--;
-			if (_cursorNum < 0) _cursorNum = 0;
+			if (_cursorNum < 0)
+			{
+				_cursorNum = 0;
+				PLAYER->getinventory()->setTest(true); //옆으로 인벤토리로 옮기기
+			//	PLAYER->getinventory()->getvTemp()[0];
+			}
+			/*	if (_cursorNum = 7 && KEYMANAGER->isOnceKeyDown('A'))
+				{
+					PLAYER->getinventory()->setTest(true);
+				}*/
 
 			_cursorSlot = RectMake(_slot[_cursorNum].left, _slot[_cursorNum].top, 40, 40);
 			_cursor->getAni()->start();
@@ -385,6 +402,69 @@ void storage::grab()
 	}
 }
 
+
+void storage::invenplayer()   //-->
+{
+	if (PLAYER->getinventory()->getTest() == true)						//인벤용으로 넘어온 상태에서
+	{
+		for (int i = 0; i < PLAYER->getinventory()->getvInven().size(); i++)				//전체 상태 확인하기
+		{
+			if (PLAYER->getinventory()->getvInven()[i].getItemInfo().itemName != "비어있음")
+			{
+				if ((PLAYER->getinventory()->getcusornumber() == i) && KEYMANAGER->isOnceKeyDown('U'))
+				{
+					_cursor->getAni()->start();
+
+					if (_vTemp.empty())
+					{
+						_vTemp.push_back(PLAYER->getinventory()->getvInven()[i]);
+						_vTemp[0].setItemCnt_equal(1);
+						PLAYER->getinventory()->getvInven()[i].setItemCnt(-1);
+						break;
+					}
+					if ((_vTemp[0].getItemInfo().itemName == PLAYER->getinventory()->getvInven()[i].getItemInfo().itemName))
+					{
+						_vTemp[0].setItemCnt();
+						PLAYER->getinventory()->getvInven()[i].setItemCnt(-1);
+						break;
+					}
+				}
+			}
+			if (!_vTemp.empty())
+			{
+				if (i < 20)
+				{
+					if (PLAYER->getinventory()->getvInven()[i].getItemInfo().itemName == "비어있음")
+					{
+						if ((PLAYER->getinventory()->getcusornumber() == i) && KEYMANAGER->isOnceKeyDown('U'))
+						{
+							_cursor->getAni()->start();
+
+							PLAYER->getinventory()->getvInven().erase(PLAYER->getinventory()->getvInven().begin() + i);
+							PLAYER->getinventory()->getvInven().insert(PLAYER->getinventory()->getvInven().begin() + i, _vTemp[0]);
+							_vTemp.pop_back();
+							break;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+void storage::invenplayermove()
+{
+	for (int i = 0; i < PLAYER->getinventory()->getvInven().size(); i++)
+	{
+		if (PLAYER->getinventory()->getvInven()[i].getItemInfo().cnt == 0)
+		{
+			PLAYER->getinventory()->getvInven().erase(PLAYER->getinventory()->getvInven().begin() + i);
+			PLAYER->getinventory()->getvInven().insert(PLAYER->getinventory()->getvInven().begin() + i, ITEMMANAGER->addItem("비어있음"));
+		}
+	}
+}
+
+
 void storage::playerCollision()//열기닫기
 {
 	if (IntersectRect(&temp, &PLAYER->getPlayercollision(), &_boxRc))
@@ -397,6 +477,7 @@ void storage::playerCollision()//열기닫기
 				if (_name == "창고2")_storageAni = ANIMATIONMANAGER->findAnimation("창고2오픈");
 				resetCursor();
 				_storageAni->start();
+				PLAYER->getinventory()->setStprageOpen(true);  //--->아이템 창(인벤) 오픈 
 				_showWindow = true;
 			}
 		}
@@ -408,6 +489,7 @@ void storage::playerCollision()//열기닫기
 				if (_name == "창고2")_storageAni = ANIMATIONMANAGER->findAnimation("창고2클로즈");
 				
 				_storageAni->start();
+				PLAYER->getinventory()->setStprageOpen(false);			//--> 아이템창(인벤) 닫기
 				_showWindow = false;
 			}
 		}

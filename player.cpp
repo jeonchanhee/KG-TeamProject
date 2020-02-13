@@ -40,8 +40,12 @@ HRESULT player::init()
 	_playerhp._hpbar->init("images/UI/blood.bmp", "images/UI/hpBar.bmp", 0, 0, 125, 35);
 	_playerhp._hpbar->setGauge(_playerhp._HP, _playerhp._maxhp);
 
+	_ishwing = false;		// Ä®À» ÈÖµÑ·¶³Ä ¾ÈÈÖµÑ·¶³Ä?(¾ÈÈÖµÎ¸§)
+
 	_inventory = new inventory;
 	_inventory->init();
+
+
 
 	return S_OK;
 }
@@ -182,6 +186,11 @@ void player::playerKeyControl()
 		if (KEYMANAGER->isOnceKeyDown('K'))
 		{
 			_player._isattackmove = true;
+			_ishwing = true;
+		}
+		if (KEYMANAGER->isOnceKeyUp('K'))
+		{
+			_ishwing = false;
 		}
 	}
 	else
@@ -575,10 +584,16 @@ void player::attackmove()
 			_player._playerindex++;
 			if (_player._attackplayer == PLAYER_SWORD)
 			{
+				if (_ishwing)
+				{
+					_swordrect[0] = RectMakeCenter(_player._playerrect.left, _player._playerrect.top + (_player._playerrect.bottom - _player._playerrect.top) / 2, 32, 10);
+				}
 				if (_player._playerindex >= _player._playerimg->getMaxFrameX())
 				{
+
 					_player._playerindex = 0;
 					_player._isattackmove = false;
+
 				}
 			}
 			else
@@ -602,6 +617,7 @@ void player::attackmove()
 				}
 			}
 			_player._playerimg->setFrameX(_player._playerindex);
+			_ishwing = false;
 		}
 		break;
 	case PLAYER_ATK_RIGHT:
@@ -613,10 +629,16 @@ void player::attackmove()
 			_player._playercount = 0;
 			if (_player._attackplayer == PLAYER_SWORD)
 			{
+				if (_ishwing)
+				{
+					_swordrect[1] = RectMakeCenter(_player._playerrect.right, _player._playerrect.top + (_player._playerrect.bottom - _player._playerrect.top) / 2, 42, 10);
+
+				}
 				if (_player._playerindex >= _player._playerimg->getMaxFrameX())
 				{
 					_player._playerindex = 0;
 					_player._isattackmove = false;
+
 				}
 			}
 			else
@@ -650,10 +672,15 @@ void player::attackmove()
 			_player._playerindex++;
 			if (_player._attackplayer == PLAYER_SWORD)
 			{
+				if (_ishwing)
+				{
+					_swordrect[2] = RectMakeCenter(_player._playerrect.left + (_player._playerrect.right - _player._playerrect.left) / 2, _player._playerrect.top, 10, 42);
+				}
 				if (_player._playerindex >= _player._playerimg->getMaxFrameX())
 				{
 					_player._playerindex = 0;
 					_player._isattackmove = false;
+
 				}
 			}
 			else
@@ -687,6 +714,10 @@ void player::attackmove()
 			_player._playerindex++;
 			if (_player._attackplayer == PLAYER_SWORD)
 			{
+				if (_ishwing)
+				{
+					_swordrect[3] = RectMakeCenter(_player._playerrect.left + (_player._playerrect.right - _player._playerrect.left) / 2, _player._playerrect.bottom, 10, 42);
+				}
 				if (_player._playerindex >= _player._playerimg->getMaxFrameX())
 				{
 					_player._playerindex = 0;
@@ -770,4 +801,9 @@ void player::render(HDC hdc)
 	_arrowfirst->render();
 	_playerhp._hpbar->render();
 	_inventory->render(hdc);
+
+	for (int i = 0; i < 4; i++)
+	{
+		//Rectangle(hdc, _swordrect[i].left, _swordrect[i].top, _swordrect[i].right, _swordrect[i].bottom);		//À§Ä¡ Á¶Á¤ ÇÊ¿ä
+	}
 }
