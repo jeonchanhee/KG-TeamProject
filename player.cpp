@@ -61,26 +61,18 @@ void player::update()
 	monsterbattle();					//몬스터랑 배틀
 	if (_player._isattackmove)	attackmove();
 	else 	playermoveversion(); //버전 함수 플레이가 shop인지 dugeon인지 나타내는 함수..?
-	if (_player._playerLocation == DUNGEON_PLAYER_VERSION)	playerAtt();
-	_arrowfirst->update();
-
-	if (KEYMANAGER->isOnceKeyDown('1'))  //예비용으로 추가한것 1번 샵캐릭터
+	if (_player._playerLocation == DUNGEON_PLAYER_VERSION)
 	{
-		_player._playerimg = IMAGEMANAGER->findImage("샵캐릭터");
-		_player._playerLocation = SHOP_PLAYER_VERSION;
+		playerAtt();
 	}
 
-	if (KEYMANAGER->isOnceKeyDown('9')) //예비용으로 추가한것 2번 던전캐릭터 모션
-	{
-		_player._playerimg = IMAGEMANAGER->findImage("던전캐릭터");
-		_player._playerLocation = DUNGEON_PLAYER_VERSION;
-	}
 	_inventory->update();
+	_arrowfirst->update();
 }
 
 void player::playerKeyControl()
 {
-	if (!_isanimation)
+	if (!_isanimation || !_player._isattackmove)
 	{
 		if (KEYMANAGER->isStayKeyDown('W'))
 		{
