@@ -42,6 +42,7 @@ HRESULT monster::init(
 	_range = range;
 	_currentHp = currentHp;
 	_speed = speed;
+	_atkCount = atkCount;
 	item = ITEMMANAGER->addItem("나뭇가지");
 	//이미지 범위
 	iRc = RectMakeCenter(_x, _y, _monsterImg->getFrameWidth(), _monsterImg->getFrameHeight());
@@ -130,15 +131,17 @@ void monster::update()
 			_monDirect = MONSTER_DIRECTION_UP;
 		}
 	}
-
-	//어택과 무빙을 동시에 안되게 하고싶은데 아직못함
-	if (_monState == MONSTER_STATE_ATK) {
-		attack(_monType, _monDirect);
-	}
-	else if (_monState == MONSTER_STATE_MOVE)
+	atkCount--;
+	if (_monState == MONSTER_STATE_MOVE)
 	{
+
 		move(_monType);
 	}
+	else if (atkCount <= 0) {
+		attack(_monType, _monDirect);
+		//atkCount = _atkCount;
+	}
+
 	//hp바 위치갱신
 	_hpBar->setX(_currentX - 25);
 	_hpBar->setY(_currentY - 70);
@@ -200,7 +203,12 @@ bool monster::attack(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect)
 		slimeGauntletAtk(monType, monDirect);
 		break;
 	case MONSTER_TYPE_GOLEMBOSS:
-		golemBossAtk(monType, monDirect);
+		//if (getDistance(_currentX, _currentY, PLAYER->getPlayerX(), PLAYER->getPlayerY()) < 400) {
+		golemBossAtk1(monType, monDirect);
+		//}
+		//else {
+		//	golemBossAtk2(monType, monDirect);
+		//}
 		break;
 	}
 
@@ -546,34 +554,44 @@ bool monster::slimeGauntletAtk(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect
 	return false;
 }
 
-bool monster::golemBossAtk(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect)
+bool monster::golemBossAtk1(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect)
 {
+
 	count++;
-	//카운트가 300일때 공격
-	if (count >= 300)
+
+
+	//카운트가 0일때 공격
+	if (count > 300)
 	{
-		if (getDistance(_currentX, _currentY, PLAYER->getPlayerX(), PLAYER->getPlayerY()) < 100) {
+		_monState = MONSTER_STATE_ATK;
+		if (getDistance(_currentX, _currentY, PLAYER->getPlayerX(), PLAYER->getPlayerY()) < 400) {
 			_monsterImg = IMAGEMANAGER->findImage("골렘보스공격1");
+			iRc = RectMakeCenter((hRc.right + hRc.left) / 2 - 200, (hRc.bottom + hRc.top) / 2 - 200, hRc.right - hRc.left, hRc.bottom - hRc.top);
 			switch (monDirect) {
 			case MONSTER_DIRECTION_LEFT:
+
 				aRc = RectMakeCenter((hRc.left + hRc.right) / 2 - 100, (hRc.top + hRc.bottom) / 2,
 					_monsterImg->getFrameWidth() / 2, _monsterImg->getFrameHeight() / 2);
 				_ani = ANIMATIONMANAGER->findAnimation("골렘보스공격1L");
 				ANIMATIONMANAGER->start("골렘보스공격1L");
+
 				break;
 			case MONSTER_DIRECTION_UP:
+
 				aRc = RectMakeCenter((hRc.left + hRc.right) / 2, (hRc.top + hRc.bottom) / 2 - 100,
 					_monsterImg->getFrameWidth() / 2, _monsterImg->getFrameHeight() / 2);
 				_ani = ANIMATIONMANAGER->findAnimation("골렘보스공격1U");
 				ANIMATIONMANAGER->start("골렘보스공격1U");
 				break;
 			case MONSTER_DIRECTION_RIGHT:
+
 				aRc = RectMakeCenter((hRc.left + hRc.right) / 2 + 100, (hRc.top + hRc.bottom) / 2,
 					_monsterImg->getFrameWidth() / 2, _monsterImg->getFrameHeight() / 2);
 				_ani = ANIMATIONMANAGER->findAnimation("골렘보스공격1R");
 				ANIMATIONMANAGER->start("골렘보스공격1R");
 				break;
 			case MONSTER_DIRECTION_DOWN:
+
 				aRc = RectMakeCenter((hRc.left + hRc.right) / 2, (hRc.top + hRc.bottom) / 2 + 100,
 					_monsterImg->getFrameWidth() / 2, _monsterImg->getFrameHeight() / 2);
 				_ani = ANIMATIONMANAGER->findAnimation("골렘보스공격1B");
@@ -583,38 +601,53 @@ bool monster::golemBossAtk(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect)
 		}
 		else {
 			_monsterImg = IMAGEMANAGER->findImage("골렘보스공격2");
-			aRc = RectMakeCenter((hRc.left + hRc.right) / 2, (hRc.top + hRc.bottom) / 2,
-				_monsterImg->getFrameWidth(), _monsterImg->getFrameHeight());
+			iRc = RectMakeCenter((hRc.right + hRc.left) / 2 - 200, (hRc.bottom + hRc.top) / 2 - 200, hRc.right - hRc.left, hRc.bottom - hRc.top);
 			switch (monDirect) {
 			case MONSTER_DIRECTION_LEFT:
+
+				aRc = RectMakeCenter((hRc.left + hRc.right) / 2 - 100, (hRc.top + hRc.bottom) / 2,
+					_monsterImg->getFrameWidth() / 2, _monsterImg->getFrameHeight() / 2);
 				_ani = ANIMATIONMANAGER->findAnimation("골렘보스공격2L");
 				ANIMATIONMANAGER->start("골렘보스공격2L");
+
 				break;
 			case MONSTER_DIRECTION_UP:
+
+				aRc = RectMakeCenter((hRc.left + hRc.right) / 2, (hRc.top + hRc.bottom) / 2 - 100,
+					_monsterImg->getFrameWidth() / 2, _monsterImg->getFrameHeight() / 2);
 				_ani = ANIMATIONMANAGER->findAnimation("골렘보스공격2U");
 				ANIMATIONMANAGER->start("골렘보스공격2U");
 				break;
 			case MONSTER_DIRECTION_RIGHT:
+
+				aRc = RectMakeCenter((hRc.left + hRc.right) / 2 + 100, (hRc.top + hRc.bottom) / 2,
+					_monsterImg->getFrameWidth() / 2, _monsterImg->getFrameHeight() / 2);
 				_ani = ANIMATIONMANAGER->findAnimation("골렘보스공격2R");
 				ANIMATIONMANAGER->start("골렘보스공격2R");
 				break;
 			case MONSTER_DIRECTION_DOWN:
+
+				aRc = RectMakeCenter((hRc.left + hRc.right) / 2, (hRc.top + hRc.bottom) / 2 + 100,
+					_monsterImg->getFrameWidth() / 2, _monsterImg->getFrameHeight() / 2);
 				_ani = ANIMATIONMANAGER->findAnimation("골렘보스공격2B");
 				ANIMATIONMANAGER->start("골렘보스공격2B");
 				break;
 			}
 		}
 		count = 0;
-		if (_monsterImg->getFrameX() >= _monsterImg->getMaxFrameX())
-		{
-			_monState = MONSTER_STATE_MOVE;
-		}
+		atkCount = 30;
 		RECT rc;
 		if (IntersectRect(&rc, &aRc, &PLAYER->getPlayercollision()))
 		{
 			PLAYER->setHP(PLAYER->getHP() - _atk);
 		}
 		return true;
+	}
+	atkCount--;
+	if (atkCount == 0)
+	{
+		_monState = MONSTER_STATE_MOVE;
+		atkCount = 30;
 	}
 
 	return false;
@@ -654,7 +687,7 @@ bool monster::golemBossMove()
 	//이미지범위
 	iRc = RectMakeCenter(_currentX, _currentY, _monsterImg->getFrameWidth(), _monsterImg->getFrameHeight());
 	//피격범위
-	hRc = RectMakeCenter(_currentX, _currentY, _monsterImg->getFrameWidth(), _monsterImg->getFrameHeight());
+	hRc = RectMakeCenter(_currentX, _currentY, _monsterImg->getFrameWidth() / 2, _monsterImg->getFrameHeight() / 2);
 
 	return false;
 }

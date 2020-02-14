@@ -109,13 +109,13 @@ void monsterManager::attackMinion()
 		int type = (*_viMinion)->getType();
 		//방향 가져옴
 		int direct = (*_viMinion)->getDirection();
-
+		int state = (*_viMinion)->getState();
 		//골렘터렛 공격시
 		if (type == 0 && (*_viMinion)->golemTurretAtk((*_viMinion)->getType(), (*_viMinion)->getDirection()))
 		{
 			////일직선 발사
 			RECT hRc = (*_viMinion)->getHRect();
-			int direct = (*_viMinion)->getDirection();
+			//int direct = (*_viMinion)->getDirection();
 			switch (direct) {
 			case MONSTER_DIRECTION_LEFT:
 				_bullet->fire((hRc.left + hRc.right) / 2 - 30, (hRc.bottom + hRc.top) / 2, MONSTER_DIRECTION_LEFT, 7.0f);
@@ -133,7 +133,7 @@ void monsterManager::attackMinion()
 		}
 
 		//골렘솔저고 공격이 true일때
-		if (type == 1 && (*_viMinion)->attack((*_viMinion)->getType(), (*_viMinion)->getDirection()))
+		if (type == 1 && (*_viMinion)->attack((*_viMinion)->getType(), (*_viMinion)->getDirection()) && state != 1)
 		{
 			//공격범위RECT생성
 			aRc = (*_viMinion)->getARect();
@@ -141,7 +141,7 @@ void monsterManager::attackMinion()
 			//(*_viMinion)->golemSoldierAtk((*_viMinion)->getDirection());
 		}
 		//슬라임건틀렛이고 공격이 true일때
-		if (type == 4 && (*_viMinion)->attack((*_viMinion)->getType(), (*_viMinion)->getDirection()))
+		if (type == 4 && (*_viMinion)->attack((*_viMinion)->getType(), (*_viMinion)->getDirection()) && state != 1)
 		{
 			//공격범위RECT생성
 			aRc = (*_viMinion)->getARect();
@@ -152,7 +152,7 @@ void monsterManager::attackMinion()
 			}
 		}
 		//골렘보스이고 공격이 true일때
-		if (type == 5 && (*_viMinion)->attack((*_viMinion)->getType(), (*_viMinion)->getDirection()))
+		if (type == 5 && (*_viMinion)->attack((*_viMinion)->getType(), (*_viMinion)->getDirection()) && state != 1)
 		{
 			//공격범위RECT생성
 			aRc = (*_viMinion)->getARect();

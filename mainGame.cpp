@@ -22,7 +22,7 @@ HRESULT mainGame::init()
 
 	//
 	//_monsterManager = new monsterManager;
-//	_monsterManager->init();
+	//_monsterManager->init();
 	//_invenotry = new inventory;
 	//_invenotry->init();
 
@@ -35,8 +35,8 @@ HRESULT mainGame::init()
 
 	_playerShop = new playerShop;
 	_playerShop->init();
-	_monsterManager = new monsterManager;
-	_monsterManager->init();
+	//_monsterManager = new monsterManager;
+	//_monsterManager->init();
 	_invenotry = new inventory;
 	_invenotry->init();
 
@@ -63,7 +63,7 @@ void mainGame::update()
 
 	PLAYER->update();
 	//ANIMATIONMANAGER->update(); //애니메이션을 위해 사용한 것
-	_monsterManager->update();
+	//_monsterManager->update();
 	_playerShop->update();
 
 	//PLAYER->update();
@@ -91,7 +91,7 @@ void mainGame::render(/*HDC hdc*/)
 	_playerShop->render();
 	//_invenotry->render();
 
-	_monsterManager->render();
+	//_monsterManager->render();
 	_invenotry->render(DC);
 	_playerShop->render();
 

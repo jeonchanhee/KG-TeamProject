@@ -53,6 +53,7 @@ private:
 	int fireCount;			//발사딜레이		
 	int hitCount;			//히트카운트
 	int atkCount;			//공격카운트
+	int _atkCount;
 	bool _move;
 	int imgCount;			//무빙프레임카운트
 
@@ -99,6 +100,7 @@ public:
 	int getCurrentHp() { return _currentHp; }
 
 	MONSTER_DIRECTION getDirection() { return _monDirect; }
+	MONSTER_STATE getState() { return _monState; }
 	MONSTER_TYPE getType() { return _monType; }
 
 	//set
@@ -113,7 +115,8 @@ public:
 	bool golemTurretAtk(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect);//골렘터렛공격
 	bool golemSoldierAtk(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect);//골렘솔져공격
 	bool slimeGauntletAtk(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect);//슬라임건틀릿공격
-	bool golemBossAtk(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect);//골렘보스공격
+	bool golemBossAtk1(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect);//골렘보스공격
+	//bool golemBossAtk2(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect);//골렘보스공격
 	//몬스터 이동
 	bool golemSoldierMove();//골렘솔저이동
 	bool golemBossMove();//골렘보스이동

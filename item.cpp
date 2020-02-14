@@ -19,7 +19,7 @@ HRESULT item::init(const char* name, itemType type, int orignalPrice, int player
 	_item.wave = false;
 	_item.orignalPrice = orignalPrice;
 	_item.playerPrice = playerPrice;
-	_item.rc = RectMakeCenter(0, 0, _item.image->getWidth(), _item.image->getHeight());
+	_item.rc = RectMakeCenter(-50,-50, _item.image->getWidth(), _item.image->getHeight());
 	_item.atk = atk;
 	_item.def = def;
 	_item.speed = speed;

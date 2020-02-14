@@ -43,17 +43,16 @@ void bullet::render()
 //총알 발사
 void bullet::fire(float x, float y, int direct, float speed)
 {
-	if (_bulletMax < _vBullet.size()) return;
-
+	//if (_bulletMax < _vBullet.size()) return;
 	//총알 구조체 선언
 	tagBullet bullet;
 	ZeroMemory(&bullet, sizeof(tagBullet));
 	bullet.bulletImage = new image;
 	switch (direct) {
-	case 0:bullet.bulletImage->init("images/monster/bulletL.bmp", 0, 0, 35, 35, 1, 1, true, RGB(255, 0, 255));
-	case 1:bullet.bulletImage->init("images/monster/bulletU.bmp", 0, 0, 35, 35, 1, 1, true, RGB(255, 0, 255));
-	case 2:bullet.bulletImage->init("images/monster/bulletR.bmp", 0, 0, 35, 35, 1, 1, true, RGB(255, 0, 255));
-	case 3:bullet.bulletImage->init("images/monster/bulletD.bmp", 0, 0, 35, 35, 1, 1, true, RGB(255, 0, 255));
+	case 0:bullet.bulletImage = IMAGEMANAGER->findImage("터렛미사일L");
+	case 1:bullet.bulletImage = IMAGEMANAGER->findImage("터렛미사일U");
+	case 2:bullet.bulletImage = IMAGEMANAGER->findImage("터렛미사일R");
+	case 3:bullet.bulletImage = IMAGEMANAGER->findImage("터렛미사일D");
 	}
 	bullet.speed = speed;
 	bullet.direct = direct;
@@ -95,7 +94,9 @@ void bullet::move()
 //총알 제거
 void bullet::removeMissile(int arrNum)
 {
+	_vBullet.push_back(_vBullet[0]);
 	_vBullet.erase(_vBullet.begin() + arrNum);
+
 }
 
 weapons::weapons()
