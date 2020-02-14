@@ -113,8 +113,6 @@ HRESULT inventory::init()
 	_vInven.push_back(ITEMMANAGER->addItem("천"));// 임시로 추가해 놓은 것 
 	_vInven[5].setItemCnt(4);
 
-
-
 	test = false;
 	_storageOpen = false;
 	_isweapon = false;			//무기 전환하기 위한 불값.. 이미지로만
@@ -218,7 +216,6 @@ void inventory::inventoryItem()				//인벤토리 요소칸(_invenotryelement[i])과 벡�
 			for (int j = _vInven.size(); j < 21; j++)
 			{
 				_vInven.push_back(ITEMMANAGER->addItem("비어있음"));
-
 			}
 		}
 	}
@@ -251,7 +248,7 @@ void inventory::grabmove()
 		}
 		if (!_vTemp.empty())     //삭제
 		{
-			if (i < 21)
+			if (i < 20)
 			{
 				if (_vInven[i].getItemInfo().itemName == "비어있음")
 				{
@@ -266,27 +263,26 @@ void inventory::grabmove()
 					}
 				}
 			}
-		}
-		else // 28 칸이면 삭제 처리
-		{
-			//쓰레기통
-			if (_vInven[i].getItemInfo().itemName == "비어있음")
+			else   // 20 칸이면 삭제 처리
 			{
-				if ((_cursorNumber == i) && KEYMANAGER->isOnceKeyDown('J'))
+				//쓰레기통
+				if (_vInven[i].getItemInfo().itemName == "비어있음")
 				{
-					_cursor->getAni()->start();
+					if ((_cursorNumber == i) && KEYMANAGER->isOnceKeyDown('J'))
+					{
+						_cursor->getAni()->start();
 
-					PLAYER->sellplayermoney((_vTemp[0].getItemInfo().cnt*_vTemp[0].getItemInfo().orignalPrice) / 5);
-					_vInven.erase(_vInven.begin() + i);
-					_vInven.insert(_vInven.begin() + i, ITEMMANAGER->addItem("비어있음"));
-					_vTemp.pop_back();
-					break;
+						PLAYER->sellplayermoney((_vTemp[0].getItemInfo().cnt*_vTemp[0].getItemInfo().orignalPrice) / 5);
+						_vInven.erase(_vInven.begin() + i);
+						_vInven.insert(_vInven.begin() + i, ITEMMANAGER->addItem("비어있음"));
+						_vTemp.pop_back();
+						break;
+					}
 				}
 			}
 		}
 	}
 }
-
 
 void inventory::grabitemremove()
 {
@@ -412,7 +408,6 @@ void inventory::itemrender(HDC hdc)  //item벡터만 넣을 랜더들
 {
 	for (_viInven = _vInven.begin(); _viInven != _vInven.end(); ++_viInven)
 	{
-
 		(*_viInven).render();
 	}
 
