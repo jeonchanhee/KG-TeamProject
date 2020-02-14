@@ -1,9 +1,8 @@
 #pragma once
 #include"gameNode.h"
 #include"mapTool.h"
-#include"monsterManager.h"
-#include"playerShop.h"
-#include"inventory.h"
+#include"introScene.h"
+#include"dungeonScene.h"
 
 //#include"player.h"
 
@@ -12,11 +11,7 @@
 class mainGame : public gameNode
 {
 private:
-	mapTool* _mapTool;
-	monsterManager* _monsterManager;
-	playerShop* _playerShop;
-	//player* _player;
-	inventory* _invenotry;
+
 public:
 	mainGame();
 	~mainGame();

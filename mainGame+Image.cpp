@@ -17,6 +17,12 @@ void mainGame::imagesInit()
 	IMAGEMANAGER->addImage("지형", "images/terrain.bmp", 215, 42, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("오브젝트", "images/object.bmp", 215, 42, true, RGB(255, 0, 255));
 
+	IMAGEMANAGER->addFrameImage("인트로배경", "images/인트로배경.bmp", 16384, WINSIZEY, 16, 1, false, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("로고", "images/로고.bmp", 172 * 2, 140 * 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("인트로시작", "images/인트로시작.bmp", 544 / 2, 133 / 2 , true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("인트로맵툴", "images/인트로맵툴.bmp", 544 / 2, 133 / 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("인트로옵션", "images/인트로옵션.bmp", 544 / 2, 133 / 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("인트로나가기", "images/인트로나가기.bmp", 544 / 2, 133 / 2, true, RGB(255, 0, 255));
 
 	//몬스터
 	IMAGEMANAGER->addFrameImage("골렘터렛", "images/monster/golemTurret.bmp", 0, 0, 551 * 2, 204 * 2, 12, 4, true, RGB(255, 0, 255));

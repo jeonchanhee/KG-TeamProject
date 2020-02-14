@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "mapTool.h"
 
-mapTool::mapTool(){}
+mapTool::mapTool() {}
 
-mapTool::~mapTool(){}
+mapTool::~mapTool() {}
 
 HRESULT mapTool::init()
 {
@@ -12,15 +12,46 @@ HRESULT mapTool::init()
 
 	page = 0;
 
+	for (int i = 0; i < 8; i++)
+	{
+		sampleImage[i] = new image;
+		sampleImage[i]->init("images/맵툴던전.bmp", 522 * 2, 324 * 2, 12, 7, true, RGB(255, 0, 255));
+	}
+
+	first = false;
+	mouse = false;
 	return S_OK;
 }
 
-void mapTool::relaese(){}
+void mapTool::relaese() {}
 
 void mapTool::update()
 {
+
+
+
+	if (PtInRect(&_sampleBook.rc, m_ptMouse))
+	{
+		mouse = true;
+	}
+	else
+	{
+		mouse = false;
+	}
+
+
+	if (KEYMANAGER->isOnceKeyUp(VK_LBUTTON))
+	{
+		_end.x = m_ptMouse.x;
+		_end.y = m_ptMouse.y;
+
+		drage();
+	}
+
+
 	cameraMove();
 	controlSampleBook();
+
 }
 
 void mapTool::render()
@@ -30,10 +61,19 @@ void mapTool::render()
 	{
 		if (CAMERAX - 100 < _tiles[i].x && _tiles[i].x < CAMERAX + WINSIZEX + 100 && CAMERAY - 100 < _tiles[i].y&& _tiles[i].y < CAMERAY + WINSIZEY + 100)
 		{
-			if (_tiles[i].terrain != TERAIN_NONE) continue;
+			if (_tiles[i].terrain == TERAIN_NONE) Rectangle(getMemDC(), _tiles[i].rc.left, _tiles[i].rc.top, _tiles[i].rc.right, _tiles[i].rc.bottom);
+			else IMAGEMANAGER->frameRender("맵툴던전", getMemDC(), _tiles[i].rc.left, _tiles[i].rc.top, _tiles[i].terrainFrameX, _tiles[i].terrainFrameY);
 
-			Rectangle(getMemDC(), _tiles[i].rc.left, _tiles[i].rc.top, _tiles[i].rc.right, _tiles[i].rc.bottom);
+			if (_tiles[i].obj == OBJ_NONE) continue;
 
+			IMAGEMANAGER->frameRender("맵툴던전", getMemDC(), _tiles[i].rc.left, _tiles[i].rc.top, _tiles[i].objFrameX, _tiles[i].objFrameY);
+		}
+	}
+
+	for (int i = 0; i < TILEX * TILEY; i++)
+	{
+		if (CAMERAX - 100 < _tiles[i].x && _tiles[i].x < CAMERAX + WINSIZEX + 100 && CAMERAY - 100 < _tiles[i].y&& _tiles[i].y < CAMERAY + WINSIZEY + 100)
+		{
 			if (KEYMANAGER->isToggleKey(VK_TAB))
 			{
 				SetBkMode(getMemDC(), TRANSPARENT);
@@ -52,7 +92,7 @@ void mapTool::render()
 
 	if (_sampleBook.Summons)
 	{
-	
+
 		if (page == 0)
 		{
 			_sampleBook.bottun[0].img->render(CAMERAMANAGER->getCameraDC(), _sampleBook.bottun[0].rc.left, _sampleBook.bottun[0].rc.top);
@@ -62,7 +102,7 @@ void mapTool::render()
 				bottun[i].img->render(CAMERAMANAGER->getCameraDC(), bottun[i].rc.left, bottun[i].rc.top);
 			}
 		}
-		else if( page > 0 && page < 10)
+		else if (page > 0 && page < 10)
 		{
 			for (int i = 0; i < 3; i++)
 			{
@@ -76,10 +116,10 @@ void mapTool::render()
 
 			for (int i = 0; i < 8; i++)
 			{
-				Rectangle(CAMERAMANAGER->getCameraDC(), rc[i].left, rc[i].top, rc[i].right, rc[i].bottom);
+				sampleImage[i]->frameRender(CAMERAMANAGER->getCameraDC(), rc[i].left, rc[i].top);
 			}
 		}
-		else if(page > 9)
+		else if (page > 9)
 		{
 			for (int i = 0; i < 3; i++)
 			{
@@ -91,22 +131,6 @@ void mapTool::render()
 				bottun[i].img->render(CAMERAMANAGER->getCameraDC(), bottun[i].rc.left, bottun[i].rc.top);
 			}
 		}
-	}
-
-	if (KEYMANAGER->isToggleKey(VK_TAB))
-	{
-		for (int i = 0; i < 4; i++)
-		{
-			Rectangle(CAMERAMANAGER->getCameraDC(), bottun[i].rc.left, bottun[i].rc.top, bottun[i].rc.right, bottun[i].rc.bottom);
-		}
-
-		SetBkMode(CAMERAMANAGER->getCameraDC(), TRANSPARENT);
-		//색상
-		SetTextColor(CAMERAMANAGER->getCameraDC(), RGB(255, 0, 0));
-
-		char str[128];
-		sprintf_s(str, "%d", page);
-		TextOut(CAMERAMANAGER->getCameraDC(), 100, 500, str, strlen(str));
 	}
 
 }
@@ -126,22 +150,22 @@ void mapTool::load()
 //카메라 이동
 void mapTool::cameraMove()
 {
-	if (KEYMANAGER->isStayKeyDown(VK_LEFT) && CAMERAMANAGER->getCameraCenter().x - WINSIZEX / 2 > 0)
+	if (KEYMANAGER->isStayKeyDown('A') && CAMERAMANAGER->getCameraCenter().x - WINSIZEX / 2 > 0)
 	{
 		CAMERAMANAGER->setCameraCenter(PointMake(CAMERAMANAGER->getCameraCenter().x - 50, CAMERAMANAGER->getCameraCenter().y));
 	}
 
-	if (KEYMANAGER->isStayKeyDown(VK_RIGHT) && CAMERAMANAGER->getCameraCenter().x + WINSIZEX / 2 < TILESIZEX)
+	if (KEYMANAGER->isStayKeyDown('D') && CAMERAMANAGER->getCameraCenter().x + WINSIZEX / 2 < TILESIZEX)
 	{
 		CAMERAMANAGER->setCameraCenter(PointMake(CAMERAMANAGER->getCameraCenter().x + 50, CAMERAMANAGER->getCameraCenter().y));
 	}
 
-	if (KEYMANAGER->isStayKeyDown(VK_UP) && CAMERAMANAGER->getCameraCenter().y - WINSIZEY / 2 > 0)
+	if (KEYMANAGER->isStayKeyDown('W') && CAMERAMANAGER->getCameraCenter().y - WINSIZEY / 2 > 0)
 	{
 		CAMERAMANAGER->setCameraCenter(PointMake(CAMERAMANAGER->getCameraCenter().x, CAMERAMANAGER->getCameraCenter().y - 50));
 	}
 
-	if (KEYMANAGER->isStayKeyDown(VK_DOWN) && CAMERAMANAGER->getCameraCenter().y + WINSIZEY / 2 < TILESIZEY)
+	if (KEYMANAGER->isStayKeyDown('S') && CAMERAMANAGER->getCameraCenter().y + WINSIZEY / 2 < TILESIZEY)
 	{
 		CAMERAMANAGER->setCameraCenter(PointMake(CAMERAMANAGER->getCameraCenter().x, CAMERAMANAGER->getCameraCenter().y + 50));
 	}
@@ -175,16 +199,16 @@ void mapTool::mapInit()
 	{
 		// 지형 초기설정
 		_tiles[i].terrain = TERAIN_NONE;
-		
+
 		_tiles[i].terrainFrameX = 0;
 		_tiles[i].terrainFrameY = 0;
-		
+
 		//오브젝트 초기 설정
 		_tiles[i].obj = OBJ_NONE;
 
 		_tiles[i].objFrameX = 0;
 		_tiles[i].objFrameY = 0;
-		
+
 	}
 }
 //샘플타일 설정
@@ -225,9 +249,22 @@ void mapTool::setSampleBook()
 void mapTool::controlSampleBook()
 {
 	sampleBookKey();
-	
+
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
+		if (mouse)
+		{
+			if (page > 0) setSampleMap();
+		}
+		else
+		{
+			setMap();
+
+			_start.x = m_ptMouse.x;
+			_start.y = m_ptMouse.y;
+		}
+
+
 		if (PtInRect(&_sampleBook.rc, m_ptMouse))
 		{
 			_sampleBook.Summons = true;
@@ -251,6 +288,7 @@ void mapTool::controlSampleBook()
 			if (page > 0) page++;
 		}
 
+
 		if (_sampleBook.Summons)
 		{
 			_sampleBook.img = IMAGEMANAGER->findImage("셈플북");
@@ -265,41 +303,19 @@ void mapTool::controlSampleBook()
 		}
 
 
-		sampleBookBottunControl();
+		if (_sampleBook.Summons)	sampleBookBottunControl();
 	}
 
+	if (_sampleBook.Summons) setSampleBookBottun();
 
-
-	//버튼 설정
-	if (_sampleBook.Summons)
-	{
-		_sampleBook.bottun[0].img = IMAGEMANAGER->findImage("닫기");
-		_sampleBook.bottun[0].x = _sampleBook.rc.right - _sampleBook.bottun[0].img->getWidth();
-		_sampleBook.bottun[0].y = _sampleBook.rc.top + _sampleBook.bottun[0].img->getHeight();
-		_sampleBook.bottun[0].rc = RectMakeCenter(_sampleBook.bottun[0].x, _sampleBook.bottun[0].y, _sampleBook.bottun[0].img->getWidth(), _sampleBook.bottun[0].img->getHeight());
-
-		if (page > 0)
-		{
-			_sampleBook.bottun[1].img = IMAGEMANAGER->findImage("뒤로");
-			_sampleBook.bottun[1].x = _sampleBook.rc.left + _sampleBook.bottun[1].img->getWidth();
-			_sampleBook.bottun[1].y = _sampleBook.rc.bottom - _sampleBook.bottun[1].img->getHeight() - 20;
-			_sampleBook.bottun[1].rc = RectMakeCenter(_sampleBook.bottun[1].x, _sampleBook.bottun[1].y, _sampleBook.bottun[1].img->getWidth(), _sampleBook.bottun[1].img->getHeight());
-
-			_sampleBook.bottun[2].img = IMAGEMANAGER->findImage("앞으로");
-			_sampleBook.bottun[2].x = _sampleBook.rc.right - _sampleBook.bottun[2].img->getWidth();
-			_sampleBook.bottun[2].y = _sampleBook.rc.bottom - _sampleBook.bottun[2].img->getHeight() - 20;
-			_sampleBook.bottun[2].rc = RectMakeCenter(_sampleBook.bottun[2].x, _sampleBook.bottun[2].y, _sampleBook.bottun[2].img->getWidth(), _sampleBook.bottun[2].img->getHeight());
-		}
-
-		if (page > 0 && page < 10)
-		{
-			sampleSetRc();
-		}
-		setSampleBookBottun();
-	}
-	
 	if (!_sampleBook.Summons) page = 0;
-	
+
+	if (page > 0) _select = TRRAINDRAW;
+	if (page > 2) _select = OBJDRAW;
+
+	if (KEYMANAGER->isOnceKeyDown('H')) _select = ERASER;
+
+
 	_sampleBook.rc = RectMakeCenter(_sampleBook.x, _sampleBook.y, _sampleBook.img->getWidth(), _sampleBook.img->getHeight());
 
 }
@@ -327,24 +343,60 @@ void mapTool::sampleBookKey()
 
 	if (_sampleBook.Summons)
 	{
-		if (KEYMANAGER->isStayKeyDown('A') && _sampleBook.rc.left > 0)
+		if (KEYMANAGER->isStayKeyDown(VK_SHIFT) && KEYMANAGER->isStayKeyDown('A') && _sampleBook.rc.left > 0)
 		{
 			_sampleBook.x -= 5;
 		}
 
-		if (KEYMANAGER->isStayKeyDown('D') && _sampleBook.rc.right < WINSIZEX )
+		if (KEYMANAGER->isStayKeyDown(VK_SHIFT) && KEYMANAGER->isStayKeyDown('D'))
 		{
 			_sampleBook.x += 5;
 		}
 
-		if (KEYMANAGER->isStayKeyDown('W') && _sampleBook.rc.top > 0)
+		if (KEYMANAGER->isStayKeyDown(VK_SHIFT) && KEYMANAGER->isStayKeyDown('W') && _sampleBook.rc.top > 0)
 		{
 			_sampleBook.y -= 5;
 		}
 
-		if (KEYMANAGER->isStayKeyDown('S') && _sampleBook.rc.bottom < WINSIZEY)
+		if (KEYMANAGER->isStayKeyDown(VK_SHIFT) && KEYMANAGER->isStayKeyDown('S'))
 		{
 			_sampleBook.y += 5;
+		}
+
+		if (page == 0)
+		{
+			if (KEYMANAGER->isOnceKeyDown('1'))
+			{
+				page = 1;
+			}
+
+			if (KEYMANAGER->isOnceKeyDown('2'))
+			{
+				page = 4;
+			}
+
+			if (KEYMANAGER->isOnceKeyDown('3'))
+			{
+				page = 10;
+			}
+
+			if (KEYMANAGER->isOnceKeyDown('4'))
+			{
+				page = 11;
+			}
+		}
+
+		if (page > 0)
+		{
+			if (KEYMANAGER->isOnceKeyDown('Q'))
+			{
+				page--;
+			}
+
+			if (KEYMANAGER->isOnceKeyDown('E'))
+			{
+				page++;
+			}
 		}
 	}
 
@@ -352,13 +404,40 @@ void mapTool::sampleBookKey()
 //샘플북 버튼 설정
 void mapTool::setSampleBookBottun()
 {
+	//버튼 설정
+	if (_sampleBook.Summons)
+	{
+		_sampleBook.bottun[0].img = IMAGEMANAGER->findImage("닫기");
+		_sampleBook.bottun[0].x = _sampleBook.rc.right - _sampleBook.bottun[0].img->getWidth();
+		_sampleBook.bottun[0].y = _sampleBook.rc.top + _sampleBook.bottun[0].img->getHeight();
+		_sampleBook.bottun[0].rc = RectMakeCenter(_sampleBook.bottun[0].x, _sampleBook.bottun[0].y, _sampleBook.bottun[0].img->getWidth(), _sampleBook.bottun[0].img->getHeight());
+
+		if (page > 0)
+		{
+			_sampleBook.bottun[1].img = IMAGEMANAGER->findImage("뒤로");
+			_sampleBook.bottun[1].x = _sampleBook.rc.left + _sampleBook.bottun[1].img->getWidth();
+			_sampleBook.bottun[1].y = _sampleBook.rc.bottom - _sampleBook.bottun[1].img->getHeight() - 20;
+			_sampleBook.bottun[1].rc = RectMakeCenter(_sampleBook.bottun[1].x, _sampleBook.bottun[1].y, _sampleBook.bottun[1].img->getWidth(), _sampleBook.bottun[1].img->getHeight());
+
+			_sampleBook.bottun[2].img = IMAGEMANAGER->findImage("앞으로");
+			_sampleBook.bottun[2].x = _sampleBook.rc.right - _sampleBook.bottun[2].img->getWidth();
+			_sampleBook.bottun[2].y = _sampleBook.rc.bottom - _sampleBook.bottun[2].img->getHeight() - 20;
+			_sampleBook.bottun[2].rc = RectMakeCenter(_sampleBook.bottun[2].x, _sampleBook.bottun[2].y, _sampleBook.bottun[2].img->getWidth(), _sampleBook.bottun[2].img->getHeight());
+		}
+
+		setPageSample();
+		if (page > 0 && page < 10)
+		{
+			sampleSetRc();
+		}
+	}
 	if (page == 0)
 	{
 		bottun[0].img = IMAGEMANAGER->findImage("던전");
 		bottun[1].img = IMAGEMANAGER->findImage("마을");
 		bottun[2].img = IMAGEMANAGER->findImage("세이브");
 		bottun[3].img = IMAGEMANAGER->findImage("로드");
-		
+
 		for (int i = 0; i < 4; i++)
 		{
 			bottun[i].x = _sampleBook.rc.right - bottun[i].img->getWidth();
@@ -366,7 +445,7 @@ void mapTool::setSampleBookBottun()
 			bottun[i].rc = RectMakeCenter(bottun[i].x, bottun[i].y + i * 100, bottun[i].img->getWidth(), bottun[i].img->getHeight());
 		}
 	}
-	else if (page > 0 && page < 4)
+	else if (page > 0 && page < 2)
 	{
 		bottun[0].img = IMAGEMANAGER->findImage("던전");
 		bottun[1].img = IMAGEMANAGER->findImage("세이브");
@@ -389,7 +468,7 @@ void mapTool::setSampleBookBottun()
 			bottun[i].rc = RectMakeCenter(bottun[i].x + i * 200, bottun[i].y, bottun[i].img->getWidth(), bottun[i].img->getHeight());
 		}
 	}
-	else if( page > 3 && page < 10)
+	else if (page > 1 && page < 10)
 	{
 		bottun[0].img = IMAGEMANAGER->findImage("던전");
 		bottun[1].img = IMAGEMANAGER->findImage("세이브");
@@ -490,12 +569,235 @@ void mapTool::sampleSetRc()
 {
 	for (int i = 0; i < 2; i++)
 	{
-		rc[i] = RectMakeCenter((_sampleBook.rc.left + 150) + i * 150, _sampleBook.rc.top + 200, 100, 100);
-		rc[i + 2] = RectMakeCenter((_sampleBook.rc.right - 300) + i * 150, _sampleBook.rc.top + 200, 100, 100);
-		rc[i + 4] = RectMakeCenter((_sampleBook.rc.left + 150) + i * 150, _sampleBook.rc.bottom - 200, 100, 100);
-		rc[i + 6] = RectMakeCenter((_sampleBook.rc.right - 300) + i * 150, _sampleBook.rc.bottom - 200, 100, 100);
+		for (int j = 0; j < 8; j++)
+		{
+			if (page > 0 && page < 4)
+			{
+				rc[i] = RectMakeCenter((_sampleBook.rc.left + 150) + i * 150, _sampleBook.rc.top + 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+				rc[i + 2] = RectMakeCenter((_sampleBook.rc.right - 300) + i * 150, _sampleBook.rc.top + 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+				rc[i + 4] = RectMakeCenter((_sampleBook.rc.left + 150) + i * 150, _sampleBook.rc.bottom - 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+				rc[i + 6] = RectMakeCenter((_sampleBook.rc.right - 300) + i * 150, _sampleBook.rc.bottom - 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+			}
+			else if (page == 4)
+			{
+				rc[i] = RectMakeCenter((_sampleBook.rc.left + 150) + i * 150, _sampleBook.rc.top + 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+				rc[i + 2] = RectMakeCenter((_sampleBook.rc.right - 300) + i * 150, _sampleBook.rc.top + 219, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+				rc[i + 4] = RectMakeCenter((_sampleBook.rc.left + 150) + i * 150, _sampleBook.rc.bottom - 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+				rc[i + 6] = RectMakeCenter((_sampleBook.rc.right - 300) + i * 150, _sampleBook.rc.bottom - 219, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+			}
+			else if (page == 5)
+			{
+				rc[i] = RectMakeCenter((_sampleBook.rc.left + 150) + i * 150, _sampleBook.rc.top + 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+				rc[i + 2] = RectMakeCenter((_sampleBook.rc.right - 300) + i * 86, _sampleBook.rc.top + 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+				rc[i + 4] = RectMakeCenter((_sampleBook.rc.left + 150) + i * 150, _sampleBook.rc.bottom - 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+				rc[i + 6] = RectMakeCenter((_sampleBook.rc.right - 300) + i * 86, _sampleBook.rc.bottom - 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+			}
+		}
+	}
+}
+
+void mapTool::setPageSample()
+{
+	for (int i = 0; i < 8; i++)
+	{
+		if (page == 1)
+		{
+			if (i < 4)
+			{
+				sampleImage[i]->setFrameX(i);
+				sampleImage[i]->setFrameY(0);
+			}
+			else
+			{
+				sampleImage[i]->setFrameX(i - 4);
+				sampleImage[i]->setFrameY(1);
+			}
+
+		}
+		else if (page == 2)
+		{
+			if (i < 4)
+			{
+				sampleImage[i]->setFrameX(i);
+				sampleImage[i]->setFrameY(2);
+			}
+			else
+			{
+				sampleImage[i]->setFrameX(i - 4);
+				sampleImage[i]->setFrameY(3);
+			}
+		}
+		else if (page == 3)
+		{
+			if (i < 4)
+			{
+				sampleImage[i]->setFrameX(i + 4);
+				sampleImage[i]->setFrameY(0);
+			}
+			else
+			{
+				sampleImage[i]->setFrameX(i);
+				sampleImage[i]->setFrameY(1);
+			}
+		}
+		else if (page == 4)
+		{
+			if (i < 4)
+			{
+				sampleImage[i]->setFrameX(i + 8);
+				sampleImage[i]->setFrameY(0);
+			}
+			else
+			{
+				sampleImage[i]->setFrameX(i + 4);
+				sampleImage[i]->setFrameY(1);
+			}
+		}
+		else if (page == 5)
+		{
+			if (i == 0)
+			{
+				sampleImage[i]->setFrameX(i + 4);
+				sampleImage[i]->setFrameY(2);
+			}
+			else if (i >= 1 && i < 4)
+			{
+				sampleImage[i]->setFrameX(i + 8);
+				sampleImage[i]->setFrameY(2);
+			}
+			else if (i > 4)
+			{
+				sampleImage[i]->setFrameX(i + 4);
+				sampleImage[i]->setFrameY(3);
+			}
+		}
+	}
+}
+
+void mapTool::setMap()
+{
+
+
+	for (int i = 0; i < TILEX * TILEY; i++)
+	{
+		if (PtInRect(&_tiles[i].rc, m_ptMouse))
+		{
+			if (_select == TRRAINDRAW)
+			{
+				_tiles[i].terrainFrameX = _currnetTile.x;
+				_tiles[i].terrainFrameY = _currnetTile.y;
+
+				_tiles[i].terrain = dungeonTerrainSelect(_currnetTile.x, _currnetTile.y);
+			}
+			if (_select == OBJDRAW)
+			{
+				_tiles[i].objFrameX = _currnetTile.x;
+				_tiles[i].objFrameY = _currnetTile.y;
+
+				_tiles[i].obj = dungeonObjSelect(_currnetTile.x, _currnetTile.y);
+			}
+			if (_select == ERASER)
+			{
+				if (_tiles[i].obj != OBJ_NONE)
+				{
+					_tiles[i].objFrameX = NULL;
+					_tiles[i].objFrameY = NULL;
+
+					_tiles[i].obj = OBJ_NONE;
+				}
+				else
+				{
+					_tiles[i].terrainFrameX = NULL;
+					_tiles[i].terrainFrameY = NULL;
+
+					_tiles[i].terrain = TERAIN_NONE;
+				}
+			}
+		}
+	}
+}
+
+void mapTool::setSampleMap()
+{
+	for (int i = 0; i < 8; i++)
+	{
+		if (PtInRect(&rc[i], m_ptMouse))
+		{
+			_currnetTile.x = sampleImage[i]->getFrameX();
+			_currnetTile.y = sampleImage[i]->getFrameY();
+			break;
+		}
+	}
+}
+
+void mapTool::drage()
+{
+	if (_start.x == NULL && _start.y == NULL) return;
+
+	POINT temp;
+
+	if (_start.x > _end.x)
+	{
+		temp.x = _start.x;
+		_start.x = _end.x;
+		_end.x = temp.x;
 	}
 
+	if (_start.y > _end.y)
+	{
+		temp.y = _start.y;
+		_start.y = _end.y;
+		_end.y = temp.y;
+	}
+
+	RECT d_rc;
+
+	SetRect(&d_rc, _start.x, _start.y, _end.x, _end.y);
+
+	RECT tempRc;
+
+	for (int i = 0; i < TILEX * TILEY; i++)
+	{
+		if (IntersectRect(&tempRc, &d_rc, &_tiles[i].rc))
+		{
+			if (_select == TRRAINDRAW)
+			{
+				_tiles[i].terrainFrameX = _currnetTile.x;
+				_tiles[i].terrainFrameY = _currnetTile.y;
+
+				_tiles[i].terrain = dungeonTerrainSelect(_currnetTile.x, _currnetTile.y);
+			}
+			else if (_select == OBJDRAW)
+			{
+				_tiles[i].objFrameX = _currnetTile.x;
+				_tiles[i].objFrameY = _currnetTile.y;
+
+				_tiles[i].obj = dungeonObjSelect(_currnetTile.x, _currnetTile.y);
+			}
+			else if (_select == ERASER)
+			{
+				if (_tiles[i].obj != OBJ_NONE)
+				{
+					_tiles[i].objFrameX = NULL;
+					_tiles[i].objFrameY = NULL;
+
+					_tiles[i].obj = OBJ_NONE;
+				}
+				else
+				{
+					_tiles[i].terrainFrameX = NULL;
+					_tiles[i].terrainFrameY = NULL;
+
+					_tiles[i].terrain = TERAIN_NONE;
+				}
+			}
+		}
+	}
+
+	_start.x = NULL;
+	_start.y = NULL;
+	_end.x = NULL;
+	_end.y = NULL;
 }
 
 TERRAIN mapTool::dungeonTerrainSelect(int frameX, int frameY)
@@ -530,12 +832,12 @@ OBJECT mapTool::dungeonObjSelect(int frameX, int frameY)
 		{
 			//오브젝트 벽
 			if (i <= 5 && j == 0 || i == 0 && j == 1)
-			{	
-				if(frameX == i && frameY == j) return OBJ_WALL;
+			{
+				if (frameX == i && frameY == j) return OBJ_WALL;
 			}
 
 			//해골 오브젝트
-			if (i >= 6 && i <= 9 && j == 0 || i >= 7 && i <= 8 && j == 1 )
+			if (i >= 6 && i <= 9 && j == 0 || i >= 7 && i <= 8 && j == 1)
 			{
 				if (frameX == i && frameY == j) return OBJ_SKULL;
 			}

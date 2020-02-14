@@ -159,4 +159,7 @@ public:
 
 	inventory* getinventory() { return _inventory; }
 
+	
+	PLAYERLOCATION getPlayerLocation() { return _player._playerLocation; }
+	void setPlayerLocation(PLAYERLOCATION location) { _player._playerLocation = location; }
 };
