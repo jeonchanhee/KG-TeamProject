@@ -13,11 +13,10 @@ HRESULT mainGame::init()
 
 	PLAYER->init();
 
+
 	SCENEMANAGER->addScene("맵툴", new mapTool);
 	SCENEMANAGER->addScene("인트로", new introScene);
 	SCENEMANAGER->addScene("던전씬", new dungeonScene);
-
-
 
 	SCENEMANAGER->changeScene("인트로");
 
@@ -34,7 +33,6 @@ void mainGame::release()
 void mainGame::update()
 {
 	gameNode::update();
-	
 
 	SCENEMANAGER->update();
 }
@@ -48,7 +46,6 @@ void mainGame::render(/*HDC hdc*/)
 	//============================================================================이 위로 건드리면 뒤짐=======================================================================================
 	
 	SCENEMANAGER->render();
-
 
 	TIMEMANAGER->render(CAMERAMANAGER->getCameraDC());
 	//============================================================================이 밑으로 건드리면 뒤짐=======================================================================================
