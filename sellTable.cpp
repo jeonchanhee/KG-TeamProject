@@ -83,7 +83,6 @@ void sellTable::render()
 	//아이템을 올려두는 테이블과 그 위에 놓여진 아이템 렌더
 	IMAGEMANAGER->render("판매테이블", getMemDC(), _tableRc.left, _tableRc.top);
 	PLAYER->getinventory()->moverender(getMemDC());
-	PLAYER->getinventory()->invenanditemcollision(getMemDC());
 	for (int i = 0; i < _vSellItem.size(); i++)
 	{
 		_vSellItem[i].render();

@@ -28,10 +28,9 @@ class inventory :public gameNode
 {
 private:
 	tagplayerinven _playerinventory; //플레이어 인벤토리
-	tagplayerinven _moneyicon;		//돈아이콘
 	tagplayerinven _removeGlass;		// 아이템을 돈으로 반환하는 이미지
 	tagplayerinven  _inventorybg;
-	tagplayerinven _invenotryelement[21];				//인벤토리 칸
+	tagplayerinven _invenotryelement[29];				//인벤토리 칸
 	tagplayerinven _zbutton;					// z버튼
 	tagplayerinven _playerprofile;		//플레이어프로필
 	tagplayerinven _weaponiright;			//오른쪽 비활 성화 z
@@ -77,7 +76,6 @@ public:
 	void update();
 	void render(HDC hdc);
 	void moverender(HDC hdc);			//저장소에서 보여줄 랜더
-	void invenanditemcollision(HDC hdc);
 	void itemrender(HDC hdc);
 	void bkrender(HDC hdc);
 
@@ -103,21 +101,18 @@ public:
 	bool getStorageOpen() { return _storageOpen; }
 	void setStprageOpen(bool storageOpen) { _storageOpen = storageOpen; }
 
-
-
-
-
-
-
+	//한번 시범용으로 
+	RECT geteRect() { return _cursorrect; }
+	void setRect(RECT _rect) { _cursorrect = _rect; }
 
 
 	//추가한거
 	void swapItem(item swapItem);
-	void tempClear() { 
+	void tempClear() {
 
-		_vTemp.clear(); 	
-		test = false; 
+		_vTemp.clear();
+		test = false;
 		_cursorNumber = 0;
-	
+
 	}
 };

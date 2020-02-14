@@ -138,7 +138,6 @@ void storage::update()
 void storage::render()
 {
 	PLAYER->getinventory()->moverender(getMemDC());
-	PLAYER->getinventory()->invenanditemcollision(getMemDC());			//--->인벤용에 있는 아이템을 보여_showItem에 보여주기 위한 것 
 	storageRender();
 	//Rectangle(getMemDC(), _cursorSlot.left, _cursorSlot.top, _cursorSlot.right, _cursorSlot.bottom);
 	if (!_showWindow)
