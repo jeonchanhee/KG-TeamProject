@@ -124,7 +124,7 @@ void storage::update()
 	}
 	playerCollision(); //열기닫기
 	//itemArrange();	   //Z버튼을 누르면 창고에 들어있는 것들을 자동으로 정렬해주는 함수...미완성
-	if (!PLAYER->getinventory()->getTest()) cursorControl();   //-->커서컨트롤 WASD버튼
+	if (!PLAYER->getinventory()->getstorgeuding()) cursorControl();   //-->커서컨트롤 WASD버튼
 	else PLAYER->getinventory()->cursormove();				//-->커서컨트롤 WASD버튼
 	cursorControl();   //커서컨트롤 WASD버튼
 	setStorageItem();  //창고안의 아이템 위치를 업데이트
@@ -208,7 +208,7 @@ void storage::storageRender()
 				}
 			}
 		}
-		if(!PLAYER->getinventory()->getTest()) _cursor->render();
+		if(!PLAYER->getinventory()->getstorgeuding()) _cursor->render();
 	}
 }
 
@@ -223,7 +223,7 @@ void storage::cursorControl()
 			if (_cursorNum < 0)
 			{
 				_cursorNum = 0;
-				PLAYER->getinventory()->setTest(true); //옆으로 인벤토리로 옮기기
+				PLAYER->getinventory()->setstorgeuding(true); //옆으로 인벤토리로 옮기기
 				if(_vTemp.size()!=0) PLAYER->getinventory()->swapItem(_vTemp[0]);
 			//	PLAYER->getinventory()->getvTemp()[0];
 			}
@@ -405,7 +405,7 @@ void storage::grab()
 
 void storage::invenplayer()   //-->
 {
-	if (PLAYER->getinventory()->getTest() == true)						//인벤용으로 넘어온 상태에서
+	if (PLAYER->getinventory()->getstorgeuding() == true)						//인벤용으로 넘어온 상태에서
 	{
 		for (int i = 0; i < PLAYER->getinventory()->getvInven().size(); i++)				//전체 상태 확인하기
 		{

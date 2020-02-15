@@ -66,7 +66,7 @@ void sellTable::update()
 	{
 		_vSellItem[i].update();
 	}
-	if (!PLAYER->getinventory()->getTest()) cursorControl();   //-->커서컨트롤 WASD버튼
+	if (!PLAYER->getinventory()->getstorgeuding()) cursorControl();   //-->커서컨트롤 WASD버튼
 	else PLAYER->getinventory()->cursormove();				//-->커서컨트롤 WASD버튼
 
 	playerCollision();
@@ -169,7 +169,7 @@ void sellTable::cursorControl()
 				_cursorNum = 0;
 
 				//setTest가 true가 되면 인벤토리 창이 켜진다. test가 false가 되면 상점의 커서가 꺼짐
-				PLAYER->getinventory()->setTest(true); 
+				PLAYER->getinventory()->setstorgeuding(true);
 				_test = false;
 
 				//만약 상점에서 커서가 아이템을 잡은 상태라면
@@ -296,7 +296,7 @@ void sellTable::playerCollision()
 				_showWindow = false;
 				_test = false;
 			PLAYER->getinventory()->setStprageOpen(false);
-			PLAYER->getinventory()->setTest(false);
+			PLAYER->getinventory()->setstorgeuding(false);
 
 			}
 		}
