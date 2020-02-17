@@ -4,6 +4,7 @@
 void mainGame::imagesInit()
 {
 	//¸ÊÅø
+	IMAGEMANAGER->addFrameImage("¸ÊÅø", "images/¸ÊÅø.bmp", 600 * 2, 550 * 2, 12, 11, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("¸ÊÅø´øÀü", "images/¸ÊÅø´øÀü.bmp", 522, 324, 12, 7, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("¼ÀÇÃºÏ", "images/¼ÀÇÃºÏ.bmp", 826, 528, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("¿·¼ÀÇÃºÏ", "images/Ã¥¿·.bmp", 46, 136, true, RGB(255, 0, 255));
@@ -24,6 +25,9 @@ void mainGame::imagesInit()
 	IMAGEMANAGER->addImage("ÀÎÆ®·Î¿É¼Ç", "images/ÀÎÆ®·Î¿É¼Ç.bmp", 544 / 2, 133 / 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("ÀÎÆ®·Î³ª°¡±â", "images/ÀÎÆ®·Î³ª°¡±â.bmp", 544 / 2, 133 / 2, true, RGB(255, 0, 255));
 
+	//Ã¼·Â¹Ù
+	IMAGEMANAGER->addImage("Ã¼·Â¹Ù¾Õ", "images/monster/progressBarFront.bmp", 0, 0, 50, 10, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("Ã¼·Â¹ÙµÚ", "images/monster/progressBarBack.bmp", 0, 0, 50, 10, true, RGB(255, 0, 255));
 	//¸ó½ºÅÍ
 	IMAGEMANAGER->addFrameImage("°ñ·½ÅÍ·¿", "images/monster/golemTurret.bmp", 551 * 2, 204 * 2, 12, 4, true, RGB(255, 0, 255));
 	ANIMATIONMANAGER->addAnimation("°ñ·½ÅÍ·¿L", "°ñ·½ÅÍ·¿", 0, 11, 12, false, true);
@@ -49,21 +53,19 @@ void mainGame::imagesInit()
 	ANIMATIONMANAGER->addAnimation("½½¶óÀÓ°ÇÆ²·¿L", "½½¶óÀÓ°ÇÆ²·¿", 260, 273, 14, false, true);
 	ANIMATIONMANAGER->addAnimation("½½¶óÀÓ°ÇÆ²·¿R", "½½¶óÀÓ°ÇÆ²·¿", 312, 325, 14, false, true);
 	ANIMATIONMANAGER->addAnimation("½½¶óÀÓ°ÇÆ²·¿U", "½½¶óÀÓ°ÇÆ²·¿", 364, 377, 14, false, true);
-	IMAGEMANAGER->addFrameImage("°ñ·½º¸½º", "images/monster/golemBoss.bmp", 778 * 2, 518 * 2, 8, 4, true, RGB(255, 0, 255));
-	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½ºL", "°ñ·½º¸½º", 0, 7, 8, false, true);
-	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½ºU", "°ñ·½º¸½º", 8, 15, 8, false, true);
-	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½ºR", "°ñ·½º¸½º", 16, 23, 8, false, true);
-	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½ºB", "°ñ·½º¸½º", 24, 31, 8, false, true);
-	IMAGEMANAGER->addFrameImage("°ñ·½º¸½º°ø°Ý1", "images/monster/golemBossAtk12.bmp", 4502 * 2, 1152 * 2, 15, 4, true, RGB(255, 0, 255));
-	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°Ý1B", "°ñ·½º¸½º°ø°Ý1", 0, 14, 15, false, false);
-	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°Ý1L", "°ñ·½º¸½º°ø°Ý1", 15, 29, 15, false, false);
-	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°Ý1R", "°ñ·½º¸½º°ø°Ý1", 30, 44, 15, false, false);
-	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°Ý1U", "°ñ·½º¸½º°ø°Ý1", 45, 59, 15, false, false);
-	IMAGEMANAGER->addFrameImage("°ñ·½º¸½º°ø°Ý2", "images/monster/golemBossAtk2.bmp", 3004 * 2, 1008 * 2, 15, 4, true, RGB(255, 0, 255));
-	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°Ý2B", "°ñ·½º¸½º°ø°Ý2", 0, 14, 15, false, false);
-	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°Ý2L", "°ñ·½º¸½º°ø°Ý2", 15, 29, 15, false, false);
-	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°Ý2R", "°ñ·½º¸½º°ø°Ý2", 30, 44, 15, false, false);
-	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°Ý2U", "°ñ·½º¸½º°ø°Ý2", 45, 59, 15, false, false);
+	IMAGEMANAGER->addFrameImage("°ñ·½º¸½º", "images/monster/golemBossAtk14.bmp", 4516 * 2, 3512 * 2, 15, 12, true, RGB(255, 0, 255));
+	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½ºB", "°ñ·½º¸½º", 60, 67, 8, false, true);
+	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½ºL", "°ñ·½º¸½º", 75, 82, 8, false, true);
+	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½ºR", "°ñ·½º¸½º", 90, 97, 8, false, true);
+	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½ºU", "°ñ·½º¸½º", 105, 112, 8, false, true);
+	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°Ý1B", "°ñ·½º¸½º", 0, 14, 8, false, false);
+	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°Ý1L", "°ñ·½º¸½º", 15, 29, 8, false, false);
+	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°Ý1R", "°ñ·½º¸½º", 30, 44, 8, false, false);
+	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°Ý1U", "°ñ·½º¸½º", 45, 59, 8, false, false);
+	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°Ý2B", "°ñ·½º¸½º", 120, 134, 8, false, false);
+	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°Ý2L", "°ñ·½º¸½º", 135, 149, 8, false, false);
+	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°Ý2R", "°ñ·½º¸½º", 150, 165, 8, false, false);
+	ANIMATIONMANAGER->addAnimation("°ñ·½º¸½º°ø°Ý2U", "°ñ·½º¸½º", 165, 179, 8, false, false);
 	IMAGEMANAGER->addFrameImage("ÅÍ·¿¹Ì»çÀÏL", "images/monster/bulletL.bmp", 35, 35, 1, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("ÅÍ·¿¹Ì»çÀÏU", "images/monster/bulletU.bmp", 35, 35, 1, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("ÅÍ·¿¹Ì»çÀÏR", "images/monster/bulletR.bmp", 35, 35, 1, 1, true, RGB(255, 0, 255));
@@ -72,11 +74,11 @@ void mainGame::imagesInit()
 	ANIMATIONMANAGER->addAnimation("¸ó½ºÅÍÁÖ±Ý", "¸ó½ºÅÍÁ×À½", 0, 9, 10, false, false);
 
 	//NPC
-	IMAGEMANAGER->addFrameImage("¿©ÀÚ", "images/NPC/Girl.bmp", 810, 360, 9, 4, true, RGB(255, 0, 255));
-	ANIMATIONMANAGER->addAnimation("¿©ÀÚD", "¿©ÀÚ", 0, 8, 9, false, false);
-	ANIMATIONMANAGER->addAnimation("¿©ÀÚU", "¿©ÀÚ", 9, 17, 9, false, false);
-	ANIMATIONMANAGER->addAnimation("¿©ÀÚL", "¿©ÀÚ", 18, 26, 9, false, false);
-	ANIMATIONMANAGER->addAnimation("¿©ÀÚR", "¿©ÀÚ", 27, 35, 9, false, false);
+	IMAGEMANAGER->addFrameImage("¿©ÀÚ", "images/NPC/girl.bmp", 810, 360, 9, 4, true, RGB(255, 0, 255));
+	ANIMATIONMANAGER->addAnimation("¿©ÀÚD", "¿©ÀÚ", 0, 8, 9, false, true);
+	ANIMATIONMANAGER->addAnimation("¿©ÀÚU", "¿©ÀÚ", 9, 17, 9, false, true);
+	ANIMATIONMANAGER->addAnimation("¿©ÀÚL", "¿©ÀÚ", 18, 26, 9, false, true);
+	ANIMATIONMANAGER->addAnimation("¿©ÀÚR", "¿©ÀÚ", 27, 35, 9, false, true);
 	int stopImgD[] = { 0 };
 	int stopImgU[] = { 9 };
 	int stopImgL[] = { 18 };
@@ -108,6 +110,21 @@ void mainGame::imagesInit()
 	ANIMATIONMANAGER->addAnimation("Ã»³âÁ¤ÁöU", "Ã»³â", stopImgU, 1, 1, true);
 	ANIMATIONMANAGER->addAnimation("Ã»³âÁ¤ÁöL", "Ã»³â", stopImgL, 1, 1, true);
 	ANIMATIONMANAGER->addAnimation("Ã»³âÁ¤ÁöR", "Ã»³â", stopImgR, 1, 1, true);
+	IMAGEMANAGER->addFrameImage("Ç¥Á¤", "images/NPC/visitorTalk1.bmp", 330*2, 210*2, 11, 7, true, RGB(255, 0, 255));
+	int think[] = { 0,0,0,1,1,1,2,2,2,3,3,3 };
+	int cheap[] = { 11,11,11,11,11,11,12,12,12,12,12,12 };
+	int veryCheap[] = { 33,34,35,36,37,38,39,40,41,42,43,43 };
+	int expensive[] = { 22,22,22,22,23,23,23,23,24,24,24,24 };
+	int veryExpensive[] = { 44,45,46,47,48,48,48,49,49,50,50,50 };
+	int soso[] = { 55,55,56,56,57,57,57,57,57,57,57,57 };
+	int wait[] = { 66,66,67,67,66,66,67,67,66,66,67,67 };
+	ANIMATIONMANAGER->addAnimation("°¨Á¤Áß", "Ç¥Á¤", think, 12, 3, false);
+	ANIMATIONMANAGER->addAnimation("½Ó", "Ç¥Á¤", cheap, 12, 6, false);
+	ANIMATIONMANAGER->addAnimation("ºñ½Ó", "Ç¥Á¤", expensive, 12, 6, false);
+	ANIMATIONMANAGER->addAnimation("¸Å¿ì½Ó", "Ç¥Á¤", veryCheap, 12, 6, false);
+	ANIMATIONMANAGER->addAnimation("¸Å¿ìºñ½Ó", "Ç¥Á¤", veryExpensive, 12, 6, false);
+	ANIMATIONMANAGER->addAnimation("º¸Åë", "Ç¥Á¤", soso, 12, 6, false);
+	ANIMATIONMANAGER->addAnimation("±â´Ù¸²", "Ç¥Á¤", wait, 12, 60, true);
 
 	//¾ÆÀÌÅÛ
 	IMAGEMANAGER->addImage("ºñ¾îÀÖÀ½", "images/item/ºñ¾îÀÖÀ½.bmp", 36, 36, true, RGB(255, 0, 255));
@@ -191,5 +208,5 @@ void mainGame::imagesInit()
 	IMAGEMANAGER->addImage("zºñÈ°¼ºÈ­¿À", "images/inventory/z¹öÀüºñÈ°¼ºÈ­(¿À).bmp", 23, 21, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("z¹öÀüÈ°¼ºÈ­¿Þ", "images/inventory/z¹öÀüÈ°¼ºÈ­(¿Þ).bmp", 23, 21, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("z¹öÀüºñÈ°¼ºÈ­¿Þ", "images/inventory/z¹öÀüºñÈ°¼ºÈ­(¿Þ).bmp", 23, 21, true, RGB(255, 0, 255));
-
+	IMAGEMANAGER->addImage("ÇÁ·ÎÇÊ", "images/inventory/profile.bmp", 134, 170, true, RGB(255, 0, 255));
 }

@@ -15,6 +15,7 @@ HRESULT NPCblacksmith::init(POINT npcXY)
 	_npcAni = ANIMATIONMANAGER->findAnimation("벌컨기본모션");
 
 	_recipeImg = IMAGEMANAGER->findImage("업그레이드레시피");
+
 	_vShowItem.push_back(ITEMMANAGER->addItem("훈련용 단검"));
 	_vShowItem.push_back(ITEMMANAGER->addItem("흡혈귀의 단검"));
 	_vShowItem.push_back(ITEMMANAGER->addItem("캐터펄트 보우"));
@@ -55,13 +56,7 @@ void NPCblacksmith::update()
 void NPCblacksmith::render()
 {
 	_npcImg->aniRender(getMemDC(), _npcRc.left, _npcRc.top, _npcAni);
-	if (!_showWindow)
-	{
-		if (IntersectRect(&temp, &PLAYER->getPlayercollision(), &_npcRc))
-		{
-			IMAGEMANAGER->render("열기", getMemDC(), _npcRc.right, _npcRc.top - 20);
-		}
-	}
+	NPCshopBase::render();
 
 	if (_showWindow)
 	{
@@ -70,16 +65,6 @@ void NPCblacksmith::render()
 		_bowTabImg->render(getMemDC(), _bowTab.left, _bowTab.top);
 		_spearTabImg->render(getMemDC(), _spearTab.left, _spearTab.top);
 
-		baseRender();
-
-		for (int i = 0; i < 3; i++)
-		{
-			_recipeSlotImg[i]->render(getMemDC(), WINSIZEX / 2 + 200, WINSIZEY / 2 + 50 + (i * 70));
-			if (_vShowRecipe.size() - 1 >= i && _vShowRecipe.size() > 0)
-			{
-				_vShowRecipe[i].getItemInfo().image->render(getMemDC(), WINSIZEX / 2 + 200, WINSIZEY / 2 + 50 + (i * 70));
-			}
-		}
 		switch (_currentTab)
 		{
 		case 0:
@@ -147,8 +132,6 @@ void NPCblacksmith::render()
 			}
 			break;
 		}
-
-
 
 		//템프=현재 커서가 가리키고 있는 아이템.
 		_temp.getItemInfo().image->render(getMemDC(), WINSIZEX - 120, 80);

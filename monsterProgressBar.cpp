@@ -17,10 +17,11 @@ HRESULT monsterProgressBar::init(char * frontImage, char * backImage, float x, f
 	_rcProgress = RectMake(x, y, width, height);
 
 	_progressBarFront = new image;
-	_progressBarFront->init(frontImage, x, y, width, height, true, RGB(255, 0, 255));
+	_progressBarFront = IMAGEMANAGER->findImage("체력바앞");
 
 	_progressBarBack = new image;
-	_progressBarBack->init(backImage, x, y, width, height, true, RGB(255, 0, 255));
+	_progressBarBack = IMAGEMANAGER->findImage("체력바뒤");
+	//_progressBarBack->init(backImage, x, y, width, height, true, RGB(255, 0, 255));
 
 
 	_width = _progressBarFront->getWidth();

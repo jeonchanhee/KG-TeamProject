@@ -4,7 +4,7 @@
 #include"sellTable.h"
 #include"NPCpotionShop.h"
 #include"NPCblacksmith.h"
-
+#include"buyNPC.h"
 class playerShop : public gameNode
 {
 private:
@@ -15,7 +15,7 @@ private:
 
 	NPCpotionShop* _potionShop;	//포션상점
 	NPCblacksmith* _blacksmith;	//대장간
-
+	buyNPC* _girlNPC;
 	RECT temp;
 
 public:

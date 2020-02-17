@@ -15,9 +15,11 @@ HRESULT mapTool::init()
 	for (int i = 0; i < 8; i++)
 	{
 		sampleImage[i] = new image;
-		sampleImage[i]->init("images/맵툴던전.bmp", 522 * 2, 324 * 2, 12, 7, true, RGB(255, 0, 255));
+		sampleImage[i]->init("images/맵툴.bmp", 600 * 2, 550 * 2, 12, 11, true, RGB(255, 0, 255));
 	}
-
+	//페이지 1~7 던전
+	//페이지 8~14 마을
+	//페이지 15~16 세이브로드
 	first = false;
 	mouse = false;
 	return S_OK;
@@ -62,11 +64,11 @@ void mapTool::render()
 		if (CAMERAX - 100 < _tiles[i].x && _tiles[i].x < CAMERAX + WINSIZEX + 100 && CAMERAY - 100 < _tiles[i].y&& _tiles[i].y < CAMERAY + WINSIZEY + 100)
 		{
 			if (_tiles[i].terrain == TERAIN_NONE) Rectangle(getMemDC(), _tiles[i].rc.left, _tiles[i].rc.top, _tiles[i].rc.right, _tiles[i].rc.bottom);
-			else IMAGEMANAGER->frameRender("맵툴던전", getMemDC(), _tiles[i].rc.left, _tiles[i].rc.top, _tiles[i].terrainFrameX, _tiles[i].terrainFrameY);
+			else IMAGEMANAGER->frameRender("맵툴", getMemDC(), _tiles[i].rc.left, _tiles[i].rc.top, _tiles[i].terrainFrameX, _tiles[i].terrainFrameY);
 
 			if (_tiles[i].obj == OBJ_NONE) continue;
 
-			IMAGEMANAGER->frameRender("맵툴던전", getMemDC(), _tiles[i].rc.left, _tiles[i].rc.top, _tiles[i].objFrameX, _tiles[i].objFrameY);
+			IMAGEMANAGER->frameRender("맵툴", getMemDC(), _tiles[i].rc.left, _tiles[i].rc.top, _tiles[i].objFrameX, _tiles[i].objFrameY);
 		}
 	}
 
@@ -102,7 +104,7 @@ void mapTool::render()
 				bottun[i].img->render(CAMERAMANAGER->getCameraDC(), bottun[i].rc.left, bottun[i].rc.top);
 			}
 		}
-		else if (page > 0 && page < 10)
+		else if (page > 0 && page < 15)
 		{
 			for (int i = 0; i < 3; i++)
 			{
@@ -119,7 +121,7 @@ void mapTool::render()
 				sampleImage[i]->frameRender(CAMERAMANAGER->getCameraDC(), rc[i].left, rc[i].top);
 			}
 		}
-		else if (page > 9)
+		else if (page > 14)
 		{
 			for (int i = 0; i < 3; i++)
 			{
@@ -311,7 +313,9 @@ void mapTool::controlSampleBook()
 	if (!_sampleBook.Summons) page = 0;
 
 	if (page > 0) _select = TRRAINDRAW;
-	if (page > 2) _select = OBJDRAW;
+	if (page > 2 && page < 8) _select = OBJDRAW;
+	if (page >= 8 && page < 13) _select = TRRAINDRAW;
+	if (page >= 13 && page < 15) _select = OBJDRAW;
 
 	if (KEYMANAGER->isOnceKeyDown('H')) _select = ERASER;
 
@@ -372,17 +376,17 @@ void mapTool::sampleBookKey()
 
 			if (KEYMANAGER->isOnceKeyDown('2'))
 			{
-				page = 4;
+				page = 8;
 			}
 
 			if (KEYMANAGER->isOnceKeyDown('3'))
 			{
-				page = 10;
+				page = 15;
 			}
 
 			if (KEYMANAGER->isOnceKeyDown('4'))
 			{
-				page = 11;
+				page = 16;
 			}
 		}
 
@@ -424,9 +428,8 @@ void mapTool::setSampleBookBottun()
 			_sampleBook.bottun[2].y = _sampleBook.rc.bottom - _sampleBook.bottun[2].img->getHeight() - 20;
 			_sampleBook.bottun[2].rc = RectMakeCenter(_sampleBook.bottun[2].x, _sampleBook.bottun[2].y, _sampleBook.bottun[2].img->getWidth(), _sampleBook.bottun[2].img->getHeight());
 		}
-
 		setPageSample();
-		if (page > 0 && page < 10)
+		if (page > 0 && page < 15)
 		{
 			sampleSetRc();
 		}
@@ -468,7 +471,7 @@ void mapTool::setSampleBookBottun()
 			bottun[i].rc = RectMakeCenter(bottun[i].x + i * 200, bottun[i].y, bottun[i].img->getWidth(), bottun[i].img->getHeight());
 		}
 	}
-	else if (page > 1 && page < 10)
+	else if (page > 2 && page < 8)
 	{
 		bottun[0].img = IMAGEMANAGER->findImage("던전");
 		bottun[1].img = IMAGEMANAGER->findImage("세이브");
@@ -491,7 +494,53 @@ void mapTool::setSampleBookBottun()
 			bottun[i].rc = RectMakeCenter(bottun[i].x + i * 200, bottun[i].y, bottun[i].img->getWidth(), bottun[i].img->getHeight());
 		}
 	}
-	else if (page == 10)
+	else if (page >= 8 && page < 13)
+	{
+		bottun[0].img = IMAGEMANAGER->findImage("마을");
+		bottun[1].img = IMAGEMANAGER->findImage("세이브");
+		bottun[2].img = IMAGEMANAGER->findImage("지형");
+		bottun[3].img = IMAGEMANAGER->findImage("로드");
+
+		for (int i = 0; i < 4; i++)
+		{
+			if (i == 0)
+			{
+				bottun[i].x = _sampleBook.x;
+				bottun[i].y = _sampleBook.rc.top + bottun[i].img->getHeight() + 20;
+
+			}
+			else
+			{
+				bottun[i].x = _sampleBook.rc.left + 10;
+				bottun[i].y = _sampleBook.rc.bottom - bottun[i].img->getHeight() - 50;
+			}
+			bottun[i].rc = RectMakeCenter(bottun[i].x + i * 200, bottun[i].y, bottun[i].img->getWidth(), bottun[i].img->getHeight());
+		}
+	}
+	else if (page >= 13 && page < 15)
+	{
+		bottun[0].img = IMAGEMANAGER->findImage("마을");
+		bottun[1].img = IMAGEMANAGER->findImage("세이브");
+		bottun[2].img = IMAGEMANAGER->findImage("오브젝트");
+		bottun[3].img = IMAGEMANAGER->findImage("로드");
+
+		for (int i = 0; i < 4; i++)
+		{
+			if (i == 0)
+			{
+				bottun[i].x = _sampleBook.x;
+				bottun[i].y = _sampleBook.rc.top + bottun[i].img->getHeight() + 20;
+
+			}
+			else
+			{
+				bottun[i].x = _sampleBook.rc.left + 10;
+				bottun[i].y = _sampleBook.rc.bottom - bottun[i].img->getHeight() - 50;
+			}
+			bottun[i].rc = RectMakeCenter(bottun[i].x + i * 200, bottun[i].y, bottun[i].img->getWidth(), bottun[i].img->getHeight());
+		}
+	}
+	else if (page == 15)
 	{
 		bottun[0].img = IMAGEMANAGER->findImage("세이브");
 		bottun[1].img = IMAGEMANAGER->findImage("로드");
@@ -512,7 +561,7 @@ void mapTool::setSampleBookBottun()
 			bottun[i].rc = RectMakeCenter(bottun[i].x + i * 200, bottun[i].y, bottun[i].img->getWidth(), bottun[i].img->getHeight());
 		}
 	}
-	else if (page == 11)
+	else if (page == 16)
 	{
 		bottun[0].img = IMAGEMANAGER->findImage("로드");
 		bottun[1].img = IMAGEMANAGER->findImage("세이브");
@@ -544,22 +593,23 @@ void mapTool::sampleBookBottunControl()
 			if (page == 0)
 			{
 				if (i == 0) page = 1;
-				if (i == 1) page = 4;
-				if (i == 2) page = 10;
-				if (i == 3) page = 11;
+				if (i == 1) page = 8;
+
+				if (i == 2) page = 15;
+				if (i == 3) page = 16;
 			}
-			else if (page > 0 && page < 10)
+			else if (page > 0 && page < 15)
 			{
-				if (i == 1) page = 10;
-				if (i == 3) page == 11;
+				if (i == 1) page = 15;
+				if (i == 3) page == 16;
 			}
-			else if (page == 10)
+			else if (page == 15)
 			{
-				if (i == 1) page == 11;
+				if (i == 1) page == 16;
 			}
-			else if (page == 11)
+			else if (page == 16)
 			{
-				if (i == 1) page = 10;
+				if (i == 1) page = 15;
 			}
 		}
 	}
@@ -586,6 +636,70 @@ void mapTool::sampleSetRc()
 				rc[i + 6] = RectMakeCenter((_sampleBook.rc.right - 300) + i * 150, _sampleBook.rc.bottom - 219, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
 			}
 			else if (page == 5)
+			{
+				rc[i] = RectMakeCenter((_sampleBook.rc.left + 150) + i * 150, _sampleBook.rc.top + 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+				rc[i + 2] = RectMakeCenter((_sampleBook.rc.right - 300) + i * 86, _sampleBook.rc.top + 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+				rc[i + 4] = RectMakeCenter((_sampleBook.rc.left + 150) + i * 150, _sampleBook.rc.bottom - 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+				rc[i + 6] = RectMakeCenter((_sampleBook.rc.right - 300) + i * 86, _sampleBook.rc.bottom - 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+			}
+			//페이지 띄워주는곳
+			else if (page == 6)
+			{
+				rc[i] = RectMakeCenter((_sampleBook.rc.left + 150) + i * 150, _sampleBook.rc.top + 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+				rc[i + 2] = RectMakeCenter((_sampleBook.rc.right - 300) + i * 86, _sampleBook.rc.top + 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+				rc[i + 4] = RectMakeCenter((_sampleBook.rc.left + 150) + i * 150, _sampleBook.rc.bottom - 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+				rc[i + 6] = RectMakeCenter((_sampleBook.rc.right - 300) + i * 86, _sampleBook.rc.bottom - 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+			}
+			else if (page == 7)
+			{
+				rc[i] = RectMakeCenter((_sampleBook.rc.left + 150) + i * 150, _sampleBook.rc.top + 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+				rc[i + 2] = RectMakeCenter((_sampleBook.rc.right - 300) + i * 86, _sampleBook.rc.top + 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+				rc[i + 4] = RectMakeCenter((_sampleBook.rc.left + 150) + i * 150, _sampleBook.rc.bottom - 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+				rc[i + 6] = RectMakeCenter((_sampleBook.rc.right - 300) + i * 86, _sampleBook.rc.bottom - 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+			}
+			else if (page == 8)
+			{
+				rc[i] = RectMakeCenter((_sampleBook.rc.left + 150) + i * 150, _sampleBook.rc.top + 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+				rc[i + 2] = RectMakeCenter((_sampleBook.rc.right - 300) + i * 86, _sampleBook.rc.top + 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+				rc[i + 4] = RectMakeCenter((_sampleBook.rc.left + 150) + i * 150, _sampleBook.rc.bottom - 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+				rc[i + 6] = RectMakeCenter((_sampleBook.rc.right - 300) + i * 86, _sampleBook.rc.bottom - 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+			}
+			else if (page == 9)
+			{
+				rc[i] = RectMakeCenter((_sampleBook.rc.left + 150) + i * 150, _sampleBook.rc.top + 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+				rc[i + 2] = RectMakeCenter((_sampleBook.rc.right - 300) + i * 86, _sampleBook.rc.top + 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+				rc[i + 4] = RectMakeCenter((_sampleBook.rc.left + 150) + i * 150, _sampleBook.rc.bottom - 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+				rc[i + 6] = RectMakeCenter((_sampleBook.rc.right - 300) + i * 86, _sampleBook.rc.bottom - 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+			}
+			else if (page == 10)
+			{
+				rc[i] = RectMakeCenter((_sampleBook.rc.left + 150) + i * 150, _sampleBook.rc.top + 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+				rc[i + 2] = RectMakeCenter((_sampleBook.rc.right - 300) + i * 86, _sampleBook.rc.top + 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+				rc[i + 4] = RectMakeCenter((_sampleBook.rc.left + 150) + i * 150, _sampleBook.rc.bottom - 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+				rc[i + 6] = RectMakeCenter((_sampleBook.rc.right - 300) + i * 86, _sampleBook.rc.bottom - 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+			}
+			else if (page == 11)
+			{
+				rc[i] = RectMakeCenter((_sampleBook.rc.left + 150) + i * 150, _sampleBook.rc.top + 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+				rc[i + 2] = RectMakeCenter((_sampleBook.rc.right - 300) + i * 86, _sampleBook.rc.top + 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+				rc[i + 4] = RectMakeCenter((_sampleBook.rc.left + 150) + i * 150, _sampleBook.rc.bottom - 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+				rc[i + 6] = RectMakeCenter((_sampleBook.rc.right - 300) + i * 86, _sampleBook.rc.bottom - 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+			}
+			else if (page == 12)
+			{
+				rc[i] = RectMakeCenter((_sampleBook.rc.left + 150) + i * 150, _sampleBook.rc.top + 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+				rc[i + 2] = RectMakeCenter((_sampleBook.rc.right - 300) + i * 86, _sampleBook.rc.top + 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+				rc[i + 4] = RectMakeCenter((_sampleBook.rc.left + 150) + i * 150, _sampleBook.rc.bottom - 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+				rc[i + 6] = RectMakeCenter((_sampleBook.rc.right - 300) + i * 86, _sampleBook.rc.bottom - 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+			}
+			else if (page == 13)
+			{
+				rc[i] = RectMakeCenter((_sampleBook.rc.left + 150) + i * 150, _sampleBook.rc.top + 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+				rc[i + 2] = RectMakeCenter((_sampleBook.rc.right - 300) + i * 86, _sampleBook.rc.top + 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+				rc[i + 4] = RectMakeCenter((_sampleBook.rc.left + 150) + i * 150, _sampleBook.rc.bottom - 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+				rc[i + 6] = RectMakeCenter((_sampleBook.rc.right - 300) + i * 86, _sampleBook.rc.bottom - 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
+			}
+			else if (page == 14)
 			{
 				rc[i] = RectMakeCenter((_sampleBook.rc.left + 150) + i * 150, _sampleBook.rc.top + 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
 				rc[i + 2] = RectMakeCenter((_sampleBook.rc.right - 300) + i * 86, _sampleBook.rc.top + 200, sampleImage[j]->getFrameWidth(), sampleImage[j]->getFrameHeight());
@@ -655,20 +769,133 @@ void mapTool::setPageSample()
 		}
 		else if (page == 5)
 		{
-			if (i == 0)
+			if (i < 4)
 			{
 				sampleImage[i]->setFrameX(i + 4);
 				sampleImage[i]->setFrameY(2);
 			}
-			else if (i >= 1 && i < 4)
+			else
+			{
+				sampleImage[i]->setFrameX(i);
+				sampleImage[i]->setFrameY(3);
+			}
+		}
+		//페이지 추가하느곳
+		else if (page == 6)
+		{
+			if (i < 4)
+			{
+				sampleImage[i]->setFrameX(i);
+				sampleImage[i]->setFrameY(4);
+			}
+			else
+			{
+				sampleImage[i]->setFrameX(i - 4);
+				sampleImage[i]->setFrameY(5);
+			}
+		}
+		else if (page == 7)
+		{
+			if (i < 4)
+			{
+				sampleImage[i]->setFrameX(i + 4);
+				sampleImage[i]->setFrameY(4);
+			}
+			else
+			{
+				sampleImage[i]->setFrameX(i);
+				sampleImage[i]->setFrameY(5);
+			}
+		}
+		else if (page == 8)
+		{
+			if (i < 4)
+			{
+				sampleImage[i]->setFrameX(i);
+				sampleImage[i]->setFrameY(6);
+			}
+			else
+			{
+				sampleImage[i]->setFrameX(i);
+				sampleImage[i]->setFrameY(6);
+			}
+		}
+		else if (page == 9)
+		{
+			if (i < 4)
+			{
+				sampleImage[i]->setFrameX(i);
+				sampleImage[i]->setFrameY(7);
+			}
+			else
+			{
+				sampleImage[i]->setFrameX(i - 4);
+				sampleImage[i]->setFrameY(8);
+			}
+		}
+		else if (page == 10)
+		{
+			if (i < 4)
+			{
+				sampleImage[i]->setFrameX(i);
+				sampleImage[i]->setFrameY(9);
+			}
+			else
+			{
+				sampleImage[i]->setFrameX(i - 4);
+				sampleImage[i]->setFrameY(10);
+			}
+		}
+		else if (page == 11)
+		{
+			if (i < 4)
+			{
+				sampleImage[i]->setFrameX(i + 4);
+				sampleImage[i]->setFrameY(7);
+			}
+			else
+			{
+				sampleImage[i]->setFrameX(i);
+				sampleImage[i]->setFrameY(8);
+			}
+		}
+		else if (page == 12)
+		{
+			if (i < 4)
+			{
+				sampleImage[i]->setFrameX(i + 4);
+				sampleImage[i]->setFrameY(9);
+			}
+			else
+			{
+				sampleImage[i]->setFrameX(i);
+				sampleImage[i]->setFrameY(10);
+			}
+		}
+		else if (page == 13)
+		{
+			if (i < 4)
 			{
 				sampleImage[i]->setFrameX(i + 8);
-				sampleImage[i]->setFrameY(2);
+				sampleImage[i]->setFrameY(6);
 			}
-			else if (i > 4)
+			else
 			{
 				sampleImage[i]->setFrameX(i + 4);
-				sampleImage[i]->setFrameY(3);
+				sampleImage[i]->setFrameY(7);
+			}
+		}
+		else if (page == 14)
+		{
+			if (i < 4)
+			{
+				sampleImage[i]->setFrameX(i + 8);
+				sampleImage[i]->setFrameY(8);
+			}
+			else
+			{
+				sampleImage[i]->setFrameX(i + 4);
+				sampleImage[i]->setFrameY(9);
 			}
 		}
 	}
@@ -687,14 +914,17 @@ void mapTool::setMap()
 				_tiles[i].terrainFrameX = _currnetTile.x;
 				_tiles[i].terrainFrameY = _currnetTile.y;
 
-				_tiles[i].terrain = dungeonTerrainSelect(_currnetTile.x, _currnetTile.y);
+				if (page < 8) _tiles[i].terrain = dungeonTerrainSelect(_currnetTile.x, _currnetTile.y);
+				else _tiles[i].terrain = villageTerrainSelect(_currnetTile.x, _currnetTile.y);
 			}
 			if (_select == OBJDRAW)
 			{
 				_tiles[i].objFrameX = _currnetTile.x;
 				_tiles[i].objFrameY = _currnetTile.y;
 
-				_tiles[i].obj = dungeonObjSelect(_currnetTile.x, _currnetTile.y);
+				if (page < 8)_tiles[i].obj = dungeonObjSelect(_currnetTile.x, _currnetTile.y);
+				else _tiles[i].obj = villageObjSelect(_currnetTile.x, _currnetTile.y);
+
 			}
 			if (_select == ERASER)
 			{
@@ -804,18 +1034,18 @@ TERRAIN mapTool::dungeonTerrainSelect(int frameX, int frameY)
 {
 	for (int i = 0; i < 4; i++)
 	{
-		for (int j = 0; j < 2; j++)
+		for (int j = 0; j < 1; j++)
 		{
-			if (frameX == i && frameY == j)
+			if (frameX == i && frameY == j || frameX == 3 && frameY == 2 || frameX == 3 && frameY == 3)
 			{
 				return TERAIN_WALL;
 			}
 		}
 	}
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 4; i++)
 	{
-		for (int j = 2; j < 4; j++)
+		for (int j = 3; j < 4; j++)
 		{
 			return TERAIN_GROUND;
 		}
@@ -826,7 +1056,7 @@ TERRAIN mapTool::dungeonTerrainSelect(int frameX, int frameY)
 
 OBJECT mapTool::dungeonObjSelect(int frameX, int frameY)
 {
-	for (int i = 4; i < 12; i++)
+	for (int i = 5; i < 13; i++)
 	{
 		for (int j = 0; j < 7; j++)
 		{
@@ -837,28 +1067,86 @@ OBJECT mapTool::dungeonObjSelect(int frameX, int frameY)
 			}
 
 			//해골 오브젝트
-			if (i >= 6 && i <= 9 && j == 0 || i >= 7 && i <= 8 && j == 1)
+			if (i >= 4 && i <= 5 && j == 0)
 			{
 				if (frameX == i && frameY == j) return OBJ_SKULL;
 			}
 
 			//문 오브젝트
-			if (i >= 10 && j <= 3)
+			if (i >= 8 && j >= 0 && j <= 1)
 			{
 				if (frameX == i && frameY == j) return OBJ_DOOR;
 			}
+			//항아리 오브젝트
+			if (i >= 4 && i <= 5 && j == 1)
+			{
+				if (frameX == i && frameY == j) return OBJ_JAR;
+			}
 
 			//기둥
-			if (i == 4 && j == 2) return OBJ_PILLAR;
+			if (i == 6 && j == 0) return OBJ_PILLAR;
 
-			if (i >= 5 && i <= 8 && j >= 2)
+			if (i >= 0 && i <= 7 && j >= 4 && j <= 5)
 			{
 				return OBJ_HELL_SPA;
 			}
 
-			if (i == 9 && j == 2) return OBJ_BOX;
+			if (i == 7 && j == 0) return OBJ_BOX;
 
-			if (i >= 9 && j >= 4) return OBJ_TENT;
+			if (i >= 4 && i <= 6 && j >= 2 && j <= 3) return OBJ_TENT;
+		}
+	}
+
+	return OBJ_NONE;
+}
+
+TERRAIN mapTool::villageTerrainSelect(int frameX, int frameY)
+{
+	for (int i = 0; i < 7; i++)
+	{
+		for (int j = 6; j < 11; j++)
+		{
+			if (frameX == i && frameY == j || frameX == 3 && frameY == 2 || frameX == 3 && frameY == 3)
+			{
+				return TERAIN_GROUND;
+			}
+		}
+	}
+
+	return TERAIN_NONE;
+}
+
+OBJECT mapTool::villageObjSelect(int frameX, int frameY)
+{
+	for (int i = 9; i < 13; i++)
+	{
+		for (int j = 6; j < 11; j++)
+		{
+			//오브젝트 나무+우물
+			if (i >= 9 && j >= 6 && j <= 7)
+			{
+				if (frameX == i && frameY == j) return OBJ_WALL;
+			}
+			//오브젝트 나무
+			if (i >= 9 && i <= 10 && j >= 8 && j <= 9)
+			{
+				if (frameX == i && frameY == j) return OBJ_WALL;
+			}
+			//오브젝트 의자
+			if (i == 12 && j == 9)
+			{
+				if (frameX == i && frameY == j) return OBJ_WALL;
+			}
+			//오브젝트 마을상자
+			if (i >= 11 && i <= 12 && j == 8)
+			{
+				if (frameX == i && frameY == j) return OBJ_JAR;
+			}
+			//오브젝트 오크통
+			if (i >= 11 && j == 9)
+			{
+				if (frameX == i && frameY == j) return OBJ_JAR;
+			}
 		}
 	}
 
