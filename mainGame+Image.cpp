@@ -193,13 +193,14 @@ void mainGame::imagesInit()
 	IMAGEMANAGER->addFrameImage("벌컨", "images/blacksmith/벌컨인게임idle.bmp", 210 * 2, 49 * 2, 6, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("위치", "images/blacksmith/위치인게임idle.bmp", 132 * 2, 44 * 2, 4, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("아이템보여주는창", "images/blacksmith/imageSlot.bmp", 450, 250, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("타이틀", "images/blacksmith/타이틀.bmp", 201, 44, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("타이틀", "images/blacksmith/타이틀.bmp", 201 * 2, 44, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("업그레이드레시피", "images/blacksmith/업그레이드레시피.bmp", 170 * 2, 317 * 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("업그레이드레시피_포션", "images/blacksmith/업그레이드레시피_포션.bmp", 170 * 2, 317 * 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("아머슬롯", "images/blacksmith/armorSlot.bmp", 57, 57, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("보우슬롯", "images/blacksmith/bowSlot.bmp", 57, 57, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("소드슬롯", "images/blacksmith/swordSlot.bmp", 57, 57, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("스피어슬롯", "images/blacksmith/spearSlot.bmp", 57, 57, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("이름칸", "images/blacksmith/이름칸.bmp", 464 / 2, 30, true, RGB(255, 0, 255));
 
 	ANIMATIONMANAGER->addDefAnimation("벌컨기본모션", "벌컨", 3, false, false);
 	ANIMATIONMANAGER->addDefAnimation("위치기본모션", "위치", 3, false, false);

@@ -121,4 +121,12 @@ public:
 		test = false;
 		_cursorNumber = 0;
 	}
+	void addItem(int forNum, item Item)
+	{
+		_vInven[forNum]._item = Item;
+	}
+	void setItemCnt(int forNum, int itemCnt)
+	{
+		_vInven[forNum]._item.setItemCnt(itemCnt);
+	}
 };

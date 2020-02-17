@@ -12,13 +12,15 @@ dungeonScene::~dungeonScene()
 HRESULT dungeonScene::init()
 {
 	PLAYER->setPlayerLocation(DUNGEON_PLAYER_VERSION);
-	PLAYER->setPlayerMoving(PLAYER_DOWN_IDLE);
-
-
 
 	_storage = new storage;
-	_storage->init("Ã¢°í1", PointMake(WINSIZEX/2, WINSIZEY/2));
-
+	_storage->init("Ã¢°í1", PointMake(WINSIZEX / 2, WINSIZEY / 2));
+	_sell = new sellTable;
+	_sell->init();
+	_black = new NPCblacksmith;
+	_black->init(PointMake(WINSIZEX / 2 + 100, WINSIZEY / 2));
+	_potion = new NPCpotionShop;
+	_potion->init(PointMake(WINSIZEX / 2 - 100, WINSIZEY / 2));
 	return S_OK;
 }
 
@@ -31,24 +33,19 @@ void dungeonScene::relaese()
 void dungeonScene::update()
 {
 	PLAYER->update();
-	if (PLAYER->getHP() <= 0)
-	{
-		SCENEMANAGER->changeScene("¸¶À»¾À");
-	}
-
-	if (KEYMANAGER->isOnceKeyDown('M'))
-	{
-		SCENEMANAGER->changeScene("¸¶À»¾À");
-	}
-
 	_storage->update();
-
-
+	_sell->update();
+	_black->update();
+	if (_black->getOpen())_black->buy();
+	_potion->update();
+	if (_potion->getOpen())_potion->buy();
 }
 
 void dungeonScene::render()
 {
 	PLAYER->render(getMemDC());
 	_storage->render();
-
+	_sell->render();
+	_black->render();
+	_potion->render();
 }

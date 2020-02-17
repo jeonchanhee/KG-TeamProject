@@ -20,8 +20,8 @@ HRESULT sellTable::init()
 		for (int k = 0; k < 2; k++)
 		{
 			_sellSlot.img = IMAGEMANAGER->findImage("판매슬롯이미지");
-			_sellSlot.x = _sellMainImg->getWidth() + 103 + (k*229);
-			_sellSlot.y = _sellMainImg->getHeight() - 283 + (i*205);
+			_sellSlot.x = _sellMainImg->getWidth() + 103 + (k * 229);
+			_sellSlot.y = _sellMainImg->getHeight() - 283 + (i * 205);
 			_sellSlot.rc = RectMakeCenter(_sellSlot.x, _sellSlot.y, _sellSlot.img->getWidth(), _sellSlot.img->getHeight());
 			_sellSlot.item = ITEMMANAGER->addItem("나뭇가지");
 			_sellSlot.item.setRect(_tableRc);
@@ -30,7 +30,7 @@ HRESULT sellTable::init()
 			_vSlot.push_back(_sellSlot);
 		}
 	}
-	
+
 	for (int i = 0; i < SLOTNUM; i++)
 	{
 		_sellInfo[i] = RectMakeCenter(_vSlot[i].rc.left + (_vSlot[i].rc.right - _vSlot[i].rc.left) / 2, _vSlot[i].rc.top + (_vSlot[i].rc.bottom - _vSlot[i].rc.top) / 2 + 80, 180, 90);
@@ -59,8 +59,6 @@ void sellTable::update()
 	{
 		_vSlot[i].item.update();
 	}
-	//if (!PLAYER->getinventory()->getTest()) cursorControl();   //-->커서컨트롤 WASD버튼
-	//else PLAYER->getinventory()->cursormove();            //-->커서컨트롤 WASD버튼
 	if (!_showWindow)
 	{
 		if (IntersectRect(&temp, &PLAYER->getPlayercollision(), &_tableRc)) //열기닫기
@@ -70,7 +68,6 @@ void sellTable::update()
 				_showWindow = true;
 				_test = true;
 				PLAYER->getinventory()->setStprageOpen(true);
-				//PLAYER->getinventory()->setTest(true);
 			}
 		}
 	}
@@ -85,13 +82,25 @@ void sellTable::update()
 				PLAYER->getinventory()->setStprageOpen(false);
 			}
 		}
-		cursorControl();
-		//항시 가격을 업데이트해줌.
-		_vSlot[_cursorNum].item.setPlayerPrice(_playerPrice[_cursorNum][0]);
-		grab();
-		selectPrice();
-		removeItem();
+		if (!PLAYER->getinventory()->getstorgeuding()) cursorControl();   //-->커서컨트롤 WASD버튼
+		else PLAYER->getinventory()->cursormove();				//-->커서컨트롤 WASD버튼
+		if (!PLAYER->getinventory()->getstorgeuding() && !PLAYER->getinventory()->getvTemp().empty())
+		{
+			sellSlot temp;
+
+			temp.img = PLAYER->getinventory()->getvTemp()[0]._inventoryimg;
+			temp.item = PLAYER->getinventory()->getvTemp()[0]._item;
+
+			_vTemp.push_back(temp);
+
+			PLAYER->getinventory()->tempClear();
+		}
 		PLAYER->getinventory()->inventoryItem();
+		PLAYER->getinventory()->grabitemremove();
+		selectPrice();
+		grab();
+		removeItem();
+		_vSlot[_cursorNum].item.setPlayerPrice(_playerPrice[_cursorNum][0]);
 	}
 }
 
@@ -146,7 +155,7 @@ void sellTable::render()
 			_vSlot[i].item.getItemInfo().image->render(getMemDC(), _vSlot[i].rc.left, _vSlot[i].rc.top);
 		}
 
-		if (_test)_cursor->render();
+		if (!PLAYER->getinventory()->getstorgeuding()) _cursor->render();
 	}
 
 	if (_vTemp.size() > 0)   //템프가 비어있지 않다면(커서가 템을 잡고 있다면)
@@ -161,154 +170,144 @@ void sellTable::render()
 
 void sellTable::cursorControl()
 {
-		//플레이어 인벤창에서 커서가 일정 칸을 넘어가면
-		//if (PLAYER->getinventory()->getcusornumber() > 19)
-		//{
-		//	//플레이어상점의 커서 초기화. test는 커서의 렌더유무
-		//	_cursorSlot = _vSlot[0].rc;
-		//	_test = true;
+	//플레이어 인벤창에서 커서가 일정 칸을 넘어가면
+	//if (PLAYER->getinventory()->getcusornumber() > 19)
+	//{
+	//	//플레이어상점의 커서 초기화. test는 커서의 렌더유무
+	//	_cursorSlot = _vSlot[0].rc;
+	//	_test = true;
 
-		//	//추가로 만약 인벤토리에서 아이템을 잡고 있는 상태라면 
-		//	if (PLAYER->getinventory()->getvTemp().size() != 0)
-		//	{
-		//		//그 정보를 이쪽으로 가져온다
-		//		_vTemp.push_back(PLAYER->getinventory()->getvTemp()[0]);
-		//	}
+	//	//추가로 만약 인벤토리에서 아이템을 잡고 있는 상태라면 
+	//	if (PLAYER->getinventory()->getvTemp().size() != 0)
+	//	{
+	//		//그 정보를 이쪽으로 가져온다
+	//		_vTemp.push_back(PLAYER->getinventory()->getvTemp()[0]);
+	//	}
 
-		//	//그런 다음 플레이어쪽의 정보는 지워준다
-		//	PLAYER->getinventory()->tempClear();
-		//}
-		if (KEYMANAGER->isOnceKeyDown('A'))
+	//	//그런 다음 플레이어쪽의 정보는 지워준다
+	//	PLAYER->getinventory()->tempClear();
+	//}
+	if (KEYMANAGER->isOnceKeyDown('A'))
+	{
+		_cursorNum--;
+		//커서가 인벤토리로 넘어가면 (_cursorNum이 0이 되면)
+		if (_cursorNum < 1)
 		{
-			_cursorNum--;
-			//커서가 인벤토리로 넘어가면 (_cursorNum이 0이 되면)
-			if (_cursorNum < 1)
-			{
-				_cursorNum = 0;
-
-				//setTest가 true가 되면 인벤토리 커서가 켜진다. test가 false가 되면 상점의 커서가 꺼짐
-				//PLAYER->getinventory()->setTest(true);
-				//_test = false;
-
-				//추가로 만약 상점에서 커서가 아이템을 잡은 상태라면
-				if (_vTemp.size() != 0)
-				{
-					//인벤토리의 커서로 아이템을 보내주고 이쪽의 정보는 삭제.
-					//PLAYER->getinventory()->swapItem(_vTemp[0]);
-					//_vTemp.clear();
-				}
-			}
-
-			//커서를 옆 칸으로 옮긴다
-			_cursorSlot = RectMake(_vSlot[_cursorNum].rc.left, _vSlot[_cursorNum].rc.top, 40, 40);
-			_cursor->setSmallCursor();      //커서 크기를 작게하는 함수
-			_cursor->getAni()->start();
-		}
-		if (KEYMANAGER->isOnceKeyDown('D'))
-		{
-			//커서가 옆으로 못나가게
-			_cursorNum++;
-			if (_cursorNum >= SLOTNUM) _cursorNum = SLOTNUM-1;
-
-			_cursorSlot = RectMake(_vSlot[_cursorNum].rc.left, _vSlot[_cursorNum].rc.top, 40, 40);
-			_cursor->setSmallCursor();
-			_cursor->getAni()->start();
+			_cursorNum = 0;
+			PLAYER->getinventory()->setstorgeuding(true); //옆으로 인벤토리로 옮기기
+			if (!_vTemp.empty()) PLAYER->getinventory()->swapItem(_vTemp[0].item);
+			_vTemp.clear();
 		}
 
-		//위로
-		if (!IntersectRect(&temp, &_cursorSlot, &_sellInfo[_cursorNum]) && KEYMANAGER->isOnceKeyDown('W'))
+		//커서를 옆 칸으로 옮긴다
+		_cursorSlot = RectMake(_vSlot[_cursorNum].rc.left, _vSlot[_cursorNum].rc.top, 40, 40);
+		_cursor->setSmallCursor();      //커서 크기를 작게하는 함수
+		_cursor->getAni()->start();
+	}
+	if (KEYMANAGER->isOnceKeyDown('D'))
+	{
+		//커서가 옆으로 못나가게
+		_cursorNum++;
+		if (_cursorNum >= SLOTNUM) _cursorNum = SLOTNUM - 1;
+
+		_cursorSlot = RectMake(_vSlot[_cursorNum].rc.left, _vSlot[_cursorNum].rc.top, 40, 40);
+		_cursor->setSmallCursor();
+		_cursor->getAni()->start();
+	}
+
+	//위로
+	if (!IntersectRect(&temp, &_cursorSlot, &_sellInfo[_cursorNum]) && KEYMANAGER->isOnceKeyDown('W'))
+	{
+		//삐져나가기 방지용
+		int temp;
+		temp = _cursorNum;
+		_cursorNum -= 2;
+
+		if (_cursorNum < 0)
 		{
-			//삐져나가기 방지용
-			int temp;
-			temp = _cursorNum;
-			_cursorNum -= 2;
-
-			if (_cursorNum < 0)
-			{
-				_cursorNum = temp;
-				_cursorSlot = _vSlot[_cursorNum].rc;     //_slot - 아이템 올려놓는 렉트
-			}
-			if (!_vTemp.empty())//아이템을 들고있으면 가격정하는 렉트로 가지않도록 예외처리
-			{
-				_cursorSlot = _vSlot[_cursorNum].rc;     //_slot - 아이템 올려놓는 렉트
-			}
-			else
-			{
-				_cursorSlot = _sellInfo[_cursorNum];  //_sellInfo - 아이템가격 정하는 렉트
-				_cursor->setBigCursor();           //커서 크기를 크게하는함수
-			}
-			_cursor->getAni()->start();
+			_cursorNum = temp;
+			_cursorSlot = _vSlot[_cursorNum].rc;     //_slot - 아이템 올려놓는 렉트
 		}
-
-		if (IntersectRect(&temp, &_cursorSlot, &_sellInfo[_cursorNum]) && KEYMANAGER->isOnceKeyDown('W'))
+		if (!_vTemp.empty())//아이템을 들고있으면 가격정하는 렉트로 가지않도록 예외처리
 		{
-			_cursorSlot = _vSlot[_cursorNum].rc;
-			_cursor->setSmallCursor();
-			_cursor->getAni()->start();
+			_cursorSlot = _vSlot[_cursorNum].rc;     //_slot - 아이템 올려놓는 렉트
 		}
-
-		//아래로
-		if (!IntersectRect(&temp, &_cursorSlot, &_sellInfo[_cursorNum]) && KEYMANAGER->isOnceKeyDown('S'))
+		else
 		{
-
-			if (!_vTemp.empty()) //아이템을 들고있으면 가격정하는 렉트로 가지않도록 예외처리
-			{
-				int temp;
-				temp = _cursorNum;
-				_cursorNum += 2;
-				if (_cursorNum >= 4)
-				{
-					_cursorNum = temp;
-				}
-				_cursorSlot = _vSlot[_cursorNum].rc;     //_slot - 아이템 올려놓는 렉트
-			}
-			else
-			{
-				_cursorSlot = _sellInfo[_cursorNum];
-				_cursor->update(_sellInfo[_cursorNum]);
-				_cursor->setBigCursor();
-			}
-			_cursor->getAni()->start();
+			_cursorSlot = _sellInfo[_cursorNum];  //_sellInfo - 아이템가격 정하는 렉트
+			_cursor->setBigCursor();           //커서 크기를 크게하는함수
 		}
+		_cursor->getAni()->start();
+	}
 
-		if (IntersectRect(&temp, &_cursorSlot, &_sellInfo[_cursorNum]) && KEYMANAGER->isOnceKeyDown('S'))
+	if (IntersectRect(&temp, &_cursorSlot, &_sellInfo[_cursorNum]) && KEYMANAGER->isOnceKeyDown('W'))
+	{
+		_cursorSlot = _vSlot[_cursorNum].rc;
+		_cursor->setSmallCursor();
+		_cursor->getAni()->start();
+	}
+
+	//아래로
+	if (!IntersectRect(&temp, &_cursorSlot, &_sellInfo[_cursorNum]) && KEYMANAGER->isOnceKeyDown('S'))
+	{
+
+		if (!_vTemp.empty()) //아이템을 들고있으면 가격정하는 렉트로 가지않도록 예외처리
 		{
 			int temp;
 			temp = _cursorNum;
 			_cursorNum += 2;
-
 			if (_cursorNum >= 4)
 			{
 				_cursorNum = temp;
-				_cursorSlot = _sellInfo[_cursorNum];
 			}
-			else
-			{
-				_cursorSlot = _vSlot[_cursorNum].rc;
-				_cursor->setSmallCursor();
-			}
-			_cursor->getAni()->start();
+			_cursorSlot = _vSlot[_cursorNum].rc;     //_slot - 아이템 올려놓는 렉트
 		}
-		_cursor->setRc(_cursorSlot);
+		else
+		{
+			_cursorSlot = _sellInfo[_cursorNum];
+			_cursor->update(_sellInfo[_cursorNum]);
+			_cursor->setBigCursor();
+		}
+		_cursor->getAni()->start();
+	}
+
+	if (IntersectRect(&temp, &_cursorSlot, &_sellInfo[_cursorNum]) && KEYMANAGER->isOnceKeyDown('S'))
+	{
+		int temp;
+		temp = _cursorNum;
+		_cursorNum += 2;
+
+		if (_cursorNum >= 4)
+		{
+			_cursorNum = temp;
+			_cursorSlot = _sellInfo[_cursorNum];
+		}
+		else
+		{
+			_cursorSlot = _vSlot[_cursorNum].rc;
+			_cursor->setSmallCursor();
+		}
+		_cursor->getAni()->start();
+	}
+	_cursor->setRc(_cursorSlot);
 
 
-		//가격 정하는 렉트에서 J를 누르면 _selectNum이 true가 되어 가격을 정하는 함수로 넘어감
-		if (IntersectRect(&temp, &_cursorSlot, &_sellInfo[_cursorNum]) && !_selectNum&& KEYMANAGER->isOnceKeyDown('J'))
-		{
-			_BoxChoiceNum = 7;
-			_selectNum = true;
-		}
-		if (IntersectRect(&temp, &_cursorSlot, &_sellInfo[_cursorNum]) && _selectNum && KEYMANAGER->isOnceKeyDown('J'))
-		{
-			_selectNum = false;
-		}	
+	//가격 정하는 렉트에서 J를 누르면 _selectNum이 true가 되어 가격을 정하는 함수로 넘어감
+	if (IntersectRect(&temp, &_cursorSlot, &_sellInfo[_cursorNum]) && !_selectNum&& KEYMANAGER->isOnceKeyDown('J'))
+	{
+		_BoxChoiceNum = 7;
+		_selectNum = true;
+	}
+	if (IntersectRect(&temp, &_cursorSlot, &_sellInfo[_cursorNum]) && _selectNum && KEYMANAGER->isOnceKeyDown('J'))
+	{
+		_selectNum = false;
+	}
 }
 
 void sellTable::selectPrice()
 {
 	if (_selectNum)
 	{
-
 		if (KEYMANAGER->isOnceKeyDown(VK_UP))
 		{
 			//_cursorNum = 현재 커서가 가리키고 있는 렉트(0,1,2,3), _BoxChoiceNum = 자릿수

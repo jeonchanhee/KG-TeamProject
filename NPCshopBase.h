@@ -1,7 +1,16 @@
 #pragma once
 #include"gameNode.h"
 #include"cursor.h"
-#define SLOTNUM 9
+#define SLOTNUM 8
+
+struct itemSlot
+{
+	image*		img;		//슬롯 이미지
+	RECT		rc;			//판매창의 아이템 슬롯
+	item		item;
+	float  x, y;
+};
+
 class NPCshopBase :public gameNode
 {
 private:
@@ -11,13 +20,9 @@ protected:
 	image*   _npcImg;                  //마을내 NPC모습
 	animation* _npcAni;                  //npc애니
 	image*   _titleImg;                  //창이 뜨면 중앙 상단에 나오는 타이틀
-	image*   _showImg;                  //아이템 슬롯을 보여주는 창
-	image*   _itemSlotImg[9];            //업그레이드템이 들어가있는 슬롯
-	image*   _recipeImg;               //업그레이드재료 및 아이템스탯 보여주는창
-	image*   _recipeSlotImg[3];            //업그레이드재료 슬롯의 이미지
 
-	RECT    _itemSlot[9];               //아이템 슬롯
-	RECT    _recipeSlot[3];            //재료템
+	image*   _showImg;                  //아이템 슬롯을 보여주는 창
+	//image*   _recipeImg;               //업그레이드재료 및 아이템스탯 보여주는창
 
 	int      _OKcnt[3];                  //재료템을 갖고있는지 확인하는 용도. OKcnt가 전부 0이되면 구매실행   
 	int       _currentTab;               //현재 탭을 가리키는 변수
@@ -33,8 +38,11 @@ protected:
 	cursor* _cursor;
 
 	//아이템벡터
-	vector<item> _vShowItem;            //업그레이드 아이템의 목록을 보여주기..
-	vector<item> _vShowRecipe;            //업그레이드 아이템의 재료 보여주기
+	itemSlot _itemInfo;
+	vector<itemSlot> _vItemSlot;
+	vector<itemSlot> _vRecipeSlot;
+	vector<itemSlot> _vTemp;
+
 	item _temp;                        //커서가 가리키고 있는 아이템.
 	int _itemSetSlot;
 
@@ -59,7 +67,5 @@ public:
 
 	void buy();                              //구매가 가능한지 확인하는 함수
 	void buyItem();                           //구매가 실행되는 함수
-	void baseRender();                        //기본적인 렌더
-
-	void playerCollision();                     //열기닫기
+	bool getOpen() { return _showWindow; }
 };

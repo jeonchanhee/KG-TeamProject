@@ -14,7 +14,7 @@ private:
 
 	image*   _spearTabImg;					//창 보여주는탭
 	RECT	 _spearTab;
-	
+
 public:
 	NPCblacksmith();
 	~NPCblacksmith();
@@ -24,6 +24,6 @@ public:
 	virtual void update();
 	virtual void render();
 	virtual void tabControl();
-	virtual void cursorControl();	
+	virtual void cursorControl();
 };
 
