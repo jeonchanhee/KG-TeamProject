@@ -33,8 +33,6 @@ void introScene::update()
 {
 	buttonSelect();
 
-
-
 	count++;
 
 	if (count % 10 == 0)
@@ -48,13 +46,13 @@ void introScene::update()
 	}
 
 	backGround->setFrameX(index);
-
 }
 
 void introScene::render()
 {
 
 	backGround->frameRender(getMemDC(), 0, 0);
+
 	logo->render(getMemDC(), logoRc.left, logoRc.top);
 
 	if (KEYMANAGER->isToggleKey(VK_TAB))

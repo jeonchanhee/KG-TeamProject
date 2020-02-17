@@ -9,6 +9,7 @@ mainGame::~mainGame(){}
 HRESULT mainGame::init()
 {
 	gameNode::init(true);
+
 	imagesInit();
 
 	PLAYER->init();
@@ -28,6 +29,8 @@ HRESULT mainGame::init()
 void mainGame::release()
 {
 	gameNode::release();
+
+	SCENEMANAGER->release();
 
 }
 

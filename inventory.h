@@ -97,23 +97,13 @@ public:
 	void itemrender(HDC hdc);
 	void bkrender(HDC hdc);
 
-<<<<<<< HEAD
 	bool getOpen() { return _openinventorywin; }
-	void setOpen(bool open) { _openinventorywin = open; }
 
 	void inventoryItem();					//인벤토리 요소 안에 상태를 알리기 위한 함수
 	void cursormove();						//커서 이동 아이템 
 	void grabmove();							//J로 아이템 잡기
 	void grabitemremove();				//J로 아이템 
 	void isweaponing();					//z버튼으로 무기 아이템 전환
-=======
->>>>>>> 9211651b4251aeecf1346dc6a9c6b883b51cdcae
-
-	void inventoryItem();											//인벤토리 요소 안에 상태를 알리기 위한 함수
-	void cursormove();												//커서 이동 아이템 
-	void grabmove();													//J로 아이템 잡기
-	void grabitemremove();										//J로 아이템 
-	void isweaponing();												//z버튼으로 무기 아이템 전환
 	void resetelement();											//리셋해주는 함수
 	void getitem(string _stritem);						   //아이템 먹기 등, 상점이나 던전에서 사용해주시길 바람 (일단 예비로 만들어 놓은 것...)
 
