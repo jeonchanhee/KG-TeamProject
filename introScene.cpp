@@ -96,7 +96,7 @@ void introScene::buttonSelect()
 			{
 				if (i == 0)
 				{
-					SCENEMANAGER->changeScene("´øÀü¾À");
+					SCENEMANAGER->changeScene("¸¶À»¾À");
 				}
 				else if (i == 1)
 				{

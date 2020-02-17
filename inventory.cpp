@@ -127,25 +127,24 @@ void inventory::release()
 void inventory::update()
 {
 	ANIMATIONMANAGER->update();				//커서 애니메이션 움직이기 위한 매니저 함수 
+
 	if (!_openinventorywin)   // 인벤토리 비활성화
 	{
-		if (KEYMANAGER->isOnceKeyDown('6'))
-		{
-			_openinventorywin = true;
-			_cursor->update(_cursorrect);
-			_cursorNumber = 0;
-			_cursorrect = _invenotryelement[_cursorNumber]._inventoryrect;
-			_cursor->setRc(_cursorrect);
-		} // 인벤토리활성화
+		_cursor->update(_cursorrect);
+		_cursorNumber = 0;
+		_cursorrect = _invenotryelement[_cursorNumber]._inventoryrect;
+		_cursor->setRc(_cursorrect);
+	
 	}
 	else // 인벤토리활성화
 	{
-		if (KEYMANAGER->isOnceKeyDown('6')) // 인벤토리활성화
-			_openinventorywin = false;
 		cursormove();//커서 움직이기 
 		inventoryItem();
 		grabitemremove();  //J를 눌렀을 때 아이템을 빼기
 		isweaponing();
+
+		if (KEYMANAGER->isOnceKeyDown('I'))
+			_openinventorywin = false;
 	}
 }
 
@@ -328,6 +327,7 @@ void inventory::render(HDC hdc)						// 랜더 순서 -> render>moverender()> bgrend
 	{
 		bkrender(hdc);
 		itemrender(hdc);//아이템 저장소 
+		moverender(hdc);
 		_cursor->render();				//커서 클래스 랜더 
 	}
 	//storageopen 이랑 연결된 인벤토리

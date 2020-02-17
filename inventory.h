@@ -79,6 +79,7 @@ public:
 	void itemrender(HDC hdc);
 	void bkrender(HDC hdc);
 
+	bool getOpen() { return _openinventorywin; }
 	void setOpen(bool open) { _openinventorywin = open; }
 
 	void inventoryItem();					//인벤토리 요소 안에 상태를 알리기 위한 함수

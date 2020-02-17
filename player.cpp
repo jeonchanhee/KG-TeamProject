@@ -29,6 +29,7 @@ HRESULT player::init()
 
 	_player._isattackmove = false;						//  false일때는 일반 던전 무브상태 
 	_player._isFire = false;
+	_player._isAttack = false;
 
 
 	_arrowfirst = new weapons;
@@ -37,8 +38,9 @@ HRESULT player::init()
 	//플레이어  프로그래스바
 	_playerhp._HP = _playerhp._maxhp = 100;
 	_playerhp._hpbar = new PlayerHpbar;
-	_playerhp._hpbar->init("images/UI/blood.bmp", "images/UI/hpBar.bmp", 0, 0, 125, 35);
-	_playerhp._hpbar->setGauge(_playerhp._HP, _playerhp._maxhp);
+	_playerhp._hpbar->init("체력바앞", "체력바뒤", 165, 35);
+	
+	
 
 	_ishwing = false;		// 칼을 휘둘렀냐 안휘둘렀냐?(안휘두름)
 
@@ -57,22 +59,39 @@ void player::release()
 
 void player::update()
 {
-	playerKeyControl();
-	monsterbattle();					//몬스터랑 배틀
-	if (_player._isattackmove)	attackmove();
-	else 	playermoveversion(); //버전 함수 플레이가 shop인지 dugeon인지 나타내는 함수..?
-	if (_player._playerLocation == DUNGEON_PLAYER_VERSION)
+	if (!_inventory->getOpen())
 	{
-		playerAtt();
+		playerKeyControl();
+
+		if (_player._isattackmove)	attackmove();
+		else 	playermoveversion(); //버전 함수 플레이가 shop인지 dugeon인지 나타내는 함수..?
+
+		if (_player._playerLocation == DUNGEON_PLAYER_VERSION)
+		{
+			_player._playerimg = IMAGEMANAGER->findImage("던전캐릭터");
+			playerAtt();
+			monsterbattle();					//몬스터랑 배틀
+			_arrowfirst->update();
+		}
+		else
+		{
+			_player._playerimg = IMAGEMANAGER->findImage("샵캐릭터");
+		}
+	}
+	else
+	{
+		_inventory->update();
 	}
 
-	_inventory->update();
-	_arrowfirst->update();
+	if (KEYMANAGER->isOnceKeyDown('P'))
+	{
+		playerhitDameage(5);
+	}
 }
 
 void player::playerKeyControl()
 {
-	if (!_isanimation || !_player._isattackmove)
+	if (!_isanimation && !_player._isAttack)
 	{
 		if (KEYMANAGER->isStayKeyDown('W'))
 		{
@@ -125,7 +144,7 @@ void player::playerKeyControl()
 
 	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))  //플레이어 샵이랑 겹침
 	{
-		if (!_isanimation)
+		if (!_isanimation && !_player._isAttack)
 		{
 			_player._playerindex = 0;
 			_isanimation = true;
@@ -178,6 +197,7 @@ void player::playerKeyControl()
 		if (KEYMANAGER->isOnceKeyDown('K'))
 		{
 			_player._isattackmove = true;
+			_player._isAttack = true;
 			_ishwing = true;
 		}
 		if (KEYMANAGER->isOnceKeyUp('K'))
@@ -190,12 +210,12 @@ void player::playerKeyControl()
 		if (KEYMANAGER->isStayKeyDown('K'))
 		{
 			_player._isattackmove = true;
+			_player._isAttack = true;
 		}
 
 		if (KEYMANAGER->isOnceKeyUp('K'))
 		{
 			_player._isFire = true;
-
 			if (_player._attacmove == PLAYER_ATK_LEFT) arrowFIre(ARROW_LEFT);
 			if (_player._attacmove == PLAYER_ATK_RIGHT) arrowFIre(ARROW_RIGHT);
 			if (_player._attacmove == PLAYER_ATK_UP) arrowFIre(ARROW_UP);
@@ -290,6 +310,12 @@ void player::playerKeyControl()
 	{
 		_player._attacmove = PLAYER_ATK_STOP;
 	}
+
+	if (KEYMANAGER->isOnceKeyDown('I'))
+	{
+		_inventory->setOpen(true);
+	}
+
 
 	_player._playerrect = RectMakeCenter(_player.x, _player.y, _player._playerimg->getFrameWidth(), _player._playerimg->getFrameHeight());
 	_player._collisionplayer = RectMakeCenter(_player.x, _player.y, 50, 70);
@@ -585,6 +611,7 @@ void player::attackmove()
 
 					_player._playerindex = 0;
 					_player._isattackmove = false;
+					_player._isAttack = false;
 
 				}
 			}
@@ -604,6 +631,7 @@ void player::attackmove()
 						_player._playerindex = 0;
 						_player._isattackmove = false;
 						_player._isFire = false;
+						_player._isAttack = false;
 
 					}
 				}
@@ -630,6 +658,7 @@ void player::attackmove()
 				{
 					_player._playerindex = 0;
 					_player._isattackmove = false;
+					_player._isAttack = false;
 
 				}
 			}
@@ -649,6 +678,7 @@ void player::attackmove()
 						_player._playerindex = 0;
 						_player._isattackmove = false;
 						_player._isFire = false;
+						_player._isAttack = false;
 					}
 				}
 			}
@@ -672,7 +702,7 @@ void player::attackmove()
 				{
 					_player._playerindex = 0;
 					_player._isattackmove = false;
-
+					_player._isAttack = false;
 				}
 			}
 			else
@@ -691,6 +721,7 @@ void player::attackmove()
 						_player._playerindex = 0;
 						_player._isattackmove = false;
 						_player._isFire = false;
+						_player._isAttack = false;
 					}
 				}
 			}
@@ -714,6 +745,7 @@ void player::attackmove()
 				{
 					_player._playerindex = 0;
 					_player._isattackmove = false;
+					_player._isAttack = false;
 				}
 			}
 			else
@@ -732,6 +764,7 @@ void player::attackmove()
 						_player._playerindex = 0;
 						_player._isattackmove = false;
 						_player._isFire = false;
+						_player._isAttack = false;
 					}
 				}
 			}
@@ -749,16 +782,12 @@ void player::arrowFIre(WEAPONMOVE weponMove)
 void player::monsterbattle()				//몬스터랑 배틀 몬스터랑 싸운는 함수 
 {
 	RECT temp;
-	//if(IntersectRect(&temp, &_player._collisionplayer, &_몬스터,..))
-
-	_playerhp._hpbar->setX(165);			//위치
-	_playerhp._hpbar->setY(35);			//위치
+	
 	_playerhp._hpbar->setGauge(_playerhp._HP, _playerhp._maxhp);
-	_playerhp._hpbar->update();
 
 	if (_playerhp._HP <= 0)
 	{
-
+			_playerhp._HP = 100;
 		if (_player._playerLocation == DUNGEON_PLAYER_VERSION)
 			_player._playermove = PLAYER_DIE;
 	}

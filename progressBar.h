@@ -46,7 +46,7 @@ public:
 	PlayerHpbar();
 	~PlayerHpbar();
 
-	HRESULT init(char* frontImage, char* backImage, float x, float y, int width, int height);
+	HRESULT init(char* frontImage, char* backImage, float x, float y);
 	void release();
 	void update();
 	void render();
