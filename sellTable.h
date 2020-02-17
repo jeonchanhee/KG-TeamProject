@@ -56,5 +56,7 @@ public:
 	void removeItem();										//창고에 아이템 지우기
 	void grab();											//커서가 아이템을 잡았을떄
 
+	RECT getTableRc() { return _tableRc; }
+
 };
 

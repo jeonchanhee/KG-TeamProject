@@ -153,6 +153,7 @@
     <ClInclude Include="aStar.h" />
     <ClInclude Include="bossMinion.h" />
     <ClInclude Include="bullet.h" />
+    <ClInclude Include="buyNPC.h" />
     <ClInclude Include="cameraManager.h" />
     <ClInclude Include="commonMacroFunction.h" />
     <ClInclude Include="cursor.h" />
@@ -204,6 +205,7 @@
     <ClCompile Include="aStar.cpp" />
     <ClCompile Include="bossMinion.cpp" />
     <ClCompile Include="bullet.cpp" />
+    <ClCompile Include="buyNPC.cpp" />
     <ClCompile Include="cameraManager.cpp" />
     <ClCompile Include="cursor.cpp" />
     <ClCompile Include="dungeonScene.cpp" />

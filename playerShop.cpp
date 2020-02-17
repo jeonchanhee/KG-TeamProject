@@ -27,7 +27,9 @@ HRESULT playerShop::init()
 	//판매대 초기화
 	_sellStand = new sellTable;
 	_sellStand->init();
-
+	//NPC등장
+	_girlNPC = new buyNPC;
+	_girlNPC->init(_sellStand->getTableRc());
 
 	return S_OK;
 }
@@ -39,6 +41,7 @@ void playerShop::release()
 	SAFE_DELETE(_sellStand);
 	SAFE_DELETE(_potionShop);
 	SAFE_DELETE(_blacksmith);
+	SAFE_DELETE(_girlNPC);
 }
 
 void playerShop::update()
@@ -56,6 +59,7 @@ void playerShop::update()
 
 	_storage1->removeItem();
 	_storage2->removeItem();
+	//_girlNPC->update(_sellStand->getVSellItem());
 }
 
 void playerShop::render()
@@ -67,4 +71,6 @@ void playerShop::render()
 
 	_storage1->render();
 	_storage2->render();
+
+	_girlNPC->render();
 }
