@@ -8,6 +8,10 @@ void player::allplayerimage()
 	_player._playerimg = IMAGEMANAGER->addFrameImage("던전캐릭터", "images/player/will_dungeon.bmp", 1200, 1580, 10, 13, true, RGB(255, 0, 255)); //던전캐릭턱
 	_player._playerimg = IMAGEMANAGER->addFrameImage("검을 들고 있는 던전캐릭터", "images/player/dungeon_player_sword.bmp", 1320, 480, 11, 4, true, RGB(255, 0, 255)); // 던전 캐릭터 칼용 
 	_player._playerimg = IMAGEMANAGER->addFrameImage("화살을 들고 있는 던전캐릭터", "images/player/will_bow.bmp", 1080, 480, 9, 4, true, RGB(255, 0, 255)); //던전캐릭터 활용
+
+	IMAGEMANAGER->addImage("체력바앞", "images/UI/blood.bmp", 125, 35, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("체력바뒤", "images/UI/hpBar.bmp", 125, 35, true, RGB(255, 0, 255));
+
 }
 
 

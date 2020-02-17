@@ -3,6 +3,7 @@
 #include"mapTool.h"
 #include"introScene.h"
 #include"dungeonScene.h"
+#include"villageScene.h"
 
 //#include"player.h"
 

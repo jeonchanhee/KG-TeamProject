@@ -17,6 +17,7 @@ HRESULT mainGame::init()
 	SCENEMANAGER->addScene("맵툴", new mapTool);
 	SCENEMANAGER->addScene("인트로", new introScene);
 	SCENEMANAGER->addScene("던전씬", new dungeonScene);
+	SCENEMANAGER->addScene("마을씬", new villageScene);
 
 	SCENEMANAGER->changeScene("인트로");
 
@@ -46,6 +47,11 @@ void mainGame::render(/*HDC hdc*/)
 	//============================================================================이 위로 건드리면 뒤짐=======================================================================================
 	
 	SCENEMANAGER->render();
+
+
+	char str[128];
+	sprintf_s(str, "FPS :  %d", PLAYER->getPlayerLocation());
+	TextOut(CAMERAMANAGER->getCameraDC(), 200, 0, str, strlen(str));
 
 	TIMEMANAGER->render(CAMERAMANAGER->getCameraDC());
 	//============================================================================이 밑으로 건드리면 뒤짐=======================================================================================
