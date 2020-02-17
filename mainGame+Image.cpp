@@ -208,5 +208,5 @@ void mainGame::imagesInit()
 	IMAGEMANAGER->addImage("z비활성화오", "images/inventory/z버전비활성화(오).bmp", 23, 21, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("z버전활성화왼", "images/inventory/z버전활성화(왼).bmp", 23, 21, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("z버전비활성화왼", "images/inventory/z버전비활성화(왼).bmp", 23, 21, true, RGB(255, 0, 255));
-
+	IMAGEMANAGER->addImage("프로필", "images/inventory/profile.bmp", 134, 170, true, RGB(255, 0, 255));
 }

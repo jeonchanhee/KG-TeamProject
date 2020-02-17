@@ -58,69 +58,7 @@ void storage::release()
 
 void storage::update()
 {
-	/*if (KEYMANAGER->isOnceKeyDown('5'))
-	{
-		for (int k = 0; k < _vStorage.size(); k++)
-		{
-			if (_vStorage[k].getItemInfo().itemName == "비어있음" || _vStorage[k].getItemInfo().cnt <= 0)
-			{
-				_vStorage.erase(_vStorage.begin() + k);
-				_vStorage.insert(_vStorage.begin() + k, ITEMMANAGER->addItem("나뭇가지"));
-				_vStorage[k].setItemCnt_equal(10);
-				break;
-			}
-		}
-		for (int k = 0; k < _vStorage.size(); k++)
-		{
-			if (_vStorage[k].getItemInfo().itemName == "비어있음" || _vStorage[k].getItemInfo().cnt <= 0)
-			{
-				_vStorage.erase(_vStorage.begin() + k);
-				_vStorage.insert(_vStorage.begin() + k, ITEMMANAGER->addItem("숫돌"));
-				_vStorage[k].setItemCnt_equal(10);
-				break;
-			}
-		}
-		for (int k = 0; k < _vStorage.size(); k++)
-		{
-			if (_vStorage[k].getItemInfo().itemName == "비어있음" || _vStorage[k].getItemInfo().cnt <= 0)
-			{
-				_vStorage.erase(_vStorage.begin() + k);
-				_vStorage.insert(_vStorage.begin() + k, ITEMMANAGER->addItem("수정화 된 에너지"));
-				_vStorage[k].setItemCnt_equal(10);
-				break;
-			}
-		}
-		for (int k = 0; k < _vStorage.size(); k++)
-		{
-			if (_vStorage[k].getItemInfo().itemName == "비어있음" || _vStorage[k].getItemInfo().cnt <= 0)
-			{
-				_vStorage.erase(_vStorage.begin() + k);
-				_vStorage.insert(_vStorage.begin() + k, ITEMMANAGER->addItem("천"));
-				_vStorage[k].setItemCnt_equal(10);
-				break;
-			}
-		}
-		for (int k = 0; k < _vStorage.size(); k++)
-		{
-			if (_vStorage[k].getItemInfo().itemName == "비어있음" || _vStorage[k].getItemInfo().cnt <= 0)
-			{
-				_vStorage.erase(_vStorage.begin() + k);
-				_vStorage.insert(_vStorage.begin() + k, ITEMMANAGER->addItem("골렘코어"));
-				_vStorage[k].setItemCnt_equal(10);
-				break;
-			}
-		}
-		for (int k = 0; k < _vStorage.size(); k++)
-		{
-			if (_vStorage[k].getItemInfo().itemName == "비어있음" || _vStorage[k].getItemInfo().cnt <= 0)
-			{
-				_vStorage.erase(_vStorage.begin() + k);
-				_vStorage.insert(_vStorage.begin() + k, ITEMMANAGER->addItem("이빨석"));
-				_vStorage[k].setItemCnt_equal(10);
-				break;
-			}
-		}
-	}*/
+
 	if (!_showWindow)
 	{
 		if (IntersectRect(&temp, &PLAYER->getPlayercollision(), &_boxRc))
@@ -136,7 +74,7 @@ void storage::update()
 				_cursorNum = 0;
 				_cursorSlot = _vSlot[_cursorNum].rc;
 				_cursor->setRc(_cursorSlot);
-				//PLAYER->getinventory()->setStprageOpen(true);  //--->아이템 창(인벤) 오픈 
+				PLAYER->getinventory()->setStprageOpen(true);  //--->아이템 창(인벤) 오픈 
 			}
 		}
 	}
@@ -166,8 +104,7 @@ void storage::update()
 	
 		PLAYER->getinventory()->inventoryItem();						//			---> 창고에서 인벤토리의 상태를 보여줘야하며 
 		PLAYER->getinventory()->grabitemremove();					//			--->  창고에서 (창고용)인벤토리 아이템을 버리는 상태를 알아야한다. 
-		//invenplayer();				//    -->창고랑 인벤토리랑 주고 받는 함수
-		//invenplayermove(); //-->인벤토리 아이템이 창고로 넘어갔을 때 비어있음 자리로  채워지는 함수
+		
 	}
 }
 
@@ -258,14 +195,9 @@ void storage::cursorControl()
 		{
 			_cursorNum = 0;
 			PLAYER->getinventory()->setstorgeuding(true); //옆으로 인벤토리로 옮기기
-			//if (_vTemp.size() != 0) PLAYER->getinventory()->swapItem(_vTemp[0]);
-			//	PLAYER->getinventory()->getvTemp()[0];
+			if (_vTemp.size() != 0) PLAYER->getinventory()->swapItem(_vTemp[0].item);
+			_vTemp.clear();
 		}
-		/*	if (_cursorNum = 7 && KEYMANAGER->isOnceKeyDown('A'))
-			{
-				PLAYER->getinventory()->setTest(true);
-			}*/
-
 		_cursorSlot =_vSlot[_cursorNum].rc;
 		_cursor->getAni()->start();
 	}
@@ -396,64 +328,3 @@ void storage::grab()
 	}
 }
 
-
-void storage::invenplayer()   //-->
-{
-	//if (PLAYER->getinventory()->getTest() == true)						//인벤용으로 넘어온 상태에서
-	//{
-	//	for (int i = 0; i < PLAYER->getinventory()->getvInven().size(); i++)				//전체 상태 확인하기
-	//	{
-	//		if (PLAYER->getinventory()->getvInven()[i].getItemInfo().itemName != "비어있음")
-	//		{
-	//			if ((PLAYER->getinventory()->getcusornumber() == i) && KEYMANAGER->isOnceKeyDown('U'))
-	//			{
-	//				_cursor->getAni()->start();
-
-	//				if (_vTemp.empty())
-	//				{
-	//					_vTemp.push_back(PLAYER->getinventory()->getvInven()[i]);
-	//					_vTemp[0].setItemCnt_equal(1);
-	//					PLAYER->getinventory()->getvInven()[i].setItemCnt(-1);
-	//					break;
-	//				}
-	//				if ((_vTemp[0].getItemInfo().itemName == PLAYER->getinventory()->getvInven()[i].getItemInfo().itemName))
-	//				{
-	//					_vTemp[0].setItemCnt();
-	//					PLAYER->getinventory()->getvInven()[i].setItemCnt(-1);
-	//					break;
-	//				}
-	//			}
-	//		}
-	//		if (!_vTemp.empty())
-	//		{
-	//			if (i < 20)
-	//			{
-	//				if (PLAYER->getinventory()->getvInven()[i].getItemInfo().itemName == "비어있음")
-	//				{
-	//					if ((PLAYER->getinventory()->getcusornumber() == i) && KEYMANAGER->isOnceKeyDown('U'))
-	//					{
-	//						_cursor->getAni()->start();
-
-	//						PLAYER->getinventory()->getvInven().erase(PLAYER->getinventory()->getvInven().begin() + i);
-	//						PLAYER->getinventory()->getvInven().insert(PLAYER->getinventory()->getvInven().begin() + i, _vTemp[0]);
-	//						_vTemp.pop_back();
-	//						break;
-	//					}
-	//				}
-	//			}
-	//		}
-	//	}
-	//}
-}
-
-void storage::invenplayermove()
-{
-	/*for (int i = 0; i < PLAYER->getinventory()->getvInven().size(); i++)
-	{
-		if (PLAYER->getinventory()->getvInven()[i].getItemInfo().cnt == 0)
-		{
-			PLAYER->getinventory()->getvInven().erase(PLAYER->getinventory()->getvInven().begin() + i);
-			PLAYER->getinventory()->getvInven().insert(PLAYER->getinventory()->getvInven().begin() + i, ITEMMANAGER->addItem("비어있음"));
-		}
-	}*/
-}
