@@ -51,8 +51,8 @@ void playerShop::update()
 	_storage1->update();
 	_storage2->update();
 
-	_potionShop->buy(_storage1->getStorage_reference());
-	_blacksmith->buy(_storage1->getStorage_reference());
+	_potionShop->buy();
+	_blacksmith->buy();
 
 	_storage1->removeItem();
 	_storage2->removeItem();
