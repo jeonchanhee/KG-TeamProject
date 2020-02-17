@@ -44,11 +44,17 @@ void mainGame::imagesInit()
 	ANIMATIONMANAGER->addAnimation("골렘솔저공격R", "골렘솔저공격", 13, 25, 26, false, false);
 	ANIMATIONMANAGER->addAnimation("골렘솔저공격U", "골렘솔저공격", 26, 38, 26, false, false);
 	ANIMATIONMANAGER->addAnimation("골렘솔저공격B", "골렘솔저공격", 39, 51, 26, false, false);
+	IMAGEMANAGER->addFrameImage("슬라임", "images/monster/slime.bmp", 1804 * 2, 402 * 2, 18, 4, true, RGB(255, 0, 255));
+	ANIMATIONMANAGER->addAnimation("슬라임이동", "슬라임", 0, 8, 9, false, true);
+	ANIMATIONMANAGER->addAnimation("슬라임공격", "슬라임", 19, 34, 5, false, false);
+	IMAGEMANAGER->addFrameImage("플라잉골렘", "images/monster/flyingGolem.bmp", 1102 * 2, 143 * 2, 22, 2, true, RGB(255, 0, 255));
+	ANIMATIONMANAGER->addAnimation("플라잉골렘이동", "플라잉골렘", 0, 5, 6, false, true);
+	ANIMATIONMANAGER->addAnimation("플라잉골렘공격", "플라잉골렘", 22, 43, 11, false, true);
 	IMAGEMANAGER->addFrameImage("슬라임건틀렛", "images/monster/slimeGauntletAtk.bmp", 10408 * 2, 1608 * 2, 52, 8, true, RGB(255, 0, 255));
-	ANIMATIONMANAGER->addAnimation("슬라임건틀렛공격B", "슬라임건틀렛", 0, 51, 52, false, false);
-	ANIMATIONMANAGER->addAnimation("슬라임건틀렛공격L", "슬라임건틀렛", 52, 103, 52, false, false);
-	ANIMATIONMANAGER->addAnimation("슬라임건틀렛공격R", "슬라임건틀렛", 104, 155, 52, false, false);
-	ANIMATIONMANAGER->addAnimation("슬라임건틀렛공격U", "슬라임건틀렛", 156, 207, 52, false, false);
+	ANIMATIONMANAGER->addAnimation("슬라임건틀렛공격B", "슬라임건틀렛", 0, 51, 13, false, false);
+	ANIMATIONMANAGER->addAnimation("슬라임건틀렛공격L", "슬라임건틀렛", 52, 103, 13, false, false);
+	ANIMATIONMANAGER->addAnimation("슬라임건틀렛공격R", "슬라임건틀렛", 104, 155, 13, false, false);
+	ANIMATIONMANAGER->addAnimation("슬라임건틀렛공격U", "슬라임건틀렛", 156, 207, 13, false, false);
 	ANIMATIONMANAGER->addAnimation("슬라임건틀렛B", "슬라임건틀렛", 208, 221, 14, false, true);
 	ANIMATIONMANAGER->addAnimation("슬라임건틀렛L", "슬라임건틀렛", 260, 273, 14, false, true);
 	ANIMATIONMANAGER->addAnimation("슬라임건틀렛R", "슬라임건틀렛", 312, 325, 14, false, true);
@@ -70,6 +76,7 @@ void mainGame::imagesInit()
 	IMAGEMANAGER->addFrameImage("터렛미사일U", "images/monster/bulletU.bmp", 35, 35, 1, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("터렛미사일R", "images/monster/bulletR.bmp", 35, 35, 1, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("터렛미사일D", "images/monster/bulletD.bmp", 35, 35, 1, 1, true, RGB(255, 0, 255));
+
 	IMAGEMANAGER->addFrameImage("몬스터죽음", "images/monster/fx_boom.bmp", 1150 * 2, 110 * 2, 10, 1, true, RGB(255, 0, 255));
 	ANIMATIONMANAGER->addAnimation("몬스터주금", "몬스터죽음", 0, 9, 10, false, false);
 
@@ -110,7 +117,7 @@ void mainGame::imagesInit()
 	ANIMATIONMANAGER->addAnimation("청년정지U", "청년", stopImgU, 1, 1, true);
 	ANIMATIONMANAGER->addAnimation("청년정지L", "청년", stopImgL, 1, 1, true);
 	ANIMATIONMANAGER->addAnimation("청년정지R", "청년", stopImgR, 1, 1, true);
-	IMAGEMANAGER->addFrameImage("표정", "images/NPC/visitorTalk1.bmp", 330*2, 210*2, 11, 7, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("표정", "images/NPC/visitorTalk1.bmp", 330 * 2, 210 * 2, 11, 7, true, RGB(255, 0, 255));
 	int think[] = { 0,0,0,1,1,1,2,2,2,3,3,3 };
 	int cheap[] = { 11,11,11,11,11,11,12,12,12,12,12,12 };
 	int veryCheap[] = { 33,34,35,36,37,38,39,40,41,42,43,43 };
@@ -125,6 +132,7 @@ void mainGame::imagesInit()
 	ANIMATIONMANAGER->addAnimation("매우비쌈", "표정", veryExpensive, 12, 6, false);
 	ANIMATIONMANAGER->addAnimation("보통", "표정", soso, 12, 6, false);
 	ANIMATIONMANAGER->addAnimation("기다림", "표정", wait, 12, 60, true);
+
 
 	//아이템
 	IMAGEMANAGER->addImage("비어있음", "images/item/비어있음.bmp", 36, 36, true, RGB(255, 0, 255));

@@ -302,8 +302,8 @@ bool buyNPC::sell()
 	//기다림상태일때 j누르면
 	if (step == 3 && KEYMANAGER->isOnceKeyDown('J'))
 	{
-		//수정불가?돈추가
-		//PLAYER->setMoney()=PLAYER->getMoney() + playerPrice;
+		//돈추가
+		PLAYER->setMoney(PLAYER->getMoney() + playerPrice);
 		return true;
 	}
 	return false;

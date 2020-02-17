@@ -4,7 +4,9 @@
 #include"turretMinion.h"
 #include"soldierMinion.h"
 #include"slimeGauntletMinion.h"
+#include"slimeMinion.h"
 #include"bossMinion.h"
+#include"flyingMinion.h"
 #include"bullet.h"
 
 class monsterManager : public gameNode
@@ -37,7 +39,7 @@ public:
 	void render();
 
 
-
+	int deadCount;
 	//몬스터 생성
 	void setMinion();
 	//몬스터 공격

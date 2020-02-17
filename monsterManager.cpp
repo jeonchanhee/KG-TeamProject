@@ -38,7 +38,7 @@ void monsterManager::update()
 
 	for (int i = 0; i < _vMinion.size(); i++)
 	{
-		if (_vMinion[i]->getCurrentHp() <= 0)removeMinion(i);
+		if (_vMinion[i]->getState() == MONSTER_STATE_DEAD)removeMinion(i);
 	}
 	//총알업데이트
 	_bullet->update();
@@ -62,6 +62,7 @@ void monsterManager::render()
 	}
 	//총알 랜더
 	_bullet->render();
+
 	//_dieImg->aniRender(getMemDC(), dRc.left, dRc.top, _aniDead);
 }
 //몬스터 배치
@@ -84,10 +85,24 @@ void monsterManager::setMinion()
 	}
 	for (int i = 0; i < 2; i++)
 	{
+		monster* flyingGolem;
+		flyingGolem = new flyingMinion;
+		flyingGolem->init("플라잉골렘", MONSTER_TYPE_FLYINGGOLEM, MONSTER_STATE_MOVE, MONSTER_DIRECTION_DOWN, 200, 200 + i * 100, 10, 100, 100, 50, 0);
+		_vMinion.push_back(flyingGolem);
+	}
+	for (int i = 0; i < 2; i++)
+	{
 		monster* slimeGauntlet;
 		slimeGauntlet = new slimeGauntletMinion;
 		slimeGauntlet->init("슬라임건틀렛", MONSTER_TYPE_SLIMEGAUNTLET, MONSTER_STATE_ATK, MONSTER_DIRECTION_DOWN, 300, 200 + i * 100, 10, 100, 100, 50, 0);
 		_vMinion.push_back(slimeGauntlet);
+	}
+	for (int i = 0; i < 2; i++)
+	{
+		monster* slime;
+		slime = new slimeMinion;
+		slime->init("슬라임", MONSTER_TYPE_SLIME, MONSTER_STATE_MOVE, MONSTER_DIRECTION_DOWN, 200, 200 + i * 100, 10, 100, 100, 50, 0);
+		_vMinion.push_back(slime);
 	}
 	for (int i = 0; i < 1; i++)
 	{
@@ -140,28 +155,29 @@ void monsterManager::attackMinion()
 
 			//(*_viMinion)->golemSoldierAtk((*_viMinion)->getDirection());
 		}
+		//플라잉골렘 공격이 true일때
+		if (type == 2 && (*_viMinion)->attack((*_viMinion)->getType(), (*_viMinion)->getDirection()) && state != 1)
+		{
+			//공격범위RECT생성
+			aRc = (*_viMinion)->getARect();
+		}
+		//슬라임이고 공격이 true일때
+		if (type == 3 && (*_viMinion)->attack((*_viMinion)->getType(), (*_viMinion)->getDirection()) && state != 1)
+		{
+			//공격범위RECT생성
+			aRc = (*_viMinion)->getARect();
+		}
 		//슬라임건틀렛이고 공격이 true일때
 		if (type == 4 && (*_viMinion)->attack((*_viMinion)->getType(), (*_viMinion)->getDirection()) && state != 1)
 		{
 			//공격범위RECT생성
 			aRc = (*_viMinion)->getARect();
-			RECT rc;
-			if (IntersectRect(&rc, &aRc, &PLAYER->getPlayercollision()))
-			{
-				PLAYER->setHP(PLAYER->getHP() - 10);
-			}
 		}
 		//골렘보스이고 공격이 true일때
 		if (type == 5 && (*_viMinion)->attack((*_viMinion)->getType(), (*_viMinion)->getDirection()) && state != 1)
 		{
 			//공격범위RECT생성
 			aRc = (*_viMinion)->getARect();
-			RECT rc;
-			if (IntersectRect(&rc, &aRc, &PLAYER->getPlayercollision()))
-			{
-				PLAYER->setHP(PLAYER->getHP() - 10);
-			}
-
 		}
 	}
 }
@@ -169,14 +185,19 @@ void monsterManager::attackMinion()
 //몬스터 벡터에서 제거
 void monsterManager::removeMinion(int arrNum)
 {
+	/*deadCount++;
+	if (deadCount == 0) {
+		_aniDead = ANIMATIONMANAGER->findAnimation("몬스터주금");
+		ANIMATIONMANAGER->start("몬스터주금");
+	}*/
 	//MONSTER_TYPE type = (*_viMinion)->getType();
 	//if ((*_viMinion)->die(type)) {
 	//	_vMinion.erase(_vMinion.begin() + arrNum);
 	//}
+	//if (deadCount >= 100) {
 	_vMinion.erase(_vMinion.begin() + arrNum);
+	//}
 
-	//_aniDead = ANIMATIONMANAGER->findAnimation("몬스터주금");
-	//ANIMATIONMANAGER->start("몬스터주금");
 }
 //총알충돌
 void monsterManager::collision()

@@ -53,7 +53,7 @@ private:
 	int fireCount;			//발사딜레이		
 	int hitCount;			//히트카운트
 	int atkCount;			//공격카운트
-	int _atkCount;
+	int deadCount;
 	bool _move;
 	int imgCount;			//무빙프레임카운트
 
@@ -106,30 +106,40 @@ public:
 	//set
 	void setMonDirect(MONSTER_DIRECTION MonDirect) { _monDirect = MonDirect; }
 
-	//이미지불러오기
+	//방향이미지불러오기
 	void golemTurretDirectImg();
 	void golemSoldierDirectImg();
+	void flyingGolemDirectImg();
+	void slimeDirectImg();
 	void slimeGauntletDirectImg();
 	void golemBossDirectImg();
 	//몬스터 공격
 	bool golemTurretAtk(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect);//골렘터렛공격
 	bool golemSoldierAtk(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect);//골렘솔져공격
+	bool flyingGolemAtk(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect);//플라잉골렘공격
+	bool slimeAtk(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect);
 	bool slimeGauntletAtk(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect);//슬라임건틀릿공격
-	bool golemBossAtk1(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect);//골렘보스공격
+	bool golemBossAtk(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect);//골렘보스공격
 	//bool golemBossAtk2(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect);//골렘보스공격
 	//몬스터 이동
 	bool golemSoldierMove();//골렘솔저이동
+	bool slimeMove();//슬라임이동
+	bool flyingGolemMove();//플라잉골렘이동
 	bool golemBossMove();//골렘보스이동
 	//몬스터 피격
 	bool golemTurretHit(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect);//골렘터렛피격
 	bool golemSoldierHit(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect);//골렘솔져피격
+	bool flyginGolemHit(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect);//플라잉골렘피격
+	bool slimeHit(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect);//슬라임피격
 	bool slimeGauntletHit(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect);//슬라임건틀릿피격
 	bool golemBossHit(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect);//골렘보스피격
-	//몬스터 주금
-	bool golemTurretDie(MONSTER_TYPE monType);//골렘터렛주금
-	bool golemSoldierDie(MONSTER_TYPE monType);//골렘솔져주금
-	bool slimeGauntletDie(MONSTER_TYPE monType);//슬라임건틀릿주금
-	bool golemBossDie(MONSTER_TYPE monType);//골렘보스주금
+	//몬스터 죽음
+	bool golemTurretDie(MONSTER_TYPE monType);//골렘터렛죽음
+	bool golemSoldierDie(MONSTER_TYPE monType);//골렘솔져죽음
+	bool flyingGolemDie(MONSTER_TYPE monType);//플라잉골렘죽음
+	bool slimeDie(MONSTER_TYPE monType);//슬라임죽음
+	bool slimeGauntletDie(MONSTER_TYPE monType);//슬라임건틀릿죽음
+	bool golemBossDie(MONSTER_TYPE monType);//골렘보스죽음
 
 
 	//몬스터 HP바
