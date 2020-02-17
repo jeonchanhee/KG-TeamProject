@@ -2,22 +2,13 @@
 #include "gameNode.h"
 #include "cursor.h"
 
-//아이템 구역
-enum ITEMKIND
-{
-	ITEM_STORGE,												 	//인벤토리(저장용)만 보이는 곳 
-	ITEM_EQUOMENT,										 	//인벤토리 장비(무기, 물약)
-	ITEM_GARBAGE											 	//쓰레기 통
-};
 //인벤토리 정보 					
 struct  tagplayerinven
 {
-	ITEMKIND _itemkind;									 	//아이템 종류 
 	image*_inventoryimg;
 	RECT _inventoryrect;
 	item _item;
 	float x, y;
-	//bool _isleft;													//-->인벤토리(플레이어용) 또는 창고용만 보이는지 나타내는 상태
 };
 
 //아이템 이미지 
@@ -95,14 +86,14 @@ public:
 	void itemrender(HDC hdc);
 	void bkrender(HDC hdc);
 
-	bool getOpen() { return _openinventorywin; }
 
-	void inventoryItem();					//인벤토리 요소 안에 상태를 알리기 위한 함수
-	void cursormove();						//커서 이동 아이템 
-	void grabmove();							//J로 아이템 잡기
-	void grabitemremove();				//J로 아이템 
-	void isweaponing();					//z버튼으로 무기 아이템 전환
+	void inventoryItem();											//인벤토리 요소 안에 상태를 알리기 위한 함수
+	void cursormove();												//커서 이동 아이템 
+	void grabmove();													//J로 아이템 잡기
+	void grabitemremove();										//J로 아이템 
+	void isweaponing();												//z버튼으로 무기 아이템 전환
 	void resetelement();											//리셋해주는 함수
+	void tempRelass();
 	void getitem(string _stritem);						   //아이템 먹기 등, 상점이나 던전에서 사용해주시길 바람 (일단 예비로 만들어 놓은 것...)
 
 	vector<tagplayerinven> getvInven() { return _vInven; }											//현재  가지고 있는 아이템 
@@ -122,7 +113,7 @@ public:
 	void setRect(RECT _rect) { _cursorrect = _rect; }
 
 	void setOpen(bool open) { _openinventorywin = open; }
-
+	bool getOpen() { return _openinventorywin; }
 	//추가한거
 	void swapItem(item swapItem);
 	void tempClear() {

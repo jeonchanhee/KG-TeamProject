@@ -34,7 +34,7 @@ void progressBar::release()
 	SAFE_DELETE(_progressBarBack);
 }
 
-void progressBar::update(){}
+void progressBar::update() {}
 
 void progressBar::render()
 {
@@ -49,18 +49,18 @@ void progressBar::setGauge(float currentGauge, float maxGauge)
 }
 
 
-PlayerHpbar::PlayerHpbar(){}
+PlayerHpbar::PlayerHpbar() {}
 
-PlayerHpbar::~PlayerHpbar(){}
+PlayerHpbar::~PlayerHpbar() {}
 
-HRESULT PlayerHpbar::init(char * frontImage, char * backImage, float x, float y)
+HRESULT PlayerHpbar::init(char * frontImage, char * backImage, float x, float y, float width, float height)
 {
 	_x = x;
 	_y = y;
 
 	_progressBarFront = IMAGEMANAGER->findImage(frontImage);
 	_progressBarBack = IMAGEMANAGER->findImage(backImage);
-	
+
 	_rcProgress = RectMake(_x, _y, IMAGEMANAGER->findImage(frontImage)->getWidth(), IMAGEMANAGER->findImage(frontImage)->getHeight());
 
 	_width = _progressBarFront->getWidth();
@@ -74,7 +74,7 @@ void PlayerHpbar::release()
 	SAFE_DELETE(_progressBarBack);
 }
 
-void PlayerHpbar::update(){}
+void PlayerHpbar::update() {}
 
 void PlayerHpbar::render()
 {

@@ -103,7 +103,7 @@ HRESULT inventory::init()
 
 	_grab._grabimg = IMAGEMANAGER->addImage("커서그랩", "images/shop/grab.bmp", 50, 52, true, RGB(255, 0, 255));
 
-	_storageusing = false;				//아이템 창고 이용하기 위한 불값 bool test에서 대처
+	_storageusing = true;				//아이템 창고 이용하기 위한 불값 bool test에서 대처
 	_storageOpen = false;				//창고랑 
 	_isweapon = false;					//무기 전환하기 위한 불값.. 이미지로만
 	_openinventorywin = false;
@@ -176,9 +176,7 @@ void inventory::cursormove()
 			{
 				_storageusing = false;
 				_cursorNumber = 0;
-				if (_vTemp.size() != 0)
-					//_vTemp[0]._item =_ 
-					_vTemp.clear();
+
 			}
 		}
 		else						//인벤토리(플레이어용)
@@ -310,6 +308,11 @@ void inventory::resetelement()
 	_vInven.push_back(_inventoryelement);
 }
 
+void inventory::tempRelass()
+{
+	_vTemp.clear();
+}
+
 //아이템을 구매하거나 던전에서 아이템을 먹었을 때 사용하는 것 시도는 안해봄..
 void inventory::getitem(string _stritem)
 {
@@ -321,7 +324,6 @@ void inventory::swapItem(item swapItem)
 {
 	_inventoryelement._item = swapItem;
 	_vTemp.push_back(_inventoryelement);
-	//_vTemp[0]._item = swapItem;
 	_cursor->setRc(_vInven[0]._inventoryrect);
 }
 
@@ -368,7 +370,7 @@ void inventory::bkrender(HDC hdc)
 		}
 	}
 	IMAGEMANAGER->render("프로필", getMemDC(), WINSIZEX / 2 + 130, WINSIZEY / 2 - 97);
-
+	PLAYER->invenRender(getMemDC());
 }
 
 //(인벤토리(플레이어용) & 인벤토리(창고용))
@@ -385,7 +387,6 @@ void inventory::moverender(HDC hdc)
 		SetTextColor(hdc, RGB(41, 41, 41));					// 색 지정
 		TextOut(hdc, 285, 540, moneystr, strlen(moneystr));			// 위치 조정 
 		itemrender(hdc);
-
 		for (int i = 0; i < _vInven.size(); i++)						// 인벤토리 안에 아이템을 보여주는 for문 
 		{
 			if (_vInven[i]._item.getItemInfo().itemName != "비어있음")

@@ -97,14 +97,27 @@ void storage::update()
 		if (!PLAYER->getinventory()->getstorgeuding()) cursorControl();   //-->커서컨트롤 WASD버튼
 		else PLAYER->getinventory()->cursormove();				//-->커서컨트롤 WASD버튼
 
+
+		if (!PLAYER->getinventory()->getstorgeuding() && !PLAYER->getinventory()->getvTemp().empty())
+		{
+			slot temp;
+
+			temp.img = PLAYER->getinventory()->getvTemp()[0]._inventoryimg;
+			temp.item = PLAYER->getinventory()->getvTemp()[0]._item;
+
+			_vTemp.push_back(temp);
+
+			PLAYER->getinventory()->tempClear();
+		}
+
 		cursorControl();   //커서컨트롤 WASD버튼
 		grab();
 		removeItem();	   //카운트가 0으로 떨어진 아이템들을 계속 지워준다. 지워준 다음에는 다시 '비어있음'을 넣어줌
 		setStorageItem();  //창고안의 아이템 위치를 업데이트
-	
+
 		PLAYER->getinventory()->inventoryItem();						//			---> 창고에서 인벤토리의 상태를 보여줘야하며 
 		PLAYER->getinventory()->grabitemremove();					//			--->  창고에서 (창고용)인벤토리 아이템을 버리는 상태를 알아야한다. 
-		
+
 	}
 }
 
@@ -113,7 +126,7 @@ void storage::render()
 	PLAYER->getinventory()->moverender(getMemDC());
 	_boxImg->aniRender(getMemDC(), _boxRc.left, _boxRc.top, _storageAni);
 	//Rectangle(getMemDC(), _cursorSlot.left, _cursorSlot.top, _cursorSlot.right, _cursorSlot.bottom);
-	
+
 	if (!_showWindow)
 	{
 		if (IntersectRect(&temp, &PLAYER->getPlayercollision(), &_boxRc))
@@ -133,7 +146,6 @@ void storage::render()
 			TextOut(getMemDC(), _cursorSlot.right, _cursorSlot.top - 40, str, strlen(str));
 		}
 	}
-
 }
 
 
@@ -198,7 +210,7 @@ void storage::cursorControl()
 			if (_vTemp.size() != 0) PLAYER->getinventory()->swapItem(_vTemp[0].item);
 			_vTemp.clear();
 		}
-		_cursorSlot =_vSlot[_cursorNum].rc;
+		_cursorSlot = _vSlot[_cursorNum].rc;
 		_cursor->getAni()->start();
 	}
 	if (KEYMANAGER->isOnceKeyDown('D'))
@@ -206,7 +218,6 @@ void storage::cursorControl()
 		//커서가 옆으로 못나가게
 		_cursorNum++;
 		if (_cursorNum > SLOTNUM) _cursorNum = SLOTNUM;
-
 		_cursorSlot = _vSlot[_cursorNum].rc;
 		_cursor->getAni()->start();
 	}
@@ -217,7 +228,6 @@ void storage::cursorControl()
 		temp = _cursorNum;
 		_cursorNum -= 7;
 		if (_cursorNum < 0)_cursorNum = temp;
-
 		_cursorSlot = _vSlot[_cursorNum].rc;
 		_cursor->getAni()->start();
 	}

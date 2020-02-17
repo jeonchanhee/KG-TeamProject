@@ -46,7 +46,7 @@ public:
 	PlayerHpbar();
 	~PlayerHpbar();
 
-	HRESULT init(char* frontImage, char* backImage, float x, float y);
+	HRESULT init(char* frontImage, char* backImage, float x, float y, float width, float height);
 	void release();
 	void update();
 	void render();
@@ -58,4 +58,3 @@ public:
 
 	RECT getRect() { return _rcProgress; }
 };
-

@@ -6,6 +6,11 @@ player::~player() {}
 
 HRESULT player::init()
 {
+	_player.Averwidth = 1200;
+	_player.Averheight = 1580;
+	_player.Bigwidth = 2600 * 2;
+	_player.Bigheight = 3120 * 2;
+
 	allplayerimage();
 	_player._playerimg = IMAGEMANAGER->findImage("샵캐릭터");
 	_player.x = WINSIZEX / 2;  //_player._playerrect에 넣기  위한 int x 값
@@ -25,12 +30,9 @@ HRESULT player::init()
 	_player._playerindex = 0;
 	_player.attCount = 0;
 	_player._pmoney = 9999;
-
-
 	_player._isattackmove = false;						//  false일때는 일반 던전 무브상태 
 	_player._isFire = false;
-	_player._isAttack = false;
-
+	sizeUp = false;
 
 	_arrowfirst = new weapons;
 	_arrowfirst->init();
@@ -38,16 +40,12 @@ HRESULT player::init()
 	//플레이어  프로그래스바
 	_playerhp._HP = _playerhp._maxhp = 100;
 	_playerhp._hpbar = new PlayerHpbar;
-	_playerhp._hpbar->init("체력바앞", "체력바뒤", 165, 35);
-	
-	
-
+	_playerhp._hpbar->init("플레이어체력바앞", "플레이어체력바뒤", 125, 35, 125, 35);
+	_playerhp._hpbar->setGauge(_playerhp._HP, _playerhp._maxhp);
 	_ishwing = false;		// 칼을 휘둘렀냐 안휘둘렀냐?(안휘두름)
 
 	_inventory = new inventory;
 	_inventory->init();
-
-
 
 	return S_OK;
 }
@@ -59,39 +57,32 @@ void player::release()
 
 void player::update()
 {
+	if (KEYMANAGER->isOnceKeyDown('I'))
+	{
+		if (_inventory->getOpen())	_inventory->setOpen(false);
+		else _inventory->setOpen(true);
+	}
 	if (!_inventory->getOpen())
 	{
 		playerKeyControl();
-
+		monsterbattle();					//몬스터랑 배틀
 		if (_player._isattackmove)	attackmove();
 		else 	playermoveversion(); //버전 함수 플레이가 shop인지 dugeon인지 나타내는 함수..?
-
 		if (_player._playerLocation == DUNGEON_PLAYER_VERSION)
 		{
-			_player._playerimg = IMAGEMANAGER->findImage("던전캐릭터");
 			playerAtt();
-			monsterbattle();					//몬스터랑 배틀
-			_arrowfirst->update();
 		}
-		else
-		{
-			_player._playerimg = IMAGEMANAGER->findImage("샵캐릭터");
-		}
+		_arrowfirst->update();
 	}
 	else
 	{
 		_inventory->update();
 	}
-
-	if (KEYMANAGER->isOnceKeyDown('P'))
-	{
-		playerhitDameage(5);
-	}
 }
 
 void player::playerKeyControl()
 {
-	if (!_isanimation && !_player._isAttack)
+	if (!_isanimation || !_player._isattackmove)
 	{
 		if (KEYMANAGER->isStayKeyDown('W'))
 		{
@@ -141,10 +132,9 @@ void player::playerKeyControl()
 			_player.x += 5;
 		}
 	}
-
 	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))  //플레이어 샵이랑 겹침
 	{
-		if (!_isanimation && !_player._isAttack)
+		if (!_isanimation)
 		{
 			_player._playerindex = 0;
 			_isanimation = true;
@@ -191,13 +181,11 @@ void player::playerKeyControl()
 		}
 	}
 
-
 	if (_player._attackplayer == PLAYER_SWORD)
 	{
 		if (KEYMANAGER->isOnceKeyDown('K'))
 		{
 			_player._isattackmove = true;
-			_player._isAttack = true;
 			_ishwing = true;
 		}
 		if (KEYMANAGER->isOnceKeyUp('K'))
@@ -210,12 +198,12 @@ void player::playerKeyControl()
 		if (KEYMANAGER->isStayKeyDown('K'))
 		{
 			_player._isattackmove = true;
-			_player._isAttack = true;
 		}
 
 		if (KEYMANAGER->isOnceKeyUp('K'))
 		{
 			_player._isFire = true;
+
 			if (_player._attacmove == PLAYER_ATK_LEFT) arrowFIre(ARROW_LEFT);
 			if (_player._attacmove == PLAYER_ATK_RIGHT) arrowFIre(ARROW_RIGHT);
 			if (_player._attacmove == PLAYER_ATK_UP) arrowFIre(ARROW_UP);
@@ -310,12 +298,6 @@ void player::playerKeyControl()
 	{
 		_player._attacmove = PLAYER_ATK_STOP;
 	}
-
-	if (KEYMANAGER->isOnceKeyDown('I'))
-	{
-		_inventory->setOpen(true);
-	}
-
 
 	_player._playerrect = RectMakeCenter(_player.x, _player.y, _player._playerimg->getFrameWidth(), _player._playerimg->getFrameHeight());
 	_player._collisionplayer = RectMakeCenter(_player.x, _player.y, 50, 70);
@@ -611,7 +593,6 @@ void player::attackmove()
 
 					_player._playerindex = 0;
 					_player._isattackmove = false;
-					_player._isAttack = false;
 
 				}
 			}
@@ -631,7 +612,6 @@ void player::attackmove()
 						_player._playerindex = 0;
 						_player._isattackmove = false;
 						_player._isFire = false;
-						_player._isAttack = false;
 
 					}
 				}
@@ -658,7 +638,6 @@ void player::attackmove()
 				{
 					_player._playerindex = 0;
 					_player._isattackmove = false;
-					_player._isAttack = false;
 
 				}
 			}
@@ -678,7 +657,6 @@ void player::attackmove()
 						_player._playerindex = 0;
 						_player._isattackmove = false;
 						_player._isFire = false;
-						_player._isAttack = false;
 					}
 				}
 			}
@@ -702,7 +680,7 @@ void player::attackmove()
 				{
 					_player._playerindex = 0;
 					_player._isattackmove = false;
-					_player._isAttack = false;
+
 				}
 			}
 			else
@@ -721,7 +699,6 @@ void player::attackmove()
 						_player._playerindex = 0;
 						_player._isattackmove = false;
 						_player._isFire = false;
-						_player._isAttack = false;
 					}
 				}
 			}
@@ -745,7 +722,6 @@ void player::attackmove()
 				{
 					_player._playerindex = 0;
 					_player._isattackmove = false;
-					_player._isAttack = false;
 				}
 			}
 			else
@@ -764,7 +740,6 @@ void player::attackmove()
 						_player._playerindex = 0;
 						_player._isattackmove = false;
 						_player._isFire = false;
-						_player._isAttack = false;
 					}
 				}
 			}
@@ -782,12 +757,16 @@ void player::arrowFIre(WEAPONMOVE weponMove)
 void player::monsterbattle()				//몬스터랑 배틀 몬스터랑 싸운는 함수 
 {
 	RECT temp;
-	
+	//if(IntersectRect(&temp, &_player._collisionplayer, &_몬스터,..))
+
+	_playerhp._hpbar->setX(165);			//위치
+	_playerhp._hpbar->setY(35);			//위치
 	_playerhp._hpbar->setGauge(_playerhp._HP, _playerhp._maxhp);
+	_playerhp._hpbar->update();
 
 	if (_playerhp._HP <= 0)
 	{
-			_playerhp._HP = 100;
+
 		if (_player._playerLocation == DUNGEON_PLAYER_VERSION)
 			_player._playermove = PLAYER_DIE;
 	}
@@ -809,6 +788,10 @@ void player::sellplayermoney(int _money)
 	_player._pmoney += _money;
 }
 
+void player::setPlayerimgSize()
+{
+}
+
 
 void player::render(HDC hdc)
 {
@@ -817,14 +800,14 @@ void player::render(HDC hdc)
 		Rectangle(hdc, _player._playerrect.left, _player._playerrect.top, _player._playerrect.right, _player._playerrect.bottom);
 		Rectangle(hdc, _player._collisionplayer.left, _player._collisionplayer.top, _player._collisionplayer.right, _player._collisionplayer.bottom);
 	}
-
 	_player._playerimg->frameRender(hdc, _player._playerrect.left, _player._playerrect.top);
 	_arrowfirst->render();
 	_playerhp._hpbar->render();
 	_inventory->render(hdc);
 
-	for (int i = 0; i < 4; i++)
-	{
-		//Rectangle(hdc, _swordrect[i].left, _swordrect[i].top, _swordrect[i].right, _swordrect[i].bottom);		//위치 조정 필요
-	}
+}
+
+void player::invenRender(HDC hdc)
+{
+	_player._playerimg->frameRender(hdc, WINSIZEX / 2 + 70, WINSIZEY / 2 - 140, _player._playerimg->getFrameX(), _player._playerimg->getFrameY(), 260, 261);
 }
