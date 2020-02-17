@@ -57,8 +57,6 @@ private:
 	tagplayerinven _weaponileft;						//왼쪽 비활 성화 z
 	tagplayerinven _weaponilefting;					//쪽 비활 성화 z
 
-
-
 	taggrab _grab;													// 그랩(임시벡터 이미지)
 	tagshowitem   _showitem;								//우측에 떠있는 이미지
 
@@ -126,7 +124,7 @@ public:
 	void setOpen(bool open) { _openinventorywin = open; }
 
 	//추가한거
-  void swapItem(item swapItem);
+	void swapItem(item swapItem);
 	void tempClear() {
 		_vTemp.clear();
 		test = false;

@@ -64,12 +64,12 @@ HRESULT inventory::init()
 			_inventoryelement.x = 190 + j * 55;
 			_inventoryelement.y = 240 + i * 60;
 			_inventoryelement._inventoryrect = RectMakeCenter(_inventoryelement.x, _inventoryelement.y, _inventoryelement._inventoryimg->getWidth(), _inventoryelement._inventoryimg->getHeight());
-			_inventoryelement._item = ITEMMANAGER->addItem("나뭇가지");
+			_inventoryelement._item = ITEMMANAGER->addItem("비어있음");
 			_inventoryelement._item.setRect(_inventoryelement._inventoryrect);
 			_vInven.push_back(_inventoryelement);
 		}
 	}
-
+	_vInven[0]._item = ITEMMANAGER->addItem("나뭇가지");
 
 	//쓰레기통
 	_inventoryelement._inventoryrect = RectMakeCenter((_removeGlass._inventoryrect.left + _removeGlass._inventoryrect.right) / 2 + 15, (_removeGlass._inventoryrect.top + _removeGlass._inventoryrect.bottom) / 2 - 30, 40, 40);
@@ -83,7 +83,7 @@ HRESULT inventory::init()
 		for (int j = 0; j < 2; j++)
 		{
 			_inventoryelement._inventoryrect = RectMakeCenter(612 + j * 132, 240, 40, 40);
-			if (j >= 1)
+			if (i >= 1)
 			{
 				_inventoryelement._inventoryrect = RectMakeCenter(555 + j * 50, 260 + i * 50, 40, 40);
 			}
@@ -92,6 +92,7 @@ HRESULT inventory::init()
 			_vInven.push_back(_inventoryelement);
 		}
 	}
+	_vInven[21]._item = ITEMMANAGER->addItem("나뭇가지");
 
 	//커서 클래스 이용하기
 	_cursor = new cursor;
@@ -143,7 +144,7 @@ void inventory::update()
 	}
 }
 // 인벤토리 세팅하는 곳 오고가고 바꾸는 곳
-void inventory::inventoryItem()							
+void inventory::inventoryItem()
 {
 	for (int i = 0; i < 28; i++)
 	{
@@ -175,11 +176,14 @@ void inventory::cursormove()
 			{
 				_storageusing = false;
 				_cursorNumber = 0;
+				if (_vTemp.size() != 0)
+					//_vTemp[0]._item =_ 
+					_vTemp.clear();
 			}
 		}
-		else
+		else						//인벤토리(플레이어용)
 		{
-					if (_cursorNumber < 28);
+			if (_cursorNumber < 28);
 		}
 
 		_cursorrect = RectMake(_vInven[_cursorNumber]._inventoryrect.left, _vInven[_cursorNumber]._inventoryrect.top, 40, 40);
@@ -195,8 +199,14 @@ void inventory::cursormove()
 	}
 	if (KEYMANAGER->isOnceKeyDown('S'))
 	{
-		if (_cursorNumber < 25) _cursorNumber += 5;
-
+		if (!_storageOpen)
+		{
+			if (_cursorNumber < 25) _cursorNumber += 5;
+		}
+		else
+		{
+			if (_cursorNumber < 20)_cursorNumber += 5;
+		}
 		_cursorrect = RectMake(_vInven[_cursorNumber]._inventoryrect.left, _vInven[_cursorNumber]._inventoryrect.top, 40, 40);
 		_cursor->setRc(_cursorrect);
 		_cursor->getAni()->start();
@@ -358,6 +368,7 @@ void inventory::bkrender(HDC hdc)
 		}
 	}
 	IMAGEMANAGER->render("프로필", getMemDC(), WINSIZEX / 2 + 130, WINSIZEY / 2 - 97);
+
 }
 
 //(인벤토리(플레이어용) & 인벤토리(창고용))
