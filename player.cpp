@@ -585,7 +585,7 @@ void player::attackmove()
 			{
 				if (_ishwing)
 				{
-					_swordrect[0] = RectMakeCenter(_player._playerrect.left, _player._playerrect.top + (_player._playerrect.bottom - _player._playerrect.top) / 2, 32, 10);
+					_swordrect = RectMakeCenter(_player._playerrect.left, _player._playerrect.top + (_player._playerrect.bottom - _player._playerrect.top) / 2, 52, 10);
 				}
 				if (_player._playerindex >= _player._playerimg->getMaxFrameX())
 				{
@@ -630,8 +630,7 @@ void player::attackmove()
 			{
 				if (_ishwing)
 				{
-					_swordrect[1] = RectMakeCenter(_player._playerrect.right, _player._playerrect.top + (_player._playerrect.bottom - _player._playerrect.top) / 2, 42, 10);
-
+					_swordrect = RectMakeCenter(_player._playerrect.right, _player._playerrect.top + (_player._playerrect.bottom - _player._playerrect.top) / 2, 52, 10);
 				}
 				if (_player._playerindex >= _player._playerimg->getMaxFrameX())
 				{
@@ -673,7 +672,7 @@ void player::attackmove()
 			{
 				if (_ishwing)
 				{
-					_swordrect[2] = RectMakeCenter(_player._playerrect.left + (_player._playerrect.right - _player._playerrect.left) / 2, _player._playerrect.top, 10, 42);
+					_swordrect = RectMakeCenter(_player._playerrect.left + (_player._playerrect.right - _player._playerrect.left) / 2, _player._playerrect.top, 10, 52);
 				}
 				if (_player._playerindex >= _player._playerimg->getMaxFrameX())
 				{
@@ -715,7 +714,7 @@ void player::attackmove()
 			{
 				if (_ishwing)
 				{
-					_swordrect[3] = RectMakeCenter(_player._playerrect.left + (_player._playerrect.right - _player._playerrect.left) / 2, _player._playerrect.bottom, 10, 42);
+					_swordrect = RectMakeCenter(_player._playerrect.left + (_player._playerrect.right - _player._playerrect.left) / 2, _player._playerrect.bottom, 10, 52);
 				}
 				if (_player._playerindex >= _player._playerimg->getMaxFrameX())
 				{
@@ -744,6 +743,7 @@ void player::attackmove()
 			}
 			_player._playerimg->setFrameX(_player._playerindex);
 		}
+		_swordrect = RectMakeCenter(_swordrect.left, _swordrect.top, _swordrect.right, _swordrect.bottom);
 		break;
 	}
 }
@@ -771,26 +771,26 @@ void player::monsterbattle()				//몬스터랑 배틀 몬스터랑 싸운는 함수
 	}
 }
 
+//피깍는 함수
 void player::playerhitDameage(int _damage)
 {
 	_playerhp._HP -= _damage;
-
 }
-
+//캐릭터 회복
+void player::recoveryHp(int _hp)
+{
+	_playerhp._HP += _hp;
+}
+//물건을 살때
 void player::buyplayermoney(int _money)
 {
 	_player._pmoney -= _money;
 }
-
+//물건을 팔때
 void player::sellplayermoney(int _money)
 {
 	_player._pmoney += _money;
 }
-
-void player::setPlayerimgSize()
-{
-}
-
 
 void player::render(HDC hdc)
 {

@@ -104,7 +104,7 @@ private:
 	weapons* _arrowfirst;																							   // 화살 
 	inventory* _inventory;																								//상점
 
-	RECT _swordrect[4];
+	RECT _swordrect;
 
 	bool _ishwing;																												// 칼을 휘둘렀냐 안휘둘렀냐?(안휘두름)
 	bool sizeUp;
@@ -129,7 +129,7 @@ public:
 	void playerhitDameage(int _damage);																			//피깍는 함수
 	void buyplayermoney(int _money);																				//물건을 살때
 	void sellplayermoney(int _money);																				//물건을 팔때
-	void setPlayerimgSize();
+	void  recoveryHp(int _hp);																								//캐릭터 회복
 
 	int getX() { return _player.x; }
 	int getY() { return _player.y; }
@@ -155,7 +155,7 @@ public:
 	int getshield() { return _player.shield; }																			//방패
 	void setshield(int _shield) { _player.shield = _shield; }
 
-	RECT getattacksword() { return _swordrect[4]; }
+	RECT getattacksword() { return _swordrect; }
 
 	inventory* getinventory() { return _inventory; }
 

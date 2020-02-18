@@ -319,7 +319,7 @@ void inventory::itempotion()
 {
 	if (0 < _vInven[26]._item.getItemInfo().cnt)					//수량이 0보다 많으면
 	{
-		PLAYER->getHP() + _vInven[26]._item.getItemInfo().hp;				//피 량을 늘려준다
+		PLAYER->recoveryHp(_vInven[26]._item.getItemInfo().hp);				//피 량을 늘려준다
 		_vInven[26]._item.setItemCnt(-1);
 		if (_vInven[26]._item.getItemInfo().cnt == 0)
 		{
