@@ -69,11 +69,9 @@ struct tagplayer
 	int _playercount;																												//플레이어 이미지 카운터
 	int _playerindex;																												//플레이어 이미지 인덱스 
 	int _pmoney;																														// 플레이어 돈 
-	int attCount;
-	int Averwidth;
-	int Averheight;
-	int Bigwidth;
-	int Bigheight;
+	int attskill;																															//공격력
+	int speed;																															//스피드
+	int shield;																															//방패
 
 	float x, y;																															//플레이어 x, y
 	float height, width;																											//플레이어 확대
@@ -104,7 +102,7 @@ private:
 	float attacktime;																											//TIMEMANAGER를 이용하여 조건 값 준 것(KEYMANAGER->isOnceKeyDown('K')) 참고
 
 	weapons* _arrowfirst;																							   // 화살 
-	inventory* _inventory;
+	inventory* _inventory;																								//상점
 
 	RECT _swordrect[4];
 
@@ -147,6 +145,15 @@ public:
 
 	int getMoney() { return _player._pmoney; }																	//상점이나 인벤토리 용
 	void setMoney(int money) { _player._pmoney = money; }											//상점이나 인벤토리용
+
+	int getattskill() { return _player.attskill; }																			//공격 
+	void setattskill(int speed) { _player.attskill = speed; }
+
+	int getspeed() { return _player.speed; }																			//스피드 함수
+	void setspeed(int _speed) { _player.speed = _speed; }
+
+	int getshield() { return _player.shield; }																			//방패
+	void setshield(int _shield) { _player.shield = _shield; }
 
 	RECT getattacksword() { return _swordrect[4]; }
 

@@ -86,15 +86,15 @@ public:
 	void itemrender(HDC hdc);
 	void bkrender(HDC hdc);
 
-
 	void inventoryItem();											//인벤토리 요소 안에 상태를 알리기 위한 함수
 	void cursormove();												//커서 이동 아이템 
 	void grabmove();													//J로 아이템 잡기
 	void grabitemremove();										//J로 아이템 
 	void isweaponing();												//z버튼으로 무기 아이템 전환
 	void resetelement();											//리셋해주는 함수
-	void tempRelass();
-	void getitem(string _stritem);						   //아이템 먹기 등, 상점이나 던전에서 사용해주시길 바람 (일단 예비로 만들어 놓은 것...)
+	void tempRelass();												//_vTemp[0].clear() 들어있음
+	void itempotion();													//아이템 포션 있는지 없는지 사용가능한지?
+
 
 	vector<tagplayerinven> getvInven() { return _vInven; }											//현재  가지고 있는 아이템 
 	vector<tagplayerinven>::iterator getviterInven() { return _viInven; }

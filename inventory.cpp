@@ -70,7 +70,7 @@ HRESULT inventory::init()
 		}
 	}
 	_vInven[0]._item = ITEMMANAGER->addItem("나뭇가지");
-
+	
 	//쓰레기통
 	_inventoryelement._inventoryrect = RectMakeCenter((_removeGlass._inventoryrect.left + _removeGlass._inventoryrect.right) / 2 + 15, (_removeGlass._inventoryrect.top + _removeGlass._inventoryrect.bottom) / 2 - 30, 40, 40);
 	_inventoryelement._item = ITEMMANAGER->addItem("비어있음");
@@ -92,7 +92,9 @@ HRESULT inventory::init()
 			_vInven.push_back(_inventoryelement);
 		}
 	}
-	_vInven[21]._item = ITEMMANAGER->addItem("나뭇가지");
+	_vInven[21]._item = ITEMMANAGER->addItem("훈련용 단검");
+	_vInven[22]._item = ITEMMANAGER->addItem("플레임 보우");
+	_vInven[26]._item = ITEMMANAGER->addItem("작은 포션");
 
 	//커서 클래스 이용하기
 	_cursor = new cursor;
@@ -307,18 +309,25 @@ void inventory::resetelement()
 	_inventoryelement._item = ITEMMANAGER->addItem("비어있음");
 	_vInven.push_back(_inventoryelement);
 }
-
+//_vTemp[0].clear() 들어있음
 void inventory::tempRelass()
 {
 	_vTemp.clear();
 }
-
-//아이템을 구매하거나 던전에서 아이템을 먹었을 때 사용하는 것 시도는 안해봄..
-void inventory::getitem(string _stritem)
+//아이템 포션 있는지 없는지 사용가능한지?
+void inventory::itempotion()
 {
-	_inventoryelement._item = ITEMMANAGER->addItem(_stritem);
-	_vInven.push_back(_inventoryelement);
+	if (0 < _vInven[26]._item.getItemInfo().cnt)					//수량이 0보다 많으면
+	{
+		PLAYER->getHP() + _vInven[26]._item.getItemInfo().hp;				//피 량을 늘려준다
+		_vInven[26]._item.setItemCnt(-1);
+		if (_vInven[26]._item.getItemInfo().cnt == 0)
+		{
+			_vInven[26]._item = ITEMMANAGER->addItem("비어있음");
+		}
+	}
 }
+
 
 void inventory::swapItem(item swapItem)
 {
@@ -346,6 +355,9 @@ void inventory::render(HDC hdc)							// 랜더 순서 -> render>moverender()> bgren
 void inventory::bkrender(HDC hdc)
 {
 	char str[128];
+	char strspeed[128];				//스피드 텍스트용
+	char strshield[128];				//방패 텍스트용
+	char strattack[128];				//어택용 텍스트용			
 	_bgimag->alphaRender(hdc, 1000);   // 알파랜더 처리할 배경화면
 	_playerinventory._inventoryimg->render(hdc, _playerinventory._inventoryrect.left, _playerinventory._inventoryrect.top);   //플레이어 인벤토리
 
@@ -371,6 +383,23 @@ void inventory::bkrender(HDC hdc)
 	}
 	IMAGEMANAGER->render("프로필", getMemDC(), WINSIZEX / 2 + 130, WINSIZEY / 2 - 97);
 	PLAYER->invenRender(getMemDC());
+
+	wsprintf(str, "%d", PLAYER->getHP());															//체력
+	SetTextColor(hdc, RGB(255, 255, 255));
+	TextOut(hdc, WINSIZEX / 2 + 340, WINSIZEY / 2 - 65, str, strlen(str));
+
+	wsprintf(strattack, "%d", PLAYER->getattskill());															//공격력
+	SetTextColor(hdc, RGB(255, 255, 255));
+	TextOut(hdc, WINSIZEX / 2 + 340, WINSIZEY / 2 - 18, strattack, strlen(strattack));
+
+	wsprintf(strshield, "%d", PLAYER->getshield());															//방패
+	SetTextColor(hdc, RGB(255, 255, 255));
+	TextOut(hdc, WINSIZEX / 2 + 340, WINSIZEY / 2 + 30, strshield, strlen(strshield));
+
+	wsprintf(strspeed, "%d", PLAYER->getspeed());															//스피드
+	SetTextColor(hdc, RGB(255, 255, 255));
+	TextOut(hdc, WINSIZEX / 2 + 340, WINSIZEY / 2 + 75, strspeed, strlen(strspeed));
+
 }
 
 //(인벤토리(플레이어용) & 인벤토리(창고용))

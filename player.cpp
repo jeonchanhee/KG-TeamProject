@@ -6,11 +6,6 @@ player::~player() {}
 
 HRESULT player::init()
 {
-	_player.Averwidth = 1200;
-	_player.Averheight = 1580;
-	_player.Bigwidth = 2600 * 2;
-	_player.Bigheight = 3120 * 2;
-
 	allplayerimage();
 	_player._playerimg = IMAGEMANAGER->findImage("샵캐릭터");
 	_player.x = WINSIZEX / 2;  //_player._playerrect에 넣기  위한 int x 값
@@ -28,8 +23,10 @@ HRESULT player::init()
 	_player._attacmove = PLAYER_ATK_STOP;
 	_player._playercount = 0;
 	_player._playerindex = 0;
-	_player.attCount = 0;
 	_player._pmoney = 9999;
+	_player.attskill = 25;
+	_player.shield = 10;
+	_player.speed = 186;
 	_player._isattackmove = false;						//  false일때는 일반 던전 무브상태 
 	_player._isFire = false;
 	sizeUp = false;
@@ -57,6 +54,7 @@ void player::release()
 
 void player::update()
 {
+	
 	if (KEYMANAGER->isOnceKeyDown('I'))
 	{
 		if (_inventory->getOpen())	_inventory->setOpen(false);
@@ -78,6 +76,7 @@ void player::update()
 	{
 		_inventory->update();
 	}
+	if (KEYMANAGER->isOnceKeyDown('E')) _inventory->itempotion();					//E를 눌렀을 때 hp 포션 먹기
 }
 
 void player::playerKeyControl()
