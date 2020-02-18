@@ -45,10 +45,10 @@ public:
 
 	HRESULT init(RECT _tableRect);
 	void release();
-	void update(vector<item>_vSellItem);
+	void update(item& item1, item& item2, item& item3, item& item4);
 	void render();
 	void aniChange();	//아이템 구매할 위치를 찾아 이동
-	void talk(vector<item>_vSellItem);	//감정
+	void talk(item& item1, item& item2, item& item3, item& item4);	//감정
 	void talking();		//감정모션
 	void soso();
 	void cheap();
@@ -57,10 +57,9 @@ public:
 	void veryExpensive();
 	void wait();
 	bool sell();	//판매및 금액수령
-
-	//set
-
+	int reduceItemNum;
 	//get
-
+	int getReduceItemNum() { return reduceItemNum; }
+	//set
 };
 

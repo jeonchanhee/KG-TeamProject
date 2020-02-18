@@ -57,6 +57,7 @@ public:
 	void grab();											//커서가 아이템을 잡았을떄
 
 	RECT getTableRc() { return _tableRc; }
+	item& getSellItem(int arrNum) { return _vSlot[arrNum].item; }
 
 };
 
