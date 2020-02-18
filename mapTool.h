@@ -33,14 +33,19 @@ class mapTool : public gameNode
 {
 private:
 	tagTile _tiles[TILEX * TILEY];
+	tagTile _temp[TILEX * TILEY];
 	tagSampleTile _sampleTile[SAMPLETILEX * SAMPLETILEY];
 	tagCurrentTile _currnetTile;
 
 	tagSampleBook _sampleBook;
 
+	
 	tagBottun bottun[4];
 
 	RECT rc[8];
+	RECT saveLoad[8];
+	image* saveLoadImg_Dungeon[4];
+	image* saveLoadImg_Village[4];
 
 	int page;
 	//페이지 1~7 던전

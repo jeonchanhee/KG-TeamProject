@@ -33,10 +33,11 @@ void buyNPC::release()
 {
 }
 
-void buyNPC::update(vector<item>_vSellItem)
+void buyNPC::update(item& item1, item& item2, item& item3, item& item4)
 {
 	//NPC모션변경
 	aniChange();
+	
 	//이동
 	if (_move)
 	{
@@ -82,7 +83,7 @@ void buyNPC::update(vector<item>_vSellItem)
 			talkChange = true;
 		}
 		//토크카운트200일때
-		talk(_vSellItem);
+		if(talkCount==100)talk(item1, item2, item3, item4);
 		if (talkCount >= 100 && talkChange&&talkCount <= 200) {
 			soso();
 			talkChange = false;
@@ -243,24 +244,389 @@ void buyNPC::aniChange()
 
 }
 //아이템 감정
-void buyNPC::talk(vector<item>_vSellItem)
+void buyNPC::talk(item& item1, item& item2, item& item3, item& item4)
 {
 	//진열된 아이템 개수가져온후 랜덤으로 고르기
-	int isNum = 0;
-	for (int i = 0; i < _vSellItem.size(); i++)
-	{
-		if (_vSellItem[i].getItemInfo().itemName != "비어있음")
+	//1 o
+	if (item1.getItemInfo().itemName != "비어있음") {
+		//1 o 2 o
+		if (item2.getItemInfo().itemName != "비어있음")
 		{
-			isNum++;
+			//1 o 2 o 3 o
+			if (item3.getItemInfo().itemName != "비어있음")
+			{
+				//1 o 2 o 3 o 4 o
+				if (item4.getItemInfo().itemName != "비어있음")
+				{
+					//랜덤 4
+					itemRndNum = RND->getFromIntTo(1, 4);
+					//랜덤숫자가 1일때
+					if (itemRndNum == 1)
+					{
+						itemImg = item1.getItemInfo().image;
+						playerPrice = item1.getItemInfo().playerPrice;
+						itemRc = item1.getItemInfo().rc;
+						oriPrice = item1.getItemInfo().orignalPrice;
+					}
+					//랜덤숫자가 2일떄
+					if (itemRndNum == 2)
+					{
+						itemImg = item2.getItemInfo().image;
+						playerPrice = item2.getItemInfo().playerPrice;
+						itemRc = item2.getItemInfo().rc;
+						oriPrice = item2.getItemInfo().orignalPrice;
+					}
+					//랜덤숫자가 3일때
+					if (itemRndNum == 3)
+					{
+						itemImg = item3.getItemInfo().image;
+						playerPrice = item3.getItemInfo().playerPrice;
+						itemRc = item3.getItemInfo().rc;
+						oriPrice = item3.getItemInfo().orignalPrice;
+					}
+					//랜덤숫자가 4일때
+					if (itemRndNum == 4)
+					{
+						itemImg = item4.getItemInfo().image;
+						playerPrice = item4.getItemInfo().playerPrice;
+						itemRc = item4.getItemInfo().rc;
+						oriPrice = item4.getItemInfo().orignalPrice;
+					}
+				}
+				//1 o 2 o 3 o 4 x
+				else
+				{
+					//랜덤 3
+					itemRndNum = RND->getFromIntTo(1, 3);
+					//랜덤숫자가 1일때
+					if (itemRndNum == 1)
+					{
+						itemImg = item1.getItemInfo().image;
+						playerPrice = item1.getItemInfo().playerPrice;
+						itemRc = item1.getItemInfo().rc;
+						oriPrice = item1.getItemInfo().orignalPrice;
+					}
+					//랜덤숫자가 2일떄
+					if (itemRndNum == 2)
+					{
+						itemImg = item2.getItemInfo().image;
+						playerPrice = item2.getItemInfo().playerPrice;
+						itemRc = item2.getItemInfo().rc;
+						oriPrice = item2.getItemInfo().orignalPrice;
+					}
+					//랜덤숫자가 3일때
+					if (itemRndNum == 3)
+					{
+						itemImg = item3.getItemInfo().image;
+						playerPrice = item3.getItemInfo().playerPrice;
+						itemRc = item3.getItemInfo().rc;
+						oriPrice = item3.getItemInfo().orignalPrice;
+					}
+				}
+			}
+			// o 2 o 3 x
+			else
+			{
+				//1 o 2 o 3 x 4 o
+				if (item4.getItemInfo().itemName != "비어있음")
+				{
+					//랜덤 3
+					itemRndNum = RND->getFromIntTo(1, 3);
+					//랜덤숫자가 1일때
+					if (itemRndNum == 1)
+					{
+						itemImg = item1.getItemInfo().image;
+						playerPrice = item1.getItemInfo().playerPrice;
+						itemRc = item1.getItemInfo().rc;
+						oriPrice = item1.getItemInfo().orignalPrice;
+					}
+					//랜덤숫자가 2일떄
+					if (itemRndNum == 2)
+					{
+						itemImg = item2.getItemInfo().image;
+						playerPrice = item2.getItemInfo().playerPrice;
+						itemRc = item2.getItemInfo().rc;
+						oriPrice = item2.getItemInfo().orignalPrice;
+					}
+					//랜덤숫자가 3일때
+					if (itemRndNum == 3)
+					{
+						itemImg = item4.getItemInfo().image;
+						playerPrice = item4.getItemInfo().playerPrice;
+						itemRc = item4.getItemInfo().rc;
+						oriPrice = item4.getItemInfo().orignalPrice;
+					}
+				}
+				//1 o 2 o 3 x 4 x
+				else
+				{
+					//랜덤 2
+					itemRndNum = RND->getFromIntTo(1, 2);
+					//랜덤숫자가 1일때
+					if (itemRndNum == 1)
+					{
+						itemImg = item1.getItemInfo().image;
+						playerPrice = item1.getItemInfo().playerPrice;
+						itemRc = item1.getItemInfo().rc;
+						oriPrice = item1.getItemInfo().orignalPrice;
+					}
+					//랜덤숫자가 2일떄
+					if (itemRndNum == 2)
+					{
+						itemImg = item2.getItemInfo().image;
+						playerPrice = item2.getItemInfo().playerPrice;
+						itemRc = item2.getItemInfo().rc;
+						oriPrice = item2.getItemInfo().orignalPrice;
+					}
+				}
+			}
 		}
-		itemRndNum = RND->getFromIntTo(0, isNum);
+		//1 o 2 x
+		else
+		{
+			//1 o 2 x 3 o
+			if (item3.getItemInfo().itemName != "비어있음")
+			{
+				//1 o 2 x 3 o 4 o
+				if (item4.getItemInfo().itemName != "비어있음")
+				{
+					//랜덤 3
+					itemRndNum = RND->getFromIntTo(1, 3);
+					//랜덤숫자가 1일때 1아이템
+					if (itemRndNum == 1)
+					{
+						itemImg = item1.getItemInfo().image;
+						playerPrice = item1.getItemInfo().playerPrice;
+						itemRc = item1.getItemInfo().rc;
+						oriPrice = item1.getItemInfo().orignalPrice;
+					}
+					//랜덤숫자가 2일때 3아이템
+					if (itemRndNum == 2)
+					{
+						itemImg = item3.getItemInfo().image;
+						playerPrice = item3.getItemInfo().playerPrice;
+						itemRc = item3.getItemInfo().rc;
+						oriPrice = item3.getItemInfo().orignalPrice;
+					}
+					//랜덤숫자가 3일때 4아이템
+					if (itemRndNum == 2)
+					{
+						itemImg = item4.getItemInfo().image;
+						playerPrice = item4.getItemInfo().playerPrice;
+						itemRc = item4.getItemInfo().rc;
+						oriPrice = item4.getItemInfo().orignalPrice;
+					}
+				}
+				//1 o 2 x 3 o 4 x
+				else
+				{
+					//랜덤 3
+					itemRndNum = RND->getFromIntTo(1, 2);
+					//랜덤숫자가 1일때 1아이템
+					if (itemRndNum == 1)
+					{
+						itemImg = item1.getItemInfo().image;
+						playerPrice = item1.getItemInfo().playerPrice;
+						itemRc = item1.getItemInfo().rc;
+						oriPrice = item1.getItemInfo().orignalPrice;
+					}
+					//랜덤숫자가 2일때 3아이템
+					if (itemRndNum == 2)
+					{
+						itemImg = item3.getItemInfo().image;
+						playerPrice = item3.getItemInfo().playerPrice;
+						itemRc = item3.getItemInfo().rc;
+						oriPrice = item3.getItemInfo().orignalPrice;
+					}
+				}
+			}
+			//1 o 2 x 3 x
+			else
+			{
+				//1 o 2 x 3 x 4 o
+				if (item4.getItemInfo().itemName != "비어있음")
+				{
+					//랜덤 2
+					itemRndNum = RND->getFromIntTo(1, 2);
+					//랜덤숫자가 1일때 1아이템
+					if (itemRndNum == 1)
+					{
+						itemImg = item1.getItemInfo().image;
+						playerPrice = item1.getItemInfo().playerPrice;
+						itemRc = item1.getItemInfo().rc;
+						oriPrice = item1.getItemInfo().orignalPrice;
+					}
+					//랜덤숫자가 2일때 3아이템
+					if (itemRndNum == 2)
+					{
+						itemImg = item4.getItemInfo().image;
+						playerPrice = item4.getItemInfo().playerPrice;
+						itemRc = item4.getItemInfo().rc;
+						oriPrice = item4.getItemInfo().orignalPrice;
+					}
+				}
+				//1 o 2 x 3 x 4 x
+				else
+				{
+					itemImg = item1.getItemInfo().image;
+					playerPrice = item1.getItemInfo().playerPrice;
+					itemRc = item1.getItemInfo().rc;
+					oriPrice = item1.getItemInfo().orignalPrice;
+				}
+			}
+		}
 	}
-	//아이템 이미지 크기 원가 판매가 가져오기
-	itemImg = _vSellItem[3].getItemInfo().image;
-	//playerPrice = _vSellItem[3].getItemInfo().playerPrice;
-	playerPrice = 100;
-	itemRc = _vSellItem[3].getItemInfo().rc;
-	oriPrice = _vSellItem[3].getItemInfo().orignalPrice;
+	//1 x
+	else {
+		//1 x 2 o
+		if (item2.getItemInfo().itemName != "비어있음")
+		{
+			//1 x 2 o 3 o
+			if (item3.getItemInfo().itemName != "비어있음")
+			{
+				//1 x 2 o 3 o 4 o
+				if (item4.getItemInfo().itemName != "비어있음")
+				{
+					//랜덤 2
+					itemRndNum = RND->getFromIntTo(1, 3);
+					//랜덤숫자가 1일때 1아이템
+					if (itemRndNum == 1)
+					{
+						itemImg = item2.getItemInfo().image;
+						playerPrice = item2.getItemInfo().playerPrice;
+						itemRc = item2.getItemInfo().rc;
+						oriPrice = item2.getItemInfo().orignalPrice;
+					}
+					//랜덤숫자가 2일때 3아이템
+					if (itemRndNum == 2)
+					{
+						itemImg = item3.getItemInfo().image;
+						playerPrice = item3.getItemInfo().playerPrice;
+						itemRc = item3.getItemInfo().rc;
+						oriPrice = item3.getItemInfo().orignalPrice;
+					}
+					if (itemRndNum == 3)
+					{
+						itemImg = item4.getItemInfo().image;
+						playerPrice = item4.getItemInfo().playerPrice;
+						itemRc = item4.getItemInfo().rc;
+						oriPrice = item4.getItemInfo().orignalPrice;
+					}
+				}
+				//1 x 2 o 3 o 4 x
+				else
+				{
+					//랜덤 2
+					itemRndNum = RND->getFromIntTo(1, 2);
+					//랜덤숫자가 1일때 1아이템
+					if (itemRndNum == 1)
+					{
+						itemImg = item2.getItemInfo().image;
+						playerPrice = item2.getItemInfo().playerPrice;
+						itemRc = item2.getItemInfo().rc;
+						oriPrice = item2.getItemInfo().orignalPrice;
+					}
+					//랜덤숫자가 2일때 3아이템
+					if (itemRndNum == 2)
+					{
+						itemImg = item3.getItemInfo().image;
+						playerPrice = item3.getItemInfo().playerPrice;
+						itemRc = item3.getItemInfo().rc;
+						oriPrice = item3.getItemInfo().orignalPrice;
+					}
+				}
+			}
+			//1 x 2 o 3 x
+			else
+			{
+				//1 x 2 o 3 x 4 o
+				if (item4.getItemInfo().itemName != "비어있음")
+				{
+					itemRndNum = RND->getFromIntTo(1, 2);
+					//랜덤숫자가 1일때 1아이템
+					if (itemRndNum == 1)
+					{
+						itemImg = item2.getItemInfo().image;
+						playerPrice = item2.getItemInfo().playerPrice;
+						itemRc = item2.getItemInfo().rc;
+						oriPrice = item2.getItemInfo().orignalPrice;
+					}
+					//랜덤숫자가 2일때 3아이템
+					if (itemRndNum == 2)
+					{
+						itemImg = item4.getItemInfo().image;
+						playerPrice = item4.getItemInfo().playerPrice;
+						itemRc = item4.getItemInfo().rc;
+						oriPrice = item4.getItemInfo().orignalPrice;
+					}
+				}
+				//1 x 2 o 3 x 4 x
+				else
+				{
+					itemImg = item2.getItemInfo().image;
+					playerPrice = item2.getItemInfo().playerPrice;
+					itemRc = item2.getItemInfo().rc;
+					oriPrice = item2.getItemInfo().orignalPrice;
+				}
+			}
+		}
+		//1 x 2 x
+		else {
+			//1 x 2 x 3 o
+			if (item3.getItemInfo().itemName != "비어있음")
+			{
+				//1 x 2 x 3 o 4 o
+				if (item4.getItemInfo().itemName != "비어있음")
+				{
+					itemRndNum = RND->getFromIntTo(1, 2);
+					//랜덤숫자가 1일때 1아이템
+					if (itemRndNum == 1)
+					{
+						itemImg = item3.getItemInfo().image;
+						playerPrice = item3.getItemInfo().playerPrice;
+						itemRc = item3.getItemInfo().rc;
+						oriPrice = item3.getItemInfo().orignalPrice;
+					}
+					//랜덤숫자가 2일때 3아이템
+					if (itemRndNum == 2)
+					{
+						itemImg = item4.getItemInfo().image;
+						playerPrice = item4.getItemInfo().playerPrice;
+						itemRc = item4.getItemInfo().rc;
+						oriPrice = item4.getItemInfo().orignalPrice;
+					}
+				}
+				//1 x 2 x 3 o 4 x
+				else
+				{
+					itemImg = item3.getItemInfo().image;
+					playerPrice = item3.getItemInfo().playerPrice;
+					itemRc = item3.getItemInfo().rc;
+					oriPrice = item3.getItemInfo().orignalPrice;
+				}
+			}
+			//1 x 2 x 3 x
+			else
+			{
+				//1 x 2 x 3 x 4 o
+				if (item4.getItemInfo().itemName != "비어있음")
+				{
+					itemImg = item4.getItemInfo().image;
+					playerPrice = item4.getItemInfo().playerPrice;
+					itemRc = item4.getItemInfo().rc;
+					oriPrice = item4.getItemInfo().orignalPrice;
+				}
+				//1 x 2 x 3 x 4 x
+				else
+				{
+					step = 5;
+				}
+			}
+		}
+	}
+	//아이템숫자 하나빼서 벡터용으로 맞추기
+	reduceItemNum = reduceItemNum - 1;
+	playerPrice = 1000;
 	//토크rc 만들기
 	talkRc = RectMakeCenter((_rc.left + _rc.right) / 2, (_rc.top + _rc.bottom) / 2 - 100, _talkAni->getFrameWidth(), _talkAni->getFrameHeight());
 
@@ -268,23 +634,297 @@ void buyNPC::talk(vector<item>_vSellItem)
 	{
 		isVeryExpensive = true;
 	}
-	if (playerPrice > oriPrice&&playerPrice <= oriPrice + oriPrice * 0.5)//비쌈
+	else if (playerPrice > oriPrice&&playerPrice <= oriPrice + oriPrice * 0.5)//비쌈
 	{
 		isExpensive = true;
 	}
-	if (playerPrice <= oriPrice && playerPrice >= oriPrice - oriPrice * 0.5)//쌈
+	else if (playerPrice <= oriPrice && playerPrice >= oriPrice - oriPrice * 0.5)//쌈
 	{
 		isCheap = true;
 	}
-	if (playerPrice < oriPrice - oriPrice * 0.5)//매우쌈
+	else if (playerPrice < oriPrice - oriPrice * 0.5)//매우쌈
 	{
 		isVeryCheap = true;
 	}
-
+	//아이템 제거
+	if (isCheap == true || isVeryCheap == true)
+	{
+		//진열된 아이템 개수가져온후 랜덤으로 고르기
+	//1 o
+		if (item1.getItemInfo().itemName != "비어있음") {
+			//1 o 2 o
+			if (item2.getItemInfo().itemName != "비어있음")
+			{
+				//1 o 2 o 3 o
+				if (item3.getItemInfo().itemName != "비어있음")
+				{
+					//1 o 2 o 3 o 4 o
+					if (item4.getItemInfo().itemName != "비어있음")
+					{
+						//랜덤 4
+						//랜덤숫자가 1일때
+						if (itemRndNum == 1)
+						{
+							item1.setItemCnt_equal(0);
+						}
+						//랜덤숫자가 2일떄
+						if (itemRndNum == 2)
+						{
+							item2.setItemCnt_equal(0);
+						}
+						//랜덤숫자가 3일때
+						if (itemRndNum == 3)
+						{
+							item3.setItemCnt_equal(0);
+						}
+						//랜덤숫자가 4일때
+						if (itemRndNum == 4)
+						{
+							item4.setItemCnt_equal(0);
+						}
+					}
+					//1 o 2 o 3 o 4 x
+					else
+					{
+						//랜덤 3
+						//랜덤숫자가 1일때
+						if (itemRndNum == 1)
+						{
+							item1.setItemCnt_equal(0);
+						}
+						//랜덤숫자가 2일떄
+						if (itemRndNum == 2)
+						{
+							item2.setItemCnt_equal(0);
+						}
+						//랜덤숫자가 3일때
+						if (itemRndNum == 3)
+						{
+							item3.setItemCnt_equal(0);
+						}
+					}
+				}
+				// o 2 o 3 x
+				else
+				{
+					//1 o 2 o 3 x 4 o
+					if (item4.getItemInfo().itemName != "비어있음")
+					{
+						//랜덤 3
+						//랜덤숫자가 1일때
+						if (itemRndNum == 1)
+						{
+							item1.setItemCnt_equal(0);
+						}
+						//랜덤숫자가 2일떄
+						if (itemRndNum == 2)
+						{
+							item2.setItemCnt_equal(0);
+						}
+						//랜덤숫자가 3일때
+						if (itemRndNum == 3)
+						{
+							item4.setItemCnt_equal(0);
+						}
+					}
+					//1 o 2 o 3 x 4 x
+					else
+					{
+						//랜덤 2
+						//랜덤숫자가 1일때
+						if (itemRndNum == 1)
+						{
+							item1.setItemCnt_equal(0);
+						}
+						//랜덤숫자가 2일떄
+						if (itemRndNum == 2)
+						{
+							item2.setItemCnt_equal(0);
+						}
+					}
+				}
+			}
+			//1 o 2 x
+			else
+			{
+				//1 o 2 x 3 o
+				if (item3.getItemInfo().itemName != "비어있음")
+				{
+					//1 o 2 x 3 o 4 o
+					if (item4.getItemInfo().itemName != "비어있음")
+					{
+						//랜덤 3
+						//랜덤숫자가 1일때 1아이템
+						if (itemRndNum == 1)
+						{
+							item1.setItemCnt_equal(0);
+						}
+						//랜덤숫자가 2일때 3아이템
+						if (itemRndNum == 2)
+						{
+							item3.setItemCnt_equal(0);
+						}
+						//랜덤숫자가 3일때 4아이템
+						if (itemRndNum == 2)
+						{
+							item4.setItemCnt_equal(0);
+						}
+					}
+					//1 o 2 x 3 o 4 x
+					else
+					{
+						//랜덤 3
+						//랜덤숫자가 1일때 1아이템
+						if (itemRndNum == 1)
+						{
+							item1.setItemCnt_equal(0);
+						}
+						//랜덤숫자가 2일때 3아이템
+						if (itemRndNum == 2)
+						{
+							item3.setItemCnt_equal(0);
+						}
+					}
+				}
+				//1 o 2 x 3 x
+				else
+				{
+					//1 o 2 x 3 x 4 o
+					if (item4.getItemInfo().itemName != "비어있음")
+					{
+						//랜덤 2
+						//랜덤숫자가 1일때 1아이템
+						if (itemRndNum == 1)
+						{
+							item1.setItemCnt_equal(0);
+						}
+						//랜덤숫자가 2일때 3아이템
+						if (itemRndNum == 2)
+						{
+							item4.setItemCnt_equal(0);
+						}
+					}
+					//1 o 2 x 3 x 4 x
+					else
+					{
+						item1.setItemCnt_equal(0);
+					}
+				}
+			}
+		}
+		//1 x
+		else {
+			//1 x 2 o
+			if (item2.getItemInfo().itemName != "비어있음")
+			{
+				//1 x 2 o 3 o
+				if (item3.getItemInfo().itemName != "비어있음")
+				{
+					//1 x 2 o 3 o 4 o
+					if (item4.getItemInfo().itemName != "비어있음")
+					{
+						//랜덤 2
+						//랜덤숫자가 1일때 1아이템
+						if (itemRndNum == 1)
+						{
+							item2.setItemCnt_equal(0);
+						}
+						//랜덤숫자가 2일때 3아이템
+						if (itemRndNum == 2)
+						{
+							item3.setItemCnt_equal(0);
+						}
+						if (itemRndNum == 3)
+						{
+							item4.setItemCnt_equal(0);
+						}
+					}
+					//1 x 2 o 3 o 4 x
+					else
+					{
+						//랜덤 2
+						//랜덤숫자가 1일때 1아이템
+						if (itemRndNum == 1)
+						{
+							item2.setItemCnt_equal(0);
+						}
+						//랜덤숫자가 2일때 3아이템
+						if (itemRndNum == 2)
+						{
+							item3.setItemCnt_equal(0);
+						}
+					}
+				}
+				//1 x 2 o 3 x
+				else
+				{
+					//1 x 2 o 3 x 4 o
+					if (item4.getItemInfo().itemName != "비어있음")
+					{
+						//랜덤숫자가 1일때 1아이템
+						if (itemRndNum == 1)
+						{
+							item2.setItemCnt_equal(0);
+						}
+						//랜덤숫자가 2일때 3아이템
+						if (itemRndNum == 2)
+						{
+							item4.setItemCnt_equal(0);
+						}
+					}
+					//1 x 2 o 3 x 4 x
+					else
+					{
+						item2.setItemCnt_equal(0);
+					}
+				}
+			}
+			//1 x 2 x
+			else {
+				//1 x 2 x 3 o
+				if (item3.getItemInfo().itemName != "비어있음")
+				{
+					//1 x 2 x 3 o 4 o
+					if (item4.getItemInfo().itemName != "비어있음")
+					{
+						//랜덤숫자가 1일때 1아이템
+						if (itemRndNum == 1)
+						{
+							item3.setItemCnt_equal(0);
+						}
+						//랜덤숫자가 2일때 3아이템
+						if (itemRndNum == 2)
+						{
+							item4.setItemCnt_equal(0);
+						}
+					}
+					//1 x 2 x 3 o 4 x
+					else
+					{
+						item3.setItemCnt_equal(0);
+					}
+				}
+				//1 x 2 x 3 x
+				else
+				{
+					//1 x 2 x 3 x 4 o
+					if (item4.getItemInfo().itemName != "비어있음")
+					{
+						item4.setItemCnt_equal(0);
+					}
+					//1 x 2 x 3 x 4 x
+					else
+					{
+						
+					}
+				}
+			}
+		}
+	}
 
 
 }
-//감정중
+//감정표현
 void buyNPC::talking()
 {
 	_talkAni = ANIMATIONMANAGER->findAnimation("감정중");
@@ -296,7 +936,7 @@ void buyNPC::soso()
 	_talkAni = ANIMATIONMANAGER->findAnimation("보통");
 	_talkAni->start();
 }
-
+//j눌러서 판매확인
 bool buyNPC::sell()
 {
 	//기다림상태일때 j누르면

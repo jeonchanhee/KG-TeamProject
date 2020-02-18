@@ -22,6 +22,17 @@ HRESULT mapTool::init()
 	//페이지 15~16 세이브로드
 	first = false;
 	mouse = false;
+
+	for (int i = 0; i < 4; i++)
+	{	
+		saveLoad[i] = RectMakeCenter(WINSIZEX / 2 - 250 + (i % 2 * 110), WINSIZEY / 2+50 + (i / 2 *110), 100, 100);
+		saveLoadImg_Dungeon[i] = IMAGEMANAGER->findImage("던전저장버튼");
+	}
+	for (int i = 4; i < 8; i++)
+	{
+		saveLoad[i] = RectMakeCenter(WINSIZEX / 2 + 150 + (i % 2 * 110), WINSIZEY / 2 - 170 + (i / 2 * 110), 100, 100);
+		saveLoadImg_Village[i-4] = IMAGEMANAGER->findImage("마을저장버튼");
+	}
 	return S_OK;
 }
 
@@ -132,9 +143,16 @@ void mapTool::render()
 			{
 				bottun[i].img->render(CAMERAMANAGER->getCameraDC(), bottun[i].rc.left, bottun[i].rc.top);
 			}
+			for (int i = 0; i < 4; i++)
+			{
+				saveLoadImg_Dungeon[i]->render(CAMERAMANAGER->getCameraDC(), saveLoad[i].left, saveLoad[i].top);
+			}
+			for (int i = 4; i < 8; i++)
+			{
+				saveLoadImg_Village[i-4]->render(CAMERAMANAGER->getCameraDC(), saveLoad[i].left, saveLoad[i].top);
+			}
 		}
 	}
-
 }
 
 //세이브
@@ -540,11 +558,10 @@ void mapTool::setSampleBookBottun()
 			bottun[i].rc = RectMakeCenter(bottun[i].x + i * 200, bottun[i].y, bottun[i].img->getWidth(), bottun[i].img->getHeight());
 		}
 	}
-	else if (page == 15)
+	else if (page == 15) //세이브
 	{
 		bottun[0].img = IMAGEMANAGER->findImage("세이브");
 		bottun[1].img = IMAGEMANAGER->findImage("로드");
-
 		for (int i = 0; i < 2; i++)
 		{
 			if (i == 0)
@@ -560,8 +577,38 @@ void mapTool::setSampleBookBottun()
 			}
 			bottun[i].rc = RectMakeCenter(bottun[i].x + i * 200, bottun[i].y, bottun[i].img->getWidth(), bottun[i].img->getHeight());
 		}
+		for (int i = 0; i < 8; i++)
+		{
+			if (PtInRect(&saveLoad[i], m_ptMouse) && KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
+			{
+					HANDLE file;
+					DWORD write;
+					int arrNum;
+					arrNum = i;
+					char save[128];
+					wsprintf(save, "save/맵%d.map", arrNum +1);
+
+					for (int i = 0; i < TILEX* TILEY; i++)
+					{
+						_temp[i] = _tiles[i];
+					}
+
+					file = CreateFile
+					(save,				//생성할 파일또는 열 장치나 파일이름
+						GENERIC_WRITE,			//파일이나 장치를 만들거나 열때 사용할 권한
+						0,						//파일 공유 모드입력
+						NULL,					//파일또는 장치를 열때 보안 및 특성
+						CREATE_ALWAYS,			//파일이나 장치를 열때 취할 행동
+						FILE_ATTRIBUTE_NORMAL,  //파일이나 장치를 열때 갖게 될 특성
+						NULL);					//만들어질 파일이 갖게 될 특성 확장 특성에 대한 정보
+
+					WriteFile(file, _temp, sizeof(tagTile) * TILEX * TILEY, &write, NULL);
+					CloseHandle(file);
+			}
+
+		}
 	}
-	else if (page == 16)
+	else if (page == 16) //로드
 	{
 		bottun[0].img = IMAGEMANAGER->findImage("로드");
 		bottun[1].img = IMAGEMANAGER->findImage("세이브");
@@ -580,6 +627,37 @@ void mapTool::setSampleBookBottun()
 				bottun[i].y = _sampleBook.rc.bottom - bottun[i].img->getHeight() - 50;
 			}
 			bottun[i].rc = RectMakeCenter(bottun[i].x + i * 200, bottun[i].y, bottun[i].img->getWidth(), bottun[i].img->getHeight());
+		}
+
+		for (int i = 0; i < 8; i++)
+		{
+			if (PtInRect(&saveLoad[i], m_ptMouse) && KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
+			{
+
+					HANDLE file;
+					DWORD read;
+					int arrNum;
+					arrNum = i;
+					char save[128];
+					wsprintf(save, "save/맵%d.map", arrNum + 1);
+
+					file = CreateFile
+					(save,			//생성할 파일또는 열 장치나 파일이름
+						GENERIC_READ,		//파일이나 장치를 만들거나 열때 사용할 권한
+						0,					//파일 공유 모드입력
+						NULL,				//파일또는 장치를 열때 보안 및 특성
+						OPEN_EXISTING,		//파일이나 장치를 열때 취할 행동
+						FILE_ATTRIBUTE_NORMAL, //파일이나 장치를 열때 갖게 될 특성
+						NULL);				//만들어질 파일이 갖게 될 특성 확장 특성에 대한 정보
+
+					ReadFile(file, _temp, sizeof(tagTile) * TILEX * TILEY, &read, NULL);
+					CloseHandle(file);
+
+					for (int i = 0; i < TILEX* TILEY; i++)
+					{
+						_tiles[i] = _temp[i];
+					}
+			}
 		}
 	}
 }

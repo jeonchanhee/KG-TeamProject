@@ -34,7 +34,8 @@ HRESULT storage::init(string storageName, POINT xy)
 		_slotInfo.x = WINSIZEX / 2 + (x * 60) + 20;
 		_slotInfo.y = WINSIZEY / 2 - 80 + (y * 60) + 20;
 		_slotInfo.rc = RectMakeCenter(_slotInfo.x, _slotInfo.y, _slotInfo.img->getWidth(), _slotInfo.img->getHeight());
-		_slotInfo.item = ITEMMANAGER->addItem("³ª¹µ°¡Áö");
+		_slotInfo.item = ITEMMANAGER->addItem("Ãµ");
+		_slotInfo.item.setItemCnt(8);
 		_slotInfo.item.setRect(_slotInfo.rc);
 		_vSlot.push_back(_slotInfo);
 	}

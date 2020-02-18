@@ -59,6 +59,7 @@ void NPCblacksmith::render()
 	if (_showWindow)
 	{
 		TextOut(getMemDC(), WINSIZEX / 2 - 70, 20, "벌컨의 대장간", strlen("벌컨의 대장간"));
+		IMAGEMANAGER->render("벌컨큰이미지", getMemDC(), 10, 100);
 		for (int i = 0; i < 8; i++)
 		{
 			_vItemSlot[i].img->render(getMemDC(), _vItemSlot[i].rc.left, _vItemSlot[i].rc.top);

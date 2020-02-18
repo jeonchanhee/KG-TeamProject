@@ -54,6 +54,7 @@ void NPCpotionShop::render()
 	{
 		TextOut(getMemDC(), WINSIZEX / 2 - 70, 20, "나무모자", strlen("나무모자"));
 		TextOut(getMemDC(), WINSIZEX / 2 - 180, 110, "포션", strlen("포션"));
+		IMAGEMANAGER->render("위치큰이미지", getMemDC(), 10, 100);
 		for (int i = 0; i < _vItemSlot.size(); i++)
 		{
 			_vItemSlot[i].item.getItemInfo().image->render(getMemDC(), _vItemSlot[i].rc.left, _vItemSlot[i].rc.top);
@@ -77,7 +78,7 @@ void NPCpotionShop::render()
 				if (i == _cursorNum)
 				{
 					wsprintf(str, "체력 회복량: %d", _vItemSlot[i].item.getItemInfo().heal);
-					TextOut(getMemDC(), WINSIZEX - 250, WINSIZEY / 2 - 100, str, strlen(str));
+					TextOut(getMemDC(), WINSIZEX - 300,150, str, strlen(str));
 				}
 			}
 		}
