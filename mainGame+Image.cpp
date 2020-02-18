@@ -24,6 +24,8 @@ void mainGame::imagesInit()
 	IMAGEMANAGER->addImage("인트로맵툴", "images/인트로맵툴.bmp", 544 / 2, 133 / 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("인트로옵션", "images/인트로옵션.bmp", 544 / 2, 133 / 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("인트로나가기", "images/인트로나가기.bmp", 544 / 2, 133 / 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("던전저장버튼", "images/맵툴로드버튼1.bmp", 100, 100, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("마을저장버튼", "images/맵툴로드버튼2.bmp", 100, 100, true, RGB(255, 0, 255));
 
 	//체력바
 	IMAGEMANAGER->addImage("체력바앞", "images/monster/progressBarFront.bmp", 0, 0, 50, 10, true, RGB(255, 0, 255));
@@ -190,6 +192,8 @@ void mainGame::imagesInit()
 
 	//NPC상점(대장간+포션상점)
 	IMAGEMANAGER->addImage("망치이미지", "images/blacksmith/망치이미지.bmp", 204, 132, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("벌컨큰이미지", "images/blacksmith/벌컨.bmp", 186 * 2, 254 * 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("위치큰이미지", "images/blacksmith/위치.bmp", 186 * 2, 254 * 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("벌컨", "images/blacksmith/벌컨인게임idle.bmp", 210 * 2, 49 * 2, 6, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("위치", "images/blacksmith/위치인게임idle.bmp", 132 * 2, 44 * 2, 4, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("아이템보여주는창", "images/blacksmith/imageSlot.bmp", 450, 250, true, RGB(255, 0, 255));

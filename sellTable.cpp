@@ -24,7 +24,7 @@ HRESULT sellTable::init()
 			_sellSlot.y = _sellMainImg->getHeight() - 283 + (i * 205);
 			_sellSlot.rc = RectMakeCenter(_sellSlot.x, _sellSlot.y, _sellSlot.img->getWidth(), _sellSlot.img->getHeight());
 			_sellSlot.item = ITEMMANAGER->addItem("나뭇가지");
-			_sellSlot.item.setRect(_tableRc);
+			_sellSlot.item.setRect(_tableRc.left + 30 + (k* 40) , _tableRc.top + 20 + (i* 40));
 			_sellSlot.item.setItemCnt_equal(9);
 			_sellSlot.item.setWave(true);
 			_vSlot.push_back(_sellSlot);
@@ -133,18 +133,33 @@ void sellTable::render()
 		//슬롯의 이미지와 템 가격,갯수,총가격 렌더 
 		for (int i = 0; i < SLOTNUM; i++)
 		{
-			_vSlot[i].img->render(getMemDC(), _vSlot[i].rc.left, _vSlot[i].rc.top);
-			int k;
-			k = i + 2;
-			wsprintf(str, "%d", _playerPrice[i][0]);
-			TextOut(getMemDC(), WINSIZEX / 2 + 100 + (k % 2 * 100), (k / 2 * 220) - 20, str, strlen(str));
 			if (_vSlot[i].item.getItemInfo().itemName != "비어있음")
 			{
-				wsprintf(str, "x%d", _vSlot[i].item.getItemInfo().cnt);
-				TextOut(getMemDC(), WINSIZEX / 2 + 100 + (k % 2 * 100), (k / 2 * 220) + 0, str, strlen(str));
+				_vSlot[i].img->render(getMemDC(), _vSlot[i].rc.left, _vSlot[i].rc.top);
+				int k;
+				k = i + 2;
+				SetTextAlign(getMemDC(), TA_RIGHT);
+
+				if (i < 2)
+				{
+					wsprintf(str, "%d", _playerPrice[i][0]);
+					TextOut(getMemDC(), _sellInfo[i].right - 30 , _sellInfo[i].top + (k / 2 * 30)-10 , str, strlen(str));
+					wsprintf(str, "x%d", _vSlot[i].item.getItemInfo().cnt);
+					TextOut(getMemDC(), _sellInfo[i].right - 5 , _sellInfo[i].top + (k / 2 * 30) + 5, str, strlen(str));
+					wsprintf(str, "%d", _vSlot[i].item.getItemInfo().cnt * _playerPrice[i][0]);
+					TextOut(getMemDC(), _sellInfo[i].right - 30 , _sellInfo[i].top + (k / 2 * 30) + 30, str, strlen(str));
+				}
+				else
+				{
+					wsprintf(str, "%d", _playerPrice[i][0]);
+					TextOut(getMemDC(), _sellInfo[i].right - 30, _sellInfo[i].top + (k / 2 * 30) - 40, str, strlen(str));
+					wsprintf(str, "x%d", _vSlot[i].item.getItemInfo().cnt);
+					TextOut(getMemDC(), _sellInfo[i].right - 5, _sellInfo[i].top + (k / 2 * 30)-25, str, strlen(str));
+					wsprintf(str, "%d", _vSlot[i].item.getItemInfo().cnt * _playerPrice[i][0]);
+					TextOut(getMemDC(), _sellInfo[i].right - 30, _sellInfo[i].top + (k / 2 * 30), str, strlen(str));
+				}
+				
 			}
-			wsprintf(str, "%d", _vSlot[i].item.getItemInfo().cnt*_playerPrice[i][0]);
-			TextOut(getMemDC(), WINSIZEX / 2 + 100 + (k % 2 * 100), (k / 2 * 220) + 20, str, strlen(str));
 		}
 		// 가격정하는 부분의 위아래 화살표
 		if (_selectNum)_selectUpdownImg->render(getMemDC(), _selectUpdownRc.left, _selectUpdownRc.top);
@@ -158,7 +173,7 @@ void sellTable::render()
 		if (!PLAYER->getinventory()->getstorgeuding()) _cursor->render();
 	}
 
-	if (_vTemp.size() > 0)   //템프가 비어있지 않다면(커서가 템을 잡고 있다면)
+	if (!_vTemp.empty())//템프가 비어있지 않다면(커서가 템을 잡고 있다면)
 	{
 		char str[128];
 		IMAGEMANAGER->render("커서그랩", getMemDC(), _cursorSlot.left, _cursorSlot.top - 60);
@@ -170,23 +185,6 @@ void sellTable::render()
 
 void sellTable::cursorControl()
 {
-	//플레이어 인벤창에서 커서가 일정 칸을 넘어가면
-	//if (PLAYER->getinventory()->getcusornumber() > 19)
-	//{
-	//	//플레이어상점의 커서 초기화. test는 커서의 렌더유무
-	//	_cursorSlot = _vSlot[0].rc;
-	//	_test = true;
-
-	//	//추가로 만약 인벤토리에서 아이템을 잡고 있는 상태라면 
-	//	if (PLAYER->getinventory()->getvTemp().size() != 0)
-	//	{
-	//		//그 정보를 이쪽으로 가져온다
-	//		_vTemp.push_back(PLAYER->getinventory()->getvTemp()[0]);
-	//	}
-
-	//	//그런 다음 플레이어쪽의 정보는 지워준다
-	//	PLAYER->getinventory()->tempClear();
-	//}
 	if (KEYMANAGER->isOnceKeyDown('A'))
 	{
 		_cursorNum--;
@@ -353,6 +351,7 @@ void sellTable::selectPrice()
 		{
 			//모든 자릿수를 더해서 0번칸에 넣어준다. 0번칸이 플레이어가 정한 가격이 된다.
 			_playerPrice[_cursorNum][0] += _playerPrice[_cursorNum][k];
+			if (_playerPrice[_cursorNum][0] <= 0)_playerPrice[_cursorNum][0] = 0;
 		}
 	}
 }
@@ -412,9 +411,12 @@ void sellTable::grab()
 					_vTemp.pop_back();
 
 					//그 다음 아이템 위치를 다시 정해주어 판매대에 올려진 아이템의 위치를 잡아줌
-					for (int i = 0; i < 4; i++)
+					for (int i = 0; i < 2; i++)
 					{
-						_vSlot[i].item.setRect(_tableRc);
+						for (int k = 0; k < 2; k++)
+						{
+							_vSlot[i].item.setRect(_tableRc.left + 30 + (k * 40), _tableRc.top + 20 + (i * 40));
+						}
 					}
 					break;
 				}
