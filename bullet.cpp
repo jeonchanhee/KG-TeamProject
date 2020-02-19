@@ -208,6 +208,12 @@ void weapons::move()
 	}
 }
 
+void weapons::remove(int num)
+{
+	_varrow.erase(_varrow.begin() + num);
+}
+
+
 void weapons::render()
 {
 	_viterarrow = _varrow.begin();

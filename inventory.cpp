@@ -294,14 +294,14 @@ void inventory::isweaponing()
 {
 	if (!_isweapon)
 	{
-		if (KEYMANAGER->isOnceKeyDown('O'))					//임시로 
+		if (KEYMANAGER->isOnceKeyDown('Z'))					//임시로 
 		{
 			_isweapon = true;
 		}
 	}
 	else
 	{
-		if (KEYMANAGER->isOnceKeyDown('O'))					//임시로 
+		if (KEYMANAGER->isOnceKeyDown('Z'))					//임시로 
 		{
 			_isweapon = false;
 		}
@@ -332,7 +332,20 @@ void inventory::itempotion()
 		}
 	}
 }
+//아이템 먹기
+void inventory::eatitem(item _item)
+{
+	for (int i = 0; i < _vInven.size(); i++)
+	{
+		if (_vInven[i]._item.getItemInfo().itemName == "비어있음")
+		{
 
+			_vInven[i]._item = _item;
+			//_vInven.push_back(_vInven[i]);
+			break;
+		}
+	}
+}
 
 void inventory::swapItem(item swapItem)
 {
@@ -377,7 +390,7 @@ void inventory::bkrender(HDC hdc)
 	{
 		IMAGEMANAGER->render("z활성화오", getMemDC(), 700, 235);
 	}
-	_showitem._showitemimg->render(hdc, _showitem._showitemrc.left, _showitem._showitemrc.top, _showitem._showitemimg->getWidth(), _showitem._showitemimg->getHeight());					 //선택한 아이템을 보여주는 이미지.  
+//	_showitem._showitemimg->render(hdc, _showitem._showitemrc.left, _showitem._showitemrc.top, _showitem._showitemimg->getWidth(), _showitem._showitemimg->getHeight());					 //선택한 아이템을 보여주는 이미지.  
 	for (int i = 0; i <= _vInven.size(); i++)									//장비만 있는 곳
 	{
 		if (21 <= i && i <= 28)
@@ -431,10 +444,6 @@ void inventory::moverender(HDC hdc)
 					SetTextColor(hdc, RGB(41, 41, 41));
 					TextOut(hdc, _vInven[i]._item.getRECT().right, _vInven[i]._item.getRECT().bottom, str, strlen(str));
 					SetBkMode(hdc, TRANSPARENT);				//글자 뒷배경 처리
-					if (IntersectRect(&_temp, &_cursorrect, &_vInven[i]._item.getRECT()))
-					{
-						_vInven[i]._item.getItemInfo().image->render(hdc, _showitem._showitemrc.left + 10, _showitem._showitemrc.top + 10);
-					}
 				}
 			}
 		}

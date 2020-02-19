@@ -70,6 +70,7 @@ void sellTable::update()
 				_showWindow = true;
 				_test = true;
 				PLAYER->getinventory()->setStprageOpen(true);
+				PLAYER->setstop(true);
 			}
 		}
 	}
@@ -83,6 +84,7 @@ void sellTable::update()
 				_test = false;
 				SetTextAlign(getMemDC(), TA_LEFT);
 				PLAYER->getinventory()->setStprageOpen(false);
+				PLAYER->setstop(false);
 			}
 		}
 		if (!PLAYER->getinventory()->getstorgeuding()) cursorControl();   //-->커서컨트롤 WASD버튼

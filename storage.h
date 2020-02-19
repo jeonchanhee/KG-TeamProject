@@ -38,6 +38,7 @@ private:
 	image* _grab;					//커서가 잡은 아이템의 배경
 
 	RECT temp;
+	image* _bgimag;
 public:
 
 	storage();

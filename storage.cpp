@@ -12,6 +12,8 @@ storage::~storage()
 HRESULT storage::init(string storageName, POINT xy)
 {
 	//창고 초기화
+	_bgimag = IMAGEMANAGER->findImage("배경");								//뒤에 배경
+
 	_name = storageName;
 	_boxImg = IMAGEMANAGER->findImage(storageName);
 	_boxRc = RectMakeCenter(xy.x, xy.y, _boxImg->getFrameWidth(), _boxImg->getFrameHeight());
@@ -76,6 +78,7 @@ void storage::update()
 				_cursorSlot = _vSlot[_cursorNum].rc;
 				_cursor->setRc(_cursorSlot);
 				PLAYER->getinventory()->setStprageOpen(true);  //--->아이템 창(인벤) 오픈 
+				PLAYER->setstop(true);
 			}
 		}
 	}
@@ -90,6 +93,7 @@ void storage::update()
 
 				_storageAni->start();
 				PLAYER->getinventory()->setStprageOpen(false);			//--> 아이템창(인벤) 닫기
+				PLAYER->setstop(false);
 				_showWindow = false;
 			}
 		}
@@ -137,6 +141,7 @@ void storage::render()
 	}
 	else
 	{
+		_bgimag->alphaRender(getMemDC(), 1000);   // 알파랜더 처리할 배경화면
 		storageRender();
 		if (_vTemp.size() > 0)	//템프가 비어있지 않다면(커서가 템을 잡고 있다면)
 		{

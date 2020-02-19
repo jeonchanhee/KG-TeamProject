@@ -1,0 +1,14 @@
+﻿  monster.cpp
+c:\users\goddn\desktop\14일차\kg-teamproject\monster.cpp(62): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\14일차\kg-teamproject\monster.cpp(504): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\14일차\kg-teamproject\monster.cpp(571): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\14일차\kg-teamproject\monster.cpp(607): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\14일차\kg-teamproject\monster.cpp(708): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\goddn\desktop\14일차\kg-teamproject\monster.cpp(866): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\goddn\desktop\14일차\kg-teamproject\monster.cpp(897): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\goddn\desktop\14일차\kg-teamproject\monster.cpp(928): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\goddn\desktop\14일차\kg-teamproject\monster.cpp(959): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\goddn\desktop\14일차\kg-teamproject\monster.cpp(987): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\goddn\desktop\14일차\kg-teamproject\monster.cpp(1014): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\goddn\desktop\14일차\kg-teamproject\monster.cpp(1122): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  API_FrameWork.vcxproj -> C:\Users\goddn\Desktop\14일차\KG-TeamProject\Debug\API_FrameWork.exe
