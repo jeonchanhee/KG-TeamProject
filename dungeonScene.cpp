@@ -77,17 +77,21 @@ void dungeonScene::update()
 		dungeonItem[i].update();
 	}
 	RECT temp;
-	for (int i = 0; i < 3; i++)
+	if (IntersectRect(&temp, &door[2], &PLAYER->getPlayercollision()))// && _monster->getVMonster().empty()
 	{
-		if (IntersectRect(&temp, &door[i], &PLAYER->getPlayercollision()))
-		{
-			char name[128];
-			wsprintf(name, "带傈%d", i + 2);
-			SCENEMANAGER->changeScene(name);
-		}
+		SCENEMANAGER->changeScene("带傈4");
+		PLAYER->setXY(WINSIZEX / 2, WINSIZEY- 150);
 	}
-
-
+	if (IntersectRect(&temp, &door[0], &PLAYER->getPlayercollision()))// && _monster->getVMonster().empty()
+	{
+		SCENEMANAGER->changeScene("带傈2");
+		PLAYER->setXY(WINSIZEX- 150, WINSIZEY/2);
+	}
+	if (IntersectRect(&temp, &door[1], &PLAYER->getPlayercollision()))// && _monster->getVMonster().empty()
+	{
+		SCENEMANAGER->changeScene("带傈3");
+		PLAYER->setXY(150, WINSIZEY/2);
+	}
 }
 
 void dungeonScene::render()
@@ -114,8 +118,11 @@ void dungeonScene::render()
 
 	PLAYER->render(getMemDC());
 
-	for (int i = 0; i < 3; i++)
+	if (KEYMANAGER->isToggleKey(VK_TAB))
 	{
-		Rectangle(getMemDC(), door[i].left, door[i].top, door[i].right, door[i].bottom);
+		for (int i = 0; i < 3; i++)
+		{
+			Rectangle(getMemDC(), door[i].left, door[i].top, door[i].right, door[i].bottom);
+		}
 	}
 }

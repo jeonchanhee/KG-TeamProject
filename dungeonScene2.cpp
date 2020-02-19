@@ -34,7 +34,7 @@ HRESULT dungeonScene2::init()
 	DWORD read;
 
 	file = CreateFile
-	("save/맵2.map",			//생성할 파일또는 열 장치나 파일이름
+	("save/맵8.map",			//생성할 파일또는 열 장치나 파일이름
 		GENERIC_READ,		//파일이나 장치를 만들거나 열때 사용할 권한
 		0,					//파일 공유 모드입력
 		NULL,				//파일또는 장치를 열때 보안 및 특성
@@ -49,9 +49,8 @@ HRESULT dungeonScene2::init()
 	{
 		_tiles[i] = _temp[i];
 	}
-	door[0] = RectMakeCenter(50, WINSIZEY / 2, 100, 100);
-	door[2] = RectMakeCenter(WINSIZEX / 2, 50, 100, 100);
-	door[1] = RectMakeCenter(WINSIZEX - 75, WINSIZEY / 2, 100, 100);
+	door = RectMakeCenter(50, WINSIZEY / 2, 100, 100);
+
 
 	return S_OK;
 }
@@ -69,10 +68,31 @@ void dungeonScene2::update()
 	{
 		dungeonItem[i].update();
 	}
+
+	RECT temp;
+	if (IntersectRect(&temp, &PLAYER->getPlayercollision(), &door))
+	{
+		SCENEMANAGER->changeScene("던전1");
+		PLAYER->setXY(150, WINSIZEY / 2);
+	}
+
 }
 
 void dungeonScene2::render()
 {
+	for (int i = 0; i < TILEX * TILEY; i++)
+	{
+		if (CAMERAX - 100 < _tiles[i].x && _tiles[i].x < CAMERAX + WINSIZEX + 100 && CAMERAY - 100 < _tiles[i].y&& _tiles[i].y < CAMERAY + WINSIZEY + 100)
+		{
+			if (_tiles[i].terrain == TERAIN_NONE) Rectangle(getMemDC(), _tiles[i].rc.left, _tiles[i].rc.top, _tiles[i].rc.right, _tiles[i].rc.bottom);
+			else IMAGEMANAGER->frameRender("맵툴", getMemDC(), _tiles[i].rc.left, _tiles[i].rc.top, _tiles[i].terrainFrameX, _tiles[i].terrainFrameY);
+
+			if (_tiles[i].obj == OBJ_NONE) continue;
+
+			IMAGEMANAGER->frameRender("맵툴", getMemDC(), _tiles[i].rc.left, _tiles[i].rc.top, _tiles[i].objFrameX, _tiles[i].objFrameY);
+		}
+	}
+
 	_monster->render();
 	if (!dungeonItem.empty()) {
 		for (int i = 0; i < dungeonItem.size(); i++)

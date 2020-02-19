@@ -57,6 +57,7 @@ public:
 	void release();
 	void update();
 	void render();
+	void render(HDC hdc);
 
 	void magnet(POINT playerPoint);						//바닥에 떨어진 템이 플레이어게 끌려가는 기능
 	void wave();									//바닥에 떨어진 아이템이 약간 흔들리는 기능

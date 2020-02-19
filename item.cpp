@@ -47,7 +47,16 @@ void item::render()
 {
 	if (KEYMANAGER->isToggleKey('T')) Rectangle(CAMERAMANAGER->getCameraDC(), _item.rc.left, _item.rc.top, _item.rc.right, _item.rc.bottom);
 
+	//_item.image->render(CAMERAMANAGER->getCameraDC(), _item.rc.left, _item.rc.top);
 	_item.image->render(CAMERAMANAGER->getCameraDC(), _item.rc.left, _item.rc.top);
+}
+
+void item::render(HDC hdc)
+{
+	if (KEYMANAGER->isToggleKey('T')) Rectangle(CAMERAMANAGER->getCameraDC(), _item.rc.left, _item.rc.top, _item.rc.right, _item.rc.bottom);
+
+	//_item.image->render(CAMERAMANAGER->getCameraDC(), _item.rc.left, _item.rc.top);
+	_item.image->render(hdc, _item.rc.left, _item.rc.top);
 }
 
 void item::magnet(POINT playerPoint)

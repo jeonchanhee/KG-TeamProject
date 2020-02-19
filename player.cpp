@@ -78,7 +78,7 @@ void player::update()
 		_inventory->update();
 	}
 	if (KEYMANAGER->isOnceKeyDown('E')) _inventory->itempotion();					//E¸¦ ´­·¶À» ¶§ hp Æ÷¼Ç ¸Ô±â
-	tilemove();
+	//tilemove();
 }
 
 void player::playerKeyControl()

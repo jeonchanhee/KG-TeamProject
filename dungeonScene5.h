@@ -10,7 +10,9 @@ private:
 	monsterManager* _monster;
 	vector<item> dungeonItem;
 	RECT door[3];
-
+	int openCheck = 0;
+	image* _doorImg;
+	animation* _ani;
 public:
 	dungeonScene5();
 	~dungeonScene5();

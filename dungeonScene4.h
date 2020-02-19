@@ -8,7 +8,10 @@ private:
 	tagTile _tiles[TILEX * TILEY];
 	tagTile _temp[TILEX * TILEY];
 
-	RECT door[3];
+	monsterManager* _monster;
+	RECT door[2];
+
+	RECT healSpa;
 
 public:
 	dungeonScene4();

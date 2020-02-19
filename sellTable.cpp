@@ -13,7 +13,7 @@ HRESULT sellTable::init()
 	_selectUpdownImg = IMAGEMANAGER->findImage("위아래화살표");
 
 	//렉트초기화
-	_tableRc = RectMakeCenter(WINSIZEX / 2 - 100, WINSIZEY / 2 + 120, 100, 100);
+	_tableRc = RectMakeCenter(WINSIZEX / 2 - 100, WINSIZEY / 2 + 70, 100, 20);
 
 	for (int i = 0; i < 2; i++)
 	{
@@ -81,6 +81,7 @@ void sellTable::update()
 			{
 				_showWindow = false;
 				_test = false;
+				SetTextAlign(getMemDC(), TA_LEFT);
 				PLAYER->getinventory()->setStprageOpen(false);
 			}
 		}
@@ -113,7 +114,7 @@ void sellTable::render()
 	//PLAYER->getinventory()->invenanditemcollision(getMemDC());
 	for (int i = 0; i < _vSlot.size(); i++)
 	{
-		_vSlot[i].item.render();
+		_vSlot[i].item.render(getMemDC());
 	}
 
 	//열기닫기

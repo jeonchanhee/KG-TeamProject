@@ -182,6 +182,7 @@ void mainGame::imagesInit()
 	IMAGEMANAGER->addImage("위아래화살표", "images/shop/updown.bmp", 20, 50, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("플레이어상점이미지", "images/shop/build_Shop.bmp", 528/2, 436/2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("상점씬", "images/shop/shopScene.bmp", WINSIZEX, WINSIZEY, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("플레이어상점마젠타이미지", "images/shop/shop마젠타.bmp", WINSIZEX, WINSIZEY, false, RGB(255, 0, 255));
 
 	int arrlen1[] = { 0,1,2 };
 	int arrlen2[] = { 3,4,5 };
@@ -229,6 +230,8 @@ void mainGame::imagesInit()
 
 
 	//던전씬
-	IMAGEMANAGER->addImage("던전문", "images/dungeon/dunDoor.bmp", 128, 128, true, RGB(255, 0, 255));
+	//IMAGEMANAGER->addImage("던전문", "images/dungeon/dunDoor.bmp", 128, 128, true, RGB(255, 0, 255));
 
+	IMAGEMANAGER->addFrameImage("움직이는던전문", "images/dungeon/dunDoorAni.bmp", 990*2, 68*2, 9, 1, true, RGB(255, 0, 255));
+	ANIMATIONMANAGER->addDefAnimation("문애니", "움직이는던전문", 3, false, false);
 }

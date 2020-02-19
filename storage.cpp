@@ -181,16 +181,10 @@ void storage::storageRender()
 	{
 		if (_vSlot[i].item.getItemInfo().itemName != "비어있음") //아이템이 있으면 렌더
 		{
-			_vSlot[i].item.render();
+			_vSlot[i].item.render(getMemDC());
 
 			wsprintf(str, "%d", _vSlot[i].item.getItemInfo().cnt);
 			TextOut(getMemDC(), _vSlot[i].rc.right, _vSlot[i].rc.bottom, str, strlen(str));
-
-			// 커서와 아이템이 충돌된 상태라면 추가로 옆칸에 이미지를 띄워줌
-			if (IntersectRect(&temp, &_cursorSlot, &_vSlot[i].rc))
-			{
-				_vSlot[i].item.getItemInfo().image->render(getMemDC(), _showItemRc.left + 10, _showItemRc.top + 10);
-			}
 		}
 	}
 

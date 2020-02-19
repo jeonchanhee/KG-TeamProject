@@ -18,7 +18,7 @@ HRESULT playerShop::init()
 		SOUNDMANAGER->play(SOUNDMANAGER->getCurrentSong(), 1);
 	}
 	PLAYER->setPlayerLocation(SHOP_PLAYER_VERSION);
-	PLAYER->setPlayerMoving(PLAYER_DOWN_IDLE);
+	PLAYER->setPlayerMoving(PLAYER_UP_IDLE);
 	//창고 2개 초기화
 	_storage1 = new storage;
 	_storage1->init("창고1",PointMake(WINSIZEX / 2+255 , 280));
@@ -29,7 +29,7 @@ HRESULT playerShop::init()
 	_sellStand = new sellTable;
 	_sellStand->init();
 
-	villageRc = RectMakeCenter(WINSIZEX / 2+100, WINSIZEY / 2+220, 100,100);
+	villageRc = RectMakeCenter(WINSIZEX / 2+100, WINSIZEY / 2+190, 50,50);
 	return S_OK;
 }
 
@@ -54,6 +54,7 @@ void playerShop::update()
 
 	if (IntersectRect(&temp, &PLAYER->getPlayercollision(), &villageRc))
 	{
+		PLAYER->setXY(WINSIZEX / 2-30, WINSIZEY/2-10);
 		SCENEMANAGER->changeScene("마을씬");
 	}
 }
@@ -61,11 +62,11 @@ void playerShop::update()
 void playerShop::render()
 {
 	IMAGEMANAGER->render("상점씬", getMemDC(), 0, 0);
-	_sellStand->render();
-	Rectangle(getMemDC(), villageRc.left, villageRc.top, villageRc.right, villageRc.bottom);
-
+	if(KEYMANAGER->isToggleKey(VK_TAB))IMAGEMANAGER->render("플레이어상점마젠타이미지", getMemDC(), 0, 0);
 	_storage1->render();
 	_storage2->render();
+	Rectangle(getMemDC(), villageRc.left, villageRc.top, villageRc.right, villageRc.bottom);
+	_sellStand->render();
 	PLAYER->render(getMemDC());
 
 }
