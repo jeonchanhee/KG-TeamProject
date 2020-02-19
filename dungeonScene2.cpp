@@ -13,7 +13,7 @@ HRESULT dungeonScene2::init()
 {
 	
 	_monster = new monsterManager;
-	_monster->init();
+	_monster->init2();
 	PLAYER->setPlayerLocation(DUNGEON_PLAYER_VERSION);
 	
 	for (int i = 0; i < TILEY; i++)
