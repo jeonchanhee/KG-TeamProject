@@ -13,6 +13,8 @@ private:
 
 	RECT temp;
 
+	RECT villageRc;
+
 public:
 
 	playerShop();

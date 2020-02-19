@@ -184,6 +184,7 @@ void player::playerKeyControl()
 	{
 		if (KEYMANAGER->isOnceKeyDown('K'))
 		{
+			SOUNDMANAGER->play("Д®Бъ", 1);
 			_player._isattackmove = true;
 			_ishwing = true;
 		}
@@ -202,7 +203,7 @@ void player::playerKeyControl()
 		if (KEYMANAGER->isOnceKeyUp('K'))
 		{
 			_player._isFire = true;
-
+			SOUNDMANAGER->play("И°Бъ", 1);
 			if (_player._attacmove == PLAYER_ATK_LEFT) arrowFIre(ARROW_LEFT);
 			if (_player._attacmove == PLAYER_ATK_RIGHT) arrowFIre(ARROW_RIGHT);
 			if (_player._attacmove == PLAYER_ATK_UP) arrowFIre(ARROW_UP);

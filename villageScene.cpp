@@ -6,14 +6,26 @@ villageScene::~villageScene(){}
 
 HRESULT villageScene::init()
 {
+	if (SOUNDMANAGER->getCurrentSong() != "마을브금")
+	{
+		SOUNDMANAGER->stop(SOUNDMANAGER->getCurrentSong());
+		SOUNDMANAGER->setCurrentNum(1);
+		SOUNDMANAGER->play("마을브금", 1);
+	}
 	PLAYER->setPlayerLocation(SHOP_PLAYER_VERSION);
 	PLAYER->setPlayerMoving(PLAYER_DOWN_IDLE);
 
+	_npcImg_witch = IMAGEMANAGER->findImage("위치");
+	_npcAni_witch = ANIMATIONMANAGER->findAnimation("위치기본모션");
+	_npcImg_black = IMAGEMANAGER->findImage("벌컨");
+	_npcAni_black = ANIMATIONMANAGER->findAnimation("벌컨기본모션");
+
+
 	//npc상점 2개 초기화
 	_potionShop = new NPCpotionShop;
-	_potionShop->init(PointMake(100, WINSIZEY-200));
+	_potionShop->init(PointMake(WINSIZEX - 120, WINSIZEY-420));
 	_blacksmith = new NPCblacksmith;
-	_blacksmith->init(PointMake(500, WINSIZEY - 200));
+	_blacksmith->init(PointMake(WINSIZEX - 120, WINSIZEY - 200));
 
 
 	for (int i = 0; i < TILEY; i++)
@@ -49,7 +61,7 @@ HRESULT villageScene::init()
 		_tiles[i] = _temp[i];
 	}
 
-	_dungeon = RectMake(0, 0, 100, 100);
+	_dungeon = RectMake(0, -60, 100, 100);
 	_shop = RectMake(WINSIZEX/2 - 100, 200, 100, 100);
 	return S_OK;
 }
@@ -73,7 +85,8 @@ void villageScene::update()
 	_potionShop->buy();
 	_blacksmith->buy();
 	if(IntersectRect(&temp,&_dungeon,&PLAYER->getPlayercollision()))SCENEMANAGER->changeScene("던전1");
-	if(IntersectRect(&temp,&_shop,&PLAYER->getPlayercollision()))SCENEMANAGER->changeScene("플레이어상점씬");
+	if (IntersectRect(&temp, &_shop, &PLAYER->getPlayercollision()))SCENEMANAGER->changeScene("플레이어상점씬");
+	
 }
 
 void villageScene::render()
@@ -91,9 +104,15 @@ void villageScene::render()
 		}
 	}
 
-	PLAYER->render(getMemDC());
-	_potionShop->render();
-	_blacksmith->render();
 	Rectangle(getMemDC(), _dungeon.left, _dungeon.top, _dungeon.right, _dungeon.bottom);
 	Rectangle(getMemDC(), _shop.left, _shop.top, _shop.right, _shop.bottom);
+	_npcImg_witch->aniRender(getMemDC(), _potionShop->getNpcRc().left, _potionShop->getNpcRc().top, _npcAni_witch);
+	_npcImg_black->aniRender(getMemDC(), _blacksmith->getNpcRc().left, _blacksmith->getNpcRc().top, _npcAni_black);
+	IMAGEMANAGER->render("마을대장간이미지", getMemDC(), WINSIZEX - 220, WINSIZEY - 200);
+	IMAGEMANAGER->render("마을포션상점이미지", getMemDC(), WINSIZEX - 330, WINSIZEY - 700);
+	IMAGEMANAGER->render("플레이어상점이미지", getMemDC(), WINSIZEX / 2-200, 80);
+	IMAGEMANAGER->render("던전문", getMemDC(), -10, -50);
+	_potionShop->render();
+	_blacksmith->render();
+	PLAYER->render(getMemDC());
 }

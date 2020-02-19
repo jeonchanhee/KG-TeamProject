@@ -10,6 +10,12 @@ dungeonScene::~dungeonScene()
 
 HRESULT dungeonScene::init()
 {
+	if (SOUNDMANAGER->getCurrentSong() != "던전브금")
+	{
+		SOUNDMANAGER->stop(SOUNDMANAGER->getCurrentSong());
+		SOUNDMANAGER->setCurrentNum(2);
+		SOUNDMANAGER->play("던전브금", 1);
+	}
 	_monster = new monsterManager;
 	_monster->init();
 	

@@ -13,7 +13,7 @@ HRESULT sellTable::init()
 	_selectUpdownImg = IMAGEMANAGER->findImage("위아래화살표");
 
 	//렉트초기화
-	_tableRc = RectMakeCenter(WINSIZEX / 2 - 350, WINSIZEY / 2 + 200, 100, 100);
+	_tableRc = RectMakeCenter(WINSIZEX / 2 - 100, WINSIZEY / 2 + 120, 100, 100);
 
 	for (int i = 0; i < 2; i++)
 	{

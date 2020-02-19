@@ -93,7 +93,7 @@ void NPCshopBase::update()
 
 void NPCshopBase::render()
 {
-	_npcImg->aniRender(getMemDC(), _npcRc.left, _npcRc.top, _npcAni);
+	//_npcImg->aniRender(getMemDC(), _npcRc.left, _npcRc.top, _npcAni);
 
 	if (!_showWindow)
 	{

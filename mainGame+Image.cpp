@@ -180,6 +180,8 @@ void mainGame::imagesInit()
 	IMAGEMANAGER->addImage("판매테이블", "images/shop/table items.bmp", 48 * 2, 56 * 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("커서그랩", "images/shop/grab.bmp", 50, 52, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("위아래화살표", "images/shop/updown.bmp", 20, 50, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("플레이어상점이미지", "images/shop/build_Shop.bmp", 528/2, 436/2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("상점씬", "images/shop/shopScene.bmp", WINSIZEX, WINSIZEY, true, RGB(255, 0, 255));
 
 	int arrlen1[] = { 0,1,2 };
 	int arrlen2[] = { 3,4,5 };
@@ -205,6 +207,8 @@ void mainGame::imagesInit()
 	IMAGEMANAGER->addImage("소드슬롯", "images/blacksmith/swordSlot.bmp", 57, 57, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("스피어슬롯", "images/blacksmith/spearSlot.bmp", 57, 57, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("이름칸", "images/blacksmith/이름칸.bmp", 464 / 2, 30, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("마을대장간이미지", "images/blacksmith/Village_Blacksmith.bmp", 118*2, 52*2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("마을포션상점이미지", "images/blacksmith/Village_Witch.bmp", 256*2, 256*2, true, RGB(255, 0, 255));
 
 	ANIMATIONMANAGER->addDefAnimation("벌컨기본모션", "벌컨", 3, false, false);
 	ANIMATIONMANAGER->addDefAnimation("위치기본모션", "위치", 3, false, false);
@@ -222,4 +226,9 @@ void mainGame::imagesInit()
 	IMAGEMANAGER->addImage("z버전활성화왼", "images/inventory/z버전활성화(왼).bmp", 23, 21, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("z버전비활성화왼", "images/inventory/z버전비활성화(왼).bmp", 23, 21, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("프로필", "images/inventory/profile.bmp", 134, 170, true, RGB(255, 0, 255));
+
+
+	//던전씬
+	IMAGEMANAGER->addImage("던전문", "images/dungeon/dunDoor.bmp", 128, 128, true, RGB(255, 0, 255));
+
 }

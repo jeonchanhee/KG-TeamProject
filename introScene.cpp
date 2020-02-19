@@ -8,7 +8,8 @@ introScene::~introScene(){}
 HRESULT introScene::init()
 {
 	butoonInit();
-
+	SOUNDMANAGER->play("인트로브금", 1);
+	
 	backGround = IMAGEMANAGER->findImage("인트로배경");
 	backGround->setFrameY(0);
 
@@ -94,6 +95,7 @@ void introScene::buttonSelect()
 			{
 				if (i == 0)
 				{
+					SOUNDMANAGER->stop(SOUNDMANAGER->getCurrentSong());
 					SCENEMANAGER->changeScene("마을씬");
 				}
 				else if (i == 1)
