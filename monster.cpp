@@ -178,7 +178,7 @@ void monster::draw()
 		//몬스터 이미지 범위
 		//Rectangle(getMemDC(), iRc.left, iRc.top, iRc.right, iRc.bottom);
 		//몬스터 피격범위
-		//Rectangle(getMemDC(), hRc.left, hRc.top, hRc.right, hRc.bottom);
+		Rectangle(getMemDC(), hRc.left, hRc.top, hRc.right, hRc.bottom);
 		//item.getItemInfo().image->render(getMemDC(), item.getRECT().left, item.getRECT().top);
 	}
 	//몬스터 렌더
@@ -547,7 +547,7 @@ bool monster::golemSoldierAtk(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect)
 
 bool monster::flyingGolemAtk(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect)
 {
-	if (getDistance(_currentX, _currentY, PLAYER->getPlayerX(), PLAYER->getPlayerY()) < 100)
+	if (getDistance(_currentX, _currentY, PLAYER->getPlayerX(), PLAYER->getPlayerY()) < 150)
 	{
 		count--;
 	}
@@ -707,7 +707,6 @@ bool monster::golemBossAtk(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect)
 				ANIMATIONMANAGER->start("골렘보스공격1R");
 				break;
 			case MONSTER_DIRECTION_DOWN:
-				//iRc = RectMakeCenter((hRc.right + hRc.left) / 2 - 200, (hRc.bottom + hRc.top) / 2 - 200, hRc.right - hRc.left, hRc.bottom - hRc.top);
 				aRc = RectMakeCenter((hRc.left + hRc.right) / 2, (hRc.top + hRc.bottom) / 2 + 100,
 					_monsterImg->getFrameWidth() / 4, _monsterImg->getFrameHeight() / 4);
 				_ani = ANIMATIONMANAGER->findAnimation("골렘보스공격1B");
@@ -716,7 +715,6 @@ bool monster::golemBossAtk(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect)
 			}
 		}
 		else {
-			//iRc = RectMakeCenter((iRc.right + iRc.left) / 2, (iRc.bottom + iRc.top) / 2 +100, _monsterImg->getFrameWidth(), _monsterImg->getFrameHeight());
 			switch (monDirect) {
 			case MONSTER_DIRECTION_LEFT:
 				aRc = RectMakeCenter((hRc.left + hRc.right) / 2 - 200, (hRc.top + hRc.bottom) / 2 + 100,
@@ -746,7 +744,7 @@ bool monster::golemBossAtk(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect)
 			}
 		}
 		count = 0;
-		atkCount = 50;
+		atkCount = 150;
 		RECT rc;
 		if (IntersectRect(&rc, &aRc, &PLAYER->getPlayercollision()))
 		{
@@ -758,7 +756,7 @@ bool monster::golemBossAtk(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect)
 	if (atkCount == 0)
 	{
 		_monState = MONSTER_STATE_MOVE;
-		atkCount = 50;
+		atkCount = 150;
 	}
 
 	return false;
@@ -841,7 +839,7 @@ bool monster::golemTurretHit(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect)
 	{
 		RECT temp;
 
-		if (IntersectRect(&temp, &hRc, &PLAYER->getPlayercollision()))
+		if (IntersectRect(&temp, &hRc, &PLAYER->getattacksword()))
 		{
 			_currentHp = _currentHp - 10;
 		}
@@ -858,7 +856,7 @@ bool monster::golemSoldierHit(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect)
 	{
 		RECT temp;
 
-		if (IntersectRect(&temp, &hRc, &PLAYER->getPlayercollision()))
+		if (IntersectRect(&temp, &hRc, &PLAYER->getattacksword()))
 		{
 			_currentHp = _currentHp - 10;
 		}
@@ -875,7 +873,7 @@ bool monster::flyginGolemHit(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect)
 	{
 		RECT temp;
 
-		if (IntersectRect(&temp, &hRc, &PLAYER->getPlayercollision()))
+		if (IntersectRect(&temp, &hRc, &PLAYER->getattacksword()))
 		{
 			_currentHp = _currentHp - 10;
 		}
@@ -891,7 +889,7 @@ bool monster::slimeHit(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect)
 	{
 		RECT temp;
 
-		if (IntersectRect(&temp, &hRc, &PLAYER->getPlayercollision()))
+		if (IntersectRect(&temp, &hRc, &PLAYER->getattacksword()))
 		{
 			_currentHp = _currentHp - 10;
 		}
@@ -907,7 +905,7 @@ bool monster::slimeGauntletHit(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect
 	{
 		RECT temp;
 
-		if (IntersectRect(&temp, &hRc, &PLAYER->getPlayercollision()))
+		if (IntersectRect(&temp, &hRc, &PLAYER->getattacksword()))
 		{
 			_currentHp = _currentHp - 10;
 		}
@@ -923,7 +921,7 @@ bool monster::golemBossHit(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect)
 	{
 		RECT temp;
 
-		if (IntersectRect(&temp, &hRc, &PLAYER->getPlayercollision()))
+		if (IntersectRect(&temp, &hRc, &PLAYER->getattacksword()))
 		{
 			_currentHp = _currentHp - 10;
 		}
@@ -941,13 +939,9 @@ bool monster::golemTurretDie(MONSTER_TYPE monType)
 		_ani->start();
 	}
 	deadCount++;
-	//item.setRect(iRc);
-	//iRc = item.getRECT();
-	if (deadCount >= 10) {
+	if (deadCount >= 3) {
 		_monState = MONSTER_STATE_DEAD;
 	}
-	/*item.setRect(_currentX, _currentY);
-	item.setMove(true);*/
 	return false;
 }
 

@@ -37,7 +37,7 @@ void buyNPC::update(item& item1, item& item2, item& item3, item& item4)
 {
 	//NPC모션변경
 	aniChange();
-	
+
 	//이동
 	if (_move)
 	{
@@ -83,7 +83,7 @@ void buyNPC::update(item& item1, item& item2, item& item3, item& item4)
 			talkChange = true;
 		}
 		//토크카운트200일때
-		if(talkCount==100)talk(item1, item2, item3, item4);
+		if (talkCount == 100)talk(item1, item2, item3, item4);
 		if (talkCount >= 100 && talkChange&&talkCount <= 200) {
 			soso();
 			talkChange = false;
@@ -624,9 +624,8 @@ void buyNPC::talk(item& item1, item& item2, item& item3, item& item4)
 			}
 		}
 	}
-	//아이템숫자 하나빼서 벡터용으로 맞추기
-	reduceItemNum = reduceItemNum - 1;
-	playerPrice = 1000;
+
+	playerPrice = 5;
 	//토크rc 만들기
 	talkRc = RectMakeCenter((_rc.left + _rc.right) / 2, (_rc.top + _rc.bottom) / 2 - 100, _talkAni->getFrameWidth(), _talkAni->getFrameHeight());
 
@@ -915,7 +914,7 @@ void buyNPC::talk(item& item1, item& item2, item& item3, item& item4)
 					//1 x 2 x 3 x 4 x
 					else
 					{
-						
+
 					}
 				}
 			}
