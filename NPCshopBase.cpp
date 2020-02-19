@@ -77,6 +77,7 @@ void NPCshopBase::update()
 			//창이 껏다켜지면 커서위치 초기화
 			_cursorNum = 0;
 			_cursorSlot = _vItemSlot[_cursorNum].rc;
+			PLAYER->setstop(true);
 		}
 	}
 	else
@@ -84,6 +85,8 @@ void NPCshopBase::update()
 		if (IntersectRect(&temp, &PLAYER->getPlayercollision(), &_npcRc) && KEYMANAGER->isOnceKeyDown('6'))
 		{
 			_showWindow = false;
+			PLAYER->setstop(false);
+
 		}
 		cursorControl();
 		tabControl();

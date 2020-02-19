@@ -112,6 +112,7 @@ private:
 
 	bool _ishwing;																												// Ä®À» ÈÖµÑ·¶³Ä ¾ÈÈÖµÑ·¶³Ä?(¾ÈÈÖµÎ¸§)
 	bool sizeUp;
+	bool _isstop;																												//Ä³¸¯ÅÍ ¸ØÃß±â
 public:
 	player();
 	~player();
@@ -164,7 +165,11 @@ public:
 
 	RECT getattacksword() { return _swordrect; }
 
+	bool getstop() { return _isstop; }
+	void setstop(bool _stop) { _isstop = _stop; }
+
 	inventory* getinventory() { return _inventory; }
+	weapons* getweapon() { return _arrowfirst; }															//È­»ì
 
 	PLAYERLOCATION getPlayerLocation() { return _player._playerLocation; }
 	void setPlayerLocation(PLAYERLOCATION location) { _player._playerLocation = location; }

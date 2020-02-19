@@ -72,9 +72,16 @@ void dungeonScene::update()
 	ANIMATIONMANAGER->update();
 	PLAYER->update();
 	_monster->update(dungeonItem);
+	RECT _dunitem;				//던전 아이템 충돌용 
 	for (int i = 0; i < dungeonItem.size(); i++)
 	{
 		dungeonItem[i].update();
+		if (IntersectRect(&_dunitem, &dungeonItem[i].getRECT(), &PLAYER->getPlayercollision()))
+		{
+			PLAYER->getinventory()->eatitem(dungeonItem[i]);
+			dungeonItem.erase(dungeonItem.begin() + i);
+			break;
+		}
 	}
 	RECT temp;
 	if (IntersectRect(&temp, &door[2], &PLAYER->getPlayercollision()))// && _monster->getVMonster().empty()

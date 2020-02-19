@@ -94,6 +94,7 @@ public:
 	void resetelement();											//리셋해주는 함수
 	void tempRelass();												//_vTemp[0].clear() 들어있음
 	void itempotion();													//아이템 포션 있는지 없는지 사용가능한지?
+	void eatitem(item _item);									//아이템 먹기
 
 
 	vector<tagplayerinven> getvInven() { return _vInven; }											//현재  가지고 있는 아이템 

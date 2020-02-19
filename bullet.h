@@ -103,6 +103,7 @@ public:
 	void release();
 	void update();
 	void render();
+	void remove(int num);
 
 
 	void fire(float x, float y, WEAPONMOVE weponMove);
@@ -111,9 +112,6 @@ public:
 
 	vector<tagweapon> getvarrow() { return _varrow; }
 	vector<tagweapon>::iterator  getviterarrow() { return _viterarrow; }
-
-	//RECT getarrowRect() { return _viterarrow[0]._rc; }   // È­»ì 
-
 };
 
 

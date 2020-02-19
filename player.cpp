@@ -31,6 +31,7 @@ HRESULT player::init()
 	_player._isattackmove = false;						//  false일때는 일반 던전 무브상태 
 	_player._isFire = false;
 	sizeUp = false;
+	_isstop = false;
 
 	_arrowfirst = new weapons;
 	_arrowfirst->init();
@@ -58,10 +59,11 @@ void player::update()
 
 	if (KEYMANAGER->isOnceKeyDown('I'))
 	{
+		
 		if (_inventory->getOpen())	_inventory->setOpen(false);
 		else _inventory->setOpen(true);
 	}
-	if (!_inventory->getOpen())
+	if (!_inventory->getOpen() /*||!_inventory->getStorageOpen()*/)
 	{
 		playerKeyControl();
 		monsterbattle();					//몬스터랑 배틀
@@ -83,6 +85,8 @@ void player::update()
 
 void player::playerKeyControl()
 {
+	if (!_isstop)
+	{
 	if (!_isanimation || !_player._isattackmove)
 	{
 		if (KEYMANAGER->isStayKeyDown('W'))
@@ -302,6 +306,7 @@ void player::playerKeyControl()
 
 	_player._playerrect = RectMakeCenter(_player.x, _player.y, _player._playerimg->getFrameWidth(), _player._playerimg->getFrameHeight());
 	_player._collisionplayer = RectMakeCenter(_player.x, _player.y + 20, 50, 30);
+		}
 }
 
 void player::playerAtt()
@@ -590,6 +595,10 @@ void player::attackmove()
 				{
 					_swordrect = RectMakeCenter(_player.x, _player.y, _player._playerimg->getFrameWidth(), _player._playerimg->getFrameHeight());
 				}
+				else
+				{
+					_swordrect = RectMakeCenter(_player.x, _player.y, 0,0);
+				}
 				if (_player._playerindex >= _player._playerimg->getMaxFrameX())
 				{
 					_player._playerindex = 0;
@@ -639,8 +648,11 @@ void player::attackmove()
 			{
 				if (_ishwing)
 				{
-					//_swordrect[1] = RectMakeCenter(_player._playerrect.right, _player._playerrect.top + (_player._playerrect.bottom - _player._playerrect.top) / 2, 42, 10);
 					_swordrect = RectMakeCenter(_player.x, _player.y, _player._playerimg->getFrameWidth(), _player._playerimg->getFrameHeight());
+				}
+				else
+				{
+					_swordrect = RectMakeCenter(_player.x, _player.y, 0,0);
 				}
 				if (_player._playerindex >= _player._playerimg->getMaxFrameX())
 				{
@@ -691,6 +703,10 @@ void player::attackmove()
 				{
 					_swordrect = RectMakeCenter(_player.x, _player.y, _player._playerimg->getFrameWidth(), _player._playerimg->getFrameHeight());
 				}
+				else
+				{
+					_swordrect = RectMakeCenter(_player.x, _player.y, 0, 0);
+				}
 				if (_player._playerindex >= _player._playerimg->getMaxFrameX())
 				{
 					_player._playerindex = 0;
@@ -739,6 +755,10 @@ void player::attackmove()
 				if (_ishwing)
 				{
 					_swordrect = RectMakeCenter(_player.x, _player.y, _player._playerimg->getFrameWidth(), _player._playerimg->getFrameHeight());
+				}
+				else
+				{
+					_swordrect = RectMakeCenter(_player.x, _player.y, 0, 0);
 				}
 				if (_player._playerindex >= _player._playerimg->getMaxFrameX())
 				{

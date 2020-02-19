@@ -863,6 +863,16 @@ bool monster::golemTurretHit(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect)
 		{
 			_currentHp = _currentHp - 10;
 		}
+		for (int i = 0; i < PLAYER->getweapon()->getvarrow().size(); i++)
+		{
+			RECT TTemp;
+			if (IntersectRect(&TTemp, &hRc, &PLAYER->getweapon()->getvarrow()[i]._rc))
+			{
+				_currentHp = _currentHp - 50;
+				PLAYER->getweapon()->remove(i);
+				break;
+			}
+		}
 		hitCount = 0;
 	}
 	return false;
@@ -882,6 +892,15 @@ bool monster::golemSoldierHit(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect)
 			//³Ë¹é
 			if (_monState == MONSTER_STATE_MOVE) {
 				knockCount = 15;
+			}
+		}
+		for (int i = 0; i < PLAYER->getweapon()->getvarrow().size(); i++)
+		{
+			if (IntersectRect(&temp, &hRc, &PLAYER->getweapon()->getvarrow()[i]._rc))
+			{
+				_currentHp = _currentHp - 50;
+				PLAYER->getweapon()->remove(i);
+				break;
 			}
 		}
 		hitCount = 0;
@@ -906,6 +925,15 @@ bool monster::flyginGolemHit(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect)
 				knockCount = 15;
 			}
 		}
+		for (int i = 0; i < PLAYER->getweapon()->getvarrow().size(); i++)
+		{
+			if (IntersectRect(&temp, &hRc, &PLAYER->getweapon()->getvarrow()[i]._rc))
+			{
+				_currentHp = _currentHp - 50;
+				PLAYER->getweapon()->remove(i);
+				break;
+			}
+		}
 		hitCount = 0;
 	}
 
@@ -927,6 +955,16 @@ bool monster::slimeHit(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect)
 			if (_monState == MONSTER_STATE_MOVE) {
 				knockCount = 15;
 			}
+		
+			for (int i = 0; i < PLAYER->getweapon()->getvarrow().size(); i++)
+			{
+				if (IntersectRect(&temp, &hRc, &PLAYER->getweapon()->getvarrow()[i]._rc))
+				{
+					_currentHp = _currentHp - 50;
+					PLAYER->getweapon()->remove(i);
+					break;
+				}
+			}
 		}
 		hitCount = 0;
 	}
@@ -946,10 +984,21 @@ bool monster::slimeGauntletHit(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect
 		{
 			_currentHp = _currentHp - 10;
 		}
+		
 		hitCount = 0;
+		for (int i = 0; i < PLAYER->getweapon()->getvarrow().size(); i++)
+		{
+			if (IntersectRect(&temp, &hRc, &PLAYER->getweapon()->getvarrow()[i]._rc))
+			{
+				_currentHp = _currentHp - 50;
+				PLAYER->getweapon()->remove(i);
+				break;
+			}
+		}
 	}
 	return false;
-}
+	}
+
 
 bool monster::golemBossHit(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect)
 {
@@ -963,10 +1012,21 @@ bool monster::golemBossHit(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect)
 		{
 			_currentHp = _currentHp - 10;
 		}
+		for (int i = 0; i < PLAYER->getweapon()->getvarrow().size(); i++)
+		{
+			if (IntersectRect(&temp, &hRc, &PLAYER->getweapon()->getvarrow()[i]._rc))
+			{
+				_currentHp = _currentHp - 50;
+				PLAYER->getweapon()->remove(i);
+				break;
+			}
+		}
 		hitCount = 0;
 	}
+
 	return false;
 }
+
 
 bool monster::golemTurretDie(MONSTER_TYPE monType)
 {
