@@ -128,7 +128,7 @@ public:
 	void attackmove();																											// 던전 플레이어 공격 함수 
 	void allplayerimage();																										//플레이어 이미지 모음
 	void arrowFIre(WEAPONMOVE weponMove);
-	void tilemove();																												//타일 이동 충돌처리 때문에 만든 것
+	//void tilemove();																												//타일 이동 충돌처리 때문에 만든 것
 	void monsterbattle();																										//몬스터 배틀
 	void playerhitDameage(int _damage);																			//피깍는 함수
 	void buyplayermoney(int _money);																				//물건을 살때

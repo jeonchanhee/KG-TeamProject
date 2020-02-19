@@ -129,7 +129,7 @@ void monsterManager::setMinion2()
 	{
 		monster* golemTurret;
 		golemTurret = new turretMinion;
-		golemTurret->init("榜方磐房", MONSTER_TYPE_GOLEMTURRET, MONSTER_STATE_ATK, MONSTER_DIRECTION_LEFT, 700, 100 + i * 200, 10, 100, 100, 50, 0);
+		golemTurret->init("榜方磐房", MONSTER_TYPE_GOLEMTURRET, MONSTER_STATE_ATK, MONSTER_DIRECTION_LEFT, 300, 100 + i * 150, 10, 100, 100, 50, 0);
 		_vMinion.push_back(golemTurret);
 	}
 	monster* golemSoldier;
