@@ -36,11 +36,14 @@ private:
 	MONSTER_STATE _monState;	//상태
 	MONSTER_DIRECTION _monDirect;//방향
 	image * _monsterImg;	//이미지
+	image * _bombImg;		//이미지
 	animation* _ani;			//애니메이션
+	animation* _bombAni;		//애니메이션
 	monsterProgressBar* _hpBar;	//체력바
 	RECT iRc;				//이미지범위
 	RECT hRc;				//피격범위
 	RECT aRc;				//공격범위
+	RECT bRc;				//폭발범위
 	int _atk;				//공격력
 	int _hp;				//체력
 	int _currentHp;			//현재체력
@@ -57,7 +60,7 @@ private:
 	int deadCount;
 	bool _move;
 	int imgCount;			//무빙프레임카운트
-
+	bool golemBomb;
 
 public:
 	monster();

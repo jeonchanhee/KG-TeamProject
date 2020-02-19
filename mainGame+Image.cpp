@@ -78,7 +78,8 @@ void mainGame::imagesInit()
 	IMAGEMANAGER->addFrameImage("磐房固荤老U", "images/monster/bulletU.bmp", 35, 35, 1, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("磐房固荤老R", "images/monster/bulletR.bmp", 35, 35, 1, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("磐房固荤老D", "images/monster/bulletD.bmp", 35, 35, 1, 1, true, RGB(255, 0, 255));
-
+	IMAGEMANAGER->addFrameImage("榜方气惯", "images/monster/golemBomb.bmp", 2022 * 3, 144 * 3, 16, 1, true, RGB(255, 0, 255));
+	ANIMATIONMANAGER->addAnimation("气惯", "榜方气惯", 0, 15, 16, false, false);
 	IMAGEMANAGER->addFrameImage("阁胶磐磷澜", "images/monster/fx_boom.bmp", 1150 * 2, 110 * 2, 10, 1, true, RGB(255, 0, 255));
 	ANIMATIONMANAGER->addAnimation("阁胶磐林陛", "阁胶磐磷澜", 0, 9, 10, false, false);
 
