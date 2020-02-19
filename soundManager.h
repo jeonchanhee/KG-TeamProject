@@ -53,7 +53,7 @@ public:
 	bool isPauseSound(string keyName);
 
 	void setSongName() { songName[0] = "인트로브금"; songName[1] = "마을브금"; songName[2] = "던전브금"; 
-	songName[3] = "상점브금"; songName[4] = "회복방브금"; songName[4] = "보스방브금";
+	songName[3] = "상점브금"; songName[4] = "회복방브금"; songName[5] = "보스방브금";
 	}
 
 	int getCurrentNum() { return currentNum; }

@@ -183,7 +183,7 @@ void buyNPC::render()
 
 		//NPC사각형
 		//RectangleMake(getMemDC(), _rc.left, _rc.top, _img->getFrameWidth(),_img->getFrameHeight());
-		RectangleMake(getMemDC(), _tableRc.left, _tableRc.top, _tableRc.right-_tableRc.left, _tableRc.bottom-_tableRc.top);
+		if (KEYMANAGER->isToggleKey(VK_TAB)) RectangleMake(getMemDC(), _tableRc.left, _tableRc.top, _tableRc.right-_tableRc.left, _tableRc.bottom-_tableRc.top);
 		//NPC출력
 		_img->aniRender(getMemDC(), _rc.left, _rc.top, _ani);
 		//감정출력

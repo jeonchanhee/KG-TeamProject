@@ -29,7 +29,7 @@ HRESULT NPCblacksmith::init(POINT npcXY)
 
 	_currentTab = 0;  //ÇöÀçÅÇ
 
-	_npcRc = RectMakeCenter(npcXY.x, npcXY.y, _npcImg->getFrameWidth(), _npcImg->getFrameHeight());
+	_npcRc = RectMakeCenter(npcXY.x, npcXY.y, _npcImg->getFrameWidth(), _npcImg->getFrameHeight()+70);
 
 
 	return S_OK;

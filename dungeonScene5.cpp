@@ -112,13 +112,5 @@ void dungeonScene5::render()
 		}
 	}
 
-
-	if (KEYMANAGER->isToggleKey(VK_TAB))
-	{
-		for (int i = 0; i < 3; i++)
-		{
-			Rectangle(getMemDC(), door[i].left, door[i].top, door[i].right, door[i].bottom);
-		}
-	}
 	PLAYER->render(getMemDC());
 }

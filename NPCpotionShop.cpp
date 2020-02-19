@@ -26,7 +26,7 @@ HRESULT NPCpotionShop::init(POINT npcXY)
 		_vItemSlot[i].item = ITEMMANAGER->addItem("비어있음");
 	}
 
-	_npcRc = RectMakeCenter(npcXY.x, npcXY.y, _npcImg->getFrameWidth(), _npcImg->getFrameHeight());
+	_npcRc = RectMakeCenter(npcXY.x, npcXY.y, _npcImg->getFrameWidth(), _npcImg->getFrameHeight()+70);
 
 
 	return S_OK;

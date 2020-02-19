@@ -57,6 +57,7 @@ void playerShop::update()
 	
 	if (IntersectRect(&temp, &PLAYER->getPlayercollision(), &villageRc))
 	{
+		PLAYER->setXY(WINSIZEX / 2 - 30, WINSIZEY / 2 - 10);
 		SCENEMANAGER->changeScene("¸¶À»¾À");
 	}
 	
@@ -66,7 +67,7 @@ void playerShop::render()
 {
 	IMAGEMANAGER->render("»óÁ¡¾À", getMemDC(), 0, 0);
 	_sellStand->render();
-	Rectangle(getMemDC(), villageRc.left, villageRc.top, villageRc.right, villageRc.bottom);
+	if(KEYMANAGER->isToggleKey(VK_TAB)) Rectangle(getMemDC(), villageRc.left, villageRc.top, villageRc.right, villageRc.bottom);
 
 	_storage1->render();
 	_storage2->render();

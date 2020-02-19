@@ -97,7 +97,7 @@ void NPCshopBase::update()
 void NPCshopBase::render()
 {
 	//_npcImg->aniRender(getMemDC(), _npcRc.left, _npcRc.top, _npcAni);
-
+	if (KEYMANAGER->isToggleKey(VK_TAB))Rectangle(getMemDC(), _npcRc.left, _npcRc.top, _npcRc.right, _npcRc.bottom);
 	if (!_showWindow)
 	{
 		if (IntersectRect(&temp, &PLAYER->getPlayercollision(), &_npcRc))

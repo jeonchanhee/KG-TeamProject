@@ -49,7 +49,7 @@ HRESULT dungeonScene2::init()
 	{
 		_tiles[i] = _temp[i];
 	}
-	door = RectMakeCenter(50, WINSIZEY / 2, 100, 100);
+	door = RectMakeCenter(WINSIZEX - 50, WINSIZEY / 2, 100, 100);
 
 
 	return S_OK;
@@ -107,6 +107,6 @@ void dungeonScene2::render()
 			dungeonItem[i].getItemInfo().image->render(getMemDC(), dungeonItem[i].getItemInfo().rc.left, dungeonItem[i].getItemInfo().rc.top);
 		}
 	}
-
+	if (KEYMANAGER->isToggleKey(VK_TAB)) Rectangle(getMemDC(), door.left, door.top, door.right, door.bottom);
 	PLAYER->render(getMemDC());
 }

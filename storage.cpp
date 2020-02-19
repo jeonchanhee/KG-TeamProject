@@ -36,8 +36,8 @@ HRESULT storage::init(string storageName, POINT xy)
 		_slotInfo.x = WINSIZEX / 2 + (x * 60) + 20;
 		_slotInfo.y = WINSIZEY / 2 - 80 + (y * 60) + 20;
 		_slotInfo.rc = RectMakeCenter(_slotInfo.x, _slotInfo.y, _slotInfo.img->getWidth(), _slotInfo.img->getHeight());
-		_slotInfo.item = ITEMMANAGER->addItem("천");
-		_slotInfo.item.setItemCnt(8);
+		_slotInfo.item = ITEMMANAGER->addItem("비어있음");
+		_slotInfo.item.setItemCnt(1);
 		_slotInfo.item.setRect(_slotInfo.rc);
 		_vSlot.push_back(_slotInfo);
 	}
@@ -61,7 +61,64 @@ void storage::release()
 
 void storage::update()
 {
-
+	if (KEYMANAGER->isOnceKeyDown('8'))
+	{
+		for (int i = 0; i < _vSlot.size(); i++)
+		{
+			if (_vSlot[i].item.getItemInfo().itemName == "비어있음")
+			{
+				_vSlot[i].item = ITEMMANAGER->addItem("천");
+				_vSlot[i].item.setItemCnt_equal(9);
+				break;
+			}
+		}
+		for (int i = 0; i < _vSlot.size(); i++)
+		{
+			if (_vSlot[i].item.getItemInfo().itemName == "비어있음")
+			{
+				_vSlot[i].item = ITEMMANAGER->addItem("골렘코어");
+				_vSlot[i].item.setItemCnt_equal(9);
+				break;
+			}
+		}
+		for (int i = 0; i < _vSlot.size(); i++)
+		{
+			if (_vSlot[i].item.getItemInfo().itemName == "비어있음")
+			{
+				_vSlot[i].item = ITEMMANAGER->addItem("이빨석");
+				_vSlot[i].item.setItemCnt_equal(9);
+				break;
+			}
+		}
+		for (int i = 0; i < _vSlot.size(); i++)
+		{
+			if (_vSlot[i].item.getItemInfo().itemName == "비어있음")
+			{
+				_vSlot[i].item = ITEMMANAGER->addItem("나뭇가지");
+				_vSlot[i].item.setItemCnt_equal(9);
+				break;
+			}
+		}
+		for (int i = 0; i < _vSlot.size(); i++)
+		{
+			if (_vSlot[i].item.getItemInfo().itemName == "비어있음")
+			{
+				_vSlot[i].item = ITEMMANAGER->addItem("숫돌");
+				_vSlot[i].item.setItemCnt_equal(9);
+				break;
+			}
+		}
+		for (int i = 0; i < _vSlot.size(); i++)
+		{
+			if (_vSlot[i].item.getItemInfo().itemName == "비어있음")
+			{
+				_vSlot[i].item = ITEMMANAGER->addItem("강화수정");
+				_vSlot[i].item.setItemCnt_equal(9);
+				break;
+			}
+		}
+		setStorageItem();
+	}
 	if (!_showWindow)
 	{
 		if (IntersectRect(&temp, &PLAYER->getPlayercollision(), &_boxRc))
