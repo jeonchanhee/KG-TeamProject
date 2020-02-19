@@ -11,8 +11,10 @@ dungeonScene2::~dungeonScene2()
 
 HRESULT dungeonScene2::init()
 {
-
+	PLAYER->init();
+	
 	PLAYER->setPlayerLocation(DUNGEON_PLAYER_VERSION);
+	
 	for (int i = 0; i < TILEY; i++)
 	{
 		for (int j = 0; j < TILEX; j++)
@@ -60,6 +62,7 @@ void dungeonScene2::relaese()
 
 void dungeonScene2::update()
 {
+	
 }
 
 void dungeonScene2::render()

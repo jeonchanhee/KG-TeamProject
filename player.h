@@ -3,6 +3,7 @@
 #include "bullet.h"																				// 무기(공격) 클래스 
 #include "progressBar.h"
 #include "inventory.h"
+#include "mapTool.h"
 
 //플레이어 위치 
 enum PLAYERLOCATION
@@ -41,7 +42,8 @@ enum TAGATTACKPLAYER
 {
 	PLAYER_SWORD,																											//검
 	PLAYER_ARROW,																											// 화살
-	PLAYER_SPEAR
+	PLAYER_SPEAR,
+	PLAYER_WARTER 																											//던전 플레이어가 물에 떠있는 경우
 };
 
 enum TAGATTACKMOTION
@@ -72,6 +74,7 @@ struct tagplayer
 	int attskill;																															//공격력
 	int speed;																															//스피드
 	int shield;																															//방패
+	int tileX, tileY;																							//탱크가 밟고 있는 타일 번호
 
 	float x, y;																															//플레이어 x, y
 	float height, width;																											//플레이어 확대
@@ -102,7 +105,8 @@ private:
 	float attacktime;																											//TIMEMANAGER를 이용하여 조건 값 준 것(KEYMANAGER->isOnceKeyDown('K')) 참고
 
 	weapons* _arrowfirst;																							   // 화살 
-	inventory* _inventory;																								//상점
+	inventory* _inventory;																								//인벤토리
+	mapTool* _maptool;
 
 	RECT _swordrect;
 
@@ -118,21 +122,24 @@ public:
 	void render(HDC hdc);
 	void invenRender(HDC hdc);
 
-
 	void playerKeyControl();																									// 플레이어 키
 	void playerAtt();																												//플레이어 공격 
 	void playermoveversion();																								 //플레이어 이동 모션
 	void attackmove();																											// 던전 플레이어 공격 함수 
 	void allplayerimage();																										//플레이어 이미지 모음
 	void arrowFIre(WEAPONMOVE weponMove);
+	void tilemove();																												//타일 이동 충돌처리 때문에 만든 것
 	void monsterbattle();																										//몬스터 배틀
 	void playerhitDameage(int _damage);																			//피깍는 함수
 	void buyplayermoney(int _money);																				//물건을 살때
 	void sellplayermoney(int _money);																				//물건을 팔때
-	void  recoveryHp(int _hp);																								//캐릭터 회복
 
 	int getX() { return _player.x; }
 	int getY() { return _player.y; }
+	void setXY(int x, int y) {
+		_player.x = x;
+		_player.y = y;
+	}
 
 	int getHP() { return _playerhp._HP; }
 	void setHP(int hp) { _playerhp._HP = hp; }
@@ -164,4 +171,7 @@ public:
 
 	PLAYERMOVING getPlayerMoving() { return _player._playermove; }
 	void setPlayerMoving(PLAYERMOVING _playmove) { _player._playermove = _playmove; }
+
+
+
 };

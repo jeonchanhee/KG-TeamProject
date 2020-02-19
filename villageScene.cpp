@@ -72,8 +72,16 @@ void villageScene::update()
 	_blacksmith->update();
 	_potionShop->buy();
 	_blacksmith->buy();
-	if(IntersectRect(&temp,&_dungeon,&PLAYER->getPlayercollision()))SCENEMANAGER->changeScene("던전1");
-	if(IntersectRect(&temp,&_shop,&PLAYER->getPlayercollision()))SCENEMANAGER->changeScene("플레이어상점씬");
+	if (IntersectRect(&temp, &_dungeon, &PLAYER->getPlayercollision()))
+	{
+		SCENEMANAGER->changeScene("던전a1");
+		PLAYER->setXY(WINSIZEX / 2, WINSIZEY - 10);
+	}
+	if (IntersectRect(&temp, &_shop, &PLAYER->getPlayercollision()))
+	{
+		SCENEMANAGER->changeScene("플레이어상점씬");
+		
+	}
 }
 
 void villageScene::render()

@@ -13,8 +13,9 @@ HRESULT player::init()
 
 	//랙트들
 	_player._playerrect = RectMakeCenter(_player.x, _player.y, _player._playerimg->getFrameWidth(), _player._playerimg->getFrameHeight());  // 이미지 랙트... 
-	_player._collisionplayer = RectMakeCenter((_player._playerrect.left + _player._playerrect.right) / 2, (_player._playerrect.top + _player._playerrect.bottom) / 2, 50, 70); //  충돌할 때 필요한  랙트 ->만든 이유 이미지 크기 때문에 _playerrect 너무 커서 안에 그냥 만들어 준 것 뿐
-
+	//_player._collisionplayer = RectMakeCenter((_player._playerrect.left + _player._playerrect.right) / 2, (_player._playerrect.top + _player._playerrect.bottom) / 2, 50, 70); //  충돌할 때 필요한  랙트 ->만든 이유 이미지 크기 때문에 _playerrect 너무 커서 안에 그냥 만들어 준 것 뿐
+	_player._collisionplayer = RectMakeCenter((_player._playerrect.left + _player._playerrect.right) / 2, (_player._playerrect.top + _player._playerrect.bottom) / 2 + 20, 50, 35); //  충돌할 때 필요한  랙트 ->만든 이유 이미지 크기 때문에 _playerrect 너무 커서 안에 그냥 만들어 준 것 뿐
+	//_swordrect = RectMakeCenter(_player.x, _player.y, _player._playerimg->getFrameWidth(), _player._playerimg->getFrameHeight());
 	_isanimation = false;  //구르기 상태와 구르지 않은 상태를 판별하는 bool
 
 	_player._playerLocation = SHOP_PLAYER_VERSION;				//shop_player
@@ -54,7 +55,7 @@ void player::release()
 
 void player::update()
 {
-	
+
 	if (KEYMANAGER->isOnceKeyDown('I'))
 	{
 		if (_inventory->getOpen())	_inventory->setOpen(false);
@@ -77,6 +78,7 @@ void player::update()
 		_inventory->update();
 	}
 	if (KEYMANAGER->isOnceKeyDown('E')) _inventory->itempotion();					//E를 눌렀을 때 hp 포션 먹기
+	tilemove();
 }
 
 void player::playerKeyControl()
@@ -266,7 +268,6 @@ void player::playerKeyControl()
 			_player.x += 2;
 			_player.y += 2;
 		}
-
 		if (_player._playermove == PAYER_LEFT_UP_ROLL)
 		{
 			_player.x -= 2;
@@ -299,7 +300,7 @@ void player::playerKeyControl()
 	}
 
 	_player._playerrect = RectMakeCenter(_player.x, _player.y, _player._playerimg->getFrameWidth(), _player._playerimg->getFrameHeight());
-	_player._collisionplayer = RectMakeCenter(_player.x, _player.y, 50, 70);
+	_player._collisionplayer = RectMakeCenter(_player.x, _player.y + 20, 50, 30);
 }
 
 void player::playerAtt()
@@ -319,6 +320,7 @@ void player::playerAtt()
 	{
 		_player._playerimg = IMAGEMANAGER->findImage("던전캐릭터");
 	}
+
 }
 
 //플레이어 이동 모션
@@ -585,17 +587,16 @@ void player::attackmove()
 			{
 				if (_ishwing)
 				{
-					_swordrect = RectMakeCenter(_player._playerrect.left, _player._playerrect.top + (_player._playerrect.bottom - _player._playerrect.top) / 2, 52, 10);
+					_swordrect = RectMakeCenter(_player.x, _player.y, _player._playerimg->getFrameWidth(), _player._playerimg->getFrameHeight());
 				}
 				if (_player._playerindex >= _player._playerimg->getMaxFrameX())
 				{
-
 					_player._playerindex = 0;
 					_player._isattackmove = false;
 
 				}
 			}
-			else
+			else if (_player._attackplayer == PLAYER_ARROW)
 			{
 				if (!_player._isFire)
 				{
@@ -615,8 +616,15 @@ void player::attackmove()
 					}
 				}
 			}
+			else if (_player._attackplayer == PLAYER_WARTER)																//던전캐릭터 물 위에 떠있는 모션 왼쪽
+			{
+				if (_player._playerindex >= _player._playerimg->getMaxFrameX())
+				{
+					_player._playerindex = 0;
+				}
+			}
 			_player._playerimg->setFrameX(_player._playerindex);
-			_ishwing = false;
+
 		}
 		break;
 	case PLAYER_ATK_RIGHT:
@@ -630,7 +638,8 @@ void player::attackmove()
 			{
 				if (_ishwing)
 				{
-					_swordrect = RectMakeCenter(_player._playerrect.right, _player._playerrect.top + (_player._playerrect.bottom - _player._playerrect.top) / 2, 52, 10);
+					//_swordrect[1] = RectMakeCenter(_player._playerrect.right, _player._playerrect.top + (_player._playerrect.bottom - _player._playerrect.top) / 2, 42, 10);
+					_swordrect = RectMakeCenter(_player.x, _player.y, _player._playerimg->getFrameWidth(), _player._playerimg->getFrameHeight());
 				}
 				if (_player._playerindex >= _player._playerimg->getMaxFrameX())
 				{
@@ -639,7 +648,7 @@ void player::attackmove()
 
 				}
 			}
-			else
+			else if (_player._attackplayer == PLAYER_ARROW)
 			{
 				if (!_player._isFire)
 				{
@@ -656,6 +665,13 @@ void player::attackmove()
 						_player._isattackmove = false;
 						_player._isFire = false;
 					}
+				}
+			}
+			else if (_player._attackplayer == PLAYER_WARTER)															//던전캐릭터 물 위에 떠있는 모션 오른쪽
+			{
+				if (_player._playerindex >= _player._playerimg->getMaxFrameX())
+				{
+					_player._playerindex = 0;
 				}
 			}
 			_player._playerimg->setFrameX(_player._playerindex);
@@ -672,7 +688,7 @@ void player::attackmove()
 			{
 				if (_ishwing)
 				{
-					_swordrect = RectMakeCenter(_player._playerrect.left + (_player._playerrect.right - _player._playerrect.left) / 2, _player._playerrect.top, 10, 52);
+					_swordrect = RectMakeCenter(_player.x, _player.y, _player._playerimg->getFrameWidth(), _player._playerimg->getFrameHeight());
 				}
 				if (_player._playerindex >= _player._playerimg->getMaxFrameX())
 				{
@@ -681,7 +697,7 @@ void player::attackmove()
 
 				}
 			}
-			else
+			else if (_player._attackplayer == PLAYER_ARROW)
 			{
 				if (!_player._isFire)
 				{
@@ -698,6 +714,13 @@ void player::attackmove()
 						_player._isattackmove = false;
 						_player._isFire = false;
 					}
+				}
+			}
+			else if (_player._attackplayer == PLAYER_WARTER)															//던전캐릭터 물 위에 떠있는 모션 위
+			{
+				if (_player._playerindex >= _player._playerimg->getMaxFrameX())
+				{
+					_player._playerindex = 0;
 				}
 			}
 			_player._playerimg->setFrameX(_player._playerindex);
@@ -714,7 +737,7 @@ void player::attackmove()
 			{
 				if (_ishwing)
 				{
-					_swordrect = RectMakeCenter(_player._playerrect.left + (_player._playerrect.right - _player._playerrect.left) / 2, _player._playerrect.bottom, 10, 52);
+					_swordrect = RectMakeCenter(_player.x, _player.y, _player._playerimg->getFrameWidth(), _player._playerimg->getFrameHeight());
 				}
 				if (_player._playerindex >= _player._playerimg->getMaxFrameX())
 				{
@@ -722,7 +745,7 @@ void player::attackmove()
 					_player._isattackmove = false;
 				}
 			}
-			else
+			else if (_player._attackplayer == PLAYER_ARROW)
 			{
 				if (!_player._isFire)
 				{
@@ -741,10 +764,17 @@ void player::attackmove()
 					}
 				}
 			}
+			else if (_player._attackplayer == PLAYER_WARTER)									//던전캐릭터 물 위에 떠있는 모션 아래
+			{
+				if (_player._playerindex >= _player._playerimg->getMaxFrameX())
+				{
+					_player._playerindex = 0;
+				}
+			}
 			_player._playerimg->setFrameX(_player._playerindex);
 		}
-		_swordrect = RectMakeCenter(_swordrect.left, _swordrect.top, _swordrect.right, _swordrect.bottom);
 		break;
+		_swordrect = RectMakeCenter(_player.x, _player.y, _player._playerimg->getFrameWidth(), _player._playerimg->getFrameHeight());
 	}
 }
 
@@ -752,6 +782,37 @@ void player::arrowFIre(WEAPONMOVE weponMove)
 {
 	_arrowfirst->fire(_player.x, _player.y, weponMove);
 }
+//
+//void player::tilemove()
+//{
+//	RECT rcCollision;
+//	int _tileindex[2];
+//	rcCollision = _player._collisionplayer;
+//	
+////	float elp
+//	for (int i = 0; i < 2; i++)
+//	{
+//		RECT rc;
+//		if (((_maptool->getAttribute()[_tileindex[i]] & ATTR_UNMOVABLE) == ATTR_UNMOVABLE) &&
+//			IntersectRect(&rc, &_maptool->getMap()[_tileindex[i]].rc, &rcCollision))
+//		{
+//			switch (_player._playermove)
+//			{
+//			case PLAYER_LEFT:
+//				_player._playerrect.left = _maptool->getMap()[_tileindex[i]].rc.right;
+//				_player._playerrect.right = _player._playerrect.left + _player._playerimg->getFrameWidth();
+//				_player.y = _player._playerrect.left + (_player._playerrect.right - _player._playerrect.left)/2;
+//				//_player.y += 2;
+//
+//				break;
+//			}
+//		}
+//	
+//
+//	}
+//
+//
+//}
 
 void player::monsterbattle()				//몬스터랑 배틀 몬스터랑 싸운는 함수 
 {
@@ -770,17 +831,12 @@ void player::monsterbattle()				//몬스터랑 배틀 몬스터랑 싸운는 함수
 			_player._playermove = PLAYER_DIE;
 	}
 }
-
 //피깍는 함수
 void player::playerhitDameage(int _damage)
 {
 	_playerhp._HP -= _damage;
 }
-//캐릭터 회복
-void player::recoveryHp(int _hp)
-{
-	_playerhp._HP += _hp;
-}
+
 //물건을 살때
 void player::buyplayermoney(int _money)
 {
@@ -792,12 +848,15 @@ void player::sellplayermoney(int _money)
 	_player._pmoney += _money;
 }
 
+
+
 void player::render(HDC hdc)
 {
 	if (KEYMANAGER->isToggleKey(VK_TAB))
 	{
-		Rectangle(hdc, _player._playerrect.left, _player._playerrect.top, _player._playerrect.right, _player._playerrect.bottom);
+		//	Rectangle(hdc, _player._playerrect.left, _player._playerrect.top, _player._playerrect.right, _player._playerrect.bottom);
 		Rectangle(hdc, _player._collisionplayer.left, _player._collisionplayer.top, _player._collisionplayer.right, _player._collisionplayer.bottom);
+		Rectangle(hdc, _swordrect.left, _swordrect.top, _swordrect.right, _swordrect.bottom);
 	}
 	_player._playerimg->frameRender(hdc, _player._playerrect.left, _player._playerrect.top);
 	_arrowfirst->render();

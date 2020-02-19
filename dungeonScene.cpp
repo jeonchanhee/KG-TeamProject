@@ -10,6 +10,7 @@ dungeonScene::~dungeonScene()
 
 HRESULT dungeonScene::init()
 {
+	
 	_monster = new monsterManager;
 	_monster->init();
 	
@@ -52,6 +53,7 @@ HRESULT dungeonScene::init()
 	door[2] = RectMakeCenter(WINSIZEX / 2, 50, 100, 100);
 	door[1] = RectMakeCenter(WINSIZEX - 75, WINSIZEY / 2, 100, 100);
 
+	
 	return S_OK;
 }
 
@@ -75,6 +77,8 @@ void dungeonScene::update()
 			SCENEMANAGER->changeScene(name);
 		}
 	}
+
+
 }
 
 void dungeonScene::render()

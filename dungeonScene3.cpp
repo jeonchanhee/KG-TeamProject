@@ -60,6 +60,7 @@ void dungeonScene3::relaese()
 
 void dungeonScene3::update()
 {
+
 }
 
 void dungeonScene3::render()

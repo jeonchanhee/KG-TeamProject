@@ -70,7 +70,7 @@ HRESULT inventory::init()
 		}
 	}
 	_vInven[0]._item = ITEMMANAGER->addItem("나뭇가지");
-	
+
 	//쓰레기통
 	_inventoryelement._inventoryrect = RectMakeCenter((_removeGlass._inventoryrect.left + _removeGlass._inventoryrect.right) / 2 + 15, (_removeGlass._inventoryrect.top + _removeGlass._inventoryrect.bottom) / 2 - 30, 40, 40);
 	_inventoryelement._item = ITEMMANAGER->addItem("비어있음");
@@ -95,6 +95,7 @@ HRESULT inventory::init()
 	_vInven[21]._item = ITEMMANAGER->addItem("훈련용 단검");
 	_vInven[22]._item = ITEMMANAGER->addItem("플레임 보우");
 	_vInven[26]._item = ITEMMANAGER->addItem("작은 포션");
+	_vInven[26]._item.setItemCnt(5);
 
 	//커서 클래스 이용하기
 	_cursor = new cursor;
@@ -192,7 +193,10 @@ void inventory::cursormove()
 	}
 	if (KEYMANAGER->isOnceKeyDown('W'))
 	{
-		if (_cursorNumber > 0) 	_cursorNumber -= 5;
+		int temp = _cursorNumber;
+		_cursorNumber -= 5;
+		if (_cursorNumber > 0) 	_cursorNumber = temp;
+		if (_cursorNumber < 0) _cursorNumber = temp;
 		_cursorrect = RectMake(_vInven[_cursorNumber]._inventoryrect.left, _vInven[_cursorNumber]._inventoryrect.top, 40, 40);
 		_cursor->setRc(_cursorrect);
 		_cursor->getAni()->start();
@@ -319,7 +323,8 @@ void inventory::itempotion()
 {
 	if (0 < _vInven[26]._item.getItemInfo().cnt)					//수량이 0보다 많으면
 	{
-		PLAYER->recoveryHp(_vInven[26]._item.getItemInfo().hp);				//피 량을 늘려준다
+		//PLAYER->setHP( _vInven[26]._item.getItemInfo().hp);				//피 량을 늘려준다
+		PLAYER->setHP(500);				//피 량을 늘려준다
 		_vInven[26]._item.setItemCnt(-1);
 		if (_vInven[26]._item.getItemInfo().cnt == 0)
 		{
