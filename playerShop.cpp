@@ -30,7 +30,6 @@ HRESULT playerShop::init()
 	_sellStand->init();
 	_girlNPC = new buyNPC;
 	_girlNPC->init(_sellStand->getTableRc());
-
 	villageRc = RectMakeCenter(WINSIZEX / 2+100, WINSIZEY / 2+220, 100,100);
 	return S_OK;
 }
@@ -54,12 +53,13 @@ void playerShop::update()
 
 	_storage1->removeItem();
 	_storage2->removeItem();
-
+	_girlNPC->update(_sellStand->getSellItem(0), _sellStand->getSellItem(1), _sellStand->getSellItem(2), _sellStand->getSellItem(3));
+	
 	if (IntersectRect(&temp, &PLAYER->getPlayercollision(), &villageRc))
 	{
 		SCENEMANAGER->changeScene("¸¶À»¾À");
 	}
-	_girlNPC->update(_sellStand->getSellItem(0), _sellStand->getSellItem(1), _sellStand->getSellItem(2), _sellStand->getSellItem(3));
+	
 }
 
 void playerShop::render()

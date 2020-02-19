@@ -207,12 +207,12 @@ void monster::draw()
 
 	_hpBar->render();
 	_item.render();
-	char str[128];
+	/*char str[128];
 	sprintf_s(str, "%d", _currentHp);
 	TextOut(getMemDC(), _x, _y, str, strlen(str));
 	char str1[128];
 	sprintf_s(str1, "%d", _monState);
-	TextOut(getMemDC(), _x, _y + 50, str1, strlen(str1));
+	TextOut(getMemDC(), _x, _y + 50, str1, strlen(str1));*/
 
 }
 
@@ -705,23 +705,23 @@ bool monster::golemBossAtk(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect)
 	if (count > 300)
 	{
 		_monState = MONSTER_STATE_ATK;
-		if (getDistance(_currentX, _currentY, PLAYER->getPlayerX(), PLAYER->getPlayerY()) < 400) {
+		if (getDistance(_currentX, _currentY, PLAYER->getPlayerX(), PLAYER->getPlayerY()) < 300) {
 
 			switch (monDirect) {
-			case MONSTER_DIRECTION_LEFT:\
+			case MONSTER_DIRECTION_LEFT:
 				aRc = RectMakeCenter((hRc.left + hRc.right) / 2 - 100, (hRc.top + hRc.bottom) / 2 + 100,
 					_monsterImg->getFrameWidth() / 4, _monsterImg->getFrameHeight() / 4);
 				_ani = ANIMATIONMANAGER->findAnimation("°ñ·½º¸½º°ø°Ý1L");
 				ANIMATIONMANAGER->start("°ñ·½º¸½º°ø°Ý1L");
 
 				break;
-			case MONSTER_DIRECTION_UP:\
+			case MONSTER_DIRECTION_UP:
 				aRc = RectMakeCenter((hRc.left + hRc.right) / 2, (hRc.top + hRc.bottom) / 2,
 					_monsterImg->getFrameWidth() / 4, _monsterImg->getFrameHeight() / 4);
 				_ani = ANIMATIONMANAGER->findAnimation("°ñ·½º¸½º°ø°Ý1U");
 				ANIMATIONMANAGER->start("°ñ·½º¸½º°ø°Ý1U");
 				break;
-			case MONSTER_DIRECTION_RIGHT:\
+			case MONSTER_DIRECTION_RIGHT:
 				aRc = RectMakeCenter((hRc.left + hRc.right) / 2 + 100, (hRc.top + hRc.bottom) / 2 + 100,
 					_monsterImg->getFrameWidth() / 4, _monsterImg->getFrameHeight() / 4);
 				_ani = ANIMATIONMANAGER->findAnimation("°ñ·½º¸½º°ø°Ý1R");
@@ -765,7 +765,7 @@ bool monster::golemBossAtk(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect)
 			}
 		}
 		count = 0;
-		atkCount = 150;
+		atkCount = 120;
 		RECT rc;
 		if (IntersectRect(&rc, &aRc, &PLAYER->getPlayercollision()))
 		{
@@ -777,7 +777,7 @@ bool monster::golemBossAtk(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect)
 	if (atkCount == 0)
 	{
 		_monState = MONSTER_STATE_MOVE;
-		atkCount = 150;
+		atkCount = 120;
 	}
 
 	return false;

@@ -67,7 +67,7 @@ void buyNPC::update(item& item1, item& item2, item& item3, item& item4)
 		_move = true;
 	}
 	//판매대와 닿으면 멈춤
-	if (PtInRect(&_rc, PointMake(_tableRc.right, (_tableRc.top + _tableRc.bottom) / 2)) && step == 0)
+	if (PtInRect(&_rc, PointMake(_tableRc.right, _tableRc.bottom)) && step == 0)
 	{
 		step = 1;
 		_move = false;
@@ -180,8 +180,10 @@ void buyNPC::render()
 {
 	if (exit <= 200)
 	{
+
 		//NPC사각형
 		//RectangleMake(getMemDC(), _rc.left, _rc.top, _img->getFrameWidth(),_img->getFrameHeight());
+		RectangleMake(getMemDC(), _tableRc.left, _tableRc.top, _tableRc.right-_tableRc.left, _tableRc.bottom-_tableRc.top);
 		//NPC출력
 		_img->aniRender(getMemDC(), _rc.left, _rc.top, _ani);
 		//감정출력
@@ -626,8 +628,7 @@ void buyNPC::talk(item& item1, item& item2, item& item3, item& item4)
 	}
 
 	playerPrice = 5;
-	//토크rc 만들기
-	talkRc = RectMakeCenter((_rc.left + _rc.right) / 2, (_rc.top + _rc.bottom) / 2 - 100, _talkAni->getFrameWidth(), _talkAni->getFrameHeight());
+	
 
 	if (playerPrice > oriPrice + oriPrice * 0.5)//매우비쌈
 	{
@@ -926,8 +927,10 @@ void buyNPC::talk(item& item1, item& item2, item& item3, item& item4)
 //감정표현
 void buyNPC::talking()
 {
+	//토크rc 만들기
 	_talkAni = ANIMATIONMANAGER->findAnimation("감정중");
 	_talkAni->start();
+	talkRc = RectMakeCenter((_rc.left + _rc.right) / 2, (_rc.top + _rc.bottom) / 2 - 100, _talkAni->getFrameWidth(), _talkAni->getFrameHeight());
 }
 
 void buyNPC::soso()
