@@ -60,8 +60,12 @@ void dungeonScene4::relaese()
 
 void dungeonScene4::update()
 {
+	ANIMATIONMANAGER->update();
+	PLAYER->update();
 }
 
 void dungeonScene4::render()
 {
+
+	PLAYER->render(getMemDC());
 }

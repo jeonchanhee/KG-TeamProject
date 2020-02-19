@@ -43,12 +43,12 @@ HRESULT monster::init(
 	_currentHp = currentHp;
 	_speed = speed;
 	switch (_monType) {
-	case 0:item = ITEMMANAGER->addItem("이빨석"); break;
-	case 1:item = ITEMMANAGER->addItem("숫돌"); break;
-	case 2:item = ITEMMANAGER->addItem("쇠막대기"); break;
-	case 3:item = ITEMMANAGER->addItem("나뭇가지"); break;
-	case 4:item = ITEMMANAGER->addItem("천"); break;
-	case 5:item = ITEMMANAGER->addItem("수정화 된 에너지"); break;
+	case 0:_item = ITEMMANAGER->addItem("이빨석"); break;
+	case 1:_item = ITEMMANAGER->addItem("숫돌"); break;
+	case 2:_item = ITEMMANAGER->addItem("쇠막대기"); break;
+	case 3:_item = ITEMMANAGER->addItem("나뭇가지"); break;
+	case 4:_item = ITEMMANAGER->addItem("천"); break;
+	case 5:_item = ITEMMANAGER->addItem("수정화 된 에너지"); break;
 	}
 	//이미지 범위
 	iRc = RectMakeCenter(_x, _y, _monsterImg->getFrameWidth(), _monsterImg->getFrameHeight());
@@ -149,20 +149,41 @@ void monster::update()
 		//atkCount = _atkCount;
 	}
 
+	//넉백카운트
+	if (_monType == 1 || _monType == 2 || _monType == 3) {
+		if (knockCount > 0) {
+			if (PLAYER->getPlayerX() >= _currentX)
+			{
+				_currentX -= 5;
+			}
+			if (PLAYER->getPlayerY() >= _currentY)
+			{
+				_currentY -= 5;
+			}
+			if (PLAYER->getPlayerX() <= _currentX)
+			{
+				_currentX += 5;
+			}
+			if (PLAYER->getPlayerY() >= _currentY)
+			{
+				_currentY += 5;
+			}
+			knockCount -= 1;
+		}
+	}
 	//hp바 위치갱신
 	_hpBar->setX(_currentX - 25);
 	_hpBar->setY(_currentY - 70);
 	//hp바 출력
 	viewProgressBar();
 
-	item.update();
+	_item.update();
 	hit(_monType, _monDirect);
 	die(_monType);
 }
 
 void monster::render()
 {
-
 	draw();
 }
 
@@ -185,7 +206,7 @@ void monster::draw()
 	_monsterImg->aniRender(getMemDC(), iRc.left, iRc.top, _ani);
 
 	_hpBar->render();
-	item.render();
+	_item.render();
 	char str[128];
 	sprintf_s(str, "%d", _currentHp);
 	TextOut(getMemDC(), _x, _y, str, strlen(str));
@@ -833,12 +854,11 @@ bool monster::golemBossMove()
 
 bool monster::golemTurretHit(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect)
 {
-
+	//체력깎기
 	hitCount++;
-	if (hitCount > 20)
+	if (hitCount > 10)
 	{
 		RECT temp;
-
 		if (IntersectRect(&temp, &hRc, &PLAYER->getattacksword()))
 		{
 			_currentHp = _currentHp - 10;
@@ -850,7 +870,7 @@ bool monster::golemTurretHit(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect)
 
 bool monster::golemSoldierHit(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect)
 {
-
+	//체력깎기
 	hitCount++;
 	if (hitCount > 20)
 	{
@@ -859,6 +879,8 @@ bool monster::golemSoldierHit(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect)
 		if (IntersectRect(&temp, &hRc, &PLAYER->getattacksword()))
 		{
 			_currentHp = _currentHp - 10;
+			//넉백
+			knockCount = 15;
 		}
 		hitCount = 0;
 	}
@@ -868,6 +890,7 @@ bool monster::golemSoldierHit(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect)
 
 bool monster::flyginGolemHit(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect)
 {
+	//체력깎기
 	hitCount++;
 	if (hitCount > 20)
 	{
@@ -876,14 +899,18 @@ bool monster::flyginGolemHit(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect)
 		if (IntersectRect(&temp, &hRc, &PLAYER->getattacksword()))
 		{
 			_currentHp = _currentHp - 10;
+			//넉백
+			knockCount = 15;
 		}
 		hitCount = 0;
 	}
+
 	return false;
 }
 
 bool monster::slimeHit(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect)
 {
+	//체력깎기
 	hitCount++;
 	if (hitCount > 20)
 	{
@@ -892,14 +919,18 @@ bool monster::slimeHit(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect)
 		if (IntersectRect(&temp, &hRc, &PLAYER->getattacksword()))
 		{
 			_currentHp = _currentHp - 10;
+			//넉백
+			knockCount = 15;
 		}
 		hitCount = 0;
 	}
+
 	return false;
 }
 
 bool monster::slimeGauntletHit(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect)
 {
+	//체력깎기
 	hitCount++;
 	if (hitCount > 20)
 	{
@@ -916,6 +947,7 @@ bool monster::slimeGauntletHit(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect
 
 bool monster::golemBossHit(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect)
 {
+	//체력깎기
 	hitCount++;
 	if (hitCount > 20)
 	{

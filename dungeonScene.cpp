@@ -11,8 +11,8 @@ dungeonScene::~dungeonScene()
 HRESULT dungeonScene::init()
 {
 	_monster = new monsterManager;
-	_monster->init();
-	
+	_monster->init1();
+
 	PLAYER->setPlayerLocation(DUNGEON_PLAYER_VERSION);
 	for (int i = 0; i < TILEY; i++)
 	{
@@ -57,14 +57,17 @@ HRESULT dungeonScene::init()
 
 void dungeonScene::relaese()
 {
-	SAFE_DELETE(_monster);
 }
 
 void dungeonScene::update()
 {
 	ANIMATIONMANAGER->update();
 	PLAYER->update();
-	_monster->update();
+	_monster->update(dungeonItem);
+	for (int i = 0; i < dungeonItem.size(); i++)
+	{
+		dungeonItem[i].update();
+	}
 	RECT temp;
 	for (int i = 0; i < 3; i++)
 	{
@@ -92,11 +95,17 @@ void dungeonScene::render()
 		}
 	}
 	_monster->render();
+	if (!dungeonItem.empty()) {
+		for (int i = 0; i < dungeonItem.size(); i++)
+		{
+			dungeonItem[i].getItemInfo().image->render(getMemDC(), dungeonItem[i].getItemInfo().rc.left, dungeonItem[i].getItemInfo().rc.top);
+		}
+	}
+
 	PLAYER->render(getMemDC());
 
 	for (int i = 0; i < 3; i++)
 	{
 		Rectangle(getMemDC(), door[i].left, door[i].top, door[i].right, door[i].bottom);
 	}
-
 }

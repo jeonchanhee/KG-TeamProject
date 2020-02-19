@@ -8,8 +8,9 @@ private:
 	tagTile _tiles[TILEX * TILEY];
 	tagTile _temp[TILEX * TILEY];
 	monsterManager* _monster;
-
+	image * itemImg;
 	RECT door[3];
+	vector<item> dungeonItem;
 
 public:
 	dungeonScene();

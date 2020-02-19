@@ -49,10 +49,11 @@ private:
 	int _currentX, _currentY;	//이동 좌표
 	float _range;			//공격범위
 	int count;				//카운트
-	item item;
+	item _item;				//아이템
 	int fireCount;			//발사딜레이		
 	int hitCount;			//히트카운트
 	int atkCount;			//공격카운트
+	int knockCount;			//넉백카운트
 	int deadCount;
 	bool _move;
 	int imgCount;			//무빙프레임카운트
@@ -98,13 +99,18 @@ public:
 	RECT getARect() { return aRc; }
 	//hp
 	int getCurrentHp() { return _currentHp; }
+	int getCurrentX() { return _currentX; }
+	int getCurrentY() { return _currentY; }
 
+	//아이템
+	item getItem() { return _item; }
 	MONSTER_DIRECTION getDirection() { return _monDirect; }
 	MONSTER_STATE getState() { return _monState; }
 	MONSTER_TYPE getType() { return _monType; }
 
 	//set
 	void setMonDirect(MONSTER_DIRECTION MonDirect) { _monDirect = MonDirect; }
+
 
 	//방향이미지불러오기
 	void golemTurretDirectImg();
