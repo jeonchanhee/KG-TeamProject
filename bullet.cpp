@@ -49,10 +49,10 @@ void bullet::fire(float x, float y, int direct, float speed)
 	ZeroMemory(&bullet, sizeof(tagBullet));
 	bullet.bulletImage = new image;
 	switch (direct) {
-	case 0:bullet.bulletImage = IMAGEMANAGER->findImage("磐房固荤老L");
-	case 1:bullet.bulletImage = IMAGEMANAGER->findImage("磐房固荤老U");
-	case 2:bullet.bulletImage = IMAGEMANAGER->findImage("磐房固荤老R");
-	case 3:bullet.bulletImage = IMAGEMANAGER->findImage("磐房固荤老D");
+	case 0:bullet.bulletImage = IMAGEMANAGER->findImage("磐房固荤老L"); break;
+	case 1:bullet.bulletImage = IMAGEMANAGER->findImage("磐房固荤老U"); break;
+	case 2:bullet.bulletImage = IMAGEMANAGER->findImage("磐房固荤老R"); break;
+	case 3:bullet.bulletImage = IMAGEMANAGER->findImage("磐房固荤老D"); break;
 	}
 	bullet.speed = speed;
 	bullet.direct = direct;
