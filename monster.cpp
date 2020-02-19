@@ -880,7 +880,9 @@ bool monster::golemSoldierHit(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect)
 		{
 			_currentHp = _currentHp - 10;
 			//³Ë¹é
-			knockCount = 15;
+			if (_monState == MONSTER_STATE_MOVE) {
+				knockCount = 15;
+			}
 		}
 		hitCount = 0;
 	}
@@ -900,7 +902,9 @@ bool monster::flyginGolemHit(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect)
 		{
 			_currentHp = _currentHp - 10;
 			//³Ë¹é
-			knockCount = 15;
+			if (_monState == MONSTER_STATE_MOVE) {
+				knockCount = 15;
+			}
 		}
 		hitCount = 0;
 	}
@@ -920,7 +924,9 @@ bool monster::slimeHit(MONSTER_TYPE monType, MONSTER_DIRECTION monDirect)
 		{
 			_currentHp = _currentHp - 10;
 			//³Ë¹é
-			knockCount = 15;
+			if (_monState == MONSTER_STATE_MOVE) {
+				knockCount = 15;
+			}
 		}
 		hitCount = 0;
 	}

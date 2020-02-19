@@ -125,11 +125,11 @@ void monsterManager::setMinion1()
 void monsterManager::setMinion2()
 {
 
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 3; i++)
 	{
 		monster* golemTurret;
 		golemTurret = new turretMinion;
-		golemTurret->init("°ñ·½ÅÍ·¿", MONSTER_TYPE_GOLEMTURRET, MONSTER_STATE_ATK, MONSTER_DIRECTION_LEFT, 300, 100 + i * 150, 10, 100, 100, 50, 0);
+		golemTurret->init("°ñ·½ÅÍ·¿", MONSTER_TYPE_GOLEMTURRET, MONSTER_STATE_ATK, MONSTER_DIRECTION_LEFT, 300, 250 + i * 150, 10, 100, 100, 50, 0);
 		_vMinion.push_back(golemTurret);
 	}
 	monster* golemSoldier;
@@ -143,7 +143,7 @@ void monsterManager::setMinion3()
 	{
 		monster* flyingGolem;
 		flyingGolem = new flyingMinion;
-		flyingGolem->init("ÇÃ¶óÀ×°ñ·½", MONSTER_TYPE_FLYINGGOLEM, MONSTER_STATE_MOVE, MONSTER_DIRECTION_DOWN, 200, 200 + i * 100, 10, 100, 100, 50, 0);
+		flyingGolem->init("ÇÃ¶óÀ×°ñ·½", MONSTER_TYPE_FLYINGGOLEM, MONSTER_STATE_MOVE, MONSTER_DIRECTION_DOWN, 550, 200 + i * 100, 10, 100, 100, 50, 0);
 		_vMinion.push_back(flyingGolem);
 	}
 	monster* golemSoldier;
@@ -155,7 +155,7 @@ void monsterManager::setMinion4()
 {
 	monster* golemBoss;
 	golemBoss = new bossMinion;
-	golemBoss->init("°ñ·½º¸½º", MONSTER_TYPE_GOLEMBOSS, MONSTER_STATE_MOVE, MONSTER_DIRECTION_DOWN, 500, 500, 10, 100, 100, 50, 5);
+	golemBoss->init("°ñ·½º¸½º", MONSTER_TYPE_GOLEMBOSS, MONSTER_STATE_MOVE, MONSTER_DIRECTION_DOWN, 500, 300, 10, 100, 100, 50, 5);
 	_vMinion.push_back(golemBoss);
 }
 //¸ó½ºÅÍ °ø°Ý

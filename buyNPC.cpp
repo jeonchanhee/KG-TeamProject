@@ -19,7 +19,7 @@ HRESULT buyNPC::init(RECT _tableRect)
 	}
 	//_img = IMAGEMANAGER->findImage("여자");
 	//이미지 사각형과 애니메이션 
-	_rc = RectMakeCenter(300, 600, _img->getFrameWidth(), _img->getFrameHeight());
+	_rc = RectMakeCenter(600, 500, _img->getFrameWidth(), _img->getFrameHeight());
 	_ani = ANIMATIONMANAGER->findAnimation("여자정지L");
 	//표정찾기
 	_tableRc = _tableRect;
@@ -78,18 +78,18 @@ void buyNPC::update(item& item1, item& item2, item& item3, item& item4)
 	{
 		talkCount++;
 		//감정중
-		if (talkCount < 100 && !talkChange) {
+		if (talkCount < 200 && !talkChange) {
 			talking();
 			talkChange = true;
 		}
 		//토크카운트200일때
-		if (talkCount == 100)talk(item1, item2, item3, item4);
-		if (talkCount >= 100 && talkChange&&talkCount <= 200) {
+		if (talkCount == 200)talk(item1, item2, item3, item4);
+		if (talkCount >= 200 && talkChange&&talkCount <= 200) {
 			soso();
 			talkChange = false;
 		}
 		//토크카운트200이상일때
-		if (talkCount > 200 && !talkChange)
+		if (talkCount > 300 && !talkChange)
 		{
 			if (isExpensive)
 			{
@@ -110,7 +110,7 @@ void buyNPC::update(item& item1, item& item2, item& item3, item& item4)
 			talkChange = true;
 		}
 		//talkCount300보다 커지면 다음단계로
-		if (talkCount > 300)
+		if (talkCount > 400)
 		{
 			isTalk = false;
 			talkCount = 0;
@@ -649,7 +649,7 @@ void buyNPC::talk(item& item1, item& item2, item& item3, item& item4)
 	if (isCheap == true || isVeryCheap == true)
 	{
 		//진열된 아이템 개수가져온후 랜덤으로 고르기
-	//1 o
+		//1 o
 		if (item1.getItemInfo().itemName != "비어있음") {
 			//1 o 2 o
 			if (item2.getItemInfo().itemName != "비어있음")

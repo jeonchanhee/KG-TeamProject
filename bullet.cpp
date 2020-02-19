@@ -36,7 +36,7 @@ void bullet::render()
 	{
 
 		//적 총알 렉트
-		Rectangle(getMemDC(), _viBullet->rc.left, _viBullet->rc.top, _viBullet->rc.right, _viBullet->rc.bottom);
+		//Rectangle(getMemDC(), _viBullet->rc.left, _viBullet->rc.top, _viBullet->rc.right, _viBullet->rc.bottom);
 		_viBullet->bulletImage->render(getMemDC(), _viBullet->rc.left, _viBullet->rc.top);
 	}
 }
@@ -59,8 +59,8 @@ void bullet::fire(float x, float y, int direct, float speed)
 	bullet.x = bullet.fireX = x;
 	bullet.y = bullet.fireY = y;
 	bullet.rc = RectMakeCenter(bullet.x, bullet.y,
-		bullet.bulletImage->getWidth(),
-		bullet.bulletImage->getHeight());
+		bullet.bulletImage->getWidth()/2,
+		bullet.bulletImage->getHeight()/2);
 
 	//벡터에 담기
 	_vBullet.push_back(bullet);

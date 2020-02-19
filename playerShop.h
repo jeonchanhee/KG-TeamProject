@@ -2,7 +2,7 @@
 #include"gameNode.h"
 #include"storage.h"
 #include"sellTable.h"
-
+#include"buyNPC.h"
 class playerShop : public gameNode
 {
 private:
@@ -14,6 +14,8 @@ private:
 	RECT temp;
 
 	RECT villageRc;
+
+	buyNPC* _girlNPC;
 
 public:
 
