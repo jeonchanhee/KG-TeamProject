@@ -11,7 +11,12 @@ dungeonScene4::~dungeonScene4()
 
 HRESULT dungeonScene4::init()
 {
-
+	if (SOUNDMANAGER->getCurrentSong() != "회복방브금")
+	{
+		SOUNDMANAGER->stop(SOUNDMANAGER->getCurrentSong());
+		SOUNDMANAGER->setCurrentNum(4);
+		SOUNDMANAGER->play("회복방브금", 1);
+	}
 	PLAYER->setPlayerLocation(DUNGEON_PLAYER_VERSION);
 	for (int i = 0; i < TILEY; i++)
 	{
@@ -60,8 +65,12 @@ void dungeonScene4::relaese()
 
 void dungeonScene4::update()
 {
+	ANIMATIONMANAGER->update();
+	PLAYER->update();
 }
 
 void dungeonScene4::render()
 {
+
+	PLAYER->render(getMemDC());
 }

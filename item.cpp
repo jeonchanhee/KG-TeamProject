@@ -55,7 +55,7 @@ void item::magnet(POINT playerPoint)
 	_item.x = _item.rc.left + (_item.rc.right - _item.rc.left) / 2;
 	_item.y = _item.rc.top + (_item.rc.bottom - _item.rc.top) / 2;
 	//상태가 무브일때, 그리고 플레이어를 감지하는 렉트와 플레이어의 렉트가 충돌했을때
-	if (_item.move && getDistance(_item.x, _item.y, playerPoint.x, playerPoint.y) < 100)
+	if (_item.move && getDistance(_item.x, _item.y, playerPoint.x, playerPoint.y) < 50)
 	{
 		if (_item.x < playerPoint.x) _item.x += 2;
 		if (_item.x > playerPoint.x) _item.x -= 2;

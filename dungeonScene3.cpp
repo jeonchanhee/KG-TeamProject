@@ -11,7 +11,8 @@ dungeonScene3::~dungeonScene3()
 
 HRESULT dungeonScene3::init()
 {
-
+	_monster = new monsterManager;
+	_monster->init3();
 	PLAYER->setPlayerLocation(DUNGEON_PLAYER_VERSION);
 	for (int i = 0; i < TILEY; i++)
 	{
@@ -60,9 +61,24 @@ void dungeonScene3::relaese()
 
 void dungeonScene3::update()
 {
-
+	ANIMATIONMANAGER->update();
+	_monster->update(dungeonItem);
+	PLAYER->update();
+	for (int i = 0; i < dungeonItem.size(); i++)
+	{
+		dungeonItem[i].update();
+	}
 }
 
 void dungeonScene3::render()
 {
+	_monster->render();
+	if (!dungeonItem.empty()) {
+		for (int i = 0; i < dungeonItem.size(); i++)
+		{
+			dungeonItem[i].getItemInfo().image->render(getMemDC(), dungeonItem[i].getItemInfo().rc.left, dungeonItem[i].getItemInfo().rc.top);
+		}
+	}
+
+	PLAYER->render(getMemDC());
 }

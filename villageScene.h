@@ -15,6 +15,11 @@ private:
 	NPCpotionShop* _potionShop;	//포션상점
 	NPCblacksmith* _blacksmith;	//대장간
 
+	image*   _npcImg_black;                  //마을내 NPC모습
+	animation* _npcAni_black;                 //npc애니
+	image*   _npcImg_witch;                  //마을내 NPC모습
+	animation* _npcAni_witch;                  //npc애니
+
 	playerShop* _playerSho;
 public:
 	villageScene();

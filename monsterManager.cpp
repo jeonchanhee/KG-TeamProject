@@ -10,24 +10,48 @@ monsterManager::~monsterManager()
 {
 }
 //∏ÛΩ∫≈Õ ª˝º∫ π◊ πËƒ°
-HRESULT monsterManager::init()
+//√ππ¯¬∞πÊ
+HRESULT monsterManager::init1()
+{
+	setMinion1();
+	_bullet = new bullet;
+	_bullet->init("bullet", 1000, 600);
+	return S_OK;
+}
+//µŒπ¯¬∞πÊ
+HRESULT monsterManager::init2()
 {
 
-	setMinion();
-	//_dieImg = IMAGEMANAGER->findImage("∏ÛΩ∫≈Õ¡◊¿Ω");
-	//dRc = RectMakeCenter(300, 400, _dieImg->getFrameWidth(), _dieImg->getFrameHeight());
+	setMinion2();
 	_bullet = new bullet;
 	_bullet->init("bullet", 1000, 600);
 
 	return S_OK;
 }
+//ººπ¯¬∞πÊ
+HRESULT monsterManager::init3()
+{
+	setMinion3();
+	_bullet = new bullet;
+	_bullet->init("bullet", 1000, 600);
+	return S_OK;
+}
+//≥◊π¯¬∞πÊ
+HRESULT monsterManager::init4()
+{
+	setMinion4();
+	_bullet = new bullet;
+	_bullet->init("bullet", 1000, 600);
+	return S_OK;
+}
+
 
 void monsterManager::release()
 {
 	SAFE_DELETE(_bullet);
 }
 //∏ÛΩ∫≈Õ æ˜µ•¿Ã∆Æ
-void monsterManager::update()
+void monsterManager::update(vector<item> & item)
 {
 	_viMinion = _vMinion.begin();
 
@@ -38,8 +62,19 @@ void monsterManager::update()
 
 	for (int i = 0; i < _vMinion.size(); i++)
 	{
-		if (_vMinion[i]->getState() == MONSTER_STATE_DEAD)removeMinion(i);
+		if (_vMinion[i]->getState() == MONSTER_STATE_DEAD)
+		{
+			dropItem = _vMinion[i]->getItem();
+			itemImg = dropItem.getItemInfo().image;
+			dropItem.setRect(RectMakeCenter(_vMinion[i]->getCurrentX(), _vMinion[i]->getCurrentY(),
+				dropItem.getRECT().right - dropItem.getRECT().left, dropItem.getRECT().bottom - dropItem.getRECT().top));
+			dropItem.setMove(true);
+			dropItem.setWave(true);
+			item.push_back(dropItem);
+			removeMinion(i);
+		}
 	}
+
 	//√—æÀæ˜µ•¿Ã∆Æ
 	_bullet->update();
 	//∞¯∞› æ˜µ•¿Ã∆Æ
@@ -62,39 +97,21 @@ void monsterManager::render()
 	}
 	//√—æÀ ∑£¥ı
 	_bullet->render();
-
-	//_dieImg->aniRender(getMemDC(), dRc.left, dRc.top, _aniDead);
 }
 //∏ÛΩ∫≈Õ πËƒ°
-void monsterManager::setMinion()
+void monsterManager::setMinion1()
 {
-
-	for (int i = 0; i < 2; i++)
-	{
-		monster* golemTurret;
-		golemTurret = new turretMinion;
-		golemTurret->init("∞Ò∑Ω≈Õ∑ø", MONSTER_TYPE_GOLEMTURRET, MONSTER_STATE_ATK, MONSTER_DIRECTION_LEFT, 700, 200 + i * 100, 10, 100, 100, 50, 0);
-		_vMinion.push_back(golemTurret);
-	}
-	for (int i = 0; i < 2; i++)
-	{
-		monster* golemSoldier;
-		golemSoldier = new soldierMinion;
-		golemSoldier->init("∞Ò∑Ωº÷¿˙", MONSTER_TYPE_GOLEMSOLDIER, MONSTER_STATE_MOVE, MONSTER_DIRECTION_LEFT, 500, 200 + i * 100, 10, 100, 100, 50, 5);
-		_vMinion.push_back(golemSoldier);
-	}
-	for (int i = 0; i < 2; i++)
-	{
-		monster* flyingGolem;
-		flyingGolem = new flyingMinion;
-		flyingGolem->init("«√∂Û¿◊∞Ò∑Ω", MONSTER_TYPE_FLYINGGOLEM, MONSTER_STATE_MOVE, MONSTER_DIRECTION_DOWN, 200, 200 + i * 100, 10, 100, 100, 50, 0);
-		_vMinion.push_back(flyingGolem);
-	}
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		monster* slimeGauntlet;
 		slimeGauntlet = new slimeGauntletMinion;
-		slimeGauntlet->init("ΩΩ∂Û¿”∞«∆≤∑ø", MONSTER_TYPE_SLIMEGAUNTLET, MONSTER_STATE_ATK, MONSTER_DIRECTION_DOWN, 300, 200 + i * 100, 10, 100, 100, 50, 0);
+		if (i < 2) {
+			slimeGauntlet->init("ΩΩ∂Û¿”∞«∆≤∑ø", MONSTER_TYPE_SLIMEGAUNTLET, MONSTER_STATE_ATK, MONSTER_DIRECTION_DOWN, 200 + i * 600, 200, 10, 100, 100, 50, 0);
+		}
+		else
+		{
+			slimeGauntlet->init("ΩΩ∂Û¿”∞«∆≤∑ø", MONSTER_TYPE_SLIMEGAUNTLET, MONSTER_STATE_ATK, MONSTER_DIRECTION_DOWN, 200 + (i - 2) * 600, 650, 10, 100, 100, 50, 0);
+		}
 		_vMinion.push_back(slimeGauntlet);
 	}
 	for (int i = 0; i < 2; i++)
@@ -104,13 +121,42 @@ void monsterManager::setMinion()
 		slime->init("ΩΩ∂Û¿”", MONSTER_TYPE_SLIME, MONSTER_STATE_MOVE, MONSTER_DIRECTION_DOWN, 200, 200 + i * 100, 10, 100, 100, 50, 0);
 		_vMinion.push_back(slime);
 	}
-	for (int i = 0; i < 1; i++)
+}
+void monsterManager::setMinion2()
+{
+
+	for (int i = 0; i < 4; i++)
 	{
-		monster* golemBoss;
-		golemBoss = new bossMinion;
-		golemBoss->init("∞Ò∑Ω∫∏Ω∫", MONSTER_TYPE_GOLEMBOSS, MONSTER_STATE_MOVE, MONSTER_DIRECTION_RIGHT, 100, 200 + i * 100, 10, 100, 100, 50, 5);
-		_vMinion.push_back(golemBoss);
+		monster* golemTurret;
+		golemTurret = new turretMinion;
+		golemTurret->init("∞Ò∑Ω≈Õ∑ø", MONSTER_TYPE_GOLEMTURRET, MONSTER_STATE_ATK, MONSTER_DIRECTION_LEFT, 700, 100 + i * 200, 10, 100, 100, 50, 0);
+		_vMinion.push_back(golemTurret);
 	}
+	monster* golemSoldier;
+	golemSoldier = new soldierMinion;
+	golemSoldier->init("∞Ò∑Ωº÷¿˙", MONSTER_TYPE_GOLEMSOLDIER, MONSTER_STATE_MOVE, MONSTER_DIRECTION_LEFT, 500, 500, 10, 100, 100, 50, 5);
+	_vMinion.push_back(golemSoldier);
+}
+void monsterManager::setMinion3()
+{
+	for (int i = 0; i < 3; i++)
+	{
+		monster* flyingGolem;
+		flyingGolem = new flyingMinion;
+		flyingGolem->init("«√∂Û¿◊∞Ò∑Ω", MONSTER_TYPE_FLYINGGOLEM, MONSTER_STATE_MOVE, MONSTER_DIRECTION_DOWN, 200, 200 + i * 100, 10, 100, 100, 50, 0);
+		_vMinion.push_back(flyingGolem);
+	}
+	monster* golemSoldier;
+	golemSoldier = new soldierMinion;
+	golemSoldier->init("∞Ò∑Ωº÷¿˙", MONSTER_TYPE_GOLEMSOLDIER, MONSTER_STATE_MOVE, MONSTER_DIRECTION_RIGHT, 500, 500, 10, 100, 100, 50, 5);
+	_vMinion.push_back(golemSoldier);
+}
+void monsterManager::setMinion4()
+{
+	monster* golemBoss;
+	golemBoss = new bossMinion;
+	golemBoss->init("∞Ò∑Ω∫∏Ω∫", MONSTER_TYPE_GOLEMBOSS, MONSTER_STATE_MOVE, MONSTER_DIRECTION_DOWN, 500, 500, 10, 100, 100, 50, 5);
+	_vMinion.push_back(golemBoss);
 }
 //∏ÛΩ∫≈Õ ∞¯∞›
 void monsterManager::attackMinion()
@@ -185,19 +231,7 @@ void monsterManager::attackMinion()
 //∏ÛΩ∫≈Õ ∫§≈Õø°º≠ ¡¶∞≈
 void monsterManager::removeMinion(int arrNum)
 {
-	/*deadCount++;
-	if (deadCount == 0) {
-		_aniDead = ANIMATIONMANAGER->findAnimation("∏ÛΩ∫≈Õ¡÷±›");
-		ANIMATIONMANAGER->start("∏ÛΩ∫≈Õ¡÷±›");
-	}*/
-	//MONSTER_TYPE type = (*_viMinion)->getType();
-	//if ((*_viMinion)->die(type)) {
-	//	_vMinion.erase(_vMinion.begin() + arrNum);
-	//}
-	//if (deadCount >= 100) {
 	_vMinion.erase(_vMinion.begin() + arrNum);
-	//}
-
 }
 //√—æÀ√Êµπ
 void monsterManager::collision()

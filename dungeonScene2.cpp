@@ -11,8 +11,9 @@ dungeonScene2::~dungeonScene2()
 
 HRESULT dungeonScene2::init()
 {
-	PLAYER->init();
 	
+	_monster = new monsterManager;
+	_monster->init();
 	PLAYER->setPlayerLocation(DUNGEON_PLAYER_VERSION);
 	
 	for (int i = 0; i < TILEY; i++)
@@ -48,7 +49,6 @@ HRESULT dungeonScene2::init()
 	{
 		_tiles[i] = _temp[i];
 	}
-
 	door[0] = RectMakeCenter(50, WINSIZEY / 2, 100, 100);
 	door[2] = RectMakeCenter(WINSIZEX / 2, 50, 100, 100);
 	door[1] = RectMakeCenter(WINSIZEX - 75, WINSIZEY / 2, 100, 100);
@@ -62,9 +62,24 @@ void dungeonScene2::relaese()
 
 void dungeonScene2::update()
 {
-	
+	ANIMATIONMANAGER->update();
+	PLAYER->update();
+	_monster->update(dungeonItem);
+	for (int i = 0; i < dungeonItem.size(); i++)
+	{
+		dungeonItem[i].update();
+	}
 }
 
 void dungeonScene2::render()
 {
+	_monster->render();
+	if (!dungeonItem.empty()) {
+		for (int i = 0; i < dungeonItem.size(); i++)
+		{
+			dungeonItem[i].getItemInfo().image->render(getMemDC(), dungeonItem[i].getItemInfo().rc.left, dungeonItem[i].getItemInfo().rc.top);
+		}
+	}
+
+	PLAYER->render(getMemDC());
 }

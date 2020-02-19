@@ -68,4 +68,6 @@ public:
 	void buy();                              //구매가 가능한지 확인하는 함수
 	void buyItem();                           //구매가 실행되는 함수
 	bool getOpen() { return _showWindow; }
+
+	RECT getNpcRc() { return _npcRc; }
 };
