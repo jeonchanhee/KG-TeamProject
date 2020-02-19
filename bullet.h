@@ -117,3 +117,27 @@ public:
 };
 
 
+class Catapultbow : public gameNode
+{
+private:
+	float _range;
+	tagweapon _catapult;
+	vector<tagweapon> _catapultarrpw;
+	vector<tagweapon>::iterator  _itercatapultarrpw;
+public:
+	Catapultbow();
+	~Catapultbow();
+
+	HRESULT init();
+	void release();
+	void update();
+	void render();
+
+	void fire(float x, float y, WEAPONMOVE weponMove);
+	void move();
+
+	vector<tagweapon> getcataarrow() { return _catapultarrpw; }
+	vector<tagweapon>::iterator  getcataiterarrow() { return _itercatapultarrpw; }
+
+	RECT getcataarrowRect() { return _itercatapultarrpw->_rc; }   // È­»ì 
+};
