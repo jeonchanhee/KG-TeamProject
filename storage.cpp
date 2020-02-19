@@ -83,7 +83,7 @@ void storage::update()
 	{
 		if (IntersectRect(&temp, &PLAYER->getPlayercollision(), &_boxRc))
 		{
-			if (KEYMANAGER->isOnceKeyDown('I')) //닫기
+			if (KEYMANAGER->isOnceKeyDown('6')) //닫기
 			{
 				if (_name == "창고1")_storageAni = ANIMATIONMANAGER->findAnimation("창고1클로즈");
 				if (_name == "창고2")_storageAni = ANIMATIONMANAGER->findAnimation("창고2클로즈");

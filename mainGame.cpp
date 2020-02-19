@@ -17,8 +17,14 @@ HRESULT mainGame::init()
 
 	SCENEMANAGER->addScene("맵툴", new mapTool);
 	SCENEMANAGER->addScene("인트로", new introScene);
-	SCENEMANAGER->addScene("던전씬", new dungeonScene);
+	SCENEMANAGER->addScene("던전1", new dungeonScene);
+	SCENEMANAGER->addScene("던전2", new dungeonScene2);
+	SCENEMANAGER->addScene("던전3", new dungeonScene3);
+	SCENEMANAGER->addScene("던전4", new dungeonScene4);
+	SCENEMANAGER->addScene("던전5", new dungeonScene5);
+
 	SCENEMANAGER->addScene("마을씬", new villageScene);
+	SCENEMANAGER->addScene("플레이어상점씬", new playerShop);
 
 	SCENEMANAGER->changeScene("인트로");
 

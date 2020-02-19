@@ -158,6 +158,10 @@
     <ClInclude Include="commonMacroFunction.h" />
     <ClInclude Include="cursor.h" />
     <ClInclude Include="dungeonScene.h" />
+    <ClInclude Include="dungeonScene2.h" />
+    <ClInclude Include="dungeonScene3.h" />
+    <ClInclude Include="dungeonScene4.h" />
+    <ClInclude Include="dungeonScene5.h" />
     <ClInclude Include="effect.h" />
     <ClInclude Include="effectManager.h" />
     <ClInclude Include="flyingMinion.h" />
@@ -212,6 +216,10 @@
     <ClCompile Include="cameraManager.cpp" />
     <ClCompile Include="cursor.cpp" />
     <ClCompile Include="dungeonScene.cpp" />
+    <ClCompile Include="dungeonScene2.cpp" />
+    <ClCompile Include="dungeonScene3.cpp" />
+    <ClCompile Include="dungeonScene4.cpp" />
+    <ClCompile Include="dungeonScene5.cpp" />
     <ClCompile Include="effect.cpp" />
     <ClCompile Include="effectManager.cpp" />
     <ClCompile Include="flyingMinion.cpp" />

@@ -55,10 +55,12 @@ void sellTable::release()
 
 void sellTable::update()
 {
+	removeItem();
 	for (int i = 0; i < _vSlot.size(); i++)
 	{
 		_vSlot[i].item.update();
 	}
+
 	if (!_showWindow)
 	{
 		if (IntersectRect(&temp, &PLAYER->getPlayercollision(), &_tableRc)) //열기닫기
@@ -75,7 +77,7 @@ void sellTable::update()
 	{
 		if (IntersectRect(&temp, &PLAYER->getPlayercollision(), &_tableRc)) //열기닫기
 		{
-			if (KEYMANAGER->isOnceKeyDown('I'))
+			if (KEYMANAGER->isOnceKeyDown('6'))
 			{
 				_showWindow = false;
 				_test = false;
@@ -99,7 +101,6 @@ void sellTable::update()
 		PLAYER->getinventory()->grabitemremove();
 		selectPrice();
 		grab();
-		removeItem();
 		_vSlot[_cursorNum].item.setPlayerPrice(_playerPrice[_cursorNum][0]);
 	}
 }
@@ -133,9 +134,9 @@ void sellTable::render()
 		//슬롯의 이미지와 템 가격,갯수,총가격 렌더 
 		for (int i = 0; i < SLOTNUM; i++)
 		{
+			_vSlot[i].img->render(getMemDC(), _vSlot[i].rc.left, _vSlot[i].rc.top);
 			if (_vSlot[i].item.getItemInfo().itemName != "비어있음")
 			{
-				_vSlot[i].img->render(getMemDC(), _vSlot[i].rc.left, _vSlot[i].rc.top);
 				int k;
 				k = i + 2;
 				SetTextAlign(getMemDC(), TA_RIGHT);
@@ -366,6 +367,7 @@ void sellTable::removeItem()
 			_vSlot[i].item = ITEMMANAGER->addItem("비어있음");
 			_vSlot[i].item.setItemCnt_equal(1);
 		}
+		_vSlot[i].item.setRect(_tableRc.left + 30 + (i % 2 * 40), _tableRc.top + 20 + (i / 2 * 40)); //아이템위치 업데이트
 	}
 }
 
@@ -407,7 +409,7 @@ void sellTable::grab()
 				{
 					_cursor->getAni()->start();
 					_vSlot[i].item = _vTemp[0].item;
-
+					_vSlot[i].item.setWave(true);
 					_vTemp.pop_back();
 
 					//그 다음 아이템 위치를 다시 정해주어 판매대에 올려진 아이템의 위치를 잡아줌
@@ -418,6 +420,7 @@ void sellTable::grab()
 							_vSlot[i].item.setRect(_tableRc.left + 30 + (k * 40), _tableRc.top + 20 + (i * 40));
 						}
 					}
+
 					break;
 				}
 			}

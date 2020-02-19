@@ -3,9 +3,12 @@
 #include"mapTool.h"
 #include"introScene.h"
 #include"dungeonScene.h"
+#include"dungeonScene2.h"
+#include"dungeonScene3.h"
+#include"dungeonScene4.h"
+#include"dungeonScene5.h"
 #include"villageScene.h"
-
-//#include"player.h"
+#include"playerShop.h"
 
 #define DC gameNode::getMemDC()
 

@@ -81,7 +81,7 @@ void NPCshopBase::update()
 	}
 	else
 	{
-		if (IntersectRect(&temp, &PLAYER->getPlayercollision(), &_npcRc) && KEYMANAGER->isOnceKeyDown('I'))
+		if (IntersectRect(&temp, &PLAYER->getPlayercollision(), &_npcRc) && KEYMANAGER->isOnceKeyDown('6'))
 		{
 			_showWindow = false;
 		}

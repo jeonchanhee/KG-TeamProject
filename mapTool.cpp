@@ -158,13 +158,71 @@ void mapTool::render()
 //세이브
 void mapTool::save()
 {
+	for (int i = 0; i < 8; i++)
+	{
+		if (PtInRect(&saveLoad[i], m_ptMouse) && KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
+		{
+			HANDLE file;
+			DWORD write;
+			int arrNum;
+			arrNum = i;
+			char save[128];
+			wsprintf(save, "save/맵%d.map", arrNum + 1);
 
+			for (int i = 0; i < TILEX* TILEY; i++)
+			{
+				_temp[i] = _tiles[i];
+			}
+
+			file = CreateFile
+			(save,				//생성할 파일또는 열 장치나 파일이름
+				GENERIC_WRITE,			//파일이나 장치를 만들거나 열때 사용할 권한
+				0,						//파일 공유 모드입력
+				NULL,					//파일또는 장치를 열때 보안 및 특성
+				CREATE_ALWAYS,			//파일이나 장치를 열때 취할 행동
+				FILE_ATTRIBUTE_NORMAL,  //파일이나 장치를 열때 갖게 될 특성
+				NULL);					//만들어질 파일이 갖게 될 특성 확장 특성에 대한 정보
+
+			WriteFile(file, _temp, sizeof(tagTile) * TILEX * TILEY, &write, NULL);
+			CloseHandle(file);
+		}
+
+	}
 }
 
 //로드
 void mapTool::load()
 {
+	for (int i = 0; i < 8; i++)
+	{
+		if (PtInRect(&saveLoad[i], m_ptMouse) && KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
+		{
 
+			HANDLE file;
+			DWORD read;
+			int arrNum;
+			arrNum = i;
+			char save[128];
+			wsprintf(save, "save/맵%d.map", arrNum + 1);
+
+			file = CreateFile
+			(save,			//생성할 파일또는 열 장치나 파일이름
+				GENERIC_READ,		//파일이나 장치를 만들거나 열때 사용할 권한
+				0,					//파일 공유 모드입력
+				NULL,				//파일또는 장치를 열때 보안 및 특성
+				OPEN_EXISTING,		//파일이나 장치를 열때 취할 행동
+				FILE_ATTRIBUTE_NORMAL, //파일이나 장치를 열때 갖게 될 특성
+				NULL);				//만들어질 파일이 갖게 될 특성 확장 특성에 대한 정보
+
+			ReadFile(file, _temp, sizeof(tagTile) * TILEX * TILEY, &read, NULL);
+			CloseHandle(file);
+
+			for (int i = 0; i < TILEX* TILEY; i++)
+			{
+				_tiles[i] = _temp[i];
+			}
+		}
+	}
 }
 
 //카메라 이동
@@ -577,36 +635,7 @@ void mapTool::setSampleBookBottun()
 			}
 			bottun[i].rc = RectMakeCenter(bottun[i].x + i * 200, bottun[i].y, bottun[i].img->getWidth(), bottun[i].img->getHeight());
 		}
-		for (int i = 0; i < 8; i++)
-		{
-			if (PtInRect(&saveLoad[i], m_ptMouse) && KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
-			{
-					HANDLE file;
-					DWORD write;
-					int arrNum;
-					arrNum = i;
-					char save[128];
-					wsprintf(save, "save/맵%d.map", arrNum +1);
-
-					for (int i = 0; i < TILEX* TILEY; i++)
-					{
-						_temp[i] = _tiles[i];
-					}
-
-					file = CreateFile
-					(save,				//생성할 파일또는 열 장치나 파일이름
-						GENERIC_WRITE,			//파일이나 장치를 만들거나 열때 사용할 권한
-						0,						//파일 공유 모드입력
-						NULL,					//파일또는 장치를 열때 보안 및 특성
-						CREATE_ALWAYS,			//파일이나 장치를 열때 취할 행동
-						FILE_ATTRIBUTE_NORMAL,  //파일이나 장치를 열때 갖게 될 특성
-						NULL);					//만들어질 파일이 갖게 될 특성 확장 특성에 대한 정보
-
-					WriteFile(file, _temp, sizeof(tagTile) * TILEX * TILEY, &write, NULL);
-					CloseHandle(file);
-			}
-
-		}
+		save();
 	}
 	else if (page == 16) //로드
 	{
@@ -629,36 +658,7 @@ void mapTool::setSampleBookBottun()
 			bottun[i].rc = RectMakeCenter(bottun[i].x + i * 200, bottun[i].y, bottun[i].img->getWidth(), bottun[i].img->getHeight());
 		}
 
-		for (int i = 0; i < 8; i++)
-		{
-			if (PtInRect(&saveLoad[i], m_ptMouse) && KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
-			{
-
-					HANDLE file;
-					DWORD read;
-					int arrNum;
-					arrNum = i;
-					char save[128];
-					wsprintf(save, "save/맵%d.map", arrNum + 1);
-
-					file = CreateFile
-					(save,			//생성할 파일또는 열 장치나 파일이름
-						GENERIC_READ,		//파일이나 장치를 만들거나 열때 사용할 권한
-						0,					//파일 공유 모드입력
-						NULL,				//파일또는 장치를 열때 보안 및 특성
-						OPEN_EXISTING,		//파일이나 장치를 열때 취할 행동
-						FILE_ATTRIBUTE_NORMAL, //파일이나 장치를 열때 갖게 될 특성
-						NULL);				//만들어질 파일이 갖게 될 특성 확장 특성에 대한 정보
-
-					ReadFile(file, _temp, sizeof(tagTile) * TILEX * TILEY, &read, NULL);
-					CloseHandle(file);
-
-					for (int i = 0; i < TILEX* TILEY; i++)
-					{
-						_tiles[i] = _temp[i];
-					}
-			}
-		}
+		load();
 	}
 }
 //샘플북 조종 버튼

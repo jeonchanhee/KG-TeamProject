@@ -1,19 +1,16 @@
 #pragma once
 #include"gameNode.h"
-#include "storage.h"
-#include"sellTable.h"
-#include"NPCblacksmith.h"
-#include"NPCpotionShop.h"
-#include"buyNPC.h"
-
+#include"tileNode.h"
+#include"monsterManager.h"
 class dungeonScene : public gameNode
 {
 private:
-	storage* _storage;
-	sellTable* _sell;
-	NPCblacksmith* _black;
-	NPCpotionShop* _potion;
-	buyNPC* _girlNPC;
+	tagTile _tiles[TILEX * TILEY];
+	tagTile _temp[TILEX * TILEY];
+	monsterManager* _monster;
+
+	RECT door[3];
+
 public:
 	dungeonScene();
 	~dungeonScene();
