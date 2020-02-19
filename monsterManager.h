@@ -23,25 +23,27 @@ private:
 	//총알 벡터 생성
 	bullet*		_bullet;
 	RECT aRc;
+	item dropItem;
+	image * itemImg;
+	int num;
 
 public:
 	monsterManager();
 	~monsterManager();
 
-	image* _dieImg;
-	animation* _aniDead;
-	RECT dRc;
-	int dCount = 0;			//주금카운트
-
-	HRESULT init();
+	HRESULT init1();
+	HRESULT init2();
+	HRESULT init3();
+	HRESULT init4();
 	void release();
-	void update();
+	void update(vector<item> & item);
 	void render();
 
-
-	int deadCount;
 	//몬스터 생성
-	void setMinion();
+	void setMinion1();
+	void setMinion2();
+	void setMinion3();
+	void setMinion4();
 	//몬스터 공격
 	void attackMinion();
 	//총알 발사
@@ -49,11 +51,12 @@ public:
 	//get
 	vMonster	getVMonster() { return _vMinion; }
 	viMonster	getViMonster() { return _viMinion; }
+
+	//void setDropItem(item _item) { dropItem = _item; }
 	//제거
 	void removeMinion(int arrNum);
 	//충돌
 	void collision();
-
 	//void setRocketMemoryLink(rocket* rocket) { _rocket = rocket; }
 
 };

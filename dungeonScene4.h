@@ -7,7 +7,6 @@ class dungeonScene4 : public gameNode
 private:
 	tagTile _tiles[TILEX * TILEY];
 	tagTile _temp[TILEX * TILEY];
-	monsterManager* _monster;
 
 	RECT door[3];
 
